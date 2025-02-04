@@ -6,78 +6,118 @@ import streamlit_toggle as tog
 st.set_page_config(
     page_title="حاسبة تكلفة الطباعة",
     page_icon="🖨️",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
 # تطبيق الأنماط المتقدمة
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
     
     /* الأنماط الأساسية */
     .main {
         font-family: 'Cairo', sans-serif !important;
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        color: #e2e8f0;
+        background: linear-gradient(145deg, #0B1120 0%, #1E293B 100%);
+        color: #E2E8F0;
+        padding: 0;
+        margin: 0;
+    }
+    
+    /* تنسيق الهيدر */
+    .header {
+        background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.9));
         padding: 2rem;
+        margin: -6rem -4rem 2rem -4rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
     }
     
     /* تنسيق العنوان */
-    h1 {
-        background: linear-gradient(120deg, #f59e0b 0%, #fbbf24 100%);
+    .title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(120deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        text-align: center;
-        font-size: 3rem !important;
-        font-weight: 700 !important;
-        margin-bottom: 2rem !important;
-        text-shadow: 0px 2px 4px rgba(251, 191, 36, 0.2);
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
     }
     
     /* تنسيق القوائم المنسدلة */
     .stSelectbox > div > div {
-        background: rgba(30, 41, 59, 0.8);
-        border: 2px solid rgba(251, 191, 36, 0.3);
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(96, 165, 250, 0.2);
         border-radius: 12px;
-        color: #e2e8f0;
+        color: #E2E8F0;
         transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
     }
     
     .stSelectbox > div > div:hover {
-        border-color: #f59e0b;
-        box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+        border-color: #3B82F6;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
     }
     
     /* تنسيق الأزرار */
     .stButton > button {
         width: 100%;
-        background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-        color: #0f172a;
+        background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+        color: white;
         border: none;
         border-radius: 12px;
         padding: 0.8rem 2rem;
         font-weight: 600;
         font-size: 1.1rem;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2);
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     
     .stButton > button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(251, 191, 36, 0.3);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+    }
+    
+    /* تنسيق مربعات الاختيار */
+    .stCheckbox > label {
+        background: rgba(30, 41, 59, 0.6);
+        padding: 1rem;
+        border-radius: 12px;
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        transition: all 0.3s ease;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .stCheckbox > label:hover {
+        border-color: #3B82F6;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
     }
     
     /* تنسيق النتيجة */
     .result-card {
-        background: rgba(30, 41, 59, 0.9);
-        border: 2px solid #f59e0b;
+        background: rgba(30, 41, 59, 0.6);
+        border: 2px solid #3B82F6;
         border-radius: 16px;
         padding: 2rem;
         margin-top: 2rem;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 8px 32px rgba(251, 191, 36, 0.15);
+        box-shadow: 0 8px 32px rgba(59, 130, 246, 0.15);
         animation: fadeIn 0.5s ease-out;
+    }
+    
+    .stat-box {
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .stat-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
     }
     
     @keyframes fadeIn {
@@ -87,21 +127,27 @@ st.markdown("""
     
     /* تنسيق متجاوب */
     @media screen and (max-width: 768px) {
-        .main { padding: 1rem; }
-        h1 { font-size: 2rem !important; }
-        .result-card { padding: 1rem; }
+        .header { margin: -3rem -1rem 1rem -1rem; padding: 1rem; }
+        .title { font-size: 2rem; }
+        .stat-box { padding: 1rem; }
     }
     </style>
     """, unsafe_allow_html=True)
 
-# اختيار اللغة في البداية
+# عرض العنوان في الهيدر
+st.markdown("""
+    <div class='header'>
+        <div class='title'>حاسبة تكلفة الطباعة</div>
+    </div>
+""", unsafe_allow_html=True)
+
+# اختيار اللغة
 language = st.selectbox("اختر اللغة / Choose Language", ["العربية", "English"])
 
 # تعريف الخيارات حسب اللغة
 if language == "العربية":
-    st.title("🖨️ حاسبة تكلفة الطباعة")
-    
     # القوائم المنسدلة للصفحات
+    st.markdown("### 📄 تفاصيل الطباعة")
     colored_pages = st.selectbox("عدد الصفحات الملونة", 
                                list(range(0, 501)),
                                format_func=lambda x: f"{x} صفحة")
@@ -115,6 +161,7 @@ if language == "العربية":
                            format_func=lambda x: f"{x} صفحة")
     
     # الخيارات الإضافية
+    st.markdown("### 🎨 الإضافات")
     col1, col2 = st.columns(2)
     with col1:
         last_page_empty = st.checkbox("✨ الصفحة الأخيرة فارغة")
@@ -124,9 +171,7 @@ if language == "العربية":
         nylon = st.checkbox("🎁 إضافة تغليف")
 
 else:
-    st.title("🖨️ Printing Cost Calculator")
-    
-    # Dropdown menus for pages
+    st.markdown("### 📄 Printing Details")
     colored_pages = st.selectbox("Number of Colored Pages",
                                list(range(0, 501)),
                                format_func=lambda x: f"{x} pages")
@@ -139,7 +184,7 @@ else:
                            list(range(0, 501)),
                            format_func=lambda x: f"{x} pages")
     
-    # Additional options
+    st.markdown("### 🎨 Add-ons")
     col1, col2 = st.columns(2)
     with col1:
         last_page_empty = st.checkbox("✨ Last Page Empty")
@@ -169,19 +214,19 @@ if language == "العربية":
         
         st.markdown(f"""
             <div class='result-card'>
-                <h2 style='color: #f59e0b; text-align: center; margin-bottom: 1rem;'>ملخص التكلفة</h2>
-                <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: center;'>
-                    <div>
-                        <h3 style='color: #f59e0b;'>التكلفة الإجمالية</h3>
-                        <p style='font-size: 2rem; font-weight: bold;'>{total_cost} دينار</p>
+                <h2 style='color: #3B82F6; text-align: center; margin-bottom: 1.5rem; font-size: 2rem;'>ملخص التكلفة</h2>
+                <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;'>
+                    <div class='stat-box' style='text-align: center;'>
+                        <h3 style='color: #60A5FA; margin-bottom: 0.5rem;'>التكلفة الإجمالية</h3>
+                        <p style='font-size: 2.5rem; font-weight: 800; margin: 0; background: linear-gradient(120deg, #60A5FA, #3B82F6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>{total_cost} دينار</p>
                     </div>
-                    <div>
-                        <h3 style='color: #f59e0b;'>عدد الصفحات</h3>
-                        <p style='font-size: 1.5rem;'>{total_pages} صفحة</p>
+                    <div class='stat-box' style='text-align: center;'>
+                        <h3 style='color: #60A5FA; margin-bottom: 0.5rem;'>عدد الصفحات</h3>
+                        <p style='font-size: 2rem; margin: 0;'>{total_pages} صفحة</p>
                     </div>
-                    <div>
-                        <h3 style='color: #f59e0b;'>الإضافات</h3>
-                        <p style='font-size: 1.5rem;'>{extras} عناصر</p>
+                    <div class='stat-box' style='text-align: center;'>
+                        <h3 style='color: #60A5FA; margin-bottom: 0.5rem;'>الإضافات</h3>
+                        <p style='font-size: 2rem; margin: 0;'>{extras} عناصر</p>
                     </div>
                 </div>
             </div>
@@ -194,19 +239,19 @@ else:
         
         st.markdown(f"""
             <div class='result-card'>
-                <h2 style='color: #f59e0b; text-align: center; margin-bottom: 1rem;'>Cost Summary</h2>
-                <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: center;'>
-                    <div>
-                        <h3 style='color: #f59e0b;'>Total Cost</h3>
-                        <p style='font-size: 2rem; font-weight: bold;'>{total_cost} Dinar</p>
+                <h2 style='color: #3B82F6; text-align: center; margin-bottom: 1.5rem; font-size: 2rem;'>Cost Summary</h2>
+                <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;'>
+                    <div class='stat-box' style='text-align: center;'>
+                        <h3 style='color: #60A5FA; margin-bottom: 0.5rem;'>Total Cost</h3>
+                        <p style='font-size: 2.5rem; font-weight: 800; margin: 0; background: linear-gradient(120deg, #60A5FA, #3B82F6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>{total_cost} Dinar</p>
                     </div>
-                    <div>
-                        <h3 style='color: #f59e0b;'>Total Pages</h3>
-                        <p style='font-size: 1.5rem;'>{total_pages} pages</p>
+                    <div class='stat-box' style='text-align: center;'>
+                        <h3 style='color: #60A5FA; margin-bottom: 0.5rem;'>Total Pages</h3>
+                        <p style='font-size: 2rem; margin: 0;'>{total_pages} pages</p>
                     </div>
-                    <div>
-                        <h3 style='color: #f59e0b;'>Add-ons</h3>
-                        <p style='font-size: 1.5rem;'>{extras} items</p>
+                    <div class='stat-box' style='text-align: center;'>
+                        <h3 style='color: #60A5FA; margin-bottom: 0.5rem;'>Add-ons</h3>
+                        <p style='font-size: 2rem; margin: 0;'>{extras} items</p>
                     </div>
                 </div>
             </div>
