@@ -539,7 +539,6 @@ def main():
             {"- كرتون<br>" if carton else ""}
             {"- نايلون<br>" if nylon else ""}
             {"- مسطرة<br>" if ruler else ""}
-            </p>
         </div>
         </div>
     """, unsafe_allow_html=True)
