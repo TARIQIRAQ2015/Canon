@@ -442,13 +442,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 def main():
-    # اختيار اللغة
-    language = st.selectbox("", ["العربية", "English"])
-    
-    if language == "العربية":
-        st.markdown("""<style>.main { direction: rtl; text-align: right; }</style>""", unsafe_allow_html=True)
-    else:
-        st.markdown("""<style>.main { direction: ltr; text-align: left; }</style>""", unsafe_allow_html=True)
+    # تعيين اتجاه الصفحة للعربية
+    st.markdown("""<style>.main { direction: rtl; text-align: right; }</style>""", unsafe_allow_html=True)
 
     # تفاصيل الطباعة
     st.subheader("تفاصيل الطباعة")
@@ -544,8 +539,6 @@ def main():
             {"- كرتون<br>" if carton else ""}
             {"- نايلون<br>" if nylon else ""}
             {"- مسطرة<br>" if ruler else ""}
-            <br>
-            <strong>المجموع الكلي: {total_cost} دينار</strong>
             </p>
         </div>
         </div>
