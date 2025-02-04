@@ -4,7 +4,6 @@ import requests
 import json
 from streamlit_option_menu import option_menu
 import streamlit_toggle as tog
-from streamlit_particles import particles
 
 # تحميل الرسوم المتحركة
 def load_lottieurl(url):
@@ -13,151 +12,164 @@ def load_lottieurl(url):
         return None
     return r.json()
 
-# تكوين خلفية الجزيئات المتحركة
-particles_config = {
-    "particles": {
-        "number": {
-            "value": 50,
-            "density": {
-                "enable": True,
-                "value_area": 800
-            }
-        },
-        "color": {
-            "value": "#CBA135"
-        },
-        "shape": {
-            "type": "circle"
-        },
-        "opacity": {
-            "value": 0.5,
-            "random": True
-        },
-        "size": {
-            "value": 3,
-            "random": True
-        },
-        "line_linked": {
-            "enable": True,
-            "distance": 150,
-            "color": "#CBA135",
-            "opacity": 0.2,
-            "width": 1
-        },
-        "move": {
-            "enable": True,
-            "speed": 2,
-            "direction": "none",
-            "random": True,
-            "straight": False,
-            "out_mode": "out",
-            "bounce": False,
-        }
-    },
-    "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-            "onhover": {
-                "enable": True,
-                "mode": "repulse"
-            },
-            "onclick": {
-                "enable": True,
-                "mode": "push"
-            },
-            "resize": True
-        }
-    }
-}
-
-# تطبيق الأنماط
+# تطبيق الأنماط المتقدمة
 st.markdown("""
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700&display=swap');
+    
+    /* تعيين الخط والخلفية الأساسية */
     .main {
-        background: linear-gradient(135deg, #0F0F1F 0%, #1E1E2E 100%);
-        color: #FFFFFF;
+        font-family: 'Cairo', sans-serif;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #e9ecef;
     }
-    .stButton>button {
-        background: linear-gradient(135deg, #CBA135 0%, #E5B94E 100%);
-        color: white;
-        border-radius: 15px;
-        padding: 0.7rem 2.5rem;
-        border: none;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(203, 161, 53, 0.3);
-        backdrop-filter: blur(10px);
-    }
-    .stButton>button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(203, 161, 53, 0.5);
-    }
-    .stNumberInput>div>div>input {
-        background: rgba(45, 45, 68, 0.7);
-        color: white;
-        border: 2px solid #CBA135;
-        border-radius: 10px;
-        backdrop-filter: blur(10px);
-    }
-    .stSelectbox>div>div {
-        background: rgba(45, 45, 68, 0.7);
-        color: white;
-        border: 2px solid #CBA135;
-        border-radius: 10px;
-        backdrop-filter: blur(10px);
-    }
-    .stCheckbox>label {
-        color: white !important;
-        background: rgba(45, 45, 68, 0.7);
-        padding: 10px 15px;
-        border-radius: 10px;
-        border: 1px solid #CBA135;
-        backdrop-filter: blur(10px);
-    }
+    
+    /* تنسيق العنوان الرئيسي */
     h1 {
-        background: linear-gradient(135deg, #CBA135 0%, #E5B94E 100%);
+        background: linear-gradient(120deg, #CBA135 0%, #FFD700 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-align: center;
         font-size: 3.5rem !important;
+        font-weight: 700 !important;
         margin-bottom: 2rem !important;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        font-weight: bold !important;
-        letter-spacing: 2px;
+        animation: glow 2s ease-in-out infinite alternate;
     }
-    .result-card {
-        background: rgba(45, 45, 68, 0.7);
-        border: 2px solid #CBA135;
+    
+    /* تأثير التوهج للعنوان */
+    @keyframes glow {
+        from {
+            text-shadow: 0 0 10px #CBA135, 0 0 20px #CBA135;
+        }
+        to {
+            text-shadow: 0 0 15px #FFD700, 0 0 25px #FFD700;
+        }
+    }
+    
+    /* تنسيق الأزرار */
+    .stButton>button {
+        background: linear-gradient(135deg, #CBA135 0%, #FFD700 100%);
+        color: #1a1a2e;
+        border: none;
         border-radius: 15px;
-        padding: 20px;
-        margin: 20px 0;
+        padding: 0.8rem 2.5rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(203, 161, 53, 0.2);
         backdrop-filter: blur(10px);
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        -webkit-backdrop-filter: blur(10px);
     }
-    .section-title {
-        color: #CBA135;
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    
+    .stButton>button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(203, 161, 53, 0.3);
+        background: linear-gradient(135deg, #FFD700 0%, #CBA135 100%);
+    }
+    
+    /* تنسيق حقول الإدخال */
+    .stNumberInput>div>div>input {
+        background: rgba(45, 45, 68, 0.9);
+        border: 2px solid rgba(203, 161, 53, 0.3);
+        border-radius: 10px;
+        color: #e9ecef;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    
+    .stNumberInput>div>div>input:focus {
+        border-color: #CBA135;
+        box-shadow: 0 0 15px rgba(203, 161, 53, 0.3);
+    }
+    
+    /* تنسيق مربعات الاختيار */
+    .stCheckbox>label {
+        color: #e9ecef !important;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .stCheckbox>label>span {
+        background: rgba(45, 45, 68, 0.9);
+        border: 2px solid rgba(203, 161, 53, 0.3);
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+    
+    .stCheckbox>label>span:hover {
+        border-color: #CBA135;
+        box-shadow: 0 0 10px rgba(203, 161, 53, 0.2);
+    }
+    
+    /* تنسيق القائمة المنسدلة */
+    .stSelectbox>div>div {
+        background: rgba(45, 45, 68, 0.9);
+        border: 2px solid rgba(203, 161, 53, 0.3);
+        border-radius: 10px;
+        color: #e9ecef;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    
+    .stSelectbox>div>div:hover {
+        border-color: #CBA135;
+        box-shadow: 0 0 15px rgba(203, 161, 53, 0.3);
+    }
+    
+    /* تنسيق عرض النتيجة */
+    .result-container {
+        background: rgba(45, 45, 68, 0.9);
+        border: 2px solid #CBA135;
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(203, 161, 53, 0.2);
+        animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* تنسيق متجاوب */
+    @media screen and (max-width: 768px) {
+        h1 {
+            font-size: 2.5rem !important;
+        }
+        
+        .stButton>button {
+            width: 100%;
+            padding: 0.6rem 1.5rem;
+        }
+        
+        .result-container {
+            padding: 1.5rem;
+        }
     }
     </style>
     """, unsafe_allow_html=True)
 
-# تطبيق خلفية الجزيئات
-particles(particles_config, key="particles")
-
-# تحميل الرسوم المتحركة للطابعة
-lottie_printer = load_lottieurl('https://assets3.lottiefiles.com/packages/lf20_rlzitsqx.json')
+# تحميل الرسوم المتحركة
+lottie_printer = load_lottieurl('https://assets5.lottiefiles.com/packages/lf20_sjcbakkb.json')
 
 # عنوان التطبيق مع الرسوم المتحركة
-st.markdown('<div style="text-align: center; padding: 20px;">', unsafe_allow_html=True)
-st.title("🖨️ نظام حساب تكلفة الطباعة المتطور")
-st_lottie(lottie_printer, height=250, key="printer")
-st.markdown('</div>', unsafe_allow_html=True)
-
-# تعريف الألوان والأنماط
-primary_color = "#1E1E2E"
-secondary_color = "#CBA135"
-text_color = "#FFFFFF"
+st.title("🖨️ حساب تكلفة الطباعة")
+st_lottie(lottie_printer, height=200)
 
 # دالة لحساب التكلفة الإجمالية
 def calculate_total_cost(colored_pages, bw_color_pages, bw_pages, last_page_empty, cover, carton, nylon):
@@ -215,52 +227,50 @@ else:
     carton = st.checkbox("Add Carton")
     nylon = st.checkbox("Add Nylon")
 
-# تحسين عرض النتيجة
+# زر لحساب التكلفة
 if language == "العربية":
-    if st.button("💰 حساب التكلفة", key="calc_ar"):
+    if st.button("💰 حساب التكلفة"):
         total_cost = calculate_total_cost(colored_pages, bw_color_pages, bw_pages, last_page_empty, cover, carton, nylon)
         st.markdown(f"""
-            <div class="result-card">
-                <h3 class="section-title">التكلفة الإجمالية</h3>
-                <div style="display: flex; justify-content: center; align-items: center;">
-                    <p style="color: #E5B94E; font-size: 36px; margin: 0; font-weight: bold;">
-                        {total_cost} دينار
-                    </p>
-                </div>
-                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(203, 161, 53, 0.3);">
-                    <p style="color: #CBA135; margin: 5px 0;">تفاصيل التكلفة:</p>
-                    <p style="color: white; margin: 5px 0;">• صفحات ملونة: {colored_pages * 50} دينار</p>
-                    <p style="color: white; margin: 5px 0;">• صفحات أبيض وأسود مع ألوان: {bw_color_pages * 40} دينار</p>
-                    <p style="color: white; margin: 5px 0;">• صفحات أبيض وأسود: {bw_pages * 35} دينار</p>
+            <div class='result-container'>
+                <h3 style='color: #CBA135; margin: 0; font-size: 1.8rem; text-align: center;'>التكلفة الإجمالية</h3>
+                <p style='color: #e9ecef; font-size: 2.5rem; margin: 1rem 0; text-align: center; font-weight: bold;'>{total_cost} دينار</p>
+                <div style='display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;'>
+                    <div style='background: rgba(203, 161, 53, 0.1); padding: 1rem; border-radius: 10px; text-align: center;'>
+                        <p style='margin: 0; color: #CBA135;'>عدد الصفحات الكلي</p>
+                        <p style='margin: 0; font-size: 1.2rem;'>{colored_pages + bw_color_pages + bw_pages}</p>
+                    </div>
+                    <div style='background: rgba(203, 161, 53, 0.1); padding: 1rem; border-radius: 10px; text-align: center;'>
+                        <p style='margin: 0; color: #CBA135;'>الإضافات</p>
+                        <p style='margin: 0; font-size: 1.2rem;'>{sum([cover, carton, nylon])}</p>
+                    </div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
 else:
-    if st.button("💰 Calculate Total Cost", key="calc_en"):
+    if st.button("💰 Calculate Total Cost"):
         total_cost = calculate_total_cost(colored_pages, bw_color_pages, bw_pages, last_page_empty, cover, carton, nylon)
         st.markdown(f"""
-            <div class="result-card">
-                <h3 class="section-title">Total Cost</h3>
-                <div style="display: flex; justify-content: center; align-items: center;">
-                    <p style="color: #E5B94E; font-size: 36px; margin: 0; font-weight: bold;">
-                        {total_cost} Dinar
-                    </p>
-                </div>
-                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(203, 161, 53, 0.3);">
-                    <p style="color: #CBA135; margin: 5px 0;">Cost Details:</p>
-                    <p style="color: white; margin: 5px 0;">• Colored Pages: {colored_pages * 50} Dinar</p>
-                    <p style="color: white; margin: 5px 0;">• B&W with Colors: {bw_color_pages * 40} Dinar</p>
-                    <p style="color: white; margin: 5px 0;">• B&W Pages: {bw_pages * 35} Dinar</p>
+            <div class='result-container'>
+                <h3 style='color: #CBA135; margin: 0; font-size: 1.8rem; text-align: center;'>Total Cost</h3>
+                <p style='color: #e9ecef; font-size: 2.5rem; margin: 1rem 0; text-align: center; font-weight: bold;'>{total_cost} Dinar</p>
+                <div style='display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;'>
+                    <div style='background: rgba(203, 161, 53, 0.1); padding: 1rem; border-radius: 10px; text-align: center;'>
+                        <p style='margin: 0; color: #CBA135;'>Total Pages</p>
+                        <p style='margin: 0; font-size: 1.2rem;'>{colored_pages + bw_color_pages + bw_pages}</p>
+                    </div>
+                    <div style='background: rgba(203, 161, 53, 0.1); padding: 1rem; border-radius: 10px; text-align: center;'>
+                        <p style='margin: 0; color: #CBA135;'>Add-ons</p>
+                        <p style='margin: 0; font-size: 1.2rem;'>{sum([cover, carton, nylon])}</p>
+                    </div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
 
-# أزرار إعادة التعيين مع تصميم محسن
-col1, col2, col3 = st.columns([1,2,1])
-with col2:
-    if language == "العربية":
-        if st.button("🔄 إعادة تعيين", key="reset_ar"):
-            st.experimental_rerun()
-    else:
-        if st.button("🔄 Reset", key="reset_en"):
-            st.experimental_rerun()
+# زر إعادة التعيين مع تصميم محسن
+if language == "العربية":
+    if st.button("🔄 إعادة تعيين"):
+        st.experimental_rerun()
+else:
+    if st.button("🔄 Reset"):
+        st.experimental_rerun()
