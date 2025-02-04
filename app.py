@@ -36,21 +36,43 @@ st.markdown("""
         width: 100%;
         height: 100%;
         background: 
-            radial-gradient(circle at 0% 0%, rgba(96, 165, 250, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 100% 100%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 0% 100%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
-        animation: gradient 15s ease infinite;
-        background-size: 200% 200%;
+            radial-gradient(circle at 0% 0%, rgba(29, 78, 216, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 100% 100%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 0% 100%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+        animation: backgroundAnimation 15s ease infinite alternate;
         z-index: -1;
     }
     
-    @keyframes gradient {
-        0% { background-position: 0% 0%; }
-        25% { background-position: 100% 0%; }
-        50% { background-position: 100% 100%; }
-        75% { background-position: 0% 100%; }
-        100% { background-position: 0% 0%; }
+    @keyframes backgroundAnimation {
+        0% { transform: scale(1) rotate(0deg); }
+        50% { transform: scale(1.2) rotate(5deg); }
+        100% { transform: scale(1) rotate(0deg); }
+    }
+    
+    /* تأثيرات الخلفية المتحركة للعناصر */
+    .element-glow {
+        position: relative;
+    }
+    
+    .element-glow::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+            circle,
+            rgba(96, 165, 250, 0.1) 0%,
+            transparent 70%
+        );
+        animation: rotateGlow 10s linear infinite;
+    }
+    
+    @keyframes rotateGlow {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
     
     .stApp {
@@ -60,7 +82,7 @@ st.markdown("""
 
     /* إخفاء أزرار تغيير الوضع */
     [data-testid="StyledFullScreenButton"], 
-    [data-testid="baseButton-header"] {
+    .css-ch5dnh {
         display: none !important;
     }
     
@@ -71,11 +93,13 @@ st.markdown("""
         padding: 1rem;
         border: 1px solid rgba(96, 165, 250, 0.2);
         transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
     }
     
     .stSelectbox:hover, .stNumberInput:hover {
         border-color: rgba(96, 165, 250, 0.5);
         box-shadow: 0 0 15px rgba(96, 165, 250, 0.2);
+        transform: translateY(-2px);
     }
     
     /* تنسيق الهيدر */
@@ -103,71 +127,39 @@ st.markdown("""
         transition: all 0.5s ease;
     }
     
-    .cost-summary:hover {
-        transform: perspective(1000px) rotateX(2deg);
-        box-shadow: 
-            0 15px 35px rgba(0, 0, 0, 0.3),
-            0 0 70px rgba(96, 165, 250, 0.2);
-    }
-
     .cost-details {
-        background: rgba(15, 23, 42, 0.6);
-        border-radius: 12px;
-        padding: 1.5rem;
+        background: rgba(15, 23, 42, 0.8);
+        border-radius: 15px;
+        padding: 2rem;
         margin-top: 1.5rem;
         border: 1px solid rgba(96, 165, 250, 0.2);
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #E2E8F0;
     }
-
+    
     .cost-details h4 {
         color: #60A5FA;
         margin-bottom: 1rem;
         font-size: 1.2rem;
     }
-
+    
     .cost-details p {
-        line-height: 1.8;
-        margin-bottom: 0.5rem;
-    }
-
-    .total-cost {
-        background: linear-gradient(120deg, #1E293B, #0F172A);
-        border-radius: 15px;
-        padding: 2rem;
-        margin-top: 2rem;
-        border: 2px solid rgba(96, 165, 250, 0.4);
-        text-align: center;
-        position: relative;
-        overflow: hidden;
+        margin: 0;
+        padding: 0;
     }
     
-    .total-cost::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(
-            45deg,
-            transparent,
-            rgba(96, 165, 250, 0.1),
-            transparent
-        );
-        transform: rotate(45deg);
-        animation: shine 3s infinite;
-    }
-    
-    .total-cost span {
-        font-size: 2.5rem;
-        font-weight: 800;
-        background: linear-gradient(120deg, #60A5FA, #3B82F6);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
+    .cost-details strong {
+        display: block;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(96, 165, 250, 0.2);
+        color: #60A5FA;
+        font-size: 1.2rem;
     }
 
     .copy-button {
-        background: linear-gradient(120deg, #3B82F6, #2563EB);
+        background: linear-gradient(45deg, #3B82F6, #2563EB);
         color: white;
         border: none;
         padding: 0.8rem 1.5rem;
@@ -180,11 +172,11 @@ st.markdown("""
     }
 
     .copy-button:hover {
+        background: linear-gradient(45deg, #2563EB, #1D4ED8);
         transform: translateY(-2px);
         box-shadow: 0 6px 8px rgba(37, 99, 235, 0.3);
-        background: linear-gradient(120deg, #2563EB, #1D4ED8);
     }
-
+    
     /* تنسيق عام */
     .main {
         direction: rtl;
@@ -297,13 +289,10 @@ def main():
     # الإضافات
     st.subheader("الإضافات")
     
-    col1, col2 = st.columns(2)
-    with col1:
-        cover = st.checkbox("تصميم غلاف")
-        carton = st.checkbox("كرتون")
-    with col2:
-        nylon = st.checkbox("نايلون")
-        ruler = st.checkbox("مسطرة")
+    cover = st.checkbox("تصميم غلاف")
+    carton = st.checkbox("كرتون")
+    nylon = st.checkbox("نايلون")
+    ruler = st.checkbox("مسطرة")
     
     # دالة حساب التكلفة
     def calculate_total_cost(colored_pages, bw_color_pages, bw_pages, cover, carton, nylon, ruler):
@@ -314,7 +303,7 @@ def main():
         if cover: total_cost += 250
         if carton: total_cost += 250
         if nylon: total_cost += 250
-        if ruler: total_cost += 250  # تم تعديل سعر المسطرة إلى 250 دينار
+        if ruler: total_cost += 250  # تعديل سعر المسطرة إلى 250 دينار
         return total_cost
 
     # حساب التكلفة
@@ -323,7 +312,7 @@ def main():
     
     # عرض النتائج
     st.markdown("""
-        <div class='cost-summary'>
+        <div class='cost-summary element-glow'>
             <h3 style='text-align: center; font-size: 2rem; margin-bottom: 2rem; 
                       background: linear-gradient(120deg, #60A5FA, #3B82F6); 
                       -webkit-background-clip: text; 
@@ -331,15 +320,15 @@ def main():
                 ملخص التكلفة
             </h3>
             <div class='cost-item'>
-                <span>عدد الصفحات الملونة: {} صفحة</span>
+                <span>الصفحات الملونة ({} صفحة)</span>
                 <span>{} دينار</span>
             </div>
             <div class='cost-item'>
-                <span>عدد الصفحات السوداء من ملف ملون: {} صفحة</span>
+                <span>الصفحات السوداء من ملف ملون ({} صفحة)</span>
                 <span>{} دينار</span>
             </div>
             <div class='cost-item'>
-                <span>عدد الصفحات السوداء: {} صفحة</span>
+                <span>الصفحات السوداء ({} صفحة)</span>
                 <span>{} دينار</span>
             </div>
     """.format(
@@ -361,14 +350,14 @@ def main():
             st.markdown("<div class='cost-item'><span>مسطرة</span><span>250 دينار</span></div>", unsafe_allow_html=True)
 
     st.markdown(f"""
-        <div class='total-cost'>
+        <div class='total-cost element-glow'>
             <h2 style='margin-bottom: 1rem; color: #94A3B8;'>التكلفة الإجمالية</h2>
             <span>{total_cost} دينار</span>
         </div>
         
         <div class='cost-details'>
             <h4>تفاصيل الطلب:</h4>
-            <p dir="rtl">
+            <p>
             - عدد الصفحات الملونة: {colored_pages} صفحة<br>
             - عدد الصفحات السوداء من ملف ملون: {bw_color_pages} صفحة<br>
             - عدد الصفحات السوداء: {bw_pages} صفحة<br>
@@ -382,13 +371,13 @@ def main():
         </div>
         
         <button class='copy-button' onclick="navigator.clipboard.writeText(`تفاصيل الطلب:
-عدد الصفحات الملونة: {colored_pages} صفحة
-عدد الصفحات السوداء من ملف ملون: {bw_color_pages} صفحة
-عدد الصفحات السوداء: {bw_pages} صفحة
-{"تصميم غلاف" if cover else ""}
-{"كرتون" if carton else ""}
-{"نايلون" if nylon else ""}
-{"مسطرة" if ruler else ""}
+- عدد الصفحات الملونة: {colored_pages} صفحة
+- عدد الصفحات السوداء من ملف ملون: {bw_color_pages} صفحة
+- عدد الصفحات السوداء: {bw_pages} صفحة
+{"- تصميم غلاف" if cover else ""}
+{"- كرتون" if carton else ""}
+{"- نايلون" if nylon else ""}
+{"- مسطرة" if ruler else ""}
 
 المجموع الكلي: {total_cost} دينار`)">
             نسخ التفاصيل
