@@ -23,56 +23,6 @@ st.markdown("""
         padding: 0;
         margin: 0;
         max-width: 100% !important;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    /* خلفية متحركة */
-    .main::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: 
-            radial-gradient(circle at 0% 0%, rgba(29, 78, 216, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 100% 100%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 0% 100%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
-        animation: backgroundAnimation 15s ease infinite alternate;
-        z-index: -1;
-    }
-    
-    @keyframes backgroundAnimation {
-        0% { transform: scale(1) rotate(0deg); }
-        50% { transform: scale(1.2) rotate(5deg); }
-        100% { transform: scale(1) rotate(0deg); }
-    }
-    
-    /* تأثيرات الخلفية المتحركة للعناصر */
-    .element-glow {
-        position: relative;
-    }
-    
-    .element-glow::after {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(
-            circle,
-            rgba(96, 165, 250, 0.1) 0%,
-            transparent 70%
-        );
-        animation: rotateGlow 10s linear infinite;
-    }
-    
-    @keyframes rotateGlow {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
     }
     
     .stApp {
@@ -93,13 +43,11 @@ st.markdown("""
         padding: 1rem;
         border: 1px solid rgba(96, 165, 250, 0.2);
         transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
     }
     
     .stSelectbox:hover, .stNumberInput:hover {
         border-color: rgba(96, 165, 250, 0.5);
         box-shadow: 0 0 15px rgba(96, 165, 250, 0.2);
-        transform: translateY(-2px);
     }
     
     /* تنسيق الهيدر */
@@ -111,6 +59,20 @@ st.markdown("""
         text-align: center;
         position: relative;
         overflow: hidden;
+    }
+    
+    /* تأثيرات الخلفية المتحركة */
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+        animation: pulse 8s ease-in-out infinite alternate;
     }
     
     .cost-summary {
@@ -127,54 +89,236 @@ st.markdown("""
         transition: all 0.5s ease;
     }
     
-    .cost-details {
-        background: rgba(15, 23, 42, 0.8);
+    .cost-summary:hover {
+        transform: perspective(1000px) rotateX(2deg);
+        box-shadow: 
+            0 15px 35px rgba(0, 0, 0, 0.3),
+            0 0 70px rgba(96, 165, 250, 0.2);
+    }
+
+    .total-cost {
+        background: linear-gradient(120deg, #1E293B, #0F172A);
         border-radius: 15px;
         padding: 2rem;
-        margin-top: 1.5rem;
-        border: 1px solid rgba(96, 165, 250, 0.2);
-        font-size: 1rem;
-        line-height: 1.8;
-        color: #E2E8F0;
+        margin-top: 2rem;
+        border: 2px solid rgba(96, 165, 250, 0.4);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
     }
     
-    .cost-details h4 {
-        color: #60A5FA;
-        margin-bottom: 1rem;
-        font-size: 1.2rem;
+    .total-cost::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            45deg,
+            transparent,
+            rgba(96, 165, 250, 0.1),
+            transparent
+        );
+        transform: rotate(45deg);
+        animation: shine 3s infinite;
     }
     
-    .cost-details p {
-        margin: 0;
-        padding: 0;
-    }
-    
-    .cost-details strong {
-        display: block;
-        margin-top: 1rem;
-        padding-top: 1rem;
-        border-top: 1px solid rgba(96, 165, 250, 0.2);
-        color: #60A5FA;
-        font-size: 1.2rem;
+    .total-cost span {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(120deg, #60A5FA, #3B82F6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
     }
 
-    .copy-button {
-        background: linear-gradient(45deg, #3B82F6, #2563EB);
+    @keyframes shine {
+        0% { transform: translateX(-100%) rotate(45deg); }
+        100% { transform: translateX(100%) rotate(45deg); }
+    }
+    
+    /* تنسيق الهيدر */
+    .header {
+        background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+        padding: 3rem 2rem;
+        margin: -6rem -4rem 2rem -4rem;
+        border-bottom: 2px solid rgba(96, 165, 250, 0.2);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* تأثيرات الخلفية المتحركة */
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+        animation: pulse 8s ease-in-out infinite alternate;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 0.5; }
+        100% { transform: scale(1.2); opacity: 0.8; }
+    }
+    
+    /* تنسيق العنوان الرئيسي */
+    .title-container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .title-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+    
+    .title {
+        font-size: 4rem;
+        font-weight: 900;
+        background: linear-gradient(120deg, 
+            #60A5FA 0%, 
+            #3B82F6 25%, 
+            #2563EB 50%, 
+            #60A5FA 75%, 
+            #3B82F6 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 8s linear infinite;
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
+        text-shadow: 
+            0 0 10px rgba(96, 165, 250, 0.3),
+            0 0 20px rgba(59, 130, 246, 0.2),
+            0 0 30px rgba(37, 99, 235, 0.1);
+    }
+    
+    @keyframes shine {
+        0% { background-position: 0% center; }
+        100% { background-position: 200% center; }
+    }
+    
+    .title-separator {
+        width: 150px;
+        height: 4px;
+        background: linear-gradient(to right, 
+            transparent 0%,
+            #60A5FA 20%,
+            #3B82F6 50%,
+            #60A5FA 80%,
+            transparent 100%);
+        margin: 1rem auto;
+        border-radius: 2px;
+    }
+    
+    /* تنسيق العنوان */
+    .title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(120deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
+    }
+    
+    /* تنسيق القوائم المنسدلة */
+    .stSelectbox > div > div {
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        border-radius: 12px;
+        color: #E2E8F0;
+        transition: all 0.3s ease;
+    }
+    
+    .stSelectbox > div > div:hover {
+        border-color: #3B82F6;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+    }
+    
+    /* تنسيق الأزرار */
+    .stButton > button {
+        width: 100%;
+        background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
         color: white;
         border: none;
-        padding: 0.8rem 1.5rem;
-        border-radius: 8px;
-        cursor: pointer;
-        margin-top: 1.5rem;
+        border-radius: 12px;
+        padding: 0.8rem 2rem;
         font-weight: 600;
+        font-size: 1.1rem;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
-
-    .copy-button:hover {
-        background: linear-gradient(45deg, #2563EB, #1D4ED8);
+    
+    .stButton > button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 8px rgba(37, 99, 235, 0.3);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+    }
+    
+    /* تنسيق مربعات الاختيار */
+    .stCheckbox > label {
+        background: rgba(30, 41, 59, 0.6);
+        padding: 1rem;
+        border-radius: 12px;
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        transition: all 0.3s ease;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .stCheckbox > label:hover {
+        border-color: #3B82F6;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+    }
+    
+    /* تنسيق النتيجة */
+    .result-card {
+        background: rgba(30, 41, 59, 0.6);
+        border: 2px solid #3B82F6;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-top: 2rem;
+        box-shadow: 0 8px 32px rgba(59, 130, 246, 0.15);
+        animation: fadeIn 0.5s ease-out;
+    }
+    
+    .stat-box {
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .stat-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
     
     /* تنسيق عام */
@@ -247,6 +391,79 @@ st.markdown("""
         .title { font-size: 2rem; }
         .stat-box { padding: 1rem; }
     }
+    
+    /* الخلفية المتحركة */
+    .main:before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(circle at 0% 0%, rgba(96, 165, 250, 0.03) 0%, transparent 50%),
+            radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+            radial-gradient(circle at 100% 100%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
+            radial-gradient(circle at 0% 100%, rgba(96, 165, 250, 0.03) 0%, transparent 50%);
+        animation: backgroundAnimation 15s ease infinite;
+        z-index: -1;
+    }
+
+    @keyframes backgroundAnimation {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    /* تنسيق تفاصيل التكلفة */
+    .cost-details {
+        background: rgba(15, 23, 42, 0.8);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        font-family: 'Cairo', sans-serif;
+    }
+
+    .cost-details h4 {
+        color: #60A5FA;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .cost-details p {
+        color: #E2E8F0;
+        line-height: 1.8;
+        margin: 0;
+        padding: 0;
+    }
+
+    .cost-details strong {
+        display: block;
+        margin-top: 1rem;
+        color: #60A5FA;
+        font-size: 1.2rem;
+    }
+
+    .copy-button {
+        display: block;
+        width: 100%;
+        margin-top: 1rem;
+        padding: 0.8rem;
+        background: linear-gradient(45deg, #3B82F6, #2563EB);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-family: 'Cairo', sans-serif;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .copy-button:hover {
+        background: linear-gradient(45deg, #2563EB, #1D4ED8);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -312,7 +529,7 @@ def main():
     
     # عرض النتائج
     st.markdown("""
-        <div class='cost-summary element-glow'>
+        <div class='cost-summary'>
             <h3 style='text-align: center; font-size: 2rem; margin-bottom: 2rem; 
                       background: linear-gradient(120deg, #60A5FA, #3B82F6); 
                       -webkit-background-clip: text; 
@@ -350,14 +567,14 @@ def main():
             st.markdown("<div class='cost-item'><span>مسطرة</span><span>250 دينار</span></div>", unsafe_allow_html=True)
 
     st.markdown(f"""
-        <div class='total-cost element-glow'>
+        <div class='total-cost'>
             <h2 style='margin-bottom: 1rem; color: #94A3B8;'>التكلفة الإجمالية</h2>
             <span>{total_cost} دينار</span>
         </div>
         
         <div class='cost-details'>
             <h4>تفاصيل الطلب:</h4>
-            <p>
+            <p dir="rtl">
             - عدد الصفحات الملونة: {colored_pages} صفحة<br>
             - عدد الصفحات السوداء من ملف ملون: {bw_color_pages} صفحة<br>
             - عدد الصفحات السوداء: {bw_pages} صفحة<br>
