@@ -5,7 +5,7 @@ import streamlit_toggle as tog
 # تعيين الإعدادات الأولية
 st.set_page_config(
     page_title="حاسبة تكلفة الطباعة",
-    page_icon="🖨️",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -207,6 +207,70 @@ st.markdown("""
         to { opacity: 1; transform: translateY(0); }
     }
     
+    /* تنسيق عام */
+    .main {
+        direction: rtl;
+        text-align: right;
+    }
+    
+    [data-language="English"] .main {
+        direction: ltr;
+        text-align: left;
+    }
+
+    /* تنسيق ملخص التكلفة */
+    .cost-summary {
+        background: rgba(30, 41, 59, 0.6);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border: 1px solid rgba(96, 165, 250, 0.2);
+    }
+
+    .cost-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(96, 165, 250, 0.1);
+    }
+
+    .cost-item:last-child {
+        border-bottom: none;
+    }
+
+    .total-cost {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #60A5FA;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 2px solid rgba(96, 165, 250, 0.2);
+    }
+
+    .cost-details {
+        background: rgba(15, 23, 42, 0.6);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: #94A3B8;
+    }
+
+    .copy-button {
+        background: #3B82F6;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .copy-button:hover {
+        background: #2563EB;
+    }
+    
     /* تنسيق متجاوب */
     @media screen and (max-width: 768px) {
         .header { margin: -3rem -1rem 1rem -1rem; padding: 1rem; }
@@ -220,7 +284,6 @@ st.markdown("""
 st.markdown("""
     <div class='header'>
         <div class='title-container'>
-            <div class='title-icon'>🖨️</div>
             <div class='title'>حاسبة تكلفة الطباعة</div>
             <div class='title-separator'></div>
         </div>
@@ -228,117 +291,122 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # اختيار اللغة
-language = st.selectbox("اختر اللغة / Choose Language", ["العربية", "English"])
+language = st.selectbox("", ["العربية", "English"])
 
 # تعريف الخيارات حسب اللغة
 if language == "العربية":
-    # القوائم المنسدلة للصفحات
-    st.markdown("### 📄 تفاصيل الطباعة")
-    colored_pages = st.selectbox("عدد الصفحات الملونة", 
-                               list(range(0, 501)),
-                               format_func=lambda x: f"{x} صفحة")
-    
-    bw_color_pages = st.selectbox("عدد الصفحات الأبيض والأسود مع ألوان قليلة",
-                                 list(range(0, 501)),
-                                 format_func=lambda x: f"{x} صفحة")
-    
-    bw_pages = st.selectbox("عدد الصفحات الأبيض والأسود فقط",
-                           list(range(0, 501)),
-                           format_func=lambda x: f"{x} صفحة")
-    
-    # الخيارات الإضافية
-    st.markdown("### 🎨 الإضافات")
-    col1, col2 = st.columns(2)
-    with col1:
-        last_page_empty = st.checkbox("✨ الصفحة الأخيرة فارغة")
-        cover = st.checkbox("📔 إضافة غلاف ملون")
-    with col2:
-        carton = st.checkbox("📦 إضافة كرتون")
-        nylon = st.checkbox("🎁 إضافة تغليف")
-
+    st.markdown("""<style>.main { direction: rtl; text-align: right; }</style>""", unsafe_allow_html=True)
 else:
-    st.markdown("### 📄 Printing Details")
-    colored_pages = st.selectbox("Number of Colored Pages",
-                               list(range(0, 501)),
-                               format_func=lambda x: f"{x} pages")
-    
-    bw_color_pages = st.selectbox("Number of Black & White Pages with Few Colors",
-                                 list(range(0, 501)),
-                                 format_func=lambda x: f"{x} pages")
-    
-    bw_pages = st.selectbox("Number of Black & White Pages Only",
-                           list(range(0, 501)),
-                           format_func=lambda x: f"{x} pages")
-    
-    st.markdown("### 🎨 Add-ons")
-    col1, col2 = st.columns(2)
-    with col1:
-        last_page_empty = st.checkbox("✨ Last Page Empty")
-        cover = st.checkbox("📔 Add Colored Cover")
-    with col2:
-        carton = st.checkbox("📦 Add Carton")
-        nylon = st.checkbox("🎁 Add Wrapping")
+    st.markdown("""<style>.main { direction: ltr; text-align: left; }</style>""", unsafe_allow_html=True)
 
-# دالة حساب التكلفة
-def calculate_total_cost(colored_pages, bw_color_pages, bw_pages, last_page_empty, cover, carton, nylon):
-    total_cost = 0
-    total_cost += colored_pages * 50
-    total_cost += bw_color_pages * 40
-    total_cost += bw_pages * 35
-    if last_page_empty: total_cost += 25
-    if cover: total_cost += 250
-    if carton: total_cost += 250
-    if nylon: total_cost += 250
-    return total_cost
+# القسم الرئيسي للتطبيق
+def main():
+    # تفاصيل الطباعة
+    st.subheader("تفاصيل الطباعة")
+    
+    colored_pages = st.number_input("عدد الصفحات الملونة", min_value=0, value=0)
+    bw_color_pages = st.number_input("عدد الصفحات السوداء من ملف ملون", min_value=0, value=0)
+    bw_pages = st.number_input("عدد الصفحات السوداء", min_value=0, value=0)
+    
+    # الإضافات
+    st.subheader("الإضافات")
+    
+    last_page_empty = st.checkbox("الصفحة الأخيرة فارغة")
+    cover = st.checkbox("تصميم غلاف")
+    carton = st.checkbox("كرتون")
+    nylon = st.checkbox("نايلون")
+    ruler = st.checkbox("مسطرة")
+    
+    # دالة حساب التكلفة
+    def calculate_total_cost(colored_pages, bw_color_pages, bw_pages, last_page_empty, cover, carton, nylon, ruler):
+        total_cost = 0
+        total_cost += colored_pages * 50
+        total_cost += bw_color_pages * 40
+        total_cost += bw_pages * 35
+        if last_page_empty: total_cost += 25
+        if cover: total_cost += 250
+        if carton: total_cost += 250
+        if nylon: total_cost += 250
+        if ruler: total_cost += 100
+        return total_cost
 
-# عرض النتيجة
-if language == "العربية":
-    if st.button("💰 حساب التكلفة الإجمالية"):
-        total_cost = calculate_total_cost(colored_pages, bw_color_pages, bw_pages, last_page_empty, cover, carton, nylon)
-        total_pages = colored_pages + bw_color_pages + bw_pages
-        extras = sum([cover, carton, nylon])
-        
-        st.markdown(f"""
-            <div class='result-card'>
-                <h2 style='color: #3B82F6; text-align: center; margin-bottom: 1.5rem; font-size: 2rem;'>ملخص التكلفة</h2>
-                <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;'>
-                    <div class='stat-box' style='text-align: center;'>
-                        <h3 style='color: #60A5FA; margin-bottom: 0.5rem;'>التكلفة الإجمالية</h3>
-                        <p style='font-size: 2.5rem; font-weight: 800; margin: 0; background: linear-gradient(120deg, #60A5FA, #3B82F6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>{total_cost} دينار</p>
-                    </div>
-                    <div class='stat-box' style='text-align: center;'>
-                        <h3 style='color: #60A5FA; margin-bottom: 0.5rem;'>عدد الصفحات</h3>
-                        <p style='font-size: 2rem; margin: 0;'>{total_pages} صفحة</p>
-                    </div>
-                    <div class='stat-box' style='text-align: center;'>
-                        <h3 style='color: #60A5FA; margin-bottom: 0.5rem;'>الإضافات</h3>
-                        <p style='font-size: 2rem; margin: 0;'>{extras} عناصر</p>
-                    </div>
-                </div>
+    # حساب التكلفة
+    total_cost = calculate_total_cost(colored_pages, bw_color_pages, bw_pages, 
+                                    last_page_empty, cover, carton, nylon, ruler)
+    
+    # عرض النتائج
+    st.markdown("""
+        <div class='cost-summary'>
+            <h3>ملخص التكلفة</h3>
+            <div class='cost-item'>
+                <span>الصفحات الملونة ({} صفحة)</span>
+                <span>{} ريال</span>
             </div>
-        """, unsafe_allow_html=True)
-else:
-    if st.button("💰 Calculate Total Cost"):
-        total_cost = calculate_total_cost(colored_pages, bw_color_pages, bw_pages, last_page_empty, cover, carton, nylon)
-        total_pages = colored_pages + bw_color_pages + bw_pages
-        extras = sum([cover, carton, nylon])
-        
-        st.markdown(f"""
-            <div class='result-card'>
-                <h2 style='color: #3B82F6; text-align: center; margin-bottom: 1.5rem; font-size: 2rem;'>Cost Summary</h2>
-                <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;'>
-                    <div class='stat-box' style='text-align: center;'>
-                        <h3 style='color: #60A5FA; margin-bottom: 0.5rem;'>Total Cost</h3>
-                        <p style='font-size: 2.5rem; font-weight: 800; margin: 0; background: linear-gradient(120deg, #60A5FA, #3B82F6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>{total_cost} Dinar</p>
-                    </div>
-                    <div class='stat-box' style='text-align: center;'>
-                        <h3 style='color: #60A5FA; margin-bottom: 0.5rem;'>Total Pages</h3>
-                        <p style='font-size: 2rem; margin: 0;'>{total_pages} pages</p>
-                    </div>
-                    <div class='stat-box' style='text-align: center;'>
-                        <h3 style='color: #60A5FA; margin-bottom: 0.5rem;'>Add-ons</h3>
-                        <p style='font-size: 2rem; margin: 0;'>{extras} items</p>
-                    </div>
-                </div>
+            <div class='cost-item'>
+                <span>الصفحات السوداء من ملف ملون ({} صفحة)</span>
+                <span>{} ريال</span>
             </div>
-        """, unsafe_allow_html=True)
+            <div class='cost-item'>
+                <span>الصفحات السوداء ({} صفحة)</span>
+                <span>{} ريال</span>
+            </div>
+    """.format(
+        colored_pages, colored_pages * 50,
+        bw_color_pages, bw_color_pages * 40,
+        bw_pages, bw_pages * 35
+    ), unsafe_allow_html=True)
+
+    # عرض الإضافات المحددة
+    if last_page_empty or cover or carton or nylon or ruler:
+        st.markdown("<div class='cost-item'><h4>الإضافات المحددة:</h4></div>", unsafe_allow_html=True)
+        if last_page_empty:
+            st.markdown("<div class='cost-item'><span>الصفحة الأخيرة فارغة</span><span>25 ريال</span></div>", unsafe_allow_html=True)
+        if cover:
+            st.markdown("<div class='cost-item'><span>تصميم غلاف</span><span>250 ريال</span></div>", unsafe_allow_html=True)
+        if carton:
+            st.markdown("<div class='cost-item'><span>كرتون</span><span>250 ريال</span></div>", unsafe_allow_html=True)
+        if nylon:
+            st.markdown("<div class='cost-item'><span>نايلون</span><span>250 ريال</span></div>", unsafe_allow_html=True)
+        if ruler:
+            st.markdown("<div class='cost-item'><span>مسطرة</span><span>100 ريال</span></div>", unsafe_allow_html=True)
+
+    st.markdown(f"""
+        <div class='total-cost'>
+            <span>التكلفة الإجمالية:</span>
+            <span>{total_cost} ريال</span>
+        </div>
+        
+        <div class='cost-details'>
+            <h4>تفاصيل الطلب:</h4>
+            <p>
+            - عدد الصفحات الملونة: {colored_pages} صفحة<br>
+            - عدد الصفحات السوداء من ملف ملون: {bw_color_pages} صفحة<br>
+            - عدد الصفحات السوداء: {bw_pages} صفحة<br>
+            {"- الصفحة الأخيرة فارغة<br>" if last_page_empty else ""}
+            {"- تصميم غلاف<br>" if cover else ""}
+            {"- كرتون<br>" if carton else ""}
+            {"- نايلون<br>" if nylon else ""}
+            {"- مسطرة<br>" if ruler else ""}
+            <br>
+            <strong>المجموع الكلي: {total_cost} ريال</strong>
+            </p>
+        </div>
+        
+        <button class='copy-button' onclick="navigator.clipboard.writeText(`تفاصيل الطلب:
+- عدد الصفحات الملونة: {colored_pages} صفحة
+- عدد الصفحات السوداء من ملف ملون: {bw_color_pages} صفحة
+- عدد الصفحات السوداء: {bw_pages} صفحة
+{"- الصفحة الأخيرة فارغة" if last_page_empty else ""}
+{"- تصميم غلاف" if cover else ""}
+{"- كرتون" if carton else ""}
+{"- نايلون" if nylon else ""}
+{"- مسطرة" if ruler else ""}
+
+المجموع الكلي: {total_cost} ريال`)">
+            نسخ التفاصيل
+        </button>
+        </div>
+    """, unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    main()
