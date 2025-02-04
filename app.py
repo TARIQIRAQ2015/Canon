@@ -30,9 +30,21 @@ st.markdown("""
         padding: 1rem;
     }
 
-    /* إخفاء أزرار تغيير الوضع */
+    /* إخفاء أزرار تغيير الوضع والمشاركة */
     [data-testid="StyledFullScreenButton"], 
-    .css-ch5dnh {
+    .css-ch5dnh,
+    .viewerBadge_container__1QSob,
+    .styles_terminalButton__JBj5T,
+    .styles_viewerBadge__1yB5,
+    .viewerBadge_link__1S137,
+    .viewerBadge_text__1JaDK,
+    header button,
+    .stDeployButton {
+        display: none !important;
+    }
+
+    /* إخفاء الهيدر بالكامل */
+    header[data-testid="stHeader"] {
         display: none !important;
     }
     
