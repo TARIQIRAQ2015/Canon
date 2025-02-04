@@ -26,11 +26,93 @@ st.markdown("""
     
     /* تنسيق الهيدر */
     .header {
-        background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.9));
-        padding: 2rem;
+        background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+        padding: 3rem 2rem;
         margin: -6rem -4rem 2rem -4rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 2px solid rgba(96, 165, 250, 0.2);
         text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* تأثيرات الخلفية المتحركة */
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+        animation: pulse 8s ease-in-out infinite alternate;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 0.5; }
+        100% { transform: scale(1.2); opacity: 0.8; }
+    }
+    
+    /* تنسيق العنوان الرئيسي */
+    .title-container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .title-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+    
+    .title {
+        font-size: 4rem;
+        font-weight: 900;
+        background: linear-gradient(120deg, 
+            #60A5FA 0%, 
+            #3B82F6 25%, 
+            #2563EB 50%, 
+            #60A5FA 75%, 
+            #3B82F6 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 8s linear infinite;
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
+        text-shadow: 
+            0 0 10px rgba(96, 165, 250, 0.3),
+            0 0 20px rgba(59, 130, 246, 0.2),
+            0 0 30px rgba(37, 99, 235, 0.1);
+    }
+    
+    @keyframes shine {
+        0% { background-position: 0% center; }
+        100% { background-position: 200% center; }
+    }
+    
+    .title-separator {
+        width: 150px;
+        height: 4px;
+        background: linear-gradient(to right, 
+            transparent 0%,
+            #60A5FA 20%,
+            #3B82F6 50%,
+            #60A5FA 80%,
+            transparent 100%);
+        margin: 1rem auto;
+        border-radius: 2px;
     }
     
     /* تنسيق العنوان */
@@ -137,7 +219,11 @@ st.markdown("""
 # عرض العنوان في الهيدر
 st.markdown("""
     <div class='header'>
-        <div class='title'>حاسبة تكلفة الطباعة</div>
+        <div class='title-container'>
+            <div class='title-icon'>🖨️</div>
+            <div class='title'>حاسبة تكلفة الطباعة</div>
+            <div class='title-separator'></div>
+        </div>
     </div>
 """, unsafe_allow_html=True)
 
