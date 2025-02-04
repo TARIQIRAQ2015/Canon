@@ -87,13 +87,14 @@ st.markdown("""
     
     /* تنسيق الهيدر */
     .header {
-        background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
-        padding: 3rem 2rem;
-        margin: -6rem -4rem 2rem -4rem;
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+        padding: 4rem 2rem;
+        margin: -6rem -4rem 3rem -4rem;
         border-bottom: 2px solid rgba(96, 165, 250, 0.2);
         text-align: center;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
     
     /* تأثيرات الخلفية المتحركة */
@@ -105,11 +106,71 @@ st.markdown("""
         right: 0;
         bottom: 0;
         background: 
-            radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
         animation: pulse 8s ease-in-out infinite alternate;
     }
-    
+
+    .title-container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .title-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 0 15px rgba(96, 165, 250, 0.5));
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .title {
+        font-size: 3.5rem;
+        font-weight: 900;
+        background: linear-gradient(120deg, 
+            #60A5FA 0%, 
+            #3B82F6 25%, 
+            #2563EB 50%, 
+            #60A5FA 75%, 
+            #3B82F6 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 8s linear infinite;
+        margin: 0.5rem 0;
+        letter-spacing: -1px;
+        text-shadow: 
+            0 0 10px rgba(96, 165, 250, 0.3),
+            0 0 20px rgba(59, 130, 246, 0.2),
+            0 0 30px rgba(37, 99, 235, 0.1);
+    }
+
+    .title-separator {
+        width: 200px;
+        height: 4px;
+        background: linear-gradient(to right, 
+            transparent 0%,
+            #60A5FA 20%,
+            #3B82F6 50%,
+            #60A5FA 80%,
+            transparent 100%);
+        margin: 0.5rem auto;
+        border-radius: 2px;
+        box-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
+    }
+
+    .subtitle {
+        color: #94A3B8;
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-top: 0.5rem;
+        opacity: 0.9;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
     .cost-summary {
         background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
         border-radius: 20px;
@@ -186,9 +247,20 @@ st.markdown("""
         text-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
     }
 
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+
     @keyframes shine {
-        0% { transform: translateX(-100%) rotate(45deg); }
-        100% { transform: translateX(100%) rotate(45deg); }
+        0% { background-position: 0% center; }
+        100% { background-position: 200% center; }
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 0.5; }
+        100% { transform: scale(1.2); opacity: 0.8; }
     }
     </style>
     """, unsafe_allow_html=True)
@@ -212,8 +284,10 @@ def main():
     st.markdown("""
         <div class='header'>
             <div class='title-container'>
+                <div class='title-icon'>🖨️</div>
                 <div class='title'>حاسبة تكلفة الطباعة</div>
                 <div class='title-separator'></div>
+                <div class='subtitle'>احسب تكلفة طباعتك بسهولة ودقة</div>
             </div>
         </div>
     """, unsafe_allow_html=True)
