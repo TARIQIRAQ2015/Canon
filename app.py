@@ -992,6 +992,72 @@ st.markdown("""
         font-size: 1.1rem;
         color: #fff;
     }
+
+    /* تعديل CSS للتنسيق الأفقي */
+    .horizontal-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem 0;
+    }
+
+    .section-container {
+        background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
+        border: 2px solid rgba(212,175,55,0.3);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .input-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .extras-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .services-section {
+        margin-top: 2rem;
+        text-align: center;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 1.5rem;
+    }
+
+    .service-card {
+        background: linear-gradient(145deg, rgba(25,25,25,0.95), rgba(35,35,35,0.95));
+        border: 1px solid rgba(212,175,55,0.3);
+        border-radius: 15px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(212,175,55,0.2);
+    }
+
+    .service-card h3 {
+        color: #D4AF37;
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .service-card p {
+        color: #fff;
+        opacity: 0.9;
+    }
     </style>
 
     <!-- زر العودة للأعلى -->
@@ -1208,63 +1274,147 @@ def main():
         </div>
     """, unsafe_allow_html=True)
     
-    # الأقسام الرئيسية - تبديل المواقع
-    col1, col2 = st.columns(2)
+    # تعديل CSS للتنسيق الأفقي
+    st.markdown("""
+        <style>
+        .horizontal-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .section-container {
+            background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
+            border: 2px solid rgba(212,175,55,0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .extras-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .services-section {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, rgba(25,25,25,0.95), rgba(35,35,35,0.95));
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(212,175,55,0.2);
+        }
+
+        .service-card h3 {
+            color: #D4AF37;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #fff;
+            opacity: 0.9;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # تنظيم المحتوى بشكل أفقي
+    st.markdown('<div class="horizontal-layout">', unsafe_allow_html=True)
+
+    # 1. قسم تفاصيل الطباعة
+    st.markdown("""
+        <div class="section-container">
+            <h2>
+                <span class="emoji-icon">📋</span>
+                <span class="section-title">تفاصيل الطباعة</span>
+            </h2>
+            <div class="input-grid">
+    """, unsafe_allow_html=True)
     
-    with col2:
-        st.markdown("""
-            <div class="premium-section">
-                <h2>
-                    <span class="emoji-icon">📋</span>
-                    <span class="section-title">تفاصيل الطباعة</span>
-                </h2>
-            </div>
-        """, unsafe_allow_html=True)
-        
+    col1, col2, col3 = st.columns(3)
+    with col1:
         st.markdown('<div class="input-container premium-input">', unsafe_allow_html=True)
         st.markdown('<div class="input-label"><span class="input-icon">🎨</span>طباعة ملونة عالية الجودة</div>', unsafe_allow_html=True)
         color_pages = st.number_input("", min_value=0, value=0, key="color_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
-        
+    
+    with col2:
         st.markdown('<div class="input-container premium-input">', unsafe_allow_html=True)
         st.markdown('<div class="input-label"><span class="input-icon">🖌️</span>طباعة مع تأثيرات لونية</div>', unsafe_allow_html=True)
         bw_color_pages = st.number_input("", min_value=0, value=0, key="bw_color_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
-        
+    
+    with col3:
         st.markdown('<div class="input-container premium-input">', unsafe_allow_html=True)
         st.markdown('<div class="input-label"><span class="input-icon">📄</span>طباعة أبيض وأسود</div>', unsafe_allow_html=True)
         bw_pages = st.number_input("", min_value=0, value=0, key="bw_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
     
+    st.markdown('</div></div>', unsafe_allow_html=True)
+
+    # 2. قسم الإضافات
+    st.markdown("""
+        <div class="section-container">
+            <h2>
+                <span class="emoji-icon">⭐</span>
+                <span class="section-title">الإضافات الاختيارية</span>
+            </h2>
+            <div class="extras-grid">
+    """, unsafe_allow_html=True)
+    
+    col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
-        st.markdown("""
-            <div class="premium-section">
-                <h2>
-                    <span class="emoji-icon">⭐</span>
-                    <span class="section-title">الإضافات الاختيارية</span>
-                </h2>
-            </div>
-        """, unsafe_allow_html=True)
-        
         st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
         has_cover = st.checkbox("⭐ تصميم غلاف ملون فاخر")
         st.markdown('</div>', unsafe_allow_html=True)
-        
+    
+    with col2:
         st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
         has_empty_last = st.checkbox("📄 صفحة ختامية مميزة")
         st.markdown('</div>', unsafe_allow_html=True)
-        
+    
+    with col3:
         st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
         has_carton = st.checkbox("📦 كرتون فاخر")
         st.markdown('</div>', unsafe_allow_html=True)
-        
+    
+    with col4:
         st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_nylon = st.checkbox("✨ نايلون شفاف عالي الجودة")
+        has_nylon = st.checkbox("✨ نايلون شفاف")
         st.markdown('</div>', unsafe_allow_html=True)
-        
+    
+    with col5:
         st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_paper_holder = st.checkbox("📁 حاملة أوراق مميزة")
+        has_paper_holder = st.checkbox("📁 حاملة أوراق")
         st.markdown('</div>', unsafe_allow_html=True)
+    
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
     # حساب التكلفة
     exact_total, rounded_total = calculate_total_cost(
@@ -1299,37 +1449,21 @@ def main():
         """, unsafe_allow_html=True)
 
     st.markdown("""
-        <div class="info-cards">
-            <div class="info-card">
-                <h3>خدمة سريعة</h3>
-                <p>إنجاز في وقت قياسي</p>
-            </div>
-            <div class="info-card">
-                <h3>أسعار تنافسية</h3>
-                <p>قيمة مقابل الجودة</p>
+        <div class="services-section">
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>⚡ خدمة سريعة</h3>
+                    <p>إنجاز في وقت قياسي</p>
+                </div>
+                <div class="service-card">
+                    <h3>💰 أسعار تنافسية</h3>
+                    <p>قيمة مقابل الجودة</p>
+                </div>
             </div>
         </div>
-
-        <div class="particles">
-            <!-- سيتم إضافة الجسيمات ديناميكياً عبر JavaScript -->
-        </div>
-        
-        <script>
-        function createParticles() {
-            const container = document.querySelector('.particles');
-            for(let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.width = Math.random() * 3 + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                container.appendChild(particle);
-            }
-        }
-        createParticles();
-        </script>
     """, unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
     # استدعاء دالة الخلاصة في نهاية main()
     show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total)
