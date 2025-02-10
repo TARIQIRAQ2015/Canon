@@ -1554,7 +1554,8 @@ def main():
             display: flex;
             flex-direction: column;
             gap: 2rem;
-            padding: 2rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .section-container {
@@ -1562,7 +1563,6 @@ def main():
             border: 2px solid rgba(212,175,55,0.3);
             border-radius: 20px;
             padding: 2.5rem;
-            margin-bottom: 2rem;
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
