@@ -374,10 +374,10 @@ def main():
         </div>
     """, unsafe_allow_html=True)
     
-    # الأقسام الرئيسية
+    # الأقسام الرئيسية - تبديل المواقع
     col1, col2 = st.columns(2)
     
-    with col1:
+    with col2:  # تغيير من col1 إلى col2
         st.markdown("""
             <div class="premium-section">
                 <h2><span class="section-icon">📋</span> المعلومات الرئيسية</h2>
@@ -388,7 +388,7 @@ def main():
         bw_color_pages = st.number_input("عدد الصفحات المميزة مع لمسات لونية", min_value=0, value=0)
         bw_pages = st.number_input("عدد الصفحات الكلاسيكية", min_value=0, value=0)
     
-    with col2:
+    with col1:  # تغيير من col2 إلى col1
         st.markdown("""
             <div class="premium-section">
                 <h2><span class="section-icon">✨</span> الإضافات الاختيارية</h2>
