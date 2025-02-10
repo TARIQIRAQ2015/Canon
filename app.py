@@ -278,7 +278,7 @@ def main():
     # العنوان الرئيسي
     st.markdown("""
         <div class="premium-header">
-            <h1>👑 الطباعة الذهبية الفاخرة</h1>
+            <h1>🖨️ الطباعة الفاخرة</h1>
             <div class="subtitle">
                 نرتقي بمشاريعكم إلى آفاق جديدة من التميز والإبداع
             </div>
@@ -291,7 +291,7 @@ def main():
     with col1:
         st.markdown("""
             <div class="premium-section">
-                <h2>📚 خدمات الطباعة الفاخرة</h2>
+                <h2>🖨️ خدمات الطباعة الفاخرة</h2>
             </div>
         """, unsafe_allow_html=True)
         
@@ -302,12 +302,12 @@ def main():
     with col2:
         st.markdown("""
             <div class="premium-section">
-                <h2>✨ الإضافات الحصرية</h2>
+                <h2>📋 الإضافات الحصرية</h2>
             </div>
         """, unsafe_allow_html=True)
         
         st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_cover = st.checkbox("⭐ تصميم غلاف ملون فاخر")
+        has_cover = st.checkbox("🎨 تصميم غلاف ملون فاخر")
         st.markdown('</div>', unsafe_allow_html=True)
         
         st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
@@ -348,9 +348,11 @@ def main():
         </div>
     """.format(exact_total, rounded_total), unsafe_allow_html=True)
     
-    # إضافة زر إعادة التعيين
-    if st.button("�� إعادة تعيين الحساب", type="primary"):
-        st.rerun()
+    # زر إعادة التعيين
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        if st.button("🔄 إعادة تعيين", key="reset"):
+            st.rerun()
 
 if __name__ == "__main__":
     main() 
