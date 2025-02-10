@@ -5,7 +5,7 @@ import json
 import math
 from datetime import datetime, timedelta
 
-# تعيين إعدادات الصفحة في البداية
+# تعيين إعدادات الصفحة مع إخفاء كامل للقائمة الجانبية
 st.set_page_config(
     page_title="حاسبة تكلفة الطباعة",
     page_icon="🖨️",
@@ -13,46 +13,39 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# إضافة الأنماط لإخفاء القائمة الجانبية وتحسين التنسيق
+# إضافة الأنماط المحسنة
 st.markdown("""
     <style>
-    /* إخفاء القائمة الجانبية والعناصر المرتبطة بها */
-    .css-1544g2n.e1fqkh3o4 {
+    /* إعادة تعيين كامل للصفحة */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    /* إخفاء جميع العناصر غير المرغوبة */
+    #MainMenu, header, footer, [data-testid="stToolbar"],
+    .css-1544g2n.e1fqkh3o4, [data-testid="stSidebar"],
+    .css-r698ls.e8zbici2, .css-18e3th9.egzxvld2,
+    .css-1dp5vir.e8zbici1, .css-14xtw13.e8zbici0 {
         display: none !important;
-    }
-    
-    [data-testid="stSidebar"] {
-        display: none !important;
-    }
-    
-    .css-18e3th9.egzxvld2 {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-    
-    .css-1d391kg.e1fqkh3o3 {
-        width: 100% !important;
-        padding: 0 1rem !important;
-    }
-    
-    /* تحسين عرض المحتوى */
-    .stApp {
+        width: 0 !important;
+        height: 0 !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
         margin: 0 !important;
         padding: 0 !important;
-        max-width: 100vw !important;
+        visibility: hidden !important;
+        z-index: -1 !important;
     }
     
+    /* تحسين المحتوى الرئيسي */
     .main .block-container {
         max-width: 100% !important;
-        padding-top: 1rem !important;
-        padding-right: 1rem !important;
-        padding-left: 1rem !important;
-        padding-bottom: 1rem !important;
-    }
-    
-    /* إخفاء عناصر إضافية */
-    #MainMenu, header, footer {
-        display: none !important;
+        width: 100% !important;
+        padding: 2rem !important;
+        margin: 0 !important;
     }
     
     /* تحسين الخلفية */
@@ -65,47 +58,42 @@ st.markdown("""
         ) !important;
         background-size: 400% 400% !important;
         animation: gradient 15s ease infinite !important;
+        min-height: 100vh !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow-x: hidden !important;
     }
     
-    @keyframes gradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+    /* تحسين العناصر التفاعلية */
+    .stButton > button {
+        width: 100% !important;
+        padding: 0.75rem !important;
+        border-radius: 10px !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
+        font-weight: bold !important;
+        transition: all 0.3s ease !important;
     }
     
-    /* إخفاء الشريط الجانبي والعناصر غير المرغوب فيها */
-    .css-1d391kg, .css-1p05t8e, .css-r698ls, .css-18e3th9 {
-        padding: 0 1rem !important;
+    .stButton > button:hover {
+        background: rgba(255, 255, 255, 0.2) !important;
+        transform: translateY(-2px) !important;
     }
     
-    /* إخفاء زر فتح الشريط الجانبي */
-    .css-14xtw13 {
-        display: none !important;
+    /* تحسين حقول الإدخال */
+    .stTextInput > div > div {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-radius: 10px !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        padding: 0.5rem !important;
+        color: white !important;
     }
     
-    /* إخفاء الشريط الجانبي نفسه */
-    section[data-testid="stSidebar"] {
-        display: none !important;
-    }
-    
-    /* إخفاء جميع العناصر غير المرغوب فيها */
-    #MainMenu, header, footer, [data-testid="stToolbar"] {
-        display: none !important;
-    }
-    
-    /* الأنماط الأساسية مع الخلفية المتحركة */
-    .stApp {
-        background: linear-gradient(135deg, 
-            #1a1a2e,
-            #16213e,
-            #0f3460,
-            #162447
-        );
-        background-size: 400% 400%;
-        animation: gradient 15s ease infinite;
-        font-family: 'Tajawal', sans-serif !important;
-        direction: rtl !important;
-        color: #e2e2e2;
+    /* تحسين النصوص */
+    .stMarkdown {
+        color: white !important;
     }
     
     /* تأثير الخلفية المتحركة */
@@ -115,223 +103,37 @@ st.markdown("""
         100% { background-position: 0% 50%; }
     }
     
-    /* العنوان الرئيسي */
-    .main-title {
-        font-size: clamp(1.8rem, 4vw, 2.5rem) !important;
-        font-weight: bold !important;
-        text-align: center !important;
-        margin: 1rem 0 !important;
-        color: #ffffff !important;
-        text-shadow: 0 0 10px rgba(255,255,255,0.3);
-    }
-    
-    .subtitle {
-        font-size: 0.7em;
-        text-align: center;
-        margin-top: 0.5em;
-        color: #e2e2e2;
-        opacity: 0.9;
-    }
-    
-    /* تحسين عناصر الإدخال مع تأثيرات الشفافية */
-    .stSelectbox > div > div,
-    .stNumberInput > div > div {
-        background: rgba(30, 37, 48, 0.7) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease;
-    }
-    
-    /* تأثيرات التحويم */
-    .stSelectbox > div > div:hover,
-    .stNumberInput > div > div:hover {
-        background: rgba(22, 27, 37, 0.8) !important;
-        border-color: rgba(255, 255, 255, 0.3) !important;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    /* تحسينات للأجهزة المحمولة */
+    @media (max-width: 768px) {
+        .main .block-container {
+            padding: 1rem !important;
+        }
+        
+        .stButton > button {
+            padding: 0.5rem !important;
+        }
     }
     
     /* تحسين الجداول */
-    .stTable th, .stTable td {
-        text-align: right !important;
-        direction: rtl !important;
-        padding: 0.5rem !important;
+    .stTable {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-radius: 10px !important;
+        overflow: hidden !important;
     }
     
-    /* تحسين ملخص النتائج مع تأثير الشفافية */
-    pre {
-        background: rgba(20, 30, 60, 0.8) !important;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        transition: all 0.3s ease;
+    .stTable td {
+        background: transparent !important;
+        border: none !important;
+        color: white !important;
     }
     
-    pre:hover {
-        border-color: rgba(255, 255, 255, 0.2) !important;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-    
-    /* تحسين الأزرار مع تأثيرات الشفافية */
-    .stButton > button {
-        background: linear-gradient(135deg, 
-            rgba(255,255,255,0.1),
-            rgba(255,255,255,0.05)
-        ) !important;
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease !important;
-    }
-    
-    .stButton > button:hover {
-        background: linear-gradient(135deg, 
-            rgba(255,255,255,0.15),
-            rgba(255,255,255,0.1)
-        ) !important;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    
-    /* تحسين الروابط الاجتماعية */
-    .social-links {
-        display: flex;
-        justify-content: center;
-        gap: 25px;
-        margin: 30px 0;
-    }
-    
-    .social-links img {
-        width: 36px;
-        height: 36px;
-        transition: all 0.3s ease;
-    }
-    
-    .social-links img:hover {
-        transform: translateY(-3px);
-        filter: brightness(1.2);
-    }
-    
-    /* تحسينات للأجهزة المحمولة */
-    @media (max-width: 768px) {
-        .main-title {
-            font-size: 1.5rem !important;
-        }
-        
-        .stSelectbox > div > div,
-        .stNumberInput > div > div {
-            padding: 0.6rem !important;
-        }
-        
-        .social-links img {
-            width: 28px;
-            height: 28px;
-        }
-    }
-    
-    /* تصميم بطاقة النتائج */
-    .result-card {
-        background: rgba(20, 30, 60, 0.8);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-    }
-    
-    .result-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-        border-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    /* رأس البطاقة */
-    .result-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.5rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .result-title {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #fff;
-        text-shadow: 0 0 10px rgba(255,255,255,0.3);
-    }
-    
-    .result-datetime {
-        display: flex;
-        gap: 1rem;
-        color: rgba(255, 255, 255, 0.8);
-    }
-    
-    /* أقسام النتائج */
-    .result-section {
-        margin: 1rem 0;
-        padding: 1rem;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 10px;
-        transition: all 0.3s ease;
-    }
-    
-    .result-section:hover {
-        background: rgba(255, 255, 255, 0.08);
-    }
-    
-    .section-title {
-        font-size: 1.1rem;
-        font-weight: bold;
-        color: #fff;
-        margin-bottom: 0.5rem;
-    }
-    
-    .section-content {
-        color: rgba(255, 255, 255, 0.9);
-        line-height: 1.6;
-    }
-    
-    /* تنسيق الأسعار */
-    .price-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0.5rem 0;
-    }
-    
-    .price {
-        font-weight: bold;
-        color: #4CAF50;
-    }
-    
-    .final-price .price {
-        font-size: 1.2rem;
-        color: #64ffda;
-    }
-    
-    /* تحسينات للأجهزة المحمولة */
-    @media (max-width: 768px) {
-        .result-header {
-            flex-direction: column;
-            text-align: center;
-            gap: 1rem;
-        }
-        
-        .result-datetime {
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .price-row {
-            flex-direction: column;
-            text-align: center;
-            gap: 0.5rem;
-        }
+    /* تحسين التحديد */
+    ::selection {
+        background: rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
     }
     </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 def calculate_total_cost(colored_pages, bw_pages, cover, carton, nylon, ruler):
     total_cost = 0
