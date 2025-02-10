@@ -789,40 +789,12 @@ def main():
     # إضافة الشريط في الواجهة
     total_pages = color_pages + bw_color_pages + bw_pages
     if total_pages > 0:
-        progress = min(total_pages / 100, 1)  # مثال: 100 صفحة كحد أقصى
+        progress = min(total_pages / 100, 1)
         st.markdown(f"""
             <div class="progress-container">
                 <div class="progress-bar" style="width: {progress * 100}%"></div>
             </div>
         """, unsafe_allow_html=True)
-    
-    # في نهاية الصفحة
-    st.markdown("""
-        <div style="text-align: center; margin-top: 2rem;">
-            <a href="#top" 
-               class="premium-button" 
-               style="text-decoration: none; display: inline-block;">
-                ⬆️ العودة للأعلى
-            </a>
-        </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-        <div class="info-cards">
-            <div class="info-card">
-                <h3>طباعة فاخرة</h3>
-                <p>جودة عالية تليق بمشروعك</p>
-            </div>
-            <div class="info-card">
-                <h3>خدمة سريعة</h3>
-                <p>إنجاز في وقت قياسي</p>
-            </div>
-            <div class="info-card">
-                <h3>أسعار تنافسية</h3>
-                <p>قيمة مقابل الجودة</p>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
 
     st.markdown("""
         <div class="particles">
@@ -844,6 +816,15 @@ def main():
         }
         createParticles();
         </script>
+
+        <!-- زر العودة للأعلى في نهاية الصفحة -->
+        <div style="text-align: center; margin-top: 3rem; margin-bottom: 2rem;">
+            <a href="#top" 
+               class="premium-button" 
+               style="text-decoration: none; display: inline-block;">
+                ⬆️ العودة للأعلى
+            </a>
+        </div>
     """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
