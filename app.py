@@ -1005,8 +1005,10 @@ st.markdown("""
         background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
         border: 2px solid rgba(212,175,55,0.3);
         border-radius: 20px;
-        padding: 2rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
     .input-grid {
@@ -1113,155 +1115,84 @@ st.markdown("""
         top: -15px;
         right: 30px;
         background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
-        padding: 5px 20px;
-        border-radius: 10px;
+        padding: 8px 25px;
+        border-radius: 12px;
         color: #D4AF37;
         font-size: 1.2rem;
+        font-weight: 600;
         border: 1px solid rgba(212,175,55,0.3);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
 
     /* تنسيق حقول الإدخال */
-    .input-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-        margin-top: 2rem;
-    }
-
     .input-container {
         background: rgba(25,25,25,0.95);
         border: 1px solid rgba(212,175,55,0.3);
         border-radius: 15px;
-        padding: 1.5rem;
+        padding: 2rem;
         text-align: center;
         transition: all 0.3s ease;
+        margin-top: 1.5rem;
     }
 
-    .input-container:hover {
-        transform: translateY(-3px);
-        border-color: #D4AF37;
-    }
-
-    /* تنسيق الإضافات */
-    .extras-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-
-    .premium-checkbox {
-        background: rgba(25,25,25,0.95);
-        border: 1px solid rgba(212,175,55,0.3);
-        border-radius: 12px;
-        padding: 1rem;
-        text-align: center;
-        transition: all 0.3s ease;
-    }
-
-    .premium-checkbox:hover {
-        transform: translateY(-2px);
-        border-color: #D4AF37;
-    }
-
-    /* تنسيق النتائج */
-    .results-section {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-        margin: 2rem 0;
-    }
-
-    .result-card {
-        background: rgba(20,20,20,0.95);
-        border-radius: 15px;
-        padding: 1.5rem;
-        text-align: center;
-    }
-
-    /* تنسيق الخدمات */
-    .services-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-    }
-
-    .service-card {
-        background: rgba(25,25,25,0.95);
-        border: 1px solid rgba(212,175,55,0.3);
-        border-radius: 15px;
-        padding: 1.5rem;
-        text-align: center;
-    }
-
-    /* تنسيق الخلاصة */
-    .summary-section {
-        text-align: right;
-        direction: rtl;
-    }
-
-    .summary-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.8rem 0;
-        border-bottom: 1px solid rgba(212,175,55,0.2);
-    }
-
-    .summary-title {
-        font-size: 1.4rem;
-        color: #D4AF37;
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .summary-label {
+    .input-label {
         color: #FFD700;
         font-size: 1.1rem;
-    }
-
-    .summary-value {
-        color: #fff;
-        font-size: 1.1rem;
-    }
-
-    /* تحسينات عامة */
-    .emoji-icon {
-        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        font-weight: 500;
     }
 
     /* تنسيق حقول الأرقام */
     .stNumberInput > div > div > input {
         background: rgba(30,30,30,0.95) !important;
         border: 1px solid rgba(212,175,55,0.3) !important;
-        color: #fff !important;
+        color: #FFD700 !important;
         text-align: center !important;
-        font-size: 1.1rem !important;
+        font-size: 1.2rem !important;
+        font-weight: 500 !important;
+        padding: 0.5rem !important;
+        width: 150px !important;
+        margin: 0 auto !important;
     }
 
-    /* تنسيق مربعات الاختيار */
-    .stCheckbox {
-        background: transparent !important;
+    /* تنسيق الخيارات الإضافية */
+    .options-container {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: rgba(25,25,25,0.95);
+        border-radius: 15px;
+        border: 1px solid rgba(212,175,55,0.3);
     }
 
-    .stCheckbox > label {
-        color: #fff !important;
-        font-size: 1rem !important;
+    .option-item {
+        text-align: center;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        background: rgba(30,30,30,0.95);
+        border: 1px solid rgba(212,175,55,0.2);
     }
 
-    /* تأثيرات التحويم */
-    .section-container:hover {
-        box-shadow: 0 8px 25px rgba(212,175,55,0.1);
-    }
-
-    .service-card:hover {
+    .option-item:hover {
         transform: translateY(-3px);
         border-color: #D4AF37;
+        box-shadow: 0 5px 15px rgba(212,175,55,0.1);
+    }
+
+    .option-title {
+        color: #D4AF37;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .option-description {
+        color: #fff;
+        font-size: 0.9rem;
+        opacity: 0.9;
     }
     </style>
 
