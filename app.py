@@ -2,7 +2,7 @@ import streamlit as st
 
 # تعيين تكوين الصفحة
 st.set_page_config(
-    page_title="Premium Printing | الطباعة الفاخرة",
+    page_title="مكتب طارق الياسين",
     page_icon="🖨️",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -868,7 +868,7 @@ st.markdown("""
     }
 
     /* تنسيق زر العودة للأعلى */
-    .scroll-to-top {
+    #myBtn {
         position: fixed;
         bottom: 30px;
         left: 30px;
@@ -881,37 +881,31 @@ st.markdown("""
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        opacity: 0;
-        visibility: hidden;
         transition: all 0.3s ease;
-        z-index: 1000;
+        z-index: 9999;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        text-decoration: none;
     }
 
-    .scroll-to-top:hover {
+    #myBtn:hover {
         transform: translateY(-5px);
         background: linear-gradient(145deg, #D4AF37, #B8860B);
         border-color: #FFD700;
         box-shadow: 0 6px 20px rgba(212,175,55,0.3);
     }
 
-    .scroll-to-top.visible {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .scroll-to-top span {
+    #myBtn span {
         font-size: 1.5rem;
         color: #D4AF37;
         transition: color 0.3s ease;
     }
 
-    .scroll-to-top:hover span {
+    #myBtn:hover span {
         color: #000;
     }
 
     @media (max-width: 768px) {
-        .scroll-to-top {
+        #myBtn {
             bottom: 20px;
             left: 20px;
             width: 45px;
@@ -921,29 +915,28 @@ st.markdown("""
     </style>
 
     <!-- زر العودة للأعلى -->
-    <a href="#top" class="scroll-to-top" id="scrollBtn">
+    <a href="#top" id="myBtn" onclick="topFunction()" title="العودة للأعلى">
         <span>⬆️</span>
     </a>
 
     <script>
-    // التحكم في ظهور الزر عند النزول
-    window.onscroll = function() {
-        var btn = document.getElementById('scrollBtn');
-        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            btn.classList.add('visible');
-        } else {
-            btn.classList.remove('visible');
-        }
-    };
+        // عندما يتم التمرير لأسفل 20 بكسل من أعلى الصفحة، أظهر الزر
+        window.onscroll = function() {scrollFunction()};
 
-    // التمرير السلس عند النقر
-    document.getElementById('scrollBtn').addEventListener('click', function(e) {
-        e.preventDefault();
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
+        function scrollFunction() {
+            var mybutton = document.getElementById("myBtn");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "flex";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // عند النقر على الزر، انتقل إلى أعلى المستند
+        function topFunction() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
     </script>
 """, unsafe_allow_html=True)
 
