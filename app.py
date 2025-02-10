@@ -249,6 +249,155 @@ st.markdown("""
             padding: 0.8rem 1.2rem;
         }
     }
+
+    /* تنسيق قسم الإدخال */
+    .input-section {
+        background: rgba(255,255,255,0.03);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border: 1px solid rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+    }
+
+    /* تنسيق عناوين الأقسام */
+    .section-title {
+        font-family: 'Tajawal', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 1.5rem;
+        padding-right: 1rem;
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .section-title::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, #64ffda, #48bb8d);
+        border-radius: 2px;
+    }
+
+    /* تنسيق القوائم */
+    .options-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .option-item {
+        background: rgba(255,255,255,0.05);
+        border-radius: 10px;
+        padding: 1rem;
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .option-item:hover {
+        background: rgba(255,255,255,0.08);
+        transform: translateY(-2px);
+    }
+
+    /* تنسيق حقول الإدخال */
+    .stNumberInput > div > div {
+        background: rgba(255,255,255,0.05) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        border-radius: 8px !important;
+        padding: 0.5rem !important;
+    }
+
+    .stNumberInput > div > div:focus-within {
+        border-color: #64ffda !important;
+        box-shadow: 0 0 0 1px #64ffda !important;
+    }
+
+    /* تنسيق مربعات الاختيار */
+    .stCheckbox > label {
+        background: rgba(255,255,255,0.05);
+        padding: 1rem;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .stCheckbox > label:hover {
+        background: rgba(255,255,255,0.08);
+        transform: translateY(-2px);
+    }
+
+    /* تنسيق النتائج */
+    .result-section {
+        background: rgba(255,255,255,0.05);
+        border-radius: 15px;
+        padding: 2rem;
+        margin-top: 2rem;
+        border: 1px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    .result-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .result-item:last-child {
+        border-bottom: none;
+    }
+
+    .result-label {
+        font-size: 1.1rem;
+        color: rgba(255,255,255,0.9);
+    }
+
+    .result-value {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #64ffda;
+    }
+
+    /* تنسيق الأزرار */
+    .stButton > button {
+        background: linear-gradient(45deg, #64ffda, #48bb8d) !important;
+        color: #1a1a2e !important;
+        font-weight: 600 !important;
+        padding: 0.8rem 2rem !important;
+        border: none !important;
+        border-radius: 8px !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .stButton > button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 5px 15px rgba(100,255,218,0.2) !important;
+    }
+
+    /* تحسينات للأجهزة المحمولة */
+    @media (max-width: 768px) {
+        .options-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+        }
+
+        .result-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -337,12 +486,22 @@ def main():
     col1, col2 = st.columns(2)
 
     # قسم الصفحات
-    st.markdown('<div class="section-header">إعدادات الطباعة</div>', unsafe_allow_html=True)
-    st.markdown("<div class='section'>", unsafe_allow_html=True)
-    st.markdown("<h2 class='section-title'>تفاصيل الصفحات</h2>", unsafe_allow_html=True)
-    colored_pages = st.number_input("عدد الصفحات الملونة", min_value=0, value=0)
-    bw_pages = st.number_input("عدد الصفحات بالأبيض والأسود", min_value=0, value=0)
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown('<div class="section-title">🖨️ خيارات الطباعة</div>', unsafe_allow_html=True)
+    st.markdown("""
+        <div class="input-section">
+            <div class="section-title">📄 عدد الصفحات</div>
+            <div class="options-grid">
+                <div class="option-item">
+                    <label for="colored_pages">عدد الصفحات الملونة</label>
+                    <input type="number" id="colored_pages" name="colored_pages" min="0" value="0">
+                </div>
+                <div class="option-item">
+                    <label for="bw_pages">عدد الصفحات بالأبيض والأسود</label>
+                    <input type="number" id="bw_pages" name="bw_pages" min="0" value="0">
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
     
     # قسم الإضافات
     st.markdown("<div class='section'>", unsafe_allow_html=True)
