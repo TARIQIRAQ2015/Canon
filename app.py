@@ -10,14 +10,14 @@ st.set_page_config(
 
 # تعريف الأسعار الثابتة
 PRICES = {
-    'color': 500,
-    'bw_with_color': 300,
-    'bw': 150,
-    'cover': 2000,
-    'empty_last': 500,
-    'carton': 1000,
-    'nylon': 750,
-    'paper_holder': 1500
+    'color': 50,
+    'bw_with_color': 40,
+    'bw': 35,
+    'cover': 250,
+    'empty_last': 25,
+    'carton': 250,
+    'nylon': 250,
+    'paper_holder': 250,
 }
 
 # تصميم CSS جديد وفاخر
@@ -1005,7 +1005,9 @@ st.markdown("""
         background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
         border: 2px solid rgba(212,175,55,0.3);
         border-radius: 20px;
-        padding: 2rem;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        position: relative;
         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
@@ -1102,7 +1104,7 @@ st.markdown("""
         background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
         border: 2px solid rgba(212,175,55,0.3);
         border-radius: 20px;
-        padding: 2rem;
+        padding: 2.5rem;
         margin-bottom: 2rem;
         position: relative;
     }
@@ -1113,14 +1115,12 @@ st.markdown("""
         top: -15px;
         right: 30px;
         background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
-        padding: 5px 20px;
-        border-radius: 10px;
+        padding: 8px 25px;
+        border-radius: 12px;
         color: #D4AF37;
         font-size: 1.2rem;
+        font-weight: 600;
         border: 1px solid rgba(212,175,55,0.3);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
     }
 
     /* تنسيق حقول الإدخال */
@@ -1135,7 +1135,7 @@ st.markdown("""
         background: rgba(25,25,25,0.95);
         border: 1px solid rgba(212,175,55,0.3);
         border-radius: 15px;
-        padding: 1.5rem;
+        padding: 1.8rem;
         text-align: center;
         transition: all 0.3s ease;
     }
@@ -1239,9 +1239,11 @@ st.markdown("""
     .stNumberInput > div > div > input {
         background: rgba(30,30,30,0.95) !important;
         border: 1px solid rgba(212,175,55,0.3) !important;
-        color: #fff !important;
+        color: #FFD700 !important;
         text-align: center !important;
         font-size: 1.1rem !important;
+        font-weight: 500 !important;
+        padding: 0.5rem !important;
     }
 
     /* تنسيق مربعات الاختيار */
@@ -1264,89 +1266,70 @@ st.markdown("""
         border-color: #D4AF37;
     }
 
-    /* تنسيق القالب الرئيسي */
-    .print-option {
+    /* تحسين تنسيق القسم */
+    .section-container {
+        background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
+        border: 2px solid rgba(212,175,55,0.3);
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    /* تحسين حقول الإدخال */
+    .input-container {
         background: rgba(25,25,25,0.95);
         border: 1px solid rgba(212,175,55,0.3);
         border-radius: 15px;
         padding: 1.8rem;
         margin: 1rem 0;
         transition: all 0.3s ease;
-        position: relative;
     }
 
-    .print-option:hover {
-        border-color: #D4AF37;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(212,175,55,0.1);
-    }
-
-    /* تنسيق عنوان خيار الطباعة */
-    .print-option-title {
-        color: #D4AF37;
-        font-size: 1.2rem;
-        font-weight: 500;
+    .input-label {
+        color: #FFD700;
+        font-size: 1.1rem;
         margin-bottom: 1rem;
         text-align: center;
+        font-weight: 500;
     }
 
-    /* تنسيق حقل الإدخال */
-    .stNumberInput > div {
+    /* تحسين الخدمات */
+    .services-container {
         display: flex;
         justify-content: center;
-    }
-
-    .stNumberInput > div > div > input {
-        background: rgba(30,30,30,0.95) !important;
-        border: 1px solid rgba(212,175,55,0.3) !important;
-        border-radius: 10px !important;
-        color: #D4AF37 !important;
-        font-size: 1.2rem !important;
-        padding: 0.5rem !important;
-        text-align: center !important;
-        width: 150px !important;
-        transition: all 0.3s ease;
-    }
-
-    .stNumberInput > div > div > input:focus {
-        border-color: #D4AF37 !important;
-        box-shadow: 0 0 10px rgba(212,175,55,0.2) !important;
-    }
-
-    /* تنسيق أزرار الزيادة والنقصان */
-    .stNumberInput [data-testid="stDecrement"],
-    .stNumberInput [data-testid="stIncrement"] {
-        background: linear-gradient(145deg, #1a1a1a, #2d2d2d) !important;
-        border: 1px solid rgba(212,175,55,0.3) !important;
-        color: #D4AF37 !important;
-        border-radius: 8px !important;
-        width: 35px !important;
-        height: 35px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        transition: all 0.3s ease;
-    }
-
-    .stNumberInput [data-testid="stDecrement"]:hover,
-    .stNumberInput [data-testid="stIncrement"]:hover {
-        background: linear-gradient(145deg, #D4AF37, #B8860B) !important;
-        color: #000 !important;
-    }
-
-    /* تنسيق القسم بأكمله */
-    .print-options-container {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
-        margin-top: 2rem;
+        margin-top: 1rem;
     }
 
-    /* خط فاصل ذهبي عمودي */
-    .vertical-divider {
-        width: 2px;
-        background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.3), transparent);
-        margin: 0 1rem;
+    .service-item {
+        background: rgba(25,25,25,0.95);
+        border: 1px solid rgba(212,175,55,0.3);
+        border-radius: 12px;
+        padding: 1.5rem 2rem;
+        text-align: center;
+        flex: 1;
+        transition: all 0.3s ease;
+    }
+
+    .service-item:hover {
+        transform: translateY(-3px);
+        border-color: #D4AF37;
+        box-shadow: 0 8px 25px rgba(212,175,55,0.1);
+    }
+
+    .service-title {
+        color: #D4AF37;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .service-description {
+        color: #fff;
+        font-size: 0.9rem;
+        opacity: 0.9;
     }
     </style>
 
@@ -1364,6 +1347,10 @@ st.markdown("""
     }
     </script>
 """, unsafe_allow_html=True)
+
+def round_to_nearest_250(amount):
+    """تقريب المبلغ إلى أقرب 250 دينار"""
+    return round(amount / 250) * 250
 
 def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover, 
                         has_empty_last, has_carton, has_nylon, has_paper_holder):
@@ -1384,7 +1371,8 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     if has_paper_holder:
         total += PRICES['paper_holder']
     
-    rounded_total = round(total / 250) * 250
+    # تقريب المجموع النهائي إلى أقرب 250 دينار
+    rounded_total = round_to_nearest_250(total)
     return total, rounded_total
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
@@ -1573,7 +1561,9 @@ def main():
             background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
             border: 2px solid rgba(212,175,55,0.3);
             border-radius: 20px;
-            padding: 2rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
@@ -1644,20 +1634,20 @@ def main():
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.markdown('<div class="print-option">', unsafe_allow_html=True)
-        st.markdown('<div class="print-option-title">طباعة ملونة عالية الجودة</div>', unsafe_allow_html=True)
+        st.markdown('<div class="input-container premium-input">', unsafe_allow_html=True)
+        st.markdown('<div class="input-label"><span class="input-icon">🎨</span>طباعة ملونة عالية الجودة</div>', unsafe_allow_html=True)
         color_pages = st.number_input("", min_value=0, value=0, key="color_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
-        st.markdown('<div class="print-option">', unsafe_allow_html=True)
-        st.markdown('<div class="print-option-title">طباعة مع تأثيرات لونية</div>', unsafe_allow_html=True)
+        st.markdown('<div class="input-container premium-input">', unsafe_allow_html=True)
+        st.markdown('<div class="input-label"><span class="input-icon">🖌️</span>طباعة مع تأثيرات لونية</div>', unsafe_allow_html=True)
         bw_color_pages = st.number_input("", min_value=0, value=0, key="bw_color_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
     
     with col3:
-        st.markdown('<div class="print-option">', unsafe_allow_html=True)
-        st.markdown('<div class="print-option-title">طباعة أبيض وأسود</div>', unsafe_allow_html=True)
+        st.markdown('<div class="input-container premium-input">', unsafe_allow_html=True)
+        st.markdown('<div class="input-label"><span class="input-icon">📄</span>طباعة أبيض وأسود</div>', unsafe_allow_html=True)
         bw_pages = st.number_input("", min_value=0, value=0, key="bw_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
     
