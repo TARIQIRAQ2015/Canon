@@ -1305,53 +1305,51 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     st.markdown("""
         <style>
         .fancy-summary {
-            font-family: 'Courier New', monospace;
+            font-family: monospace !important;
             background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
             border: 2px solid rgba(212,175,55,0.3);
             border-radius: 10px;
             padding: 2rem;
             margin: 2rem 0;
-            white-space: pre-wrap;
+            white-space: pre;
             direction: rtl;
             color: #FFD700;
+            font-size: 1.1rem;
+            line-height: 1.5;
         }
 
         .fancy-summary-content {
             text-align: right;
-            font-size: 1.1rem;
-            line-height: 1.6;
+            display: inline-block;
+            width: 100%;
         }
 
-        .fancy-border {
-            color: #D4AF37;
+        .summary-line {
+            margin: 0;
+            padding: 0;
+            white-space: pre;
+            font-family: monospace !important;
         }
         </style>
 
         <div class="fancy-summary">
             <div class="fancy-summary-content">
-╔══════════════════════════════════════════════════════════════════╗
-║                         ملخص الطلب ✨                           ║
-╠══════════════════════════════════════════════════════════════════╣
-    """, unsafe_allow_html=True)
+║                                                                  ║
+║                        ملخص الطلب ✨                           ║
+║                                                                  ║""", unsafe_allow_html=True)
 
     # إضافة تفاصيل الصفحات
     if color_pages > 0:
-        st.markdown("""
-            ║ 🎨 طباعة ملونة: {} صفحة
-            ╟──────────────────────────────────────────────────────────────────╢
-        """.format(color_pages), unsafe_allow_html=True)
+        st.markdown(f"""
+║ 🎨 طباعة ملونة: {color_pages} صفحة                                          ║""", unsafe_allow_html=True)
 
     if bw_color_pages > 0:
-        st.markdown("""
-            ║ 🖌️ طباعة أبيض وأسود وقليل ألوان: {} صفحة
-            ╟──────────────────────────────────────────────────────────────────╢
-        """.format(bw_color_pages), unsafe_allow_html=True)
+        st.markdown(f"""
+║ 🖌️ طباعة أبيض وأسود وقليل ألوان: {bw_color_pages} صفحة                    ║""", unsafe_allow_html=True)
 
     if bw_pages > 0:
-        st.markdown("""
-            ║ 📄 طباعة أبيض وأسود: {} صفحة
-            ╟──────────────────────────────────────────────────────────────────╢
-        """.format(bw_pages), unsafe_allow_html=True)
+        st.markdown(f"""
+║ 📄 طباعة أبيض وأسود: {bw_pages} صفحة                                       ║""", unsafe_allow_html=True)
 
     # إضافة الإضافات المختارة
     extras = []
@@ -1362,17 +1360,19 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     if has_paper_holder: extras.append("📁 حاملة أوراق")
 
     if extras:
-        st.markdown("║ ✨ الإضافات المختارة:", unsafe_allow_html=True)
+        st.markdown("""
+║                                                                  ║
+║ ✨ الإضافات المختارة:                                          ║""", unsafe_allow_html=True)
         for extra in extras:
-            st.markdown(f"║     {extra}", unsafe_allow_html=True)
-        st.markdown("╟──────────────────────────────────────────────────────────────────╢", unsafe_allow_html=True)
+            st.markdown(f"""║     {extra}                                                    ║""", unsafe_allow_html=True)
 
     # إضافة السعر النهائي
     st.markdown(f"""
-            ║ 💰 السعر النهائي: {exact_total:,} دينار
-            ╚══════════════════════════════════════════════════════════════════╝
+║                                                                  ║
+║ 💰 السعر النهائي: {exact_total:,} دينار                                    ║
+║                                                                  ║
+            </div>
         </div>
-    </div>
     """, unsafe_allow_html=True)
 
 def main():
