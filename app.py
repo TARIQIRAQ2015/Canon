@@ -16,7 +16,7 @@ st.set_page_config(
 # إضافة الأنماط الأساسية
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
 
     * {
         font-family: 'Tajawal', sans-serif !important;
@@ -31,7 +31,7 @@ st.markdown("""
     }
     
     .stApp {
-        background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+        background-color: #1a1a2e;
     }
 
     /* تنسيق البطاقات */
@@ -66,12 +66,44 @@ st.markdown("""
         color: #64ffda;
         font-weight: bold;
     }
+
+    .result-card {
+        background: rgba(255,255,255,0.05);
+        border-radius: 10px;
+        padding: 20px;
+        margin: 10px 0;
+    }
+
+    .result-title {
+        color: white;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .result-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        color: white;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .final-cost {
+        color: #4CAF50 !important;
+        font-size: 1.2rem;
+    }
     </style>
 """, unsafe_allow_html=True)
 
 def calculate_cost(colored_pages, bw_pages, cover, carton, nylon, ruler):
     """حساب التكلفة الإجمالية"""
-    total = (colored_pages * 50) + (bw_pages * 25)
+    colored_cost = colored_pages * 50  # 50 دينار للصفحة الملونة
+    bw_cost = bw_pages * 35  # 35 دينار للصفحة الأبيض والأسود
+    total = colored_cost + bw_cost
     if cover: total += 1000
     if carton: total += 500
     if nylon: total += 250
@@ -117,29 +149,46 @@ def main():
         rounded_cost = round(total_cost / 100) * 100
         
         # عرض النتائج
-        st.markdown(f"""
-            <div class="card">
-                <div class="title">📋 تفاصيل الطلب</div>
-                <div class="result-item">
+        st.markdown("""
+            <div class="result-card">
+                <div class="result-title">📋 تفاصيل الطلب</div>
+                <div class="result-row">
                     <span>عدد الصفحات الملونة:</span>
-                    <span class="result-value">{colored_pages} صفحة</span>
+                    <span class="result-value">{} صفحة</span>
                 </div>
-                <div class="result-item">
+                <div class="result-row">
                     <span>عدد الصفحات بالأبيض والأسود:</span>
-                    <span class="result-value">{bw_pages} صفحة</span>
-                </div>
-                
-                <div class="title" style="margin-top: 2rem;">💰 التفاصيل المالية</div>
-                <div class="result-item">
-                    <span>التكلفة قبل التقريب:</span>
-                    <span class="result-value">{total_cost:,} دينار</span>
-                </div>
-                <div class="result-item">
-                    <span>التكلفة النهائية:</span>
-                    <span class="result-value" style="color: #4CAF50;">{rounded_cost:,} دينار</span>
+                    <span class="result-value">{} صفحة</span>
                 </div>
             </div>
-        """, unsafe_allow_html=True)
+
+            <div class="result-card">
+                <div class="result-title">💰 التفاصيل المالية</div>
+                <div class="result-row">
+                    <span>تكلفة الصفحات الملونة:</span>
+                    <span class="result-value">{:,} دينار</span>
+                </div>
+                <div class="result-row">
+                    <span>تكلفة الصفحات بالأبيض والأسود:</span>
+                    <span class="result-value">{:,} دينار</span>
+                </div>
+                <div class="result-row">
+                    <span>التكلفة قبل التقريب:</span>
+                    <span class="result-value">{:,} دينار</span>
+                </div>
+                <div class="result-row">
+                    <span>التكلفة النهائية:</span>
+                    <span class="result-value final-cost">{:,} دينار</span>
+                </div>
+            </div>
+        """.format(
+            colored_pages,
+            bw_pages,
+            colored_pages * 50,
+            bw_pages * 35,
+            total_cost,
+            rounded_cost
+        ), unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
