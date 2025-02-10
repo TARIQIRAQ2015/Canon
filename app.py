@@ -169,17 +169,29 @@ st.markdown("""
     
     /* تنسيق مربعات الاختيار */
     .premium-checkbox {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(184,134,11,0.2);
+        background: linear-gradient(145deg, rgba(25,25,25,0.95), rgba(35,35,35,0.95));
+        border: 1px solid rgba(212,175,55,0.3);
         border-radius: 15px;
-        padding: 0.8rem;
-        margin: 0.5rem 0;
+        padding: 1.5rem 2rem;
+        margin: 1.2rem 0;
         transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
     
     .premium-checkbox:hover {
-        transform: translateX(-5px);
-        background: rgba(212,175,55,0.1);
+        transform: translateY(-3px);
+        border-color: rgba(212,175,55,0.5);
+        box-shadow: 0 8px 20px rgba(212,175,55,0.2);
+    }
+    
+    .premium-checkbox label {
+        font-size: 1.2rem !important;
+        color: #D4AF37 !important;
+        font-weight: 500 !important;
+    }
+    
+    .stCheckbox {
+        scale: 1.2;
     }
     
     /* تنسيق النتائج */
@@ -887,18 +899,31 @@ st.markdown("""
         left: 30px;
         width: 55px;
         height: 55px;
-        background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(45,45,45,0.9));
+        background: linear-gradient(145deg, rgba(26,26,26,0.95), rgba(45,45,45,0.95));
         border: 2px solid rgba(212,175,55,0.5);
         border-radius: 50%;
         display: none;
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         z-index: 9999;
-        text-decoration: none;
+        box-shadow: 
+            0 5px 15px rgba(0,0,0,0.3),
+            inset 0 2px 10px rgba(255,255,255,0.1);
         backdrop-filter: blur(5px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        transition: all 0.3s ease;
+    }
+
+    .back-to-top::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #D4AF37, #FFD700);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
     }
 
     .back-to-top::after {
@@ -909,16 +934,63 @@ st.markdown("""
         border-top: 3px solid #D4AF37;
         transform: rotate(45deg);
         margin-bottom: -5px;
+        transition: all 0.3s ease;
     }
 
     .back-to-top:hover {
-        transform: translateY(-5px);
+        transform: translateY(-5px) scale(1.05);
         border-color: #D4AF37;
-        box-shadow: 0 8px 25px rgba(212,175,55,0.3);
+        box-shadow: 
+            0 8px 25px rgba(212,175,55,0.3),
+            inset 0 2px 15px rgba(255,255,255,0.2);
+    }
+
+    .back-to-top:hover::before {
+        opacity: 0.1;
     }
 
     .back-to-top:hover::after {
         border-color: #FFD700;
+        transform: rotate(45deg) scale(1.2);
+    }
+
+    .summary-section {
+        background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
+        border: 2px solid rgba(212,175,55,0.3);
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .summary-title {
+        font-size: 1.8rem;
+        color: #D4AF37;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .summary-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
+
+    .summary-item:last-child {
+        border-bottom: none;
+    }
+
+    .summary-label {
+        font-size: 1.1rem;
+        color: #FFD700;
+    }
+
+    .summary-value {
+        font-size: 1.1rem;
+        color: #fff;
     }
     </style>
 
@@ -963,6 +1035,106 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     # تقريب المجموع النهائي إلى أقرب 250 دينار
     rounded_total = round_to_nearest_250(total)
     return total, rounded_total
+
+def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
+    st.markdown("""
+        <style>
+        .summary-section {
+            background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
+            border: 2px solid rgba(212,175,55,0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .summary-title {
+            font-size: 1.8rem;
+            color: #D4AF37;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(212,175,55,0.2);
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            font-size: 1.1rem;
+            color: #FFD700;
+        }
+
+        .summary-value {
+            font-size: 1.1rem;
+            color: #fff;
+        }
+        </style>
+
+        <div class="summary-section">
+            <div class="summary-title">📋 خلاصة الطلب</div>
+    """, unsafe_allow_html=True)
+
+    # إضافة تفاصيل الصفحات
+    if color_pages > 0:
+        st.markdown(f"""
+            <div class="summary-item">
+                <div class="summary-label">🎨 صفحات ملونة</div>
+                <div class="summary-value">{color_pages} صفحة</div>
+            </div>
+        """, unsafe_allow_html=True)
+
+    if bw_color_pages > 0:
+        st.markdown(f"""
+            <div class="summary-item">
+                <div class="summary-label">🖌️ صفحات مع تأثيرات لونية</div>
+                <div class="summary-value">{bw_color_pages} صفحة</div>
+            </div>
+        """, unsafe_allow_html=True)
+
+    if bw_pages > 0:
+        st.markdown(f"""
+            <div class="summary-item">
+                <div class="summary-label">📄 صفحات أبيض وأسود</div>
+                <div class="summary-value">{bw_pages} صفحة</div>
+            </div>
+        """, unsafe_allow_html=True)
+
+    # إضافة الإضافات المختارة
+    extras = []
+    if has_cover: extras.append("⭐ تصميم غلاف ملون فاخر")
+    if has_empty_last: extras.append("📄 صفحة ختامية مميزة")
+    if has_carton: extras.append("📦 كرتون فاخر")
+    if has_nylon: extras.append("✨ نايلون شفاف")
+    if has_paper_holder: extras.append("📁 حاملة أوراق")
+
+    if extras:
+        st.markdown("""
+            <div class="summary-item">
+                <div class="summary-label">✨ الإضافات المختارة</div>
+                <div class="summary-value">
+        """, unsafe_allow_html=True)
+        for extra in extras:
+            st.markdown(f"<div>{extra}</div>", unsafe_allow_html=True)
+        st.markdown("</div></div>", unsafe_allow_html=True)
+
+    # إضافة السعر النهائي
+    st.markdown(f"""
+        <div class="summary-item" style="margin-top: 1rem;">
+            <div class="summary-label" style="font-size: 1.3rem;">💰 السعر النهائي</div>
+            <div class="summary-value" style="font-size: 1.3rem; color: #D4AF37;">{exact_total:,} دينار</div>
+        </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)
 
 def main():
     # إضافة زر العودة للأعلى
@@ -1158,6 +1330,9 @@ def main():
         createParticles();
         </script>
     """, unsafe_allow_html=True)
+
+    # استدعاء دالة الخلاصة في نهاية main()
+    show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total)
 
 if __name__ == "__main__":
     main() 
