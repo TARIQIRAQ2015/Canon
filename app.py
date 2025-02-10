@@ -8,7 +8,7 @@ import math
 # تعيين الإعدادات الأولية
 st.set_page_config(
     page_title="حاسبة تكلفة الطباعة الذكية",
-    page_icon="🖨️",
+    page_icon="✨",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -17,6 +17,7 @@ st.set_page_config(
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
     
     /* الأنماط الأساسية */
     .main {
@@ -71,71 +72,84 @@ st.markdown("""
     /* تنسيق عناصر الإدخال */
     .stSelectbox, .stNumberInput {
         background: rgba(0, 4, 40, 0.8);
-        border-radius: 15px;
-        padding: 1.5rem;
-        border: 1px solid rgba(0, 78, 146, 0.4);
+        border-radius: 25px;
+        padding: 2.5rem;
+        border: 2px solid rgba(0, 168, 255, 0.4);
         transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(12px);
-        margin-bottom: 1.2rem;
+        backdrop-filter: blur(20px);
+        margin-bottom: 2rem;
         box-shadow: 
-            0 8px 20px rgba(0, 0, 0, 0.3),
-            0 0 15px rgba(0, 78, 146, 0.2);
+            0 15px 35px rgba(0, 0, 0, 0.3),
+            0 0 25px rgba(0, 78, 146, 0.2);
     }
     
     .stSelectbox:hover, .stNumberInput:hover {
         border-color: rgba(0, 168, 255, 0.8);
         box-shadow: 
-            0 12px 25px rgba(0, 0, 0, 0.4),
-            0 0 30px rgba(0, 78, 146, 0.4);
-        transform: translateY(-3px);
+            0 20px 40px rgba(0, 0, 0, 0.4),
+            0 0 40px rgba(0, 78, 146, 0.4);
+        transform: translateY(-8px);
     }
 
     /* تنسيق العناوين */
     .stMarkdown h3 {
         color: #00a8ff;
-        font-size: 2rem;
-        margin: 2.5rem 0 1.8rem 0;
-        font-weight: 800;
+        font-size: 2.5rem;
+        margin: 3.5rem 0 2.5rem 0;
+        font-weight: 900;
         text-shadow: 
-            0 0 20px rgba(0, 168, 255, 0.5),
-            0 0 40px rgba(0, 168, 255, 0.3);
+            0 0 30px rgba(0, 168, 255, 0.5),
+            0 0 50px rgba(0, 168, 255, 0.3);
         letter-spacing: -0.5px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .stMarkdown h3::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, #00a8ff, transparent);
+        border-radius: 2px;
     }
 
     /* تنسيق مربعات الاختيار */
     .stCheckbox {
         background: rgba(0, 4, 40, 0.8);
-        padding: 1.5rem;
-        border-radius: 15px;
-        border: 1px solid rgba(0, 78, 146, 0.4);
-        margin: 1rem 0;
+        padding: 2rem;
+        border-radius: 20px;
+        border: 2px solid rgba(0, 168, 255, 0.4);
+        margin: 1.5rem 0;
         transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(20px);
         box-shadow: 
-            0 8px 20px rgba(0, 0, 0, 0.25),
-            0 0 15px rgba(0, 78, 146, 0.2);
+            0 15px 35px rgba(0, 0, 0, 0.25),
+            0 0 25px rgba(0, 78, 146, 0.2);
     }
 
     .stCheckbox:hover {
         border-color: rgba(0, 168, 255, 0.7);
         box-shadow: 
-            0 12px 25px rgba(0, 0, 0, 0.35),
-            0 0 30px rgba(0, 78, 146, 0.4);
-        transform: translateX(-8px);
+            0 20px 40px rgba(0, 0, 0, 0.35),
+            0 0 40px rgba(0, 78, 146, 0.4);
+        transform: translateX(-12px);
     }
     
     /* تنسيق الهيدر */
     .header {
         background: linear-gradient(135deg, rgba(0, 4, 40, 0.97), rgba(0, 78, 146, 0.97));
-        padding: 6rem 2rem;
-        margin: -1rem -1rem 4rem -1rem;
-        border-bottom: 4px solid rgba(0, 168, 255, 0.4);
+        padding: 8rem 2rem;
+        margin: -1rem -1rem 6rem -1rem;
+        border-bottom: 5px solid rgba(0, 168, 255, 0.4);
         text-align: center;
         position: relative;
         overflow: hidden;
         box-shadow: 
-            0 20px 50px rgba(0, 0, 0, 0.4),
-            0 0 60px rgba(0, 78, 146, 0.3);
+            0 25px 60px rgba(0, 0, 0, 0.4),
+            0 0 80px rgba(0, 78, 146, 0.3);
     }
     
     /* تأثيرات الخلفية المتحركة */
@@ -149,11 +163,11 @@ st.markdown("""
         background: 
             radial-gradient(circle at 20% 50%, rgba(0, 168, 255, 0.3) 0%, transparent 70%),
             radial-gradient(circle at 80% 50%, rgba(0, 78, 146, 0.3) 0%, transparent 70%);
-        animation: pulse 12s ease-in-out infinite alternate;
+        animation: pulse 15s ease-in-out infinite alternate;
     }
 
     .title {
-        font-size: 4.5rem;
+        font-size: 5rem;
         font-weight: 900;
         background: linear-gradient(120deg, 
             #00a8ff 0%, 
@@ -164,25 +178,25 @@ st.markdown("""
         background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        animation: shine 12s linear infinite;
+        animation: shine 15s linear infinite;
         margin: 0.5rem 0;
         letter-spacing: -1px;
         text-shadow: 
-            0 0 20px rgba(0, 168, 255, 0.5),
-            0 0 40px rgba(0, 151, 230, 0.4),
-            0 0 60px rgba(0, 168, 255, 0.3);
+            0 0 30px rgba(0, 168, 255, 0.5),
+            0 0 50px rgba(0, 151, 230, 0.4),
+            0 0 70px rgba(0, 168, 255, 0.3);
     }
 
     .cost-summary {
         background: linear-gradient(145deg, rgba(0, 4, 40, 0.95), rgba(0, 78, 146, 0.95));
-        border-radius: 30px;
-        padding: 3rem;
-        margin: 4rem 0;
-        border: 3px solid rgba(0, 168, 255, 0.5);
+        border-radius: 35px;
+        padding: 4rem;
+        margin: 5rem 0;
+        border: 4px solid rgba(0, 168, 255, 0.5);
         box-shadow: 
-            0 20px 50px rgba(0, 0, 0, 0.4),
-            0 0 80px rgba(0, 168, 255, 0.2);
-        backdrop-filter: blur(20px);
+            0 25px 60px rgba(0, 0, 0, 0.4),
+            0 0 100px rgba(0, 168, 255, 0.2);
+        backdrop-filter: blur(25px);
         transform: perspective(1500px) rotateX(0deg);
         transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -190,129 +204,132 @@ st.markdown("""
     .cost-summary:hover {
         transform: perspective(1500px) rotateX(2deg);
         box-shadow: 
-            0 25px 60px rgba(0, 0, 0, 0.5),
-            0 0 100px rgba(0, 168, 255, 0.3);
+            0 30px 70px rgba(0, 0, 0, 0.5),
+            0 0 120px rgba(0, 168, 255, 0.3);
     }
 
     .cost-summary h3 {
-        font-size: 2.8rem !important;
+        font-size: 3rem !important;
         font-weight: 900 !important;
         text-align: center;
-        margin-bottom: 2.5rem;
+        margin-bottom: 3rem;
         color: #fff !important;
         text-shadow: 
-            0 0 25px rgba(0, 168, 255, 0.7),
-            0 0 50px rgba(0, 168, 255, 0.4);
+            0 0 30px rgba(0, 168, 255, 0.7),
+            0 0 60px rgba(0, 168, 255, 0.4);
     }
     
     .cost-item {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1.8rem;
-        margin: 1.2rem 0;
+        padding: 2rem;
+        margin: 1.5rem 0;
         background: rgba(0, 4, 40, 0.7);
-        border-radius: 18px;
+        border-radius: 20px;
         border: 2px solid rgba(0, 168, 255, 0.4);
         transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(12px);
-        font-size: 1.3rem;
+        backdrop-filter: blur(15px);
+        font-size: 1.4rem;
         font-weight: 600;
         box-shadow: 
-            0 8px 20px rgba(0, 0, 0, 0.3),
-            0 0 15px rgba(0, 78, 146, 0.2);
+            0 10px 25px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(0, 78, 146, 0.2);
     }
 
     .cost-item:hover {
         background: rgba(0, 4, 40, 0.9);
         border-color: rgba(0, 168, 255, 0.6);
-        transform: translateX(-10px);
+        transform: translateX(-12px);
         box-shadow: 
-            0 12px 25px rgba(0, 0, 0, 0.4),
-            0 0 30px rgba(0, 78, 146, 0.3);
+            0 15px 30px rgba(0, 0, 0, 0.4),
+            0 0 35px rgba(0, 78, 146, 0.3);
     }
 
     .total-cost {
         background: linear-gradient(120deg, #000428, #004e92);
-        border-radius: 25px;
-        padding: 3.5rem;
-        margin-top: 3.5rem;
-        border: 4px solid rgba(0, 168, 255, 0.6);
+        border-radius: 30px;
+        padding: 4rem;
+        margin-top: 4rem;
+        border: 5px solid rgba(0, 168, 255, 0.6);
         text-align: center;
         position: relative;
         overflow: hidden;
         box-shadow: 
-            0 15px 40px rgba(0, 0, 0, 0.4),
-            0 0 60px rgba(0, 168, 255, 0.2);
+            0 20px 50px rgba(0, 0, 0, 0.4),
+            0 0 80px rgba(0, 168, 255, 0.2);
     }
     
     .total-cost span {
-        font-size: 4rem;
+        font-size: 4.5rem;
         font-weight: 900;
         background: linear-gradient(120deg, #00a8ff, #0097e6);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-shadow: 
-            0 0 30px rgba(0, 168, 255, 0.5),
-            0 0 60px rgba(0, 168, 255, 0.3);
+            0 0 35px rgba(0, 168, 255, 0.5),
+            0 0 70px rgba(0, 168, 255, 0.3);
     }
 
     .currency-breakdown {
         background: rgba(0, 4, 40, 0.8);
-        border-radius: 20px;
-        padding: 2rem;
-        margin-top: 2rem;
-        border: 2px solid rgba(0, 168, 255, 0.4);
+        border-radius: 25px;
+        padding: 2.5rem;
+        margin-top: 2.5rem;
+        border: 3px solid rgba(0, 168, 255, 0.4);
     }
 
     .currency-item {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1rem;
-        margin: 0.8rem 0;
+        padding: 1.2rem;
+        margin: 1rem 0;
         background: rgba(0, 78, 146, 0.3);
-        border-radius: 12px;
-        font-size: 1.2rem;
+        border-radius: 15px;
+        font-size: 1.3rem;
     }
 
-    /* زر العودة للأعلى */
+    /* زر العودة للأعلى المحسن */
     .scroll-to-top {
         position: fixed;
-        bottom: 30px;
-        left: 30px;
+        bottom: 40px;
+        left: 40px;
         background: linear-gradient(135deg, #00a8ff, #0097e6);
         color: white;
-        width: 60px;
-        height: 60px;
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: all 0.4s ease;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 
-            0 6px 20px rgba(0, 168, 255, 0.5),
-            0 0 30px rgba(0, 168, 255, 0.3);
+            0 8px 25px rgba(0, 168, 255, 0.5),
+            0 0 40px rgba(0, 168, 255, 0.3);
         z-index: 1000;
         opacity: 0;
         visibility: hidden;
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+        border: 3px solid rgba(255, 255, 255, 0.2);
     }
 
     .scroll-to-top.visible {
         opacity: 1;
         visibility: visible;
+        animation: bounce 2s infinite;
     }
 
     .scroll-to-top:hover {
-        transform: translateY(-8px);
+        transform: translateY(-10px) scale(1.1);
         box-shadow: 
-            0 8px 25px rgba(0, 168, 255, 0.7),
-            0 0 40px rgba(0, 168, 255, 0.4);
+            0 12px 30px rgba(0, 168, 255, 0.7),
+            0 0 50px rgba(0, 168, 255, 0.4);
+        border-color: rgba(255, 255, 255, 0.4);
     }
 
-    /* تحسينات الأداء */
+    /* تحسينات الأداء والحركة */
     * {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -320,12 +337,12 @@ st.markdown("""
 
     @keyframes backgroundFlow {
         0% { transform: scale(1); }
-        100% { transform: scale(1.15); }
+        100% { transform: scale(1.2); }
     }
 
     @keyframes float {
         0% { transform: translateY(0px); }
-        50% { transform: translateY(-20px); }
+        50% { transform: translateY(-25px); }
         100% { transform: translateY(0px); }
     }
 
@@ -336,30 +353,40 @@ st.markdown("""
 
     @keyframes pulse {
         0% { transform: scale(1); opacity: 0.7; }
-        100% { transform: scale(1.4); opacity: 1; }
+        100% { transform: scale(1.5); opacity: 1; }
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-10px); }
+        60% { transform: translateY(-5px); }
     }
     </style>
 
     <script>
-    // زر العودة للأعلى
-    window.onscroll = function() {
-        var scrollButton = document.querySelector('.scroll-to-top');
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            scrollButton.classList.add('visible');
-        } else {
-            scrollButton.classList.remove('visible');
-        }
-    };
+    // زر العودة للأعلى المحسن
+    document.addEventListener('DOMContentLoaded', function() {
+        var scrollButton = document.createElement('div');
+        scrollButton.className = 'scroll-to-top';
+        scrollButton.innerHTML = '<i class="fas fa-chevron-up"></i>';
+        document.body.appendChild(scrollButton);
 
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
+        window.onscroll = function() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollButton.classList.add('visible');
+            } else {
+                scrollButton.classList.remove('visible');
+            }
+        };
+
+        scrollButton.onclick = function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        };
+    });
     </script>
-
-    <div class="scroll-to-top" onclick="scrollToTop()">↑</div>
     """, unsafe_allow_html=True)
 
 def calculate_total_cost(colored_pages, bw_pages, cover, carton, nylon, ruler):
@@ -389,7 +416,7 @@ def main():
     st.markdown("""
         <div class='header'>
             <div class='title-container'>
-                <div class='title-icon'>🖨️</div>
+                <div class='title-icon'>✨</div>
                 <div class='title'>حاسبة تكلفة الطباعة الذكية</div>
                 <div class='title-separator'></div>
                 <div class='subtitle'>احسب تكلفة طباعتك بدقة عالية وسهولة تامة</div>
@@ -438,7 +465,7 @@ def main():
                 <span>{} دينار</span>
             </div>
             <div class='cost-item'>
-                <span>📝 الصفحات السوداء ({} صفحة)</span>
+                <span>📄 الصفحات السوداء ({} صفحة)</span>
                 <span>{} دينار</span>
             </div>
     """.format(
@@ -448,7 +475,7 @@ def main():
 
     # عرض الإضافات المحددة
     if cover or carton or nylon or ruler:
-        st.markdown("<div class='cost-item'><h4>🎁 الإضافات المختارة:</h4></div>", unsafe_allow_html=True)
+        st.markdown("<div class='cost-item'><h4>✨ الإضافات المختارة:</h4></div>", unsafe_allow_html=True)
         if cover:
             st.markdown("<div class='cost-item'><span>🎨 تصميم غلاف احترافي</span><span>250 دينار</span></div>", unsafe_allow_html=True)
         if carton:
