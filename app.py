@@ -1337,69 +1337,8 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
 💰 السعر النهائي (مع التقريب): {round_to_nearest_250(exact_total):,} دينار
 ═══════════════════════════════════════════════"""
 
-    # عرض الملخص مع زر النسخ
-    st.markdown(f"""
-        <style>
-        .fancy-summary {{
-            font-family: monospace !important;
-            background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
-            border: 2px solid rgba(212,175,55,0.3);
-            border-radius: 10px;
-            padding: 2rem;
-            margin: 1rem 0;
-            white-space: pre;
-            direction: rtl;
-            color: #FFD700;
-            font-size: 1.1rem;
-            line-height: 1.5;
-            position: relative;
-        }}
-
-        .copy-button {{
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(212,175,55,0.1);
-            border: 1px solid rgba(212,175,55,0.3);
-            color: #D4AF37;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-        }}
-
-        .copy-button:hover {{
-            background: rgba(212,175,55,0.2);
-            transform: translateY(-2px);
-        }}
-
-        .fancy-summary-content {{
-            text-align: right;
-            display: inline-block;
-            width: 100%;
-            padding-top: 1rem;
-        }}
-        </style>
-
-        <div class="fancy-summary">
-            <button class="copy-button" onclick="copyToClipboard()">📋</button>
-            <div class="fancy-summary-content" id="summary-content">{summary_text}</div>
-        </div>
-
-        <script>
-        function copyToClipboard() {{
-            const text = `{summary_text}`;
-            navigator.clipboard.writeText(text).then(() => {{
-                // يمكن إضافة إشعار هنا إذا أردت
-            }});
-        }}
-        </script>
-    """, unsafe_allow_html=True)
+    # عرض الملخص في حقل نصي قابل للنسخ
+    st.text_area("", value=summary_text, height=400)
 
 def main():
     # تعديل العنوان الرئيسي بدون إيموجي
