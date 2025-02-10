@@ -8,16 +8,16 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تعريف الأسعار
+# تعريف الأسعار الثابتة
 PRICES = {
-    'color': 500,
-    'bw_with_color': 300,
-    'bw': 150,
-    'cover': 2000,
-    'empty_last': 500,
-    'carton': 1000,
-    'nylon': 750,
-    'paper_holder': 1500
+    'color': 50,
+    'bw_with_color': 40,
+    'bw': 35,
+    'cover': 250,
+    'empty_last': 25,
+    'carton': 250,
+    'nylon': 250,
+    'paper_holder': 250,
 }
 
 # تصميم CSS جديد وفاخر
@@ -28,7 +28,6 @@ st.markdown("""
     /* تنسيق عام */
     * {
         font-family: 'Tajawal', sans-serif;
-        text-align: center;
     }
     
     .main {
@@ -1025,18 +1024,115 @@ st.markdown("""
     }
 
     .services-section {
-        margin-top: 3rem;
-        margin-bottom: 2rem;
+        margin-top: 2rem;
+        text-align: center;
     }
 
     .services-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 2rem;
+        margin-top: 1.5rem;
     }
 
     .service-card {
-        background: rgba(20,20,20,0.95);
+        background: linear-gradient(145deg, rgba(25,25,25,0.95), rgba(35,35,35,0.95));
+        border: 1px solid rgba(212,175,55,0.3);
+        border-radius: 15px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(212,175,55,0.2);
+    }
+
+    .service-card h3 {
+        color: #D4AF37;
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .service-card p {
+        color: #fff;
+        opacity: 0.9;
+    }
+
+    /* تنسيق عام للنصوص */
+    * {
+        text-align: center;
+    }
+
+    /* تنسيق القسم الرئيسي */
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    /* تنسيق العنوان الرئيسي */
+    .header-section {
+        background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin-bottom: 3rem;
+        border: 2px solid rgba(212,175,55,0.3);
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .header-section h1 {
+        font-size: 2.5rem;
+        color: #D4AF37;
+        margin-bottom: 1rem;
+    }
+
+    .header-section p {
+        color: #FFD700;
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+
+    /* تنسيق الأقسام */
+    .section-container {
+        background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
+        border: 2px solid rgba(212,175,55,0.3);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    /* تنسيق العناوين الرئيسية للأقسام */
+    .section-title {
+        position: absolute;
+        top: -15px;
+        right: 30px;
+        background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+        padding: 5px 20px;
+        border-radius: 10px;
+        color: #D4AF37;
+        font-size: 1.2rem;
+        border: 1px solid rgba(212,175,55,0.3);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* تنسيق حقول الإدخال */
+    .input-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .input-container {
+        background: rgba(25,25,25,0.95);
         border: 1px solid rgba(212,175,55,0.3);
         border-radius: 15px;
         padding: 1.5rem;
@@ -1044,129 +1140,214 @@ st.markdown("""
         transition: all 0.3s ease;
     }
 
-    .service-card:hover {
+    .input-container:hover {
         transform: translateY(-3px);
         border-color: #D4AF37;
-        box-shadow: 0 8px 25px rgba(212,175,55,0.1);
     }
 
-    .service-card h3 {
-        color: #D4AF37;
-        font-size: 1.3rem;
-        margin-bottom: 0.8rem;
+    /* تنسيق الإضافات */
+    .extras-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        margin-top: 2rem;
     }
 
-    .service-card p {
-        color: #FFD700;
-        opacity: 0.8;
-        font-size: 1.1rem;
+    .premium-checkbox {
+        background: rgba(25,25,25,0.95);
+        border: 1px solid rgba(212,175,55,0.3);
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        transition: all 0.3s ease;
     }
 
-    /* خط فاصل ذهبي */
-    .golden-line {
-        height: 1px;
-        background: linear-gradient(to right, transparent, rgba(212,175,55,0.5), transparent);
+    .premium-checkbox:hover {
+        transform: translateY(-2px);
+        border-color: #D4AF37;
+    }
+
+    /* تنسيق النتائج */
+    .results-section {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
         margin: 2rem 0;
     }
 
-    /* تحديث CSS للتنسيق */
-    st.markdown("""
-        <style>
-        /* تنسيق عام */
-        * {
-            text-align: center;
-        }
+    .result-card {
+        background: rgba(20,20,20,0.95);
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+    }
 
-        .main-section {
-            background: #141414;
-            border: 1px solid #D4AF37;
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            position: relative;
-        }
+    /* تنسيق الخدمات */
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
 
-        .section-title {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1a1a1a;
-            padding: 5px 25px;
-            border-radius: 10px;
-            color: #D4AF37;
-            font-size: 1.2rem;
-            border: 1px solid #D4AF37;
-            z-index: 1;
-            white-space: nowrap;
-        }
+    .service-card {
+        background: rgba(25,25,25,0.95);
+        border: 1px solid rgba(212,175,55,0.3);
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+    }
 
-        .print-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
+    /* تنسيق الخلاصة */
+    .summary-section {
+        text-align: right;
+        direction: rtl;
+    }
 
-        .print-option-title {
-            color: #D4AF37;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            font-weight: 500;
-        }
+    .summary-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
 
-        .stNumberInput {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .summary-title {
+        font-size: 1.4rem;
+        color: #D4AF37;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
 
-        .stNumberInput > div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .summary-label {
+        color: #FFD700;
+        font-size: 1.1rem;
+    }
 
-        .stNumberInput > div > div > input {
-            background: #1a1a1a !important;
-            border: 1px solid #D4AF37 !important;
-            color: #D4AF37 !important;
-            font-size: 1.2rem !important;
-            text-align: center !important;
-            width: 120px !important;
-            border-radius: 10px !important;
-            padding: 0.5rem !important;
-        }
+    .summary-value {
+        color: #fff;
+        font-size: 1.1rem;
+    }
 
-        .stNumberInput [data-testid="stDecrement"],
-        .stNumberInput [data-testid="stIncrement"] {
-            background: #1a1a1a !important;
-            border: 1px solid #D4AF37 !important;
-            color: #D4AF37 !important;
-            border-radius: 8px !important;
-            width: 35px !important;
-            height: 35px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            transition: all 0.3s ease;
-        }
+    /* تحسينات عامة */
+    .emoji-icon {
+        font-size: 1.2rem;
+    }
 
-        .stNumberInput [data-testid="stDecrement"]:hover,
-        .stNumberInput [data-testid="stIncrement"]:hover {
-            background: #D4AF37 !important;
-            color: #000 !important;
-        }
+    /* تنسيق حقول الأرقام */
+    .stNumberInput > div > div > input {
+        background: rgba(30,30,30,0.95) !important;
+        border: 1px solid rgba(212,175,55,0.3) !important;
+        color: #fff !important;
+        text-align: center !important;
+        font-size: 1.1rem !important;
+    }
 
-        .separator {
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, #D4AF37, transparent);
-            margin: 0 auto;
-            opacity: 0.3;
-        }
-        </style>
-    """, unsafe_allow_html=True)
+    /* تنسيق مربعات الاختيار */
+    .stCheckbox {
+        background: transparent !important;
+    }
+
+    .stCheckbox > label {
+        color: #fff !important;
+        font-size: 1rem !important;
+    }
+
+    /* تأثيرات التحويم */
+    .section-container:hover {
+        box-shadow: 0 8px 25px rgba(212,175,55,0.1);
+    }
+
+    .service-card:hover {
+        transform: translateY(-3px);
+        border-color: #D4AF37;
+    }
+
+    /* تنسيق القالب الرئيسي */
+    .print-option {
+        background: rgba(25,25,25,0.95);
+        border: 1px solid rgba(212,175,55,0.3);
+        border-radius: 15px;
+        padding: 1.8rem;
+        margin: 1rem 0;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .print-option:hover {
+        border-color: #D4AF37;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(212,175,55,0.1);
+    }
+
+    /* تنسيق عنوان خيار الطباعة */
+    .print-option-title {
+        color: #D4AF37;
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    /* تنسيق حقل الإدخال */
+    .stNumberInput > div {
+        display: flex;
+        justify-content: center;
+    }
+
+    .stNumberInput > div > div > input {
+        background: rgba(30,30,30,0.95) !important;
+        border: 1px solid rgba(212,175,55,0.3) !important;
+        border-radius: 10px !important;
+        color: #D4AF37 !important;
+        font-size: 1.2rem !important;
+        padding: 0.5rem !important;
+        text-align: center !important;
+        width: 150px !important;
+        transition: all 0.3s ease;
+    }
+
+    .stNumberInput > div > div > input:focus {
+        border-color: #D4AF37 !important;
+        box-shadow: 0 0 10px rgba(212,175,55,0.2) !important;
+    }
+
+    /* تنسيق أزرار الزيادة والنقصان */
+    .stNumberInput [data-testid="stDecrement"],
+    .stNumberInput [data-testid="stIncrement"] {
+        background: linear-gradient(145deg, #1a1a1a, #2d2d2d) !important;
+        border: 1px solid rgba(212,175,55,0.3) !important;
+        color: #D4AF37 !important;
+        border-radius: 8px !important;
+        width: 35px !important;
+        height: 35px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: all 0.3s ease;
+    }
+
+    .stNumberInput [data-testid="stDecrement"]:hover,
+    .stNumberInput [data-testid="stIncrement"]:hover {
+        background: linear-gradient(145deg, #D4AF37, #B8860B) !important;
+        color: #000 !important;
+    }
+
+    /* تنسيق القسم بأكمله */
+    .print-options-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    /* خط فاصل ذهبي عمودي */
+    .vertical-divider {
+        width: 2px;
+        background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.3), transparent);
+        margin: 0 1rem;
+    }
     </style>
 
     <!-- زر العودة للأعلى -->
@@ -1304,7 +1485,7 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     # إضافة السعر النهائي
     st.markdown(f"""
         <div class="summary-item" style="margin-top: 1rem;">
-            <div class="summary-label" style="font-size: 1.3rem;">السعر النهائي</div>
+            <div class="summary-label" style="font-size: 1.3rem;">💰 السعر النهائي</div>
             <div class="summary-value" style="font-size: 1.3rem; color: #D4AF37;">{exact_total:,} دينار</div>
         </div>
     """, unsafe_allow_html=True)
@@ -1312,162 +1493,217 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     st.markdown("</div>", unsafe_allow_html=True)
 
 def main():
-    # تعريف المتغيرات
-    has_cover = False
-    has_empty_last = False
-    has_carton = False
-    has_nylon = False
-    has_paper_holder = False
-
-    # تعريف CSS مرة واحدة في بداية التطبيق
+    # إضافة زر العودة للأعلى
     st.markdown("""
         <style>
-        * { text-align: center; }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(45,45,45,0.9));
+            border: 2px solid rgba(212,175,55,0.5);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9999;
+            text-decoration: none;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
 
-        .main-section {
-            background: #141414;
-            border: 1px solid #D4AF37;
+        .back-to-top::after {
+            content: '';
+            width: 15px;
+            height: 15px;
+            border-left: 3px solid #D4AF37;
+            border-top: 3px solid #D4AF37;
+            transform: rotate(45deg);
+            margin-bottom: -5px;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            border-color: #D4AF37;
+            box-shadow: 0 8px 25px rgba(212,175,55,0.3);
+        }
+
+        .back-to-top:hover::after {
+            border-color: #FFD700;
+        }
+        </style>
+
+        <a href="#top" class="back-to-top" id="backToTop"></a>
+
+        <script>
+            window.onscroll = function() {
+                var btn = document.getElementById("backToTop");
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    btn.style.display = "flex";
+                } else {
+                    btn.style.display = "none";
+                }
+            }
+        </script>
+    """, unsafe_allow_html=True)
+
+    # في بداية الصفحة (أعلى الكود)
+    st.markdown('<div id="top"></div>', unsafe_allow_html=True)
+    
+    # العنوان الرئيسي
+    st.markdown("""
+        <div class="premium-header">
+            <h1><span style="color: initial; background: none; -webkit-text-fill-color: initial;">🖨️</span> مكتب طارق الياسين</h1>
+            <div class="subtitle">
+                نقدم خدمات طباعة احترافية بجودة عالية وكفاءة مميزة
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # تعديل CSS للتنسيق الأفقي
+    st.markdown("""
+        <style>
+        .horizontal-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .section-container {
+            background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
+            border: 2px solid rgba(212,175,55,0.3);
             border-radius: 20px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            position: relative;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .section-title {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1a1a1a;
-            padding: 5px 25px;
-            border-radius: 10px;
-            color: #D4AF37;
-            font-size: 1.2rem;
-            border: 1px solid #D4AF37;
-            z-index: 1;
-            white-space: nowrap;
-        }
-
-        .print-options {
+        .input-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .extras-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .services-section {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-top: 1.5rem;
         }
 
-        .print-option-title {
-            color: #D4AF37;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            font-weight: 500;
-        }
-
-        .stNumberInput {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .stNumberInput > div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .stNumberInput > div > div > input {
-            background: #1a1a1a !important;
-            border: 1px solid #D4AF37 !important;
-            color: #D4AF37 !important;
-            font-size: 1.2rem !important;
-            text-align: center !important;
-            width: 120px !important;
-            border-radius: 10px !important;
-            padding: 0.5rem !important;
-        }
-
-        .stNumberInput [data-testid="stDecrement"],
-        .stNumberInput [data-testid="stIncrement"] {
-            background: #1a1a1a !important;
-            border: 1px solid #D4AF37 !important;
-            color: #D4AF37 !important;
-            border-radius: 8px !important;
-            width: 35px !important;
-            height: 35px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            transition: all 0.3s ease;
-        }
-
-        .stNumberInput [data-testid="stDecrement"]:hover,
-        .stNumberInput [data-testid="stIncrement"]:hover {
-            background: #D4AF37 !important;
-            color: #000 !important;
-        }
-
-        .separator {
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, #D4AF37, transparent);
-            margin: 0 auto;
-            opacity: 0.3;
-        }
-
         .service-card {
-            background: #141414;
-            border: 1px solid #D4AF37;
+            background: linear-gradient(145deg, rgba(25,25,25,0.95), rgba(35,35,35,0.95));
+            border: 1px solid rgba(212,175,55,0.3);
             border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
+            padding: 2rem;
             transition: all 0.3s ease;
         }
 
         .service-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(212,175,55,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(212,175,55,0.2);
         }
 
         .service-card h3 {
             color: #D4AF37;
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
         }
 
         .service-card p {
-            color: #FFD700;
-            opacity: 0.8;
-            font-size: 1.1rem;
+            color: #fff;
+            opacity: 0.9;
         }
         </style>
     """, unsafe_allow_html=True)
 
-    # قسم تفاصيل الطباعة
+    # تنظيم المحتوى بشكل أفقي
+    st.markdown('<div class="horizontal-layout">', unsafe_allow_html=True)
+
+    # 1. قسم تفاصيل الطباعة
     st.markdown("""
-        <div class="main-section">
-            <div class="section-title">📋 تفاصيل الطباعة</div>
-            <div class="print-options">
+        <div class="section-container">
+            <h2>
+                <span class="emoji-icon">📋</span>
+                <span class="section-title">تفاصيل الطباعة</span>
+            </h2>
+            <div class="input-grid">
     """, unsafe_allow_html=True)
-
-    col1, sep1, col2, sep2, col3 = st.columns([1, 0.1, 1, 0.1, 1])
-
+    
+    col1, col2, col3 = st.columns(3)
     with col1:
+        st.markdown('<div class="print-option">', unsafe_allow_html=True)
         st.markdown('<div class="print-option-title">طباعة ملونة عالية الجودة</div>', unsafe_allow_html=True)
         color_pages = st.number_input("", min_value=0, value=0, key="color_pages", label_visibility="collapsed")
-
-    with sep1:
-        st.markdown('<div class="separator"></div>', unsafe_allow_html=True)
-
+        st.markdown('</div>', unsafe_allow_html=True)
+    
     with col2:
+        st.markdown('<div class="print-option">', unsafe_allow_html=True)
         st.markdown('<div class="print-option-title">طباعة مع تأثيرات لونية</div>', unsafe_allow_html=True)
         bw_color_pages = st.number_input("", min_value=0, value=0, key="bw_color_pages", label_visibility="collapsed")
-
-    with sep2:
-        st.markdown('<div class="separator"></div>', unsafe_allow_html=True)
-
+        st.markdown('</div>', unsafe_allow_html=True)
+    
     with col3:
+        st.markdown('<div class="print-option">', unsafe_allow_html=True)
         st.markdown('<div class="print-option-title">طباعة أبيض وأسود</div>', unsafe_allow_html=True)
         bw_pages = st.number_input("", min_value=0, value=0, key="bw_pages", label_visibility="collapsed")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    st.markdown('</div></div>', unsafe_allow_html=True)
 
+    # 2. قسم الإضافات
+    st.markdown("""
+        <div class="section-container">
+            <h2>
+                <span class="emoji-icon">⭐</span>
+                <span class="section-title">الإضافات الاختيارية</span>
+            </h2>
+            <div class="extras-grid">
+    """, unsafe_allow_html=True)
+    
+    col1, col2, col3, col4, col5 = st.columns(5)
+    with col1:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_cover = st.checkbox("⭐ تصميم غلاف ملون فاخر")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_empty_last = st.checkbox("📄 صفحة ختامية مميزة")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_carton = st.checkbox("📦 كرتون فاخر")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col4:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_nylon = st.checkbox("✨ نايلون شفاف")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col5:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_paper_holder = st.checkbox("📁 حاملة أوراق")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
     st.markdown('</div></div>', unsafe_allow_html=True)
 
     # حساب التكلفة
@@ -1477,20 +1713,20 @@ def main():
     )
     
     # عرض النتائج
-    st.markdown(f"""
+    st.markdown("""
         <div class="premium-results">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                 <div class="result-card">
                     <div class="result-label">المبلغ الأساسي</div>
-                    <div class="result-value">{exact_total:,} دينار</div>
+                    <div class="result-value">{:,} دينار</div>
                 </div>
                 <div class="result-card">
                     <div class="result-label">المبلغ النهائي</div>
-                    <div class="result-value">{rounded_total:,} دينار</div>
+                    <div class="result-value">{:,} دينار</div>
                 </div>
             </div>
         </div>
-    """, unsafe_allow_html=True)
+    """.format(exact_total, rounded_total), unsafe_allow_html=True)
     
     # إضافة الشريط في الواجهة
     total_pages = color_pages + bw_color_pages + bw_pages
@@ -1502,59 +1738,7 @@ def main():
             </div>
         """, unsafe_allow_html=True)
 
-    # إضافة الخلاصة
-    show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total)
-
-    # إضافة قسم الخدمات في النهاية
     st.markdown("""
-        <style>
-        .services-section {
-            margin-top: 3rem;
-            margin-bottom: 2rem;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: rgba(20,20,20,0.95);
-            border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-3px);
-            border-color: #D4AF37;
-            box-shadow: 0 8px 25px rgba(212,175,55,0.1);
-        }
-
-        .service-card h3 {
-            color: #D4AF37;
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .service-card p {
-            color: #FFD700;
-            opacity: 0.8;
-            font-size: 1.1rem;
-        }
-
-        /* خط فاصل ذهبي */
-        .golden-line {
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(212,175,55,0.5), transparent);
-            margin: 2rem 0;
-        }
-        </style>
-
-        <div class="golden-line"></div>
         <div class="services-section">
             <div class="services-grid">
                 <div class="service-card">
@@ -1568,6 +1752,11 @@ def main():
             </div>
         </div>
     """, unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # استدعاء دالة الخلاصة في نهاية main()
+    show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total)
 
 if __name__ == "__main__":
     main() 
