@@ -218,6 +218,32 @@ st.markdown("""
     .premium-reset-button i {
         margin-left: 8px;
     }
+    
+    div[data-testid="stButton"] {
+        text-align: center;
+        margin-top: 2rem;
+    }
+    
+    .stButton > button {
+        background: linear-gradient(45deg, #1a1a1a, #2d2d2d) !important;
+        color: #D4AF37 !important;
+        font-family: 'Tajawal', sans-serif !important;
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
+        padding: 0.8rem 2.5rem !important;
+        border: 2px solid #D4AF37 !important;
+        border-radius: 50px !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+    }
+    
+    .stButton > button:hover {
+        background: linear-gradient(45deg, #D4AF37, #B8860B) !important;
+        color: #000000 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(212,175,55,0.3) !important;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -319,18 +345,11 @@ def main():
                     <div class="result-value">{:,} دينار</div>
                 </div>
             </div>
-            
-            <div class="reset-button-container">
-                <button class="premium-reset-button" id="reset-btn">
-                    <i class="fas fa-sync-alt"></i>
-                    إعادة تعيين الحساب
-                </button>
-            </div>
         </div>
     """.format(exact_total, rounded_total), unsafe_allow_html=True)
     
-    # إضافة زر إعادة التعيين المخفي لتنفيذ الوظيفة
-    if st.button("إعادة تعيين", key="reset_button", type="primary"):
+    # إضافة زر إعادة التعيين
+    if st.button("�� إعادة تعيين الحساب", type="primary"):
         st.rerun()
 
 if __name__ == "__main__":
