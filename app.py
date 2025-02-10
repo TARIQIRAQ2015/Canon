@@ -1390,89 +1390,20 @@ def main():
         </div>
     """, unsafe_allow_html=True)
     
-    # تعديل CSS للتنسيق الأفقي
+    # تعريف المتغيرات قبل استخدامها
+    has_cover = False
+    has_empty_last = False
+    has_carton = False
+    has_nylon = False
+    has_paper_holder = False
+
+    # قسم تفاصيل الطباعة
     st.markdown("""
-        <style>
-        .horizontal-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            padding: 2rem 0;
-        }
-
-        .section-container {
-            background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
-            border: 2px solid rgba(212,175,55,0.3);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .input-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .extras-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .services-section {
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .service-card {
-            background: linear-gradient(145deg, rgba(25,25,25,0.95), rgba(35,35,35,0.95));
-            border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(212,175,55,0.2);
-        }
-
-        .service-card h3 {
-            color: #D4AF37;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-        }
-
-        .service-card p {
-            color: #fff;
-            opacity: 0.9;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
-    # تنظيم المحتوى بشكل أفقي
-    st.markdown('<div class="horizontal-layout">', unsafe_allow_html=True)
-
-    # 1. قسم تفاصيل الطباعة
-    st.markdown("""
-        <div class="section-container">
-            <h2>
-                <span class="emoji-icon">📋</span>
-                <span class="section-title">تفاصيل الطباعة</span>
-            </h2>
+        <div class="main-section">
+            <div class="section-title">📋 تفاصيل الطباعة</div>
             <div class="print-options">
     """, unsafe_allow_html=True)
-    
+
     col1, sep1, col2, sep2, col3 = st.columns([1, 0.1, 1, 0.1, 1])
 
     with col1:
@@ -1502,20 +1433,20 @@ def main():
     )
     
     # عرض النتائج
-    st.markdown("""
+    st.markdown(f"""
         <div class="premium-results">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                 <div class="result-card">
                     <div class="result-label">المبلغ الأساسي</div>
-                    <div class="result-value">{:,} دينار</div>
+                    <div class="result-value">{exact_total:,} دينار</div>
                 </div>
                 <div class="result-card">
                     <div class="result-label">المبلغ النهائي</div>
-                    <div class="result-value">{:,} دينار</div>
+                    <div class="result-value">{rounded_total:,} دينار</div>
                 </div>
             </div>
         </div>
-    """.format(exact_total, rounded_total), unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
     
     # إضافة الشريط في الواجهة
     total_pages = color_pages + bw_color_pages + bw_pages
