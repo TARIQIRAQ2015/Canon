@@ -7,7 +7,7 @@ import math
 
 # تعيين الإعدادات الأولية
 st.set_page_config(
-    page_title="حاسبة تكلفة الطباعة الذكية",
+    page_title="حاسبة تكلفة الطباعة",
     page_icon="✨",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -17,376 +17,51 @@ st.set_page_config(
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
-    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
     
     /* الأنماط الأساسية */
     .main {
         font-family: 'Cairo', sans-serif !important;
-        background: linear-gradient(145deg, #000428 0%, #004e92 100%);
-        color: #E2E8F0;
-        padding: 0;
-        margin: 0;
-        max-width: 100% !important;
-        position: relative;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-    
-    .main::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: 
-            radial-gradient(circle at 20% 30%, rgba(0, 78, 146, 0.4) 0%, transparent 70%),
-            radial-gradient(circle at 80% 70%, rgba(0, 4, 40, 0.4) 0%, transparent 70%);
-        animation: backgroundFlow 20s ease infinite alternate;
-        z-index: -1;
-    }
-    
-    .stApp {
-        max-width: 100%;
-        padding: 1rem;
-        background: transparent;
+        background: #f0f2f6;
+        color: #1f1f1f;
+        direction: rtl;
+        text-align: right;
     }
 
     /* إخفاء العناصر غير المرغوب فيها */
-    [data-testid="StyledFullScreenButton"], 
-    .css-ch5dnh,
-    .viewerBadge_container__1QSob,
-    .styles_terminalButton__JBj5T,
-    .styles_viewerBadge__1yB5,
-    .viewerBadge_link__1S137,
-    .viewerBadge_text__1JaDK,
-    header button,
-    .stDeployButton {
-        display: none !important;
-    }
-
     header[data-testid="stHeader"] {
         display: none !important;
     }
-    
-    /* تنسيق عناصر الإدخال */
-    .stSelectbox, .stNumberInput {
-        background: rgba(0, 4, 40, 0.8);
-        border-radius: 25px;
-        padding: 2.5rem;
-        border: 2px solid rgba(0, 168, 255, 0.4);
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(20px);
-        margin-bottom: 2rem;
-        box-shadow: 
-            0 15px 35px rgba(0, 0, 0, 0.3),
-            0 0 25px rgba(0, 78, 146, 0.2);
-    }
-    
-    .stSelectbox:hover, .stNumberInput:hover {
-        border-color: rgba(0, 168, 255, 0.8);
-        box-shadow: 
-            0 20px 40px rgba(0, 0, 0, 0.4),
-            0 0 40px rgba(0, 78, 146, 0.4);
-        transform: translateY(-8px);
-    }
 
-    /* تنسيق العناوين */
-    .stMarkdown h3 {
-        color: #00a8ff;
-        font-size: 2.5rem;
-        margin: 3.5rem 0 2.5rem 0;
-        font-weight: 900;
-        text-shadow: 
-            0 0 30px rgba(0, 168, 255, 0.5),
-            0 0 50px rgba(0, 168, 255, 0.3);
-        letter-spacing: -0.5px;
-        position: relative;
-        display: inline-block;
-    }
-
-    .stMarkdown h3::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, #00a8ff, transparent);
-        border-radius: 2px;
-    }
-
-    /* تنسيق مربعات الاختيار */
-    .stCheckbox {
-        background: rgba(0, 4, 40, 0.8);
+    /* تنسيق مربع الحاسبة */
+    .calculator-box {
+        background: white;
         padding: 2rem;
-        border-radius: 20px;
-        border: 2px solid rgba(0, 168, 255, 0.4);
-        margin: 1.5rem 0;
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(20px);
-        box-shadow: 
-            0 15px 35px rgba(0, 0, 0, 0.25),
-            0 0 25px rgba(0, 78, 146, 0.2);
-    }
-
-    .stCheckbox:hover {
-        border-color: rgba(0, 168, 255, 0.7);
-        box-shadow: 
-            0 20px 40px rgba(0, 0, 0, 0.35),
-            0 0 40px rgba(0, 78, 146, 0.4);
-        transform: translateX(-12px);
-    }
-    
-    /* تنسيق الهيدر */
-    .header {
-        background: linear-gradient(135deg, rgba(0, 4, 40, 0.97), rgba(0, 78, 146, 0.97));
-        padding: 8rem 2rem;
-        margin: -1rem -1rem 6rem -1rem;
-        border-bottom: 5px solid rgba(0, 168, 255, 0.4);
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 
-            0 25px 60px rgba(0, 0, 0, 0.4),
-            0 0 80px rgba(0, 78, 146, 0.3);
-    }
-    
-    /* تأثيرات الخلفية المتحركة */
-    .header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: 
-            radial-gradient(circle at 20% 50%, rgba(0, 168, 255, 0.3) 0%, transparent 70%),
-            radial-gradient(circle at 80% 50%, rgba(0, 78, 146, 0.3) 0%, transparent 70%);
-        animation: pulse 15s ease-in-out infinite alternate;
-    }
-
-    .title {
-        font-size: 5rem;
-        font-weight: 900;
-        background: linear-gradient(120deg, 
-            #00a8ff 0%, 
-            #0097e6 25%, 
-            #00a8ff 50%, 
-            #0097e6 75%, 
-            #00a8ff 100%);
-        background-size: 200% auto;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: shine 15s linear infinite;
-        margin: 0.5rem 0;
-        letter-spacing: -1px;
-        text-shadow: 
-            0 0 30px rgba(0, 168, 255, 0.5),
-            0 0 50px rgba(0, 151, 230, 0.4),
-            0 0 70px rgba(0, 168, 255, 0.3);
-    }
-
-    .cost-summary {
-        background: linear-gradient(145deg, rgba(0, 4, 40, 0.95), rgba(0, 78, 146, 0.95));
-        border-radius: 35px;
-        padding: 4rem;
-        margin: 5rem 0;
-        border: 4px solid rgba(0, 168, 255, 0.5);
-        box-shadow: 
-            0 25px 60px rgba(0, 0, 0, 0.4),
-            0 0 100px rgba(0, 168, 255, 0.2);
-        backdrop-filter: blur(25px);
-        transform: perspective(1500px) rotateX(0deg);
-        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .cost-summary:hover {
-        transform: perspective(1500px) rotateX(2deg);
-        box-shadow: 
-            0 30px 70px rgba(0, 0, 0, 0.5),
-            0 0 120px rgba(0, 168, 255, 0.3);
-    }
-
-    .cost-summary h3 {
-        font-size: 3rem !important;
-        font-weight: 900 !important;
-        text-align: center;
-        margin-bottom: 3rem;
-        color: #fff !important;
-        text-shadow: 
-            0 0 30px rgba(0, 168, 255, 0.7),
-            0 0 60px rgba(0, 168, 255, 0.4);
-    }
-    
-    .cost-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 2rem;
-        margin: 1.5rem 0;
-        background: rgba(0, 4, 40, 0.7);
-        border-radius: 20px;
-        border: 2px solid rgba(0, 168, 255, 0.4);
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(15px);
-        font-size: 1.4rem;
-        font-weight: 600;
-        box-shadow: 
-            0 10px 25px rgba(0, 0, 0, 0.3),
-            0 0 20px rgba(0, 78, 146, 0.2);
-    }
-
-    .cost-item:hover {
-        background: rgba(0, 4, 40, 0.9);
-        border-color: rgba(0, 168, 255, 0.6);
-        transform: translateX(-12px);
-        box-shadow: 
-            0 15px 30px rgba(0, 0, 0, 0.4),
-            0 0 35px rgba(0, 78, 146, 0.3);
-    }
-
-    .total-cost {
-        background: linear-gradient(120deg, #000428, #004e92);
-        border-radius: 30px;
-        padding: 4rem;
-        margin-top: 4rem;
-        border: 5px solid rgba(0, 168, 255, 0.6);
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 
-            0 20px 50px rgba(0, 0, 0, 0.4),
-            0 0 80px rgba(0, 168, 255, 0.2);
-    }
-    
-    .total-cost span {
-        font-size: 4.5rem;
-        font-weight: 900;
-        background: linear-gradient(120deg, #00a8ff, #0097e6);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 
-            0 0 35px rgba(0, 168, 255, 0.5),
-            0 0 70px rgba(0, 168, 255, 0.3);
-    }
-
-    .currency-breakdown {
-        background: rgba(0, 4, 40, 0.8);
-        border-radius: 25px;
-        padding: 2.5rem;
-        margin-top: 2.5rem;
-        border: 3px solid rgba(0, 168, 255, 0.4);
-    }
-
-    .currency-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.2rem;
-        margin: 1rem 0;
-        background: rgba(0, 78, 146, 0.3);
         border-radius: 15px;
-        font-size: 1.3rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin: 2rem auto;
+        max-width: 800px;
     }
 
-    /* زر العودة للأعلى المحسن */
-    .scroll-to-top {
-        position: fixed;
-        bottom: 40px;
-        left: 40px;
-        background: linear-gradient(135deg, #00a8ff, #0097e6);
-        color: white;
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 
-            0 8px 25px rgba(0, 168, 255, 0.5),
-            0 0 40px rgba(0, 168, 255, 0.3);
-        z-index: 1000;
-        opacity: 0;
-        visibility: hidden;
-        font-size: 1.8rem;
-        border: 3px solid rgba(255, 255, 255, 0.2);
+    /* تنسيق العنوان */
+    .title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1f1f1f;
+        text-align: center;
+        margin-bottom: 2rem;
     }
 
-    .scroll-to-top.visible {
-        opacity: 1;
-        visibility: visible;
-        animation: bounce 2s infinite;
-    }
-
-    .scroll-to-top:hover {
-        transform: translateY(-10px) scale(1.1);
-        box-shadow: 
-            0 12px 30px rgba(0, 168, 255, 0.7),
-            0 0 50px rgba(0, 168, 255, 0.4);
-        border-color: rgba(255, 255, 255, 0.4);
-    }
-
-    /* تحسينات الأداء والحركة */
-    * {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-
-    @keyframes backgroundFlow {
-        0% { transform: scale(1); }
-        100% { transform: scale(1.2); }
-    }
-
-    @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-25px); }
-        100% { transform: translateY(0px); }
-    }
-
-    @keyframes shine {
-        0% { background-position: 0% center; }
-        100% { background-position: 200% center; }
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); opacity: 0.7; }
-        100% { transform: scale(1.5); opacity: 1; }
-    }
-
-    @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-        40% { transform: translateY(-10px); }
-        60% { transform: translateY(-5px); }
+    /* تنسيق النتيجة */
+    .result {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-top: 2rem;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 600;
     }
     </style>
-
-    <script>
-    // زر العودة للأعلى المحسن
-    document.addEventListener('DOMContentLoaded', function() {
-        var scrollButton = document.createElement('div');
-        scrollButton.className = 'scroll-to-top';
-        scrollButton.innerHTML = '<i class="fas fa-chevron-up"></i>';
-        document.body.appendChild(scrollButton);
-
-        window.onscroll = function() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                scrollButton.classList.add('visible');
-            } else {
-                scrollButton.classList.remove('visible');
-            }
-        };
-
-        scrollButton.onclick = function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        };
-    });
-    </script>
     """, unsafe_allow_html=True)
 
 def calculate_total_cost(colored_pages, bw_pages, cover, carton, nylon, ruler):
@@ -409,96 +84,34 @@ def round_to_nearest_currency(amount):
         return amount - remainder
 
 def main():
-    # تعيين اتجاه الصفحة للعربية
-    st.markdown("""<style>.main { direction: rtl; text-align: right; }</style>""", unsafe_allow_html=True)
+    st.markdown("<div class='calculator-box'>", unsafe_allow_html=True)
+    st.markdown("<h1 class='title'>حاسبة تكلفة الطباعة</h1>", unsafe_allow_html=True)
 
-    # عرض العنوان في الهيدر
-    st.markdown("""
-        <div class='header'>
-            <div class='title-container'>
-                <div class='title-icon'>✨</div>
-                <div class='title'>حاسبة تكلفة الطباعة الذكية</div>
-                <div class='title-separator'></div>
-                <div class='subtitle'>احسب تكلفة طباعتك بدقة عالية وسهولة تامة</div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # تفاصيل الطباعة
-    st.markdown("<h3>🎨 تفاصيل الطباعة</h3>", unsafe_allow_html=True)
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        colored_pages = st.number_input("عدد الصفحات الملونة", 
-                                      min_value=0, max_value=500,
-                                      value=0,
-                                      help="أدخل عدد الصفحات الملونة المراد طباعتها")
-    
-    with col2:
-        bw_pages = st.number_input("عدد الصفحات السوداء",
-                                  min_value=0, max_value=500,
-                                  value=0,
-                                  help="أدخل عدد الصفحات السوداء العادية")
+    # المدخلات
+    colored_pages = st.number_input("عدد الصفحات الملونة", min_value=0, value=0)
+    bw_pages = st.number_input("عدد الصفحات السوداء", min_value=0, value=0)
     
     # الإضافات
-    st.markdown("<h3>✨ الإضافات المتاحة</h3>", unsafe_allow_html=True)
-    
     col1, col2 = st.columns(2)
     with col1:
-        cover = st.checkbox("تصميم غلاف احترافي", help="إضافة غلاف مصمم بشكل احترافي")
-        carton = st.checkbox("كرتون فاخر", help="إضافة كرتون عالي الجودة")
+        cover = st.checkbox("تصميم غلاف احترافي")
+        carton = st.checkbox("كرتون فاخر")
     with col2:
-        nylon = st.checkbox("تغليف نايلون", help="تغليف العمل بالنايلون للحماية")
-        ruler = st.checkbox("مسطرة خاصة", help="إضافة مسطرة خاصة للعمل")
-    
+        nylon = st.checkbox("تغليف نايلون")
+        ruler = st.checkbox("مسطرة خاصة")
+
     # حساب التكلفة
-    total_cost = calculate_total_cost(colored_pages, bw_pages, 
-                                    cover, carton, nylon, ruler)
+    total_cost = calculate_total_cost(colored_pages, bw_pages, cover, carton, nylon, ruler)
     rounded_cost = round_to_nearest_currency(total_cost)
-    
-    # عرض النتائج
-    st.markdown("""
-        <div class='cost-summary'>
-            <h3>💫 تفاصيل التكلفة</h3>
-            <div class='cost-item'>
-                <span>🎨 الصفحات الملونة ({} صفحة)</span>
-                <span>{} دينار</span>
-            </div>
-            <div class='cost-item'>
-                <span>📄 الصفحات السوداء ({} صفحة)</span>
-                <span>{} دينار</span>
-            </div>
-    """.format(
-        colored_pages, colored_pages * 50,
-        bw_pages, bw_pages * 35
-    ), unsafe_allow_html=True)
 
-    # عرض الإضافات المحددة
-    if cover or carton or nylon or ruler:
-        st.markdown("<div class='cost-item'><h4>✨ الإضافات المختارة:</h4></div>", unsafe_allow_html=True)
-        if cover:
-            st.markdown("<div class='cost-item'><span>🎨 تصميم غلاف احترافي</span><span>250 دينار</span></div>", unsafe_allow_html=True)
-        if carton:
-            st.markdown("<div class='cost-item'><span>📦 كرتون فاخر</span><span>250 دينار</span></div>", unsafe_allow_html=True)
-        if nylon:
-            st.markdown("<div class='cost-item'><span>✨ تغليف نايلون</span><span>250 دينار</span></div>", unsafe_allow_html=True)
-        if ruler:
-            st.markdown("<div class='cost-item'><span>📏 مسطرة خاصة</span><span>250 دينار</span></div>", unsafe_allow_html=True)
-
+    # عرض النتيجة
     st.markdown(f"""
-        <div class='total-cost'>
-            <h2 style='margin-bottom: 1.5rem; color: #fff;'>💎 التكلفة الإجمالية</h2>
-            <span>{total_cost} دينار</span>
-            <div class='currency-breakdown'>
-                <h4 style='color: #00a8ff; margin-bottom: 1rem;'>التقريب لأقرب عملة متوفرة</h4>
-                <div class='currency-item'>
-                    <span>المبلغ المقرب</span>
-                    <span>{rounded_cost} دينار</span>
-                </div>
-            </div>
-        </div>
+        <div class='result'>
+            التكلفة الإجمالية: {rounded_cost} دينار
         </div>
     """, unsafe_allow_html=True)
+    
+    st.markdown("</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
