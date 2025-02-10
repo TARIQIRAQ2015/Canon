@@ -5,7 +5,7 @@ import json
 import math
 from datetime import datetime, timedelta
 
-# تحسين إعدادات الصفحة
+# تعيين إعدادات الصفحة مع إخفاء كامل للقائمة الجانبية
 st.set_page_config(
     page_title="حاسبة تكلفة الطباعة",
     page_icon="🖨️",
@@ -13,108 +13,94 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تحسين الأنماط مع دعم اللغة العربية
+# إضافة الأنماط المحسنة
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-    
-    /* الإعدادات الأساسية */
+    /* إعادة تعيين كامل للصفحة */
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        direction: rtl !important;
-        text-align: right !important;
-        font-family: 'Tajawal', sans-serif !important;
     }
     
-    /* إخفاء العناصر غير المرغوبة */
+    /* إخفاء جميع العناصر غير المرغوبة */
     #MainMenu, header, footer, [data-testid="stToolbar"],
     .css-1544g2n.e1fqkh3o4, [data-testid="stSidebar"],
     .css-r698ls.e8zbici2, .css-18e3th9.egzxvld2,
-    .css-1dp5vir.e8zbici1, .css-14xtw13.e8zbici0,
-    .css-eh5xgm.e1ewe7hr3, .viewerBadge_container__1QSob,
-    .css-1aehpvj.euu6i2w0, .css-qrbaxs {
+    .css-1dp5vir.e8zbici1, .css-14xtw13.e8zbici0 {
         display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        visibility: hidden !important;
+        z-index: -1 !important;
     }
     
     /* تحسين المحتوى الرئيسي */
     .main .block-container {
-        padding: 2rem 3rem !important;
         max-width: 100% !important;
+        width: 100% !important;
+        padding: 2rem !important;
+        margin: 0 !important;
     }
     
-    /* تنسيق بطاقة النتائج */
-    .result-card {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-        padding: 2rem;
-        margin: 1rem 0;
-        direction: rtl;
-        text-align: right;
+    /* تحسين الخلفية */
+    .stApp {
+        background: linear-gradient(135deg, 
+            #1a1a2e,
+            #16213e,
+            #0f3460,
+            #162447
+        ) !important;
+        background-size: 400% 400% !important;
+        animation: gradient 15s ease infinite !important;
+        min-height: 100vh !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow-x: hidden !important;
     }
     
-    /* تنسيق العناوين */
-    .section-title {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #fff;
-        margin-bottom: 1rem;
-        border-right: 4px solid #64ffda;
-        padding-right: 1rem;
+    /* تحسين العناصر التفاعلية */
+    .stButton > button {
+        width: 100% !important;
+        padding: 0.75rem !important;
+        border-radius: 10px !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
+        font-weight: bold !important;
+        transition: all 0.3s ease !important;
     }
     
-    /* تنسيق المحتوى */
-    .section-content {
-        color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 1.5rem;
-        line-height: 1.6;
-    }
-    
-    /* تنسيق الأسعار */
-    .price-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .price {
-        font-weight: bold;
-        color: #64ffda;
-        font-size: 1.1rem;
-    }
-    
-    .final-price .price {
-        font-size: 1.3rem;
-        color: #4CAF50;
+    .stButton > button:hover {
+        background: rgba(255, 255, 255, 0.2) !important;
+        transform: translateY(-2px) !important;
     }
     
     /* تحسين حقول الإدخال */
-    .stNumberInput > div > div {
-        direction: rtl !important;
-        text-align: right !important;
+    .stTextInput > div > div {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-radius: 10px !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        padding: 0.5rem !important;
+        color: white !important;
     }
     
-    .stSelectbox > div > div {
-        direction: rtl !important;
-        text-align: right !important;
+    /* تحسين النصوص */
+    .stMarkdown {
+        color: white !important;
     }
     
-    /* تحسين التفاصيل */
-    .details-list {
-        list-style: none;
-        padding: 0;
-    }
-    
-    .details-list li {
-        padding: 0.5rem 0;
-        display: flex;
-        justify-content: space-between;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    /* تأثير الخلفية المتحركة */
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
     
     /* تحسينات للأجهزة المحمولة */
@@ -123,15 +109,28 @@ st.markdown("""
             padding: 1rem !important;
         }
         
-        .result-card {
-            padding: 1rem;
+        .stButton > button {
+            padding: 0.5rem !important;
         }
-        
-        .price-row {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.5rem;
-        }
+    }
+    
+    /* تحسين الجداول */
+    .stTable {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-radius: 10px !important;
+        overflow: hidden !important;
+    }
+    
+    .stTable td {
+        background: transparent !important;
+        border: none !important;
+        color: white !important;
+    }
+    
+    /* تحسين التحديد */
+    ::selection {
+        background: rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
     }
     </style>
 """, unsafe_allow_html=True)
