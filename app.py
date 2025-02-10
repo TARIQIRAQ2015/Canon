@@ -15,127 +15,77 @@ st.markdown("""
     }
     
     .stApp {
-        background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+        background-color: #1a1a2e;
+        color: white;
     }
     
     .card {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 20px;
-        padding: 30px;
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        border-radius: 15px;
+        padding: 25px;
         margin: 20px 0;
         border: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        backdrop-filter: blur(8px);
-        transition: all 0.3s ease;
-    }
-    
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.45);
+        backdrop-filter: blur(4px);
     }
     
     .card-header {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         font-weight: bold;
-        margin-bottom: 20px;
-        background: linear-gradient(45deg, #64ffda, #48cae4);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #64ffda;
+        padding-bottom: 10px;
+        color: #64ffda;
     }
     
     .info {
-        margin: 15px 0;
+        margin: 12px 0;
         font-size: 1.1rem;
-        padding: 12px 0;
+        padding: 8px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
     }
     
     .highlight {
         color: #64ffda;
         font-weight: bold;
-        font-size: 1.2rem;
     }
     
     .final-cost {
         color: #4CAF50;
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-weight: bold;
-        text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
-    }
-    
-    .extras-section {
-        background: rgba(255, 255, 255, 0.07);
-        padding: 20px;
-        border-radius: 15px;
-        margin: 20px 0;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .extras-title {
-        color: #64ffda;
-        font-size: 1.3rem;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
     }
     
     .copy-button {
         position: fixed;
         top: 70px;
         left: 20px;
-        padding: 12px 24px;
-        background: linear-gradient(45deg, #64ffda, #48cae4);
+        padding: 10px 20px;
+        background: #64ffda;
         color: #1a1a2e;
         border: none;
-        border-radius: 10px;
+        border-radius: 5px;
         cursor: pointer;
         font-weight: bold;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(100, 255, 218, 0.2);
+        z-index: 999;
     }
     
     .copy-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(100, 255, 218, 0.3);
+        background: #4CAF50;
+        color: white;
     }
     
-    /* تحسين شكل المدخلات */
-    .stNumberInput > div > div > input {
-        background-color: rgba(255, 255, 255, 0.1) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        color: white !important;
-        border-radius: 10px !important;
-        padding: 10px !important;
-    }
-    
-    .stCheckbox {
+    .extras-section {
         background: rgba(255, 255, 255, 0.05);
-        padding: 10px;
+        padding: 15px;
         border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        margin: 5px 0;
+        margin: 15px 0;
     }
     
-    /* تحسين العناوين */
-    .stMarkdown {
-        color: white !important;
-    }
-    
-    .timestamp {
+    .section-title {
         color: #64ffda;
-        font-size: 1rem;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 5px;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -149,38 +99,50 @@ def get_iraq_time():
     iraq_tz = pytz.timezone('Asia/Baghdad')
     return datetime.now(iraq_tz).strftime("%Y-%m-%d %I:%M %p")
 
+def calculate_cost(colored_pages, bw_pages, extras):
+    """حساب التكلفة الإجمالية"""
+    colored_cost = colored_pages * 50
+    bw_cost = bw_pages * 35
+    extras_cost = sum(250 for x in extras if x)  # كل إضافة بـ 250 دينار
+    return colored_cost + bw_cost + extras_cost
+
 def main():
-    # العنوان الرئيسي
-    st.markdown('<div class="main-title">🖨️ حاسبة تكلفة الطباعة</div>', unsafe_allow_html=True)
+    st.title("🖨️ حاسبة تكلفة الطباعة")
     
-    # المدخلات
-    colored_pages = st.number_input("عدد الصفحات الملونة:", min_value=0, value=0)
-    bw_pages = st.number_input("عدد الصفحات بالأبيض والأسود:", min_value=0, value=0)
+    # إدخال البيانات
+    col1, col2 = st.columns(2)
     
-    # قسم الإضافات
-    st.markdown('<div class="extras-title">🎁 الإضافات</div>', unsafe_allow_html=True)
-    carton = st.checkbox("📦 كرتون ملون (250 دينار)")
-    holder = st.checkbox("📚 حاملة كتب (250 دينار)")
-    nylon = st.checkbox("🔲 نايلون شفاف (250 دينار)")
+    with col1:
+        colored_pages = st.number_input("عدد الصفحات الملونة:", min_value=0, value=0)
+        bw_pages = st.number_input("عدد الصفحات بالأبيض والأسود:", min_value=0, value=0)
+    
+    with col2:
+        st.markdown('<div class="extras-section">', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">🎁 الإضافات</div>', unsafe_allow_html=True)
+        carton = st.checkbox("كرتون ملون (250 دينار)")
+        holder = st.checkbox("حاملة كتب (250 دينار)")
+        nylon = st.checkbox("نايلون شفاف (250 دينار)")
+        st.markdown('</div>', unsafe_allow_html=True)
     
     if colored_pages > 0 or bw_pages > 0:
         # حساب التكاليف
+        extras = [carton, holder, nylon]
         colored_cost = colored_pages * 50
         bw_cost = bw_pages * 35
-        extras_cost = sum(250 for x in [carton, holder, nylon] if x)
+        extras_cost = sum(250 for x in extras if x)
         total_cost = colored_cost + bw_cost + extras_cost
         rounded_cost = round_to_nearest_250(total_cost)
         current_time = get_iraq_time()
 
-        # نص النسخ
+        # إنشاء نص النسخ
         copy_text = f"""
 ملخص الطباعة:
 =============
 ⏰ وقت الحساب: {current_time}
 
 تفاصيل الطلب:
-- عدد الصفحات الملونة: {colored_pages} صفحة ({colored_cost:,} دينار)
-- عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة ({bw_cost:,} دينار)
+- عدد الصفحات الملونة: {colored_pages:,} صفحة ({colored_cost:,} دينار)
+- عدد الصفحات بالأبيض والأسود: {bw_pages:,} صفحة ({bw_cost:,} دينار)
 
 الإضافات المختارة:
 {' - كرتون ملون (250 دينار)' if carton else ''}
@@ -194,44 +156,23 @@ def main():
 
         # زر النسخ
         st.markdown(
-            f'<button class="copy-button" onclick="navigator.clipboard.writeText(`{copy_text}`)">📋 نسخ النتائج</button>',
+            f'<button class="copy-button" onclick="navigator.clipboard.writeText(`{copy_text}`)">'
+            '📋 نسخ النتائج</button>',
             unsafe_allow_html=True
         )
 
         # عرض النتائج
         st.markdown(f"""
-            <div class="summary-card">
-                <div class="summary-header">📝 ملخص الطباعة</div>
-                <div class="timestamp">⏰ وقت الحساب: {current_time}</div>
-                
-                <div class="summary-row">
-                    <span>عدد الصفحات الملونة</span>
-                    <span class="summary-value">{colored_pages} صفحة</span>
-                </div>
-                <div class="summary-row">
-                    <span>تكلفة الصفحات الملونة</span>
-                    <span class="summary-value">{colored_cost:,} دينار</span>
-                </div>
-                <div class="summary-row">
-                    <span>عدد الصفحات بالأبيض والأسود</span>
-                    <span class="summary-value">{bw_pages} صفحة</span>
-                </div>
-                <div class="summary-row">
-                    <span>تكلفة الصفحات بالأبيض والأسود</span>
-                    <span class="summary-value">{bw_cost:,} دينار</span>
-                </div>
-                <div class="summary-row">
-                    <span>تكلفة الإضافات</span>
-                    <span class="summary-value">{extras_cost:,} دينار</span>
-                </div>
-                <div class="summary-row">
-                    <span>المبلغ الإجمالي</span>
-                    <span class="summary-value">{total_cost:,} دينار</span>
-                </div>
-                <div class="summary-row">
-                    <span>المبلغ النهائي (مقرب لأقرب 250 دينار)</span>
-                    <span class="final-cost">{rounded_cost:,} دينار</span>
-                </div>
+            <div class="card">
+                <div class="card-header">📝 ملخص الطباعة</div>
+                <div class="info">⏰ وقت الحساب: <span class="highlight">{current_time}</span></div>
+                <div class="info">عدد الصفحات الملونة: <span class="highlight">{colored_pages:,} صفحة</span></div>
+                <div class="info">تكلفة الصفحات الملونة: <span class="highlight">{colored_cost:,} دينار</span></div>
+                <div class="info">عدد الصفحات بالأبيض والأسود: <span class="highlight">{bw_pages:,} صفحة</span></div>
+                <div class="info">تكلفة الصفحات بالأبيض والأسود: <span class="highlight">{bw_cost:,} دينار</span></div>
+                <div class="info">تكلفة الإضافات: <span class="highlight">{extras_cost:,} دينار</span></div>
+                <div class="info">المبلغ الإجمالي: <span class="highlight">{total_cost:,} دينار</span></div>
+                <div class="info">المبلغ النهائي (مقرب لأقرب 250 دينار): <span class="final-cost">{rounded_cost:,} دينار</span></div>
             </div>
         """, unsafe_allow_html=True)
 
