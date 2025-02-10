@@ -373,10 +373,13 @@ def calculate_total_cost(colored_pages, bw_pages, cover, carton, nylon, ruler):
     return total_cost
 
 def round_to_nearest_currency(amount):
-    currencies = [250, 500, 1000]
-    differences = [abs(amount - (math.floor(amount/c) * c)) for c in currencies]
-    min_diff_index = differences.index(min(differences))
-    return math.floor(amount/currencies[min_diff_index]) * currencies[min_diff_index]
+    remainder = amount % 250
+    if remainder == 0:
+        return amount
+    elif remainder >= 125:
+        return amount + (250 - remainder)
+    else:
+        return amount - remainder
 
 def main():
     # تعيين اتجاه الصفحة للعربية
