@@ -248,6 +248,10 @@ st.markdown("""
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(212,175,55,0.3) !important;
     }
+    
+    html {
+        scroll-behavior: smooth;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -357,6 +361,7 @@ def main():
         <div style="text-align: center; margin-top: 2rem;">
             <a href="https://tariqoffice.streamlit.app/#dd12d7f3" 
                class="premium-button" 
+               target="_self"
                style="text-decoration: none; display: inline-block;">
                 ⬆️ العودة للأعلى
             </a>
