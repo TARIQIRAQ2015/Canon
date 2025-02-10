@@ -283,6 +283,9 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def main():
+    # في بداية الصفحة (أعلى الكود)
+    st.markdown('<div id="top"></div>', unsafe_allow_html=True)
+    
     # العنوان الرئيسي
     st.markdown("""
         <div class="premium-header">
@@ -356,12 +359,11 @@ def main():
         </div>
     """.format(exact_total, rounded_total), unsafe_allow_html=True)
     
-    # زر العودة للأعلى
+    # في نهاية الصفحة
     st.markdown("""
         <div style="text-align: center; margin-top: 2rem;">
-            <a href="https://tariqoffice.streamlit.app/#dd12d7f3" 
+            <a href="#top" 
                class="premium-button" 
-               target="_self"
                style="text-decoration: none; display: inline-block;">
                 ⬆️ العودة للأعلى
             </a>
