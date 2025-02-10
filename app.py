@@ -1004,27 +1004,34 @@ st.markdown("""
     }
 
     .services-section {
-        margin-top: 2rem;
-        text-align: center;
+        margin-top: 4rem;
+        padding: 2rem;
+        background: linear-gradient(165deg, rgba(30,30,30,0.9), rgba(15,15,15,0.9));
+        border-radius: 20px;
+        border: 1px solid rgba(212,175,55,0.2);
     }
 
     .services-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
-        margin-top: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
     }
 
     .service-card {
         background: linear-gradient(145deg, rgba(25,25,25,0.95), rgba(35,35,35,0.95));
         border: 1px solid rgba(212,175,55,0.3);
         border-radius: 15px;
-        padding: 2rem;
-        transition: all 0.3s ease;
+        padding: 2.5rem;
+        text-align: center;
+        transition: all 0.4s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
     .service-card:hover {
         transform: translateY(-5px);
+        border-color: #D4AF37;
         box-shadow: 0 8px 25px rgba(212,175,55,0.2);
     }
 
@@ -1032,11 +1039,14 @@ st.markdown("""
         color: #D4AF37;
         font-size: 1.4rem;
         margin-bottom: 1rem;
+        font-weight: 600;
     }
 
     .service-card p {
         color: #fff;
         opacity: 0.9;
+        font-size: 1.1rem;
+        line-height: 1.6;
     }
 
     /* تنسيق عام للنصوص */
@@ -1586,6 +1596,10 @@ def main():
             </div>
         """, unsafe_allow_html=True)
 
+    # استدعاء دالة الخلاصة
+    show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total)
+
+    # إضافة قسم الخدمات في النهاية مع تحسين التصميم
     st.markdown("""
         <div class="services-section">
             <div class="services-grid">
@@ -1602,9 +1616,6 @@ def main():
     """, unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
-
-    # استدعاء دالة الخلاصة في نهاية main()
-    show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total)
 
 if __name__ == "__main__":
     main() 
