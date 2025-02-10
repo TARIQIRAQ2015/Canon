@@ -877,9 +877,7 @@ st.markdown("""
         background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(45,45,45,0.9));
         border: 2px solid rgba(212,175,55,0.5);
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: none;  /* إخفاء الزر افتراضياً */
         cursor: pointer;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         z-index: 9999;
@@ -969,25 +967,36 @@ st.markdown("""
     <a href="#top" id="myBtn" onclick="topFunction()" title="العودة للأعلى"></a>
 
     <script>
-        window.onscroll = function() {scrollFunction()};
+    // حساب نسبة التمرير
+    function getScrollPercent() {
+        var h = document.documentElement, 
+            b = document.body,
+            st = 'scrollTop',
+            sh = 'scrollHeight';
+        return (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
+    }
 
-        function scrollFunction() {
-            var mybutton = document.getElementById("myBtn");
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                mybutton.style.display = "flex";
-                mybutton.classList.add('show-btn');
-            } else {
-                mybutton.style.display = "none";
-                mybutton.classList.remove('show-btn');
-            }
+    // التحكم في ظهور الزر
+    window.onscroll = function() {
+        var mybutton = document.getElementById("myBtn");
+        var scrollPercent = getScrollPercent();
+        
+        // إظهار الزر عندما يتم التمرير لأكثر من 30% من طول الصفحة
+        if (scrollPercent > 30) {
+            mybutton.style.display = "flex";
+            mybutton.classList.add('show-btn');
+        } else {
+            mybutton.style.display = "none";
+            mybutton.classList.remove('show-btn');
         }
+    };
 
-        function topFunction() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
+    function topFunction() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
     </script>
 """, unsafe_allow_html=True)
 
