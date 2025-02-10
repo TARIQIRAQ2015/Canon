@@ -18,57 +18,120 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
     
-    /* إخفاء العناصر غير المرغوب فيها بشكل صحيح */
+    /* إخفاء العناصر غير المرغوب فيها */
     #MainMenu, header, footer, [data-testid="stToolbar"] {
         display: none !important;
     }
     
-    /* تحسين الاتجاه والمحاذاة للغة العربية */
-    .stApp, .main, [data-testid="stMarkdownContainer"], .element-container {
-        direction: rtl !important;
-        text-align: right !important;
+    /* الأنماط الأساسية */
+    .stApp {
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #162447);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
         font-family: 'Tajawal', sans-serif !important;
+        direction: rtl !important;
+        color: #e2e2e2;
     }
     
-    /* تحسين تنسيق العنوان والنصوص */
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
+    /* العنوان الرئيسي */
     .main-title {
         font-size: clamp(1.8rem, 4vw, 2.5rem) !important;
+        font-weight: bold !important;
         text-align: center !important;
         margin: 1rem 0 !important;
         color: #ffffff !important;
         text-shadow: 0 0 10px rgba(255,255,255,0.3);
     }
     
-    /* تحسين القوائم المنسدلة */
-    .stSelectbox > div > div {
+    .subtitle {
+        font-size: 0.7em;
+        text-align: center;
+        margin-top: 0.5em;
+        color: #e2e2e2;
+        opacity: 0.9;
+    }
+    
+    /* تحسين عناصر الإدخال */
+    .stSelectbox > div > div,
+    .stNumberInput > div > div {
         background: rgba(30, 37, 48, 0.7) !important;
         border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 8px !important;
         backdrop-filter: blur(10px);
         padding: 0.8rem !important;
         font-size: 1rem !important;
+        transition: all 0.3s ease;
     }
     
-    /* تحسين حقول الإدخال */
-    .stNumberInput > div > div > input {
-        text-align: right !important;
-        direction: rtl !important;
-        font-size: 1rem !important;
+    .stSelectbox > div > div:hover,
+    .stNumberInput > div > div:hover {
+        border-color: rgba(255, 255, 255, 0.3) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
     
     /* تحسين الجداول */
     .stTable th, .stTable td {
         text-align: right !important;
         direction: rtl !important;
+        padding: 0.5rem !important;
     }
     
     /* تحسين ملخص النتائج */
     pre {
-        direction: ltr !important;
-        font-family: 'Courier New', monospace !important;
         background: rgba(20, 30, 60, 0.8) !important;
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
         border-radius: 10px !important;
         padding: 1rem !important;
+        font-family: 'Courier New', monospace !important;
+        direction: ltr !important;
+        white-space: pre-wrap !important;
+        color: #e2e2e2 !important;
+    }
+    
+    /* تحسين الأزرار */
+    .stButton > button {
+        background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)) !important;
+        border: 1px solid rgba(255,255,255,0.2) !important;
+        color: #ffffff !important;
+        border-radius: 8px !important;
+        padding: 0.8rem 1.5rem !important;
+        font-weight: 500 !important;
+        transition: all 0.3s ease !important;
+        backdrop-filter: blur(10px);
+        width: 100%;
+    }
+    
+    .stButton > button:hover {
+        background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.1)) !important;
+        border-color: rgba(255,255,255,0.3) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    
+    /* تحسين الروابط الاجتماعية */
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        margin: 30px 0;
+    }
+    
+    .social-links img {
+        width: 36px;
+        height: 36px;
+        transition: all 0.3s ease;
+    }
+    
+    .social-links img:hover {
+        transform: translateY(-3px);
+        filter: brightness(1.2);
     }
     
     /* تحسينات للأجهزة المحمولة */
@@ -76,8 +139,15 @@ st.markdown("""
         .main-title {
             font-size: 1.5rem !important;
         }
-        .stSelectbox > div > div {
+        
+        .stSelectbox > div > div,
+        .stNumberInput > div > div {
             padding: 0.6rem !important;
+        }
+        
+        .social-links img {
+            width: 28px;
+            height: 28px;
         }
     }
     </style>
