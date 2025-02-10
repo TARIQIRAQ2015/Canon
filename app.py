@@ -682,11 +682,15 @@ st.markdown("""
 
     /* تحسين عناوين الأقسام */
     .section-title {
-        font-size: 1.8rem !important;
-        font-weight: 600 !important;
-        color: #D4AF37 !important;
-        text-align: center !important;
-        margin-bottom: 2rem !important;
+        background: rgba(0, 0, 0, 0.7);
+        border: 2px solid #FFD700;
+        border-radius: 15px;
+        color: #FFD700;
+        padding: 8px 25px;
+        font-weight: bold;
+        font-size: 1.2rem;
+        display: inline-block;
+        margin: 10px 0;
     }
 
     /* تحسين تسميات الإدخال */
@@ -1495,11 +1499,7 @@ def main():
     """, unsafe_allow_html=True)
 
     # تحديث قسم تفاصيل الطباعة
-    st.markdown("""
-        <div class="section-container">
-            <h2 class="section-title">تفاصيل الطباعة</h2>
-            <div class="input-grid">
-    """, unsafe_allow_html=True)
+    st.markdown('<div style="text-align: right;"><div class="section-title">تفاصيل الطباعة</div></div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
     
@@ -1527,11 +1527,7 @@ def main():
     st.markdown('</div></div>', unsafe_allow_html=True)
 
     # إضافة قسم الإضافات الاختيارية
-    st.markdown("""
-        <div class="section-container">
-            <h2 class="section-title">الإضافات الاختيارية</h2>
-            <div class="extras-grid">
-    """, unsafe_allow_html=True)
+    st.markdown('<div style="text-align: right;"><div class="section-title">الإضافات الاختيارية</div></div>', unsafe_allow_html=True)
     
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
