@@ -1287,6 +1287,26 @@ st.markdown("""
         z-index: 1000;
         margin-bottom: 20px;
     }
+
+    /* إخفاء أزرار المشاركة والتحرير */
+    .stDeployButton, [data-testid="stToolbar"] {
+        display: none !important;
+    }
+    
+    /* إخفاء القائمة العلوية بالكامل */
+    header[data-testid="stHeader"] {
+        display: none !important;
+    }
+    
+    /* إخفاء زر القائمة الجانبية */
+    button[kind="header"] {
+        display: none !important;
+    }
+    
+    /* إخفاء أي عناصر إضافية في الهيدر */
+    .stApp header {
+        display: none !important;
+    }
     </style>
 
     <!-- زر العودة للأعلى -->
