@@ -102,18 +102,15 @@ st.markdown("""
     /* تنسيق حقول الإدخال */
     .stNumberInput > div > div > input {
         background: rgba(255,255,255,0.05) !important;
-        border: 1px solid rgba(184,134,11,0.3) !important;
+        border: 1px solid #D4AF37 !important;
         color: #ffffff !important;
-        border-radius: 10px !important;
-        padding: 1rem !important;
-        font-size: 1.1rem !important;
-        height: 3rem !important;
-        transition: all 0.3s ease;
+        font-size: 1rem !important;
+        height: 2.5rem !important;
     }
     
     .stNumberInput > div > div > input:focus {
-        border-color: #D4AF37 !important;
         box-shadow: 0 0 10px rgba(212,175,55,0.3) !important;
+        border-color: #FFD700 !important;
     }
     
     /* تنسيق مربعات الاختيار */
@@ -121,8 +118,8 @@ st.markdown("""
         background: rgba(255,255,255,0.03);
         border: 1px solid rgba(184,134,11,0.2);
         border-radius: 15px;
-        padding: 1.2rem;
-        margin: 0.8rem 0;
+        padding: 0.8rem;
+        margin: 0.5rem 0;
         transition: all 0.3s ease;
     }
     
@@ -252,6 +249,32 @@ st.markdown("""
     html {
         scroll-behavior: smooth;
     }
+    
+    /* تحسين أزرار التقليل والزيادة */
+    .stNumberInput [data-testid="stDecrement"], 
+    .stNumberInput [data-testid="stIncrement"] {
+        background: linear-gradient(45deg, #1a1a1a, #2d2d2d) !important;
+        color: #D4AF37 !important;
+        border: 1px solid #D4AF37 !important;
+        border-radius: 5px !important;
+        transition: all 0.3s ease;
+    }
+    
+    .stNumberInput [data-testid="stDecrement"]:hover, 
+    .stNumberInput [data-testid="stIncrement"]:hover {
+        background: linear-gradient(45deg, #D4AF37, #B8860B) !important;
+        color: #000000 !important;
+    }
+    
+    /* تحسين أيقونات العناوين */
+    .section-icon {
+        color: #D4AF37;
+        font-size: 1.5rem;
+        margin-left: 0.5rem;
+        background: linear-gradient(45deg, #FFD700, #B8860B);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -302,7 +325,7 @@ def main():
     with col1:
         st.markdown("""
             <div class="premium-section">
-                <h2>🖨️ خدمات الطباعة الفاخرة</h2>
+                <h2><span class="section-icon">🖨️</span> خدمات الطباعة الفاخرة</h2>
             </div>
         """, unsafe_allow_html=True)
         
@@ -313,7 +336,7 @@ def main():
     with col2:
         st.markdown("""
             <div class="premium-section">
-                <h2>📋 الإضافات الحصرية</h2>
+                <h2><span class="section-icon">✨</span> الإضافات الحصرية</h2>
             </div>
         """, unsafe_allow_html=True)
         
