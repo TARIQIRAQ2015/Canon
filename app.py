@@ -466,40 +466,65 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     return None
 
 def main():
-    # تعريف المتغيرات الأساسية
+    # إضافة العنوان الرئيسي
+    st.markdown("""
+        <div class="main-header">
+            <div class="title-container">
+                <h1 class="main-title">حاسبة تكلفة الطباعة الذكية 🖨️</h1>
+                <p class="subtitle">حاسبة متطورة لتقدير تكاليف الطباعة بدقة عالية مع دعم كامل للإضافات والخيارات المتنوعة</p>
+                <div class="features-list">
+                    <div class="feature-item">✨ دقة في الحساب</div>
+                    <div class="feature-item">🚀 سرعة في الأداء</div>
+                    <div class="feature-item">💡 خيارات متعددة</div>
+                    <div class="feature-item">📊 تقارير مفصلة</div>
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
+    # قسم إدخال البيانات
+    st.markdown('<div class="section-title">📝 تفاصيل الطباعة</div>', unsafe_allow_html=True)
+    
+    # إضافة قسم الإدخال مع التصميم المحسن
+    st.markdown("""
+        <div class="input-section">
+            <div class="section-title">📄 عدد الصفحات</div>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # حقول الإدخال
     colored_pages = st.number_input("عدد الصفحات الملونة:", min_value=0, value=0)
     bw_pages = st.number_input("عدد الصفحات بالأبيض والأسود:", min_value=0, value=0)
     
-    # خيارات إضافية
-    st.markdown('<div class="section-title">✨ خيارات إضافية</div>', unsafe_allow_html=True)
-    cover = st.checkbox("تصميم غلاف")
-    carton = st.checkbox("كرتون فاخر")
-    nylon = st.checkbox("تغليف نايلون")
-    ruler = st.checkbox("مسطرة خاصة")
+    # قسم الخيارات الإضافية
+    st.markdown('<div class="section-title">✨ الخيارات الإضافية</div>', unsafe_allow_html=True)
     
-    # حساب التكلفة
+    # تنظيم الخيارات في شكل شبكة
+    col1, col2 = st.columns(2)
+    with col1:
+        cover = st.checkbox("تصميم غلاف")
+        carton = st.checkbox("كرتون فاخر")
+    with col2:
+        nylon = st.checkbox("تغليف نايلون")
+        ruler = st.checkbox("مسطرة خاصة")
+    
+    # دالة حساب التكلفة
     def calculate_total_cost(colored_pages, bw_pages, cover, carton, nylon, ruler):
-        # تكلفة الصفحات
-        colored_cost = colored_pages * 50  # سعر الصفحة الملونة
-        bw_cost = bw_pages * 25  # سعر الصفحة بالأبيض والأسود
+        colored_cost = colored_pages * 50
+        bw_cost = bw_pages * 25
         
-        # تكلفة الإضافات
         extras_cost = 0
         if cover: extras_cost += 1000
         if carton: extras_cost += 500
         if nylon: extras_cost += 250
         if ruler: extras_cost += 150
         
-        # التكلفة الإجمالية
-        total = colored_cost + bw_cost + extras_cost
-        
-        return total
+        return colored_cost + bw_cost + extras_cost
     
-    # حساب التكلفة النهائية
-    if st.button("حساب التكلفة"):
+    # زر الحساب مع تصميم محسن
+    st.markdown('<div style="margin: 2rem 0;"></div>', unsafe_allow_html=True)
+    if st.button("حساب التكلفة", key="calculate_button"):
         total_cost = calculate_total_cost(colored_pages, bw_pages, cover, carton, nylon, ruler)
-        
-        # تقريب السعر
         rounded_cost = round(total_cost / 100) * 100
         
         # عرض النتائج
