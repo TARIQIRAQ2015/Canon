@@ -167,5 +167,133 @@ def main():
         has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder
     )
 
+    # إضافة قسم الإضافات
+    st.markdown("""
+        <div class="main-section">
+            <div class="section-title">⭐ الإضافات الاختيارية</div>
+            <div class="extras-grid">
+    """, unsafe_allow_html=True)
+
+    col1, col2, col3, col4, col5 = st.columns(5)
+    
+    with col1:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_cover = st.checkbox("⭐ تصميم غلاف ملون فاخر")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_empty_last = st.checkbox("📄 صفحة ختامية مميزة")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_carton = st.checkbox("📦 كرتون فاخر")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col4:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_nylon = st.checkbox("✨ نايلون شفاف")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col5:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_paper_holder = st.checkbox("📁 حاملة أوراق")
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown('</div></div>', unsafe_allow_html=True)
+
+    # عرض النتائج
+    st.markdown("""
+        <div class="main-section">
+            <div class="section-title">💰 تفاصيل التكلفة</div>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-title">المبلغ الأساسي</div>
+                    <div class="result-value">{:,} دينار</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-title">المبلغ النهائي</div>
+                    <div class="result-value">{:,} دينار</div>
+                </div>
+            </div>
+        </div>
+    """.format(exact_total, rounded_total), unsafe_allow_html=True)
+
+    # إضافة CSS للأقسام الجديدة
+    st.markdown("""
+        <style>
+        /* تنسيق قسم الإضافات */
+        .extras-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .premium-checkbox {
+            background: rgba(20,20,20,0.95);
+            border: 1px solid #D4AF37;
+            border-radius: 15px;
+            padding: 1.2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .premium-checkbox:hover {
+            transform: translateY(-3px);
+            border-color: #FFD700;
+            box-shadow: 0 5px 15px rgba(212,175,55,0.1);
+        }
+
+        /* تنسيق قسم النتائج */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .result-card {
+            background: rgba(20,20,20,0.95);
+            border: 1px solid #D4AF37;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-3px);
+            border-color: #FFD700;
+            box-shadow: 0 5px 15px rgba(212,175,55,0.1);
+        }
+
+        .result-title {
+            color: #D4AF37;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .result-value {
+            color: #FFD700;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        /* تنسيق مربعات الاختيار */
+        .stCheckbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stCheckbox > label {
+            color: #D4AF37 !important;
+            font-size: 1rem !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
 if __name__ == "__main__":
     main()
