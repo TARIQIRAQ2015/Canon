@@ -427,20 +427,15 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     if carton: extras.append("كرتون فاخر")
     if nylon: extras.append("تغليف نايلون")
     if ruler: extras.append("مسطرة خاصة")
-    
-    # تنسيق التاريخ والوقت
-    current_time = datetime.now() + timedelta(hours=3)
-    date_str = current_time.strftime("%Y-%m-%d")
-    time_str = current_time.strftime("%I:%M %p")
 
-    # إنشاء HTML للنتائج بشكل صحيح
+    # إنشاء HTML للنتائج مع تنسيق محسن
     result_html = f"""
-        <div class="result-card">
-            <div class="section-title">📋 تفاصيل الطلب</div>
-            <div class="section-content">
-                <div class="details-list">
-                    <div class="detail-item">• عدد الصفحات الملونة: {colored_pages} صفحة</div>
-                    <div class="detail-item">• عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة</div>
+        <div class="result-container">
+            <div class="result-section">
+                <div class="result-header">📋 تفاصيل الطلب</div>
+                <div class="result-content">
+                    <div class="detail-row">• عدد الصفحات الملونة: {colored_pages} صفحة</div>
+                    <div class="detail-row">• عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة</div>
                 </div>
             </div>
     """
@@ -448,79 +443,105 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     # إضافة الإضافات إذا وجدت
     if extras:
         result_html += f"""
-            <div class="section-title">✨ الإضافات المطلوبة</div>
-            <div class="section-content">
-                <div class="details-list">
-                    {"".join(f'<div class="detail-item">• {extra}</div>' for extra in extras)}
+            <div class="result-section">
+                <div class="result-header">✨ الإضافات المطلوبة</div>
+                <div class="result-content">
+                    {"".join(f'<div class="detail-row">• {extra}</div>' for extra in extras)}
                 </div>
             </div>
         """
     
     # إضافة التفاصيل المالية
     result_html += f"""
-            <div class="section-title">💰 التفاصيل المالية</div>
-            <div class="section-content">
-                <div class="price-row">
-                    <span>التكلفة قبل التقريب:</span>
-                    <span class="price">{total_cost:,} دينار</span>
-                </div>
-                <div class="price-row final-price">
-                    <span>التكلفة النهائية:</span>
-                    <span class="price">{rounded_cost:,} دينار</span>
+            <div class="result-section">
+                <div class="result-header">💰 التفاصيل المالية</div>
+                <div class="result-content">
+                    <div class="cost-row">
+                        <div class="cost-label">التكلفة قبل التقريب:</div>
+                        <div class="cost-value">{total_cost:,} دينار</div>
+                    </div>
+                    <div class="cost-row final">
+                        <div class="cost-label">التكلفة النهائية:</div>
+                        <div class="cost-value">{rounded_cost:,} دينار</div>
+                    </div>
                 </div>
             </div>
         </div>
     """
-    
-    # إضافة الأنماط الخاصة بالنتائج
+
+    # إضافة الأنماط المحسنة
     st.markdown("""
         <style>
-        .result-card {
+        .result-container {
             background: rgba(255,255,255,0.05);
             border-radius: 15px;
             padding: 2rem;
             margin-top: 2rem;
             border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
         }
         
-        .details-list {
-            margin: 1rem 0;
+        .result-section {
+            margin-bottom: 2rem;
         }
         
-        .detail-item {
+        .result-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .result-header {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            padding-right: 1rem;
+            border-right: 4px solid #64ffda;
+        }
+        
+        .result-content {
+            padding: 0.5rem 1rem;
+        }
+        
+        .detail-row {
             padding: 0.5rem 0;
             color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
         }
         
-        .price-row {
+        .cost-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0.8rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.9);
         }
         
-        .price-row:last-child {
+        .cost-row:last-child {
             border-bottom: none;
         }
         
-        .price {
-            font-weight: bold;
-            color: #64ffda;
+        .cost-label {
             font-size: 1.1rem;
         }
         
-        .final-price .price {
-            font-size: 1.3rem;
+        .cost-value {
+            font-weight: bold;
+            color: #64ffda;
+            font-size: 1.2rem;
+        }
+        
+        .cost-row.final .cost-value {
             color: #4CAF50;
+            font-size: 1.3rem;
         }
         
         @media (max-width: 768px) {
-            .result-card {
+            .result-container {
                 padding: 1rem;
             }
             
-            .price-row {
+            .cost-row {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.5rem;
