@@ -352,24 +352,15 @@ def main():
         </div>
     """.format(exact_total, rounded_total), unsafe_allow_html=True)
     
-    # زر العودة للأعلى مع JavaScript للانتقال السلس
+    # زر العودة للأعلى
     st.markdown("""
         <div style="text-align: center; margin-top: 2rem;">
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
-                    class="premium-button">
+            <a href="https://tariqoffice.streamlit.app/#dd12d7f3" 
+               class="premium-button" 
+               style="text-decoration: none; display: inline-block;">
                 ⬆️ العودة للأعلى
-            </button>
+            </a>
         </div>
-        
-        <script>
-            // إضافة سلوك النقر للزر
-            document.querySelector('.premium-button').addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        </script>
     """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
