@@ -115,7 +115,7 @@ st.markdown("""
         padding: clamp(1rem, 3vw, 2.5rem);
         border-radius: 20px;
         margin: 2rem 0;
-        font-family: monospace;
+        font-family: 'Courier New', monospace;
         font-size: clamp(0.8rem, 2vw, 1.1rem);
         line-height: 1.8;
         border: 2px solid rgba(96, 165, 250, 0.3);
@@ -123,6 +123,26 @@ st.markdown("""
         direction: rtl;
         text-align: right;
         overflow-x: auto;
+        color: #A5B4FC;
+        box-shadow: 0 0 30px rgba(96, 165, 250, 0.1);
+    }
+
+    .summary::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .summary::-webkit-scrollbar-track {
+        background: rgba(20, 30, 60, 0.5);
+        border-radius: 4px;
+    }
+
+    .summary::-webkit-scrollbar-thumb {
+        background: rgba(96, 165, 250, 0.3);
+        border-radius: 4px;
+    }
+
+    .summary::-webkit-scrollbar-thumb:hover {
+        background: rgba(96, 165, 250, 0.5);
     }
 
     /* تنسيق زر النسخ */
@@ -226,7 +246,8 @@ def round_to_nearest_currency(amount):
 def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost):
     # تنسيق التاريخ والوقت حسب توقيت بغداد
     current_time = datetime.now() + timedelta(hours=3)
-    date_time_str = current_time.strftime("%Y-%m-%d %I:%M %p")
+    date_str = current_time.strftime("%Y-%m-%d")
+    time_str = current_time.strftime("%I:%M %p")
     
     extras = []
     if cover: extras.append("تصميم غلاف")
@@ -237,7 +258,8 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     summary = f"""╔══════════════════════════════════════════════════════════════════╗
 ║                         ملخص النتائج ✨                         ║
 ╠══════════════════════════════════════════════════════════════════╣
-║ وقت الحساب ⏰: {date_time_str}
+║ 📅 التاريخ: {date_str}
+║ ⏰ الوقت: {time_str}
 ╟──────────────────────────────────────────────────────────────────
 ║ 📄 تفاصيل الصفحات:
 ║ • عدد الصفحات الملونة: {colored_pages} صفحة
@@ -305,46 +327,20 @@ def main():
         </div>
     """, unsafe_allow_html=True)
 
-    # إنشاء وعرض الملخص
+    # عرض النتائج
     summary = generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost)
-    st.markdown(f"<div class='summary'>{summary}</div>", unsafe_allow_html=True)
-    
-    # زر النسخ الجديد
+    st.markdown(f'<div class="summary">{summary}</div>', unsafe_allow_html=True)
+
+    # زر النسخ
     st.markdown(f"""
         <div class="copy-button-container">
             <button class="modern-copy-button" onclick="copyToClipboard()">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+                    <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
                 </svg>
                 نسخ النتائج
             </button>
             <textarea id="summary-text" style="position: absolute; left: -9999px;">{summary}</textarea>
-            <script>
-                function copyToClipboard() {{
-                    var textArea = document.getElementById('summary-text');
-                    textArea.select();
-                    try {{
-                        navigator.clipboard.writeText(textArea.value).then(function() {{
-                            const streamlitDoc = window.parent.document;
-                            const div = streamlitDoc.createElement('div');
-                            div.innerHTML = `
-                                <div class="stAlert success" style="
-                                    padding: 16px;
-                                    border-radius: 8px;
-                                    margin-top: 16px;
-                                    background: rgba(45, 212, 191, 0.1);
-                                    border: 1px solid rgba(45, 212, 191, 0.2);
-                                    color: #2DD4BF;">
-                                    ✨ تم نسخ النتائج بنجاح!
-                                </div>`;
-                            streamlitDoc.body.appendChild(div);
-                            setTimeout(() => div.remove(), 3000);
-                        }});
-                    }} catch (err) {{
-                        console.error('فشل النسخ:', err);
-                    }}
-                }}
-            </script>
         </div>
     """, unsafe_allow_html=True)
     
