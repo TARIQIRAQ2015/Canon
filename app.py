@@ -1362,7 +1362,7 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     if bw_color_pages > 0:
         st.markdown(f"""
             <div class="summary-item">
-                <div class="summary-label">🖌️ صفحات مع تأثيرات لونية</div>
+                <div class="summary-label">🖌️ صفحات أبيض وأسود مع تأثيرات لونية</div>
                 <div class="summary-value">{bw_color_pages} صفحة</div>
             </div>
         """, unsafe_allow_html=True)
@@ -1512,40 +1512,30 @@ def main():
     st.markdown("""
         <div class="section-container">
             <h2 class="section-title">تفاصيل الطباعة</h2>
-            <div class="printing-options">
-                <div class="option-item">
-                    <div class="option-title">طباعة ملونة عالية الجودة</div>
-                    <div class="option-description">جودة عالية للصور والرسومات الملونة</div>
-                </div>
-                <div class="option-item">
-                    <div class="option-title">طباعة مع تأثيرات لونية</div>
-                    <div class="option-description">مثالية للرسوم البيانية والمخططات</div>
-                </div>
-                <div class="option-item">
-                    <div class="option-title">طباعة أبيض وأسود</div>
-                    <div class="option-description">مناسبة للنصوص والمستندات العادية</div>
-                </div>
-            </div>
             <div class="input-grid">
     """, unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
+    
+    # طباعة ملونة (أول عمود على اليمين)
     with col1:
         st.markdown('<div class="input-container">', unsafe_allow_html=True)
         st.markdown('<div class="input-label">طباعة ملونة عالية الجودة</div>', unsafe_allow_html=True)
         color_pages = st.number_input("", min_value=0, value=0, key="color_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
     
+    # طباعة أبيض وأسود (العمود الثاني)
     with col2:
-        st.markdown('<div class="input-container">', unsafe_allow_html=True)
-        st.markdown('<div class="input-label">طباعة مع تأثيرات لونية</div>', unsafe_allow_html=True)
-        bw_color_pages = st.number_input("", min_value=0, value=0, key="bw_color_pages", label_visibility="collapsed")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with col3:
         st.markdown('<div class="input-container">', unsafe_allow_html=True)
         st.markdown('<div class="input-label">طباعة أبيض وأسود</div>', unsafe_allow_html=True)
         bw_pages = st.number_input("", min_value=0, value=0, key="bw_pages", label_visibility="collapsed")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    # طباعة أبيض وأسود مع تأثيرات لونية (العمود الثالث)
+    with col3:
+        st.markdown('<div class="input-container">', unsafe_allow_html=True)
+        st.markdown('<div class="input-label">طباعة أبيض وأسود مع تأثيرات لونية</div>', unsafe_allow_html=True)
+        bw_color_pages = st.number_input("", min_value=0, value=0, key="bw_color_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown('</div></div>', unsafe_allow_html=True)
