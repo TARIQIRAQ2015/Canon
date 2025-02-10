@@ -508,6 +508,160 @@ st.markdown("""
     .input-container:hover::after {
         opacity: 1;
     }
+
+    /* إضافة CSS للشريط المتحرك */
+    .progress-container {
+        background: rgba(0,0,0,0.3);
+        border-radius: 50px;
+        padding: 5px;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(212,175,55,0.3);
+    }
+    
+    .progress-bar {
+        background: linear-gradient(90deg, #D4AF37, #FFD700);
+        height: 10px;
+        border-radius: 50px;
+        transition: width 0.5s ease;
+        position: relative;
+        animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+    }
+
+    .info-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+    
+    .info-card {
+        background: rgba(20,20,20,0.95);
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        transform-style: preserve-3d;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .info-card:hover {
+        transform: translateZ(20px) rotateX(10deg);
+    }
+    
+    .info-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 50% 0%, 
+            rgba(212,175,55,0.4),
+            transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .info-card:hover::before {
+        opacity: 1;
+    }
+
+    .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    .particle {
+        position: absolute;
+        background: rgba(212,175,55,0.2);
+        border-radius: 50%;
+        pointer-events: none;
+        animation: float 15s infinite;
+    }
+    
+    @keyframes float {
+        0% { transform: translateY(0) rotate(0deg); }
+        100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+
+    .premium-button-3d {
+        background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+        color: #D4AF37;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 15px;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.2s;
+        cursor: pointer;
+    }
+    
+    .premium-button-3d::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #D4AF37;
+        transform: translateZ(-10px);
+        border-radius: 15px;
+        filter: blur(10px);
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+    
+    .premium-button-3d:hover {
+        transform: translateY(-5px);
+    }
+    
+    .premium-button-3d:hover::before {
+        opacity: 0.5;
+    }
+    
+    .premium-button-3d:active {
+        transform: translateY(0);
+    }
+
+    .neon-title {
+        color: #fff;
+        text-shadow:
+            0 0 5px #D4AF37,
+            0 0 10px #D4AF37,
+            0 0 20px #D4AF37,
+            0 0 40px #D4AF37;
+        animation: neon 1.5s ease-in-out infinite alternate;
+    }
+    
+    @keyframes neon {
+        from {
+            text-shadow:
+                0 0 5px #D4AF37,
+                0 0 10px #D4AF37,
+                0 0 20px #D4AF37,
+                0 0 40px #D4AF37;
+        }
+        to {
+            text-shadow:
+                0 0 10px #D4AF37,
+                0 0 20px #D4AF37,
+                0 0 40px #D4AF37,
+                0 0 80px #D4AF37;
+        }
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -632,6 +786,16 @@ def main():
         </div>
     """.format(exact_total, rounded_total), unsafe_allow_html=True)
     
+    # إضافة الشريط في الواجهة
+    total_pages = color_pages + bw_color_pages + bw_pages
+    if total_pages > 0:
+        progress = min(total_pages / 100, 1)  # مثال: 100 صفحة كحد أقصى
+        st.markdown(f"""
+            <div class="progress-container">
+                <div class="progress-bar" style="width: {progress * 100}%"></div>
+            </div>
+        """, unsafe_allow_html=True)
+    
     # في نهاية الصفحة
     st.markdown("""
         <div style="text-align: center; margin-top: 2rem;">
@@ -641,6 +805,45 @@ def main():
                 ⬆️ العودة للأعلى
             </a>
         </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+        <div class="info-cards">
+            <div class="info-card">
+                <h3>طباعة فاخرة</h3>
+                <p>جودة عالية تليق بمشروعك</p>
+            </div>
+            <div class="info-card">
+                <h3>خدمة سريعة</h3>
+                <p>إنجاز في وقت قياسي</p>
+            </div>
+            <div class="info-card">
+                <h3>أسعار تنافسية</h3>
+                <p>قيمة مقابل الجودة</p>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+        <div class="particles">
+            <!-- سيتم إضافة الجسيمات ديناميكياً عبر JavaScript -->
+        </div>
+        
+        <script>
+        function createParticles() {
+            const container = document.querySelector('.particles');
+            for(let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.width = Math.random() * 3 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+        </script>
     """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
