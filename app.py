@@ -358,6 +358,82 @@ st.markdown("""
         margin-left: 0.5rem;
         -webkit-text-fill-color: initial;  /* إزالة التأثير الذهبي من الإيموجيات */
     }
+
+    /* تنسيق جديد لحقول الإدخال */
+    .input-container {
+        background: linear-gradient(145deg, rgba(20,20,20,0.8), rgba(30,30,30,0.8));
+        border: 1px solid rgba(212,175,55,0.2);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+
+    .input-container:hover {
+        transform: translateY(-2px);
+        border-color: rgba(212,175,55,0.4);
+        box-shadow: 0 5px 15px rgba(212,175,55,0.1);
+    }
+
+    .input-label {
+        color: #D4AF37;
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    /* تحسين مظهر حقول الأرقام */
+    .stNumberInput {
+        background: transparent !important;
+    }
+
+    .stNumberInput > div > div > input {
+        background: rgba(0,0,0,0.3) !important;
+        border: 2px solid rgba(212,175,55,0.3) !important;
+        border-radius: 10px !important;
+        color: #ffffff !important;
+        font-size: 1.1rem !important;
+        padding: 1rem !important;
+        height: 3rem !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .stNumberInput > div > div > input:focus {
+        border-color: #D4AF37 !important;
+        box-shadow: 0 0 15px rgba(212,175,55,0.2) !important;
+        transform: translateY(-1px);
+    }
+
+    /* تحسين أزرار الزيادة والنقصان */
+    .stNumberInput [data-testid="stDecrement"], 
+    .stNumberInput [data-testid="stIncrement"] {
+        background: linear-gradient(145deg, #1a1a1a, #2d2d2d) !important;
+        color: #D4AF37 !important;
+        border: 2px solid rgba(212,175,55,0.3) !important;
+        border-radius: 8px !important;
+        width: 40px !important;
+        height: 40px !important;
+        transition: all 0.3s ease;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .stNumberInput [data-testid="stDecrement"]:hover, 
+    .stNumberInput [data-testid="stIncrement"]:hover {
+        background: linear-gradient(145deg, #D4AF37, #B8860B) !important;
+        color: #000000 !important;
+        transform: scale(1.05);
+    }
+
+    /* إضافة أيقونات للحقول */
+    .input-icon {
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+        color: #D4AF37;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -415,9 +491,20 @@ def main():
             </div>
         """, unsafe_allow_html=True)
         
-        color_pages = st.number_input("عدد الصفحات الملونة الفاخرة", min_value=0, value=0)
-        bw_color_pages = st.number_input("عدد الصفحات المميزة مع لمسات لونية", min_value=0, value=0)
-        bw_pages = st.number_input("عدد الصفحات الكلاسيكية", min_value=0, value=0)
+        st.markdown('<div class="input-container">', unsafe_allow_html=True)
+        st.markdown('<div class="input-label">📄 عدد الصفحات الملونة الفاخرة</div>', unsafe_allow_html=True)
+        color_pages = st.number_input("", min_value=0, value=0, key="color_pages", label_visibility="collapsed")
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        st.markdown('<div class="input-container">', unsafe_allow_html=True)
+        st.markdown('<div class="input-label">🎨 عدد الصفحات المميزة مع لمسات لونية</div>', unsafe_allow_html=True)
+        bw_color_pages = st.number_input("", min_value=0, value=0, key="bw_color_pages", label_visibility="collapsed")
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        st.markdown('<div class="input-container">', unsafe_allow_html=True)
+        st.markdown('<div class="input-label">📝 عدد الصفحات الكلاسيكية</div>', unsafe_allow_html=True)
+        bw_pages = st.number_input("", min_value=0, value=0, key="bw_pages", label_visibility="collapsed")
+        st.markdown('</div>', unsafe_allow_html=True)
     
     with col1:
         st.markdown("""
