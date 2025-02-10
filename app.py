@@ -1244,7 +1244,6 @@ st.markdown("""
         transform: none !important;
         text-align: center !important;
         width: auto !important;
-        display: inline-block;
     }
 
     /* تحسين عناوين الخيارات */
@@ -1305,9 +1304,32 @@ st.markdown("""
     </script>
 """, unsafe_allow_html=True)
 
-def round_to_nearest_250(amount):
-    """تقريب المبلغ إلى أقرب 250 دينار"""
-    return round(amount / 250) * 250
+def round_to_currency(amount):
+    """
+    تقريب المبلغ لأقرب فئة عملة متداولة في العراق
+    الفئات: 250، 500، 1000، 5000، 10000، 25000، 50000
+    """
+    currency_notes = [250, 500, 1000, 5000, 10000, 25000, 50000]
+    
+    # إذا كان المبلغ أقل من أصغر فئة
+    if amount < currency_notes[0]:
+        return currency_notes[0]
+    
+    # إذا كان المبلغ أكبر من أكبر فئة
+    if amount > currency_notes[-1]:
+        # نقرب لأقرب مضاعف لأكبر فئة
+        return round(amount / currency_notes[-1]) * currency_notes[-1]
+    
+    # البحث عن أقرب فئة
+    for i in range(len(currency_notes) - 1):
+        if currency_notes[i] <= amount <= currency_notes[i + 1]:
+            # نختار الفئة الأقرب
+            if (amount - currency_notes[i]) < (currency_notes[i + 1] - amount):
+                return currency_notes[i]
+            else:
+                return currency_notes[i + 1]
+    
+    return amount
 
 def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover, 
                         has_empty_last, has_carton, has_nylon, has_paper_holder):
@@ -1328,8 +1350,8 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     if has_paper_holder:
         total += PRICES['paper_holder']
     
-    # تقريب المجموع النهائي إلى أقرب 250 دينار
-    rounded_total = round_to_nearest_250(total)
+    # تقريب المجموع النهائي إلى أقرب فئة عملة متداولة في العراق
+    rounded_total = round_to_currency(total)
     return total, rounded_total
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
@@ -1396,9 +1418,10 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
 ───────────────────────────────────────"""
 
     # إضافة الأسعار النهائية
+    rounded_total = round_to_currency(exact_total)
     summary_text += f"""
 💵 السعر الكلي: {exact_total:,} دينار
-💰 السعر النهائي (مع التقريب): {round_to_nearest_250(exact_total):,} دينار
+💰 السعر النهائي (مقرب لأقرب فئة متداولة): {rounded_total:,} دينار
 ═══════════════════════════════════════"""
 
     # عرض الملخص باستخدام st.code
