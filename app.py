@@ -202,7 +202,7 @@ def main():
     # زر إعادة التعيين
     st.markdown('<div style="text-align: center; margin-top: 2rem;">', unsafe_allow_html=True)
     if st.button("إعادة تعيين الحساب"):
-        st.experimental_rerun()
+        st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
