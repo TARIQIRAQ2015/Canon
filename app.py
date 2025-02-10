@@ -28,6 +28,7 @@ st.markdown("""
     /* تنسيق عام */
     * {
         font-family: 'Tajawal', sans-serif;
+        text-align: center;
     }
     
     .main {
@@ -1067,6 +1068,111 @@ st.markdown("""
         background: linear-gradient(to right, transparent, rgba(212,175,55,0.5), transparent);
         margin: 2rem 0;
     }
+
+    /* تحديث CSS للتنسيق */
+    st.markdown("""
+        <style>
+        /* تنسيق عام لجميع النصوص */
+        * {
+            text-align: center;
+        }
+
+        /* تنسيق القسم الرئيسي */
+        .main-section {
+            background: rgba(20,20,20,0.95);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        /* تنسيق العنوان */
+        .section-title {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a1a;
+            padding: 5px 25px;
+            border-radius: 10px;
+            color: #D4AF37;
+            font-size: 1.2rem;
+            border: 1px solid rgba(212,175,55,0.3);
+            z-index: 1;
+            white-space: nowrap;
+        }
+
+        /* تنسيق خيارات الطباعة */
+        .print-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .print-option-title {
+            color: #D4AF37;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* تنسيق حقول الإدخال */
+        .stNumberInput {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stNumberInput > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stNumberInput > div > div > input {
+            background: rgba(30,30,30,0.95) !important;
+            border: 1px solid rgba(212,175,55,0.3) !important;
+            color: #D4AF37 !important;
+            font-size: 1.2rem !important;
+            text-align: center !important;
+            width: 120px !important;
+            border-radius: 10px !important;
+            padding: 0.5rem !important;
+        }
+
+        /* تنسيق أزرار الزيادة والنقصان */
+        .stNumberInput [data-testid="stDecrement"],
+        .stNumberInput [data-testid="stIncrement"] {
+            background: rgba(25,25,25,0.95) !important;
+            border: 1px solid rgba(212,175,55,0.3) !important;
+            color: #D4AF37 !important;
+            border-radius: 8px !important;
+            width: 35px !important;
+            height: 35px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all 0.3s ease;
+        }
+
+        .stNumberInput [data-testid="stDecrement"]:hover,
+        .stNumberInput [data-testid="stIncrement"]:hover {
+            background: linear-gradient(145deg, #D4AF37, #B8860B) !important;
+            color: #000 !important;
+        }
+
+        /* تنسيق الخط الفاصل */
+        .separator {
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.3), transparent);
+            margin: 0 auto;
+        }
+        </style>
+    """, unsafe_allow_html=True)
     </style>
 
     <!-- زر العودة للأعلى -->
@@ -1204,7 +1310,7 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     # إضافة السعر النهائي
     st.markdown(f"""
         <div class="summary-item" style="margin-top: 1rem;">
-            <div class="summary-label" style="font-size: 1.3rem;">💰 السعر النهائي</div>
+            <div class="summary-label" style="font-size: 1.3rem;">�� السعر النهائي</div>
             <div class="summary-value" style="font-size: 1.3rem; color: #D4AF37;">{exact_total:,} دينار</div>
         </div>
     """, unsafe_allow_html=True)
