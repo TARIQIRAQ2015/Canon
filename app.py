@@ -298,20 +298,20 @@ def round_to_nearest_currency(amount):
         return amount - remainder
 
 def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost):
-    # تنسيق التاريخ والوقت حسب توقيت بغداد
-    current_time = datetime.now() + timedelta(hours=3)
-    date_str = current_time.strftime("%Y-%m-%d")
-    time_str = current_time.strftime("%I:%M %p")
-
     # تجميع الإضافات المطلوبة
     extras = []
     if cover: extras.append("تصميم غلاف")
     if carton: extras.append("كرتون فاخر")
     if nylon: extras.append("تغليف نايلون")
     if ruler: extras.append("مسطرة خاصة")
+    
+    # تنسيق التاريخ والوقت
+    current_time = datetime.now() + timedelta(hours=3)
+    date_str = current_time.strftime("%Y-%m-%d")
+    time_str = current_time.strftime("%I:%M %p")
 
-    # إنشاء نص النتائج بتنسيق جديد
-    st.markdown(f"""
+    # إنشاء HTML للنتائج
+    result_html = f"""
         <div class="result-card">
             <div class="result-header">
                 <div class="result-title">ملخص الطلب</div>
@@ -324,20 +324,25 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
             <div class="result-section">
                 <div class="section-title">📄 تفاصيل الصفحات</div>
                 <div class="section-content">
-                    {f"• {colored_pages} صفحة ملونة" if colored_pages else ""}
-                    {f"• {bw_pages} صفحة أبيض وأسود" if bw_pages else ""}
+                    {f"• {colored_pages} صفحة ملونة" if colored_pages > 0 else ""}
+                    {f"• {bw_pages} صفحة أبيض وأسود" if bw_pages > 0 else ""}
                 </div>
             </div>
-            
-            {f'''
+    """
+    
+    # إضافة قسم الإضافات فقط إذا كان هناك إضافات
+    if extras:
+        result_html += f"""
             <div class="result-section">
                 <div class="section-title">✨ الإضافات المطلوبة</div>
                 <div class="section-content">
                     • {' + '.join(extras)}
                 </div>
             </div>
-            ''' if extras else ''}
-            
+        """
+    
+    # إضافة قسم التفاصيل المالية
+    result_html += f"""
             <div class="result-section">
                 <div class="section-title">💰 التفاصيل المالية</div>
                 <div class="section-content">
@@ -352,7 +357,13 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
                 </div>
             </div>
         </div>
-    """, unsafe_allow_html=True)
+    """
+    
+    # عرض النتائج باستخدام markdown
+    st.markdown(result_html, unsafe_allow_html=True)
+    
+    # إخفاء أي نص إضافي
+    return ""
 
 def main():
     # عرض العنوان الرئيسي
