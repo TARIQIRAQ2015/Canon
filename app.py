@@ -143,9 +143,13 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-def round_to_250(amount):
-    """تقريب المبلغ لأقرب 250 دينار"""
-    return round(amount / 250) * 250
+def round_to_nearest_250(amount):
+    """تقريب المبلغ لأقرب 250 دينار بشكل صحيح"""
+    remainder = amount % 250
+    if remainder >= 125:  # إذا كان الباقي أكبر من أو يساوي 125، نقرب للأعلى
+        return amount + (250 - remainder)
+    else:  # وإلا نقرب للأسفل
+        return amount - remainder
 
 def get_iraq_time():
     """الحصول على الوقت في العراق"""
@@ -154,10 +158,9 @@ def get_iraq_time():
 
 def calculate_cost(colored_pages, bw_pages):
     """حساب التكلفة الإجمالية"""
-    colored_cost = colored_pages * 50
-    bw_cost = bw_pages * 35
-    total = colored_cost + bw_cost
-    return total
+    colored_cost = colored_pages * 50  # 50 دينار للصفحة الملونة
+    bw_cost = bw_pages * 35  # 35 دينار للصفحة بالأبيض والأسود
+    return colored_cost + bw_cost
 
 def main():
     # العنوان الرئيسي
@@ -195,7 +198,7 @@ def main():
     # حساب وعرض النتائج
     if st.button("حساب التكلفة", type="primary"):
         total_cost = calculate_cost(colored_pages, bw_pages)
-        rounded_cost = round_to_250(total_cost)
+        rounded_cost = round_to_nearest_250(total_cost)
         current_time = get_iraq_time()
         
         # عرض النتائج
@@ -208,7 +211,7 @@ def main():
                 
                 <div class="summary-row">
                     <span class="summary-label">عدد الصفحات الملونة</span>
-                    <span class="summary-value">{colored_pages} صفحة</span>
+                    <span class="summary-value">{colored_pages:,} صفحة</span>
                 </div>
                 <div class="summary-row">
                     <span class="summary-label">تكلفة الصفحات الملونة</span>
@@ -216,7 +219,7 @@ def main():
                 </div>
                 <div class="summary-row">
                     <span class="summary-label">عدد الصفحات بالأبيض والأسود</span>
-                    <span class="summary-value">{bw_pages} صفحة</span>
+                    <span class="summary-value">{bw_pages:,} صفحة</span>
                 </div>
                 <div class="summary-row">
                     <span class="summary-label">تكلفة الصفحات بالأبيض والأسود</span>
@@ -240,14 +243,12 @@ def main():
 ⏰ وقت الحساب: {current_time}
 
 تفاصيل الطلب:
-- عدد الصفحات الملونة: {colored_pages} صفحة
-- عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة
+- عدد الصفحات الملونة: {colored_pages:,} صفحة ({colored_pages * 50:,} دينار)
+- عدد الصفحات بالأبيض والأسود: {bw_pages:,} صفحة ({bw_pages * 35:,} دينار)
 
 التكاليف:
-- تكلفة الصفحات الملونة: {colored_pages * 50:,} دينار
-- تكلفة الصفحات بالأبيض والأسود: {bw_pages * 35:,} دينار
 - المبلغ الإجمالي: {total_cost:,} دينار
-- المبلغ النهائي: {rounded_cost:,} دينار"""
+- المبلغ النهائي (مقرب): {rounded_cost:,} دينار"""
 
         if st.button("نسخ النتائج 📋"):
             st.code(copy_text)
