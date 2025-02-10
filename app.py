@@ -3,6 +3,7 @@ from streamlit_option_menu import option_menu
 import requests
 import json
 import math
+import pyperclip
 
 # تعيين الإعدادات الأولية
 st.set_page_config(
@@ -101,6 +102,33 @@ st.markdown("""
         border-radius: 10px;
         margin: 1rem 0;
     }
+
+    /* تنسيق زر النسخ */
+    .copy-button {
+        background: #4CAF50;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        margin-top: 1rem;
+        font-family: 'Tajawal', sans-serif;
+    }
+
+    .copy-button:hover {
+        background: #45a049;
+    }
+
+    /* تنسيق ملخص الطلب */
+    .summary {
+        background: #404040;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-top: 1rem;
+        text-align: right;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -122,6 +150,26 @@ def round_to_nearest_currency(amount):
         return amount + (250 - remainder)
     else:
         return amount - remainder
+
+def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost):
+    extras = []
+    if cover: extras.append("تصميم غلاف")
+    if carton: extras.append("كرتون فاخر")
+    if nylon: extras.append("تغليف نايلون")
+    if ruler: extras.append("مسطرة خاصة")
+    
+    summary = f"""خلاصة الطلب:
+• عدد الصفحات الملونة: {colored_pages} صفحة
+• عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة"""
+
+    if extras:
+        summary += f"\n• الإضافات المطلوبة: {' + '.join(extras)}"
+    
+    summary += f"""
+• التكلفة قبل التقريب: {total_cost:,} دينار
+• التكلفة النهائية بعد التقريب: {rounded_cost:,} دينار"""
+    
+    return summary
 
 def main():
     st.markdown("<div class='calculator-box'>", unsafe_allow_html=True)
@@ -150,7 +198,7 @@ def main():
     total_cost = calculate_total_cost(colored_pages, bw_pages, cover, carton, nylon, ruler)
     rounded_cost = round_to_nearest_currency(total_cost)
 
-    # عرض النتيجة
+    # عرض النتيجة والملخص
     st.markdown(f"""
         <div class='result'>
             التكلفة الإجمالية: {rounded_cost:,} دينار
@@ -159,6 +207,15 @@ def main():
             </div>
         </div>
     """, unsafe_allow_html=True)
+
+    # إنشاء وعرض الملخص
+    summary = generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost)
+    st.markdown(f"<div class='summary'>{summary.replace(chr(10), '<br>')}</div>", unsafe_allow_html=True)
+    
+    # زر نسخ الملخص
+    if st.button("نسخ الملخص", key="copy_button"):
+        st.session_state.clipboard = summary
+        st.success("تم نسخ الملخص بنجاح!")
     
     st.markdown("</div>", unsafe_allow_html=True)
 
