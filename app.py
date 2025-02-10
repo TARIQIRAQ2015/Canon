@@ -171,6 +171,110 @@ st.markdown("""
             height: 28px;
         }
     }
+    
+    /* تصميم بطاقة النتائج */
+    .result-card {
+        background: rgba(20, 30, 60, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .result-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    /* رأس البطاقة */
+    .result-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .result-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+    
+    .result-datetime {
+        display: flex;
+        gap: 1rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* أقسام النتائج */
+    .result-section {
+        margin: 1rem 0;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .result-section:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 0.5rem;
+    }
+    
+    .section-content {
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.6;
+    }
+    
+    /* تنسيق الأسعار */
+    .price-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0.5rem 0;
+    }
+    
+    .price {
+        font-weight: bold;
+        color: #4CAF50;
+    }
+    
+    .final-price .price {
+        font-size: 1.2rem;
+        color: #64ffda;
+    }
+    
+    /* تحسينات للأجهزة المحمولة */
+    @media (max-width: 768px) {
+        .result-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+        }
+        
+        .result-datetime {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .price-row {
+            flex-direction: column;
+            text-align: center;
+            gap: 0.5rem;
+        }
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -198,37 +302,57 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     current_time = datetime.now() + timedelta(hours=3)
     date_str = current_time.strftime("%Y-%m-%d")
     time_str = current_time.strftime("%I:%M %p")
-    
+
+    # تجميع الإضافات المطلوبة
     extras = []
     if cover: extras.append("تصميم غلاف")
     if carton: extras.append("كرتون فاخر")
     if nylon: extras.append("تغليف نايلون")
     if ruler: extras.append("مسطرة خاصة")
-    
-    summary = f"""╔══════════════════════════════════════════════════════════════════╗
-║                         ملخص النتائج ✨                         ║
-╠══════════════════════════════════════════════════════════════════╣
-║ 📅 التاريخ: {date_str}
-║ ⏰ الوقت: {time_str}
-╟──────────────────────────────────────────────────────────────────
-║ 📄 تفاصيل الصفحات:
-║ • عدد الصفحات الملونة: {colored_pages} صفحة
-║ • عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة
-"""
 
-    if extras:
-        summary += f"""╟──────────────────────────────────────────────────────────────────
-║ ✨ الإضافات المطلوبة:
-║ • {' + '.join(extras)}
-"""
-    
-    summary += f"""╟──────────────────────────────────────────────────────────────────
-║ 💰 التفاصيل المالية:
-║ • التكلفة قبل التقريب: {total_cost:,} دينار
-║ • التكلفة النهائية: {rounded_cost:,} دينار
-╚══════════════════════════════════════════════════════════════════╝"""
-    
-    return summary
+    # إنشاء نص النتائج بتنسيق جديد
+    st.markdown(f"""
+        <div class="result-card">
+            <div class="result-header">
+                <div class="result-title">ملخص الطلب</div>
+                <div class="result-datetime">
+                    <span>📅 {date_str}</span>
+                    <span>🕒 {time_str}</span>
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <div class="section-title">📄 تفاصيل الصفحات</div>
+                <div class="section-content">
+                    {f"• {colored_pages} صفحة ملونة" if colored_pages else ""}
+                    {f"• {bw_pages} صفحة أبيض وأسود" if bw_pages else ""}
+                </div>
+            </div>
+            
+            {f'''
+            <div class="result-section">
+                <div class="section-title">✨ الإضافات المطلوبة</div>
+                <div class="section-content">
+                    • {' + '.join(extras)}
+                </div>
+            </div>
+            ''' if extras else ''}
+            
+            <div class="result-section">
+                <div class="section-title">💰 التفاصيل المالية</div>
+                <div class="section-content">
+                    <div class="price-row">
+                        <span>التكلفة قبل التقريب:</span>
+                        <span class="price">{total_cost:,} دينار</span>
+                    </div>
+                    <div class="price-row final-price">
+                        <span>التكلفة النهائية:</span>
+                        <span class="price">{rounded_cost:,} دينار</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
 
 def main():
     # عرض العنوان الرئيسي
@@ -278,8 +402,7 @@ def main():
     """, unsafe_allow_html=True)
 
     # عرض النتائج
-    summary = generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost)
-    st.markdown(f'<div class="summary">{summary}</div>', unsafe_allow_html=True)
+    generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost)
 
     # زر النسخ
     st.markdown(f"""
@@ -290,7 +413,7 @@ def main():
                 </svg>
                 نسخ النتائج
             </button>
-            <textarea id="summary-text" style="position: absolute; left: -9999px;">{summary}</textarea>
+            <textarea id="summary-text" style="position: absolute; left: -9999px;">{generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost)}</textarea>
         </div>
     """, unsafe_allow_html=True)
     
