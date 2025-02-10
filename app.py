@@ -341,6 +341,23 @@ st.markdown("""
     .premium-checkbox .stCheckbox label::before {
         color: #D4AF37;
     }
+    
+    /* تحديث CSS لفصل تنسيق الإيموجيات عن العناوين */
+    .section-title {
+        color: #D4AF37;
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
+        background: linear-gradient(45deg, #FFD700, #B8860B);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    /* تنسيق الإيموجيات */
+    .emoji-icon {
+        font-size: 1.5rem;
+        margin-left: 0.5rem;
+        -webkit-text-fill-color: initial;  /* إزالة التأثير الذهبي من الإيموجيات */
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -391,7 +408,10 @@ def main():
     with col2:
         st.markdown("""
             <div class="premium-section">
-                <h2><span class="section-icon">📑</span> المعلومات الرئيسية</h2>
+                <h2>
+                    <span class="emoji-icon">📑</span>
+                    <span class="section-title">المعلومات الرئيسية</span>
+                </h2>
             </div>
         """, unsafe_allow_html=True)
         
@@ -402,7 +422,10 @@ def main():
     with col1:
         st.markdown("""
             <div class="premium-section">
-                <h2><span class="section-icon">⭐</span> الإضافات الاختيارية</h2>
+                <h2>
+                    <span class="emoji-icon">⭐</span>
+                    <span class="section-title">الإضافات الاختيارية</span>
+                </h2>
             </div>
         """, unsafe_allow_html=True)
         
