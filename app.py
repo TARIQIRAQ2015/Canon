@@ -144,12 +144,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 def round_to_nearest_250(amount):
-    """تقريب المبلغ لأقرب 250 دينار بشكل صحيح"""
-    remainder = amount % 250
-    if remainder >= 125:  # إذا كان الباقي أكبر من أو يساوي 125، نقرب للأعلى
-        return amount + (250 - remainder)
-    else:  # وإلا نقرب للأسفل
-        return amount - remainder
+    """تقريب المبلغ لأقرب 250 دينار"""
+    return round(amount / 250) * 250
 
 def get_iraq_time():
     """الحصول على الوقت في العراق"""
@@ -158,8 +154,8 @@ def get_iraq_time():
 
 def calculate_cost(colored_pages, bw_pages):
     """حساب التكلفة الإجمالية"""
-    colored_cost = colored_pages * 50  # 50 دينار للصفحة الملونة
-    bw_cost = bw_pages * 35  # 35 دينار للصفحة بالأبيض والأسود
+    colored_cost = colored_pages * 50
+    bw_cost = bw_pages * 35
     return colored_cost + bw_cost
 
 def main():
