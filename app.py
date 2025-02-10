@@ -13,124 +13,127 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# إضافة الأنماط المحسنة
+# تحسين الأنماط مع دعم كامل للغة العربية
 st.markdown("""
     <style>
-    /* إعادة تعيين كامل للصفحة */
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+    /* إعدادات عامة للغة العربية */
     * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+        direction: rtl !important;
+        text-align: right !important;
+        font-family: 'Tajawal', sans-serif !important;
     }
     
-    /* إخفاء جميع العناصر غير المرغوبة */
-    #MainMenu, header, footer, [data-testid="stToolbar"],
-    .css-1544g2n.e1fqkh3o4, [data-testid="stSidebar"],
-    .css-r698ls.e8zbici2, .css-18e3th9.egzxvld2,
-    .css-1dp5vir.e8zbici1, .css-14xtw13.e8zbici0 {
-        display: none !important;
-        width: 0 !important;
-        height: 0 !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        visibility: hidden !important;
-        z-index: -1 !important;
+    /* تحسين محاذاة العناصر */
+    .stTextInput, .stNumberInput, .stSelectbox, .stMultiselect {
+        direction: rtl !important;
     }
     
-    /* تحسين المحتوى الرئيسي */
-    .main .block-container {
-        max-width: 100% !important;
-        width: 100% !important;
+    .stTextInput > div > div > input {
+        text-align: right !important;
+        direction: rtl !important;
+    }
+    
+    .stNumberInput > div > div > input {
+        text-align: right !important;
+        direction: rtl !important;
+    }
+    
+    /* تحسين محاذاة العناوين */
+    h1, h2, h3, p {
+        text-align: right !important;
+        direction: rtl !important;
+    }
+    
+    /* تحسين محاذاة مربعات الاختيار */
+    .stCheckbox > label {
+        direction: rtl !important;
+        text-align: right !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+        flex-direction: row-reverse !important;
+    }
+    
+    .stCheckbox > label > div {
+        margin-left: 0.5rem !important;
+        margin-right: 0 !important;
+    }
+    
+    /* تحسين بطاقة النتائج */
+    .result-card {
+        direction: rtl !important;
+        text-align: right !important;
         padding: 2rem !important;
-        margin: 0 !important;
     }
     
-    /* تحسين الخلفية */
-    .stApp {
-        background: linear-gradient(135deg, 
-            #1a1a2e,
-            #16213e,
-            #0f3460,
-            #162447
-        ) !important;
-        background-size: 400% 400% !important;
-        animation: gradient 15s ease infinite !important;
-        min-height: 100vh !important;
-        width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        overflow-x: hidden !important;
+    /* تحسين القوائم */
+    .details-list {
+        padding-right: 0 !important;
+        padding-left: 0 !important;
     }
     
-    /* تحسين العناصر التفاعلية */
-    .stButton > button {
-        width: 100% !important;
-        padding: 0.75rem !important;
-        border-radius: 10px !important;
-        background: rgba(255, 255, 255, 0.1) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        color: white !important;
-        font-weight: bold !important;
-        transition: all 0.3s ease !important;
+    .details-list li {
+        text-align: right !important;
+        padding-right: 0 !important;
     }
     
-    .stButton > button:hover {
-        background: rgba(255, 255, 255, 0.2) !important;
-        transform: translateY(-2px) !important;
+    /* تحسين صفوف الأسعار */
+    .price-row {
+        flex-direction: row-reverse !important;
     }
     
-    /* تحسين حقول الإدخال */
-    .stTextInput > div > div {
-        background: rgba(255, 255, 255, 0.05) !important;
-        border-radius: 10px !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        padding: 0.5rem !important;
-        color: white !important;
+    /* تحسين العناوين الرئيسية */
+    .main-title {
+        text-align: right !important;
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    .section-title {
+        text-align: right !important;
+        padding-right: 1rem !important;
+        margin-right: 0 !important;
+    }
+    
+    /* تحسين الأزرار */
+    .stButton {
+        text-align: right !important;
     }
     
     /* تحسين النصوص */
     .stMarkdown {
-        color: white !important;
+        direction: rtl !important;
+        text-align: right !important;
     }
     
-    /* تأثير الخلفية المتحركة */
-    @keyframes gradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+    /* تحسين المدخلات الرقمية */
+    input[type="number"] {
+        direction: ltr !important;
+        text-align: left !important;
+    }
+    
+    /* تحسين التذييل */
+    .element-container {
+        direction: rtl !important;
+    }
+    
+    /* تحسين الهوامش */
+    .block-container {
+        padding-right: 5% !important;
+        padding-left: 5% !important;
     }
     
     /* تحسينات للأجهزة المحمولة */
     @media (max-width: 768px) {
-        .main .block-container {
-            padding: 1rem !important;
+        .block-container {
+            padding-right: 2% !important;
+            padding-left: 2% !important;
         }
         
-        .stButton > button {
-            padding: 0.5rem !important;
+        .result-card {
+            padding: 1rem !important;
         }
-    }
-    
-    /* تحسين الجداول */
-    .stTable {
-        background: rgba(255, 255, 255, 0.05) !important;
-        border-radius: 10px !important;
-        overflow: hidden !important;
-    }
-    
-    .stTable td {
-        background: transparent !important;
-        border: none !important;
-        color: white !important;
-    }
-    
-    /* تحسين التحديد */
-    ::selection {
-        background: rgba(255, 255, 255, 0.2) !important;
-        color: white !important;
     }
     </style>
 """, unsafe_allow_html=True)
