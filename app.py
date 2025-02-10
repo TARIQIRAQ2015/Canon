@@ -797,6 +797,17 @@ def main():
         """, unsafe_allow_html=True)
 
     st.markdown("""
+        <div class="info-cards">
+            <div class="info-card">
+                <h3>خدمة سريعة</h3>
+                <p>إنجاز في وقت قياسي</p>
+            </div>
+            <div class="info-card">
+                <h3>أسعار تنافسية</h3>
+                <p>قيمة مقابل الجودة</p>
+            </div>
+        </div>
+
         <div class="particles">
             <!-- سيتم إضافة الجسيمات ديناميكياً عبر JavaScript -->
         </div>
