@@ -1340,16 +1340,13 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
 
     # إضافة تفاصيل الصفحات
     if color_pages > 0:
-        st.markdown(f"""
-║ 🎨 طباعة ملونة: {color_pages} صفحة                                          ║""", unsafe_allow_html=True)
+        st.markdown(f"""║ 🎨 طباعة ملونة: {color_pages} صفحة                                          ║""", unsafe_allow_html=True)
 
     if bw_color_pages > 0:
-        st.markdown(f"""
-║ 🖌️ طباعة أبيض وأسود وقليل ألوان: {bw_color_pages} صفحة                    ║""", unsafe_allow_html=True)
+        st.markdown(f"""║ 🖌️ طباعة أبيض وأسود وقليل ألوان: {bw_color_pages} صفحة                    ║""", unsafe_allow_html=True)
 
     if bw_pages > 0:
-        st.markdown(f"""
-║ 📄 طباعة أبيض وأسود: {bw_pages} صفحة                                       ║""", unsafe_allow_html=True)
+        st.markdown(f"""║ 📄 طباعة أبيض وأسود: {bw_pages} صفحة                                       ║""", unsafe_allow_html=True)
 
     # إضافة الإضافات المختارة
     extras = []
@@ -1366,10 +1363,11 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
         for extra in extras:
             st.markdown(f"""║     {extra}                                                    ║""", unsafe_allow_html=True)
 
-    # إضافة السعر النهائي
+    # إضافة السعر الكلي والنهائي
     st.markdown(f"""
 ║                                                                  ║
-║ 💰 السعر النهائي: {exact_total:,} دينار                                    ║
+║ 💵 السعر الكلي: {exact_total:,} دينار                                      ║
+║ 💰 السعر النهائي (مع التقريب): {round_to_nearest_250(exact_total):,} دينار              ║
 ║                                                                  ║
             </div>
         </div>
@@ -1558,11 +1556,11 @@ def main():
         <div class="premium-results">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                 <div class="result-card">
-                    <div class="result-label">المبلغ الأساسي</div>
+                    <div class="result-label">السعر الكلي</div>
                     <div class="result-value">{:,} دينار</div>
                 </div>
                 <div class="result-card">
-                    <div class="result-label">المبلغ النهائي</div>
+                    <div class="result-label">السعر النهائي</div>
                     <div class="result-value">{:,} دينار</div>
                 </div>
             </div>
