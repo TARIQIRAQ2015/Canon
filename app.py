@@ -173,20 +173,24 @@ st.markdown("""
     
     /* تنسيق الزر */
     .premium-button {
-        background: linear-gradient(45deg, #B8860B, #D4AF37) !important;
-        color: #000000 !important;
-        font-weight: 700 !important;
-        padding: 1rem 3rem !important;
-        border-radius: 50px !important;
-        border: none !important;
-        box-shadow: 0 5px 15px rgba(184,134,11,0.3) !important;
-        transition: all 0.3s ease !important;
-        margin-top: 2rem !important;
+        background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+        color: #D4AF37;
+        font-family: 'Tajawal', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 500;
+        padding: 0.8rem 2.5rem;
+        border: 2px solid #D4AF37;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
     
     .premium-button:hover {
+        background: linear-gradient(45deg, #D4AF37, #B8860B);
+        color: #000000;
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(184,134,11,0.4) !important;
+        box-shadow: 0 6px 20px rgba(212,175,55,0.3);
     }
     
     .reset-button-container {
@@ -348,15 +352,24 @@ def main():
         </div>
     """.format(exact_total, rounded_total), unsafe_allow_html=True)
     
-    # زر العودة للأعلى
+    # زر العودة للأعلى مع JavaScript للانتقال السلس
     st.markdown("""
         <div style="text-align: center; margin-top: 2rem;">
-            <a href="https://tariqoffice.streamlit.app/~/+/#dd12d7f3" 
-               class="stButton premium-button" 
-               style="text-decoration: none; display: inline-block;">
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
+                    class="premium-button">
                 ⬆️ العودة للأعلى
-            </a>
+            </button>
         </div>
+        
+        <script>
+            // إضافة سلوك النقر للزر
+            document.querySelector('.premium-button').addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        </script>
     """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
