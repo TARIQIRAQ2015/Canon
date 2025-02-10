@@ -6,8 +6,13 @@ import math
 from datetime import datetime, timedelta
 import pytz
 
-# تكوين الصفحة يجب أن يكون أول شيء
-st.set_page_config(page_title="حاسبة تكلفة الطباعة", page_icon="🖨️", layout="wide")
+# تعيين إعدادات الصفحة مع دعم اللغة العربية
+st.set_page_config(
+    page_title="حاسبة تكلفة الطباعة",
+    page_icon="🖨️",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
 
 # إضافة الأنماط الأساسية
 st.markdown("""
@@ -28,7 +33,6 @@ st.markdown("""
     
     .stApp {
         background-color: #1a1a2e;
-        color: white;
     }
 
     /* تنسيق البطاقات */
@@ -155,6 +159,55 @@ def calculate_cost(colored_pages, bw_pages):
     return colored_cost + bw_cost
 
 def main():
+    st.set_page_config(page_title="حاسبة تكلفة الطباعة", page_icon="🖨️", layout="wide")
+    
+    # إضافة CSS
+    st.markdown("""
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+        
+        * {
+            font-family: 'Tajawal', sans-serif !important;
+        }
+        
+        .stApp {
+            background-color: #1a1a2e;
+            color: white;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .card-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #64ffda;
+            padding-bottom: 5px;
+        }
+        
+        .info {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        
+        .highlight {
+            color: #64ffda;
+            font-weight: bold;
+        }
+        
+        .final-cost {
+            color: #4CAF50;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    
     st.title("🖨️ حاسبة تكلفة الطباعة")
     
     # إدخال البيانات
