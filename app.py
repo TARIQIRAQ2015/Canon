@@ -13,7 +13,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تحديث الأنماط CSS
+# تطبيق الأنماط المتقدمة
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
@@ -38,116 +38,168 @@ st.markdown("""
         text-align: right !important;
         padding: 0 !important;
         margin: 0 !important;
+        background: linear-gradient(135deg, #0A0F1E, #1A1F3F) !important;
     }
 
     .stApp {
         background: linear-gradient(135deg, #0A0F1E, #1A1F3F) !important;
         margin: 0 !important;
         padding: 1rem !important;
-        direction: rtl !important;
     }
 
-    /* تنسيق العنوان الرئيسي */
-    .main-title {
-        font-size: clamp(2rem, 4vw, 3rem) !important;
-        font-weight: bold !important;
-        text-align: center !important;
-        margin-bottom: 0.5em !important;
-        color: #ffffff !important;
-        text-shadow: 0 0 20px rgba(255,255,255,0.3);
+    /* تنسيق مربع الحاسبة */
+    .calculator-box {
+        background: rgba(20, 30, 60, 0.7);
+        backdrop-filter: blur(20px);
+        padding: clamp(1rem, 5vw, 3rem);
+        border-radius: 25px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        margin: 2rem auto !important;
+        max-width: min(90vw, 850px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* تنسيق العنوان */
+    .title {
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        font-weight: 700;
         background: linear-gradient(120deg, #60A5FA, #818CF8, #C084FC);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        padding: 20px;
+        text-align: center;
+        margin: 1rem 0 2rem 0;
+        padding: 0;
+        direction: rtl;
     }
 
-    .subtitle {
-        font-size: clamp(1rem, 2vw, 1.5rem);
+    /* تنسيق النتيجة */
+    .result {
+        background: linear-gradient(145deg, rgba(37, 99, 235, 0.1), rgba(99, 102, 241, 0.1));
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 2rem 0;
         text-align: center;
-        margin-top: 0.5em;
-        color: #e2e2e2;
-        opacity: 0.9;
-        font-weight: normal;
+        font-size: clamp(1.5rem, 3vw, 2.2rem);
+        font-weight: 700;
+        color: #60A5FA;
+        border: 2px solid rgba(96, 165, 250, 0.3);
+        direction: rtl;
     }
 
     /* تنسيق عناصر الإدخال */
-    .stSelectbox, .stTextInput, .stNumberInput {
+    .stNumberInput {
         direction: rtl !important;
     }
 
-    .stSelectbox > div, .stTextInput > div, .stNumberInput > div {
+    .stNumberInput > div {
         direction: rtl !important;
     }
 
-    .stSelectbox select, .stTextInput input, .stNumberInput input {
+    .stNumberInput input {
         background: rgba(30, 41, 59, 0.8) !important;
         border: 2px solid rgba(96, 165, 250, 0.2) !important;
         border-radius: 10px !important;
         color: #E2E8F0 !important;
-        font-size: clamp(1rem, 1.5vw, 1.2rem) !important;
+        font-size: 1.1rem !important;
         padding: 0.8rem !important;
         text-align: right !important;
         direction: rtl !important;
     }
 
-    /* تنسيق الأزرار */
-    .stButton {
-        direction: rtl !important;
-        text-align: right !important;
+    /* تنسيق ملخص الطلب */
+    .summary {
+        background: rgba(20, 30, 60, 0.8);
+        padding: clamp(1rem, 3vw, 2.5rem);
+        border-radius: 20px;
+        margin: 2rem 0;
+        font-family: monospace;
+        font-size: clamp(0.8rem, 2vw, 1.1rem);
+        line-height: 1.8;
+        border: 2px solid rgba(96, 165, 250, 0.3);
+        white-space: pre-wrap;
+        direction: rtl;
+        text-align: right;
+        overflow-x: auto;
     }
 
-    .stButton button {
-        font-size: clamp(1rem, 1.5vw, 1.2rem) !important;
-        padding: 10px 24px !important;
-        border-radius: 12px !important;
-        width: 100% !important;
-        background: linear-gradient(135deg, #4F46E5, #6366F1) !important;
-        color: white !important;
-        border: none !important;
-        transition: all 0.3s ease !important;
+    /* تنسيق زر النسخ */
+    .copy-button-container {
+        display: flex;
+        justify-content: center;
+        margin: 2rem 0;
+        direction: rtl;
     }
 
-    .stButton button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4) !important;
+    .modern-copy-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: clamp(0.5rem, 2vw, 1rem) clamp(1rem, 3vw, 2rem);
+        border-radius: 12px;
+        color: white;
+        font-family: 'Tajawal', sans-serif;
+        font-size: clamp(0.9rem, 2vw, 1.1rem);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
     }
 
-    /* تنسيق الجداول */
-    .stTable th, .stTable td {
-        text-align: right !important;
-        direction: rtl !important;
-        font-size: clamp(0.9rem, 1.5vw, 1.1rem) !important;
+    .modern-copy-button:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
-    thead tr th:first-child,
-    tbody tr td:first-child {
-        text-align: right !important;
+    /* تنسيق الأقسام */
+    .section {
+        background: rgba(30, 41, 59, 0.5);
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 1.5rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        direction: rtl;
     }
 
-    /* تنسيق حاويات العناصر */
-    [data-testid="stMarkdownContainer"] {
-        direction: rtl !important;
-        text-align: right !important;
-    }
-
-    .element-container {
-        direction: rtl !important;
+    /* تنسيق العناوين الفرعية */
+    .section-title {
+        color: #E2E8F0;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        direction: rtl;
     }
 
     /* تحسينات للأجهزة المحمولة */
     @media (max-width: 768px) {
-        .main-title {
-            font-size: 1.8rem !important;
-            padding: 10px;
+        .calculator-box {
+            padding: 1rem;
+            margin: 1rem !important;
         }
 
-        .subtitle {
-            font-size: 1rem;
+        .summary {
+            font-size: 0.9rem;
+            padding: 1rem;
         }
 
-        .stButton button {
-            padding: 8px 16px !important;
+        .section {
+            padding: 1rem;
         }
+
+        .stNumberInput input {
+            font-size: 1rem !important;
+            padding: 0.6rem !important;
+        }
+    }
+
+    /* تنسيق رسالة النجاح */
+    .stSuccess {
+        direction: rtl !important;
+        text-align: right !important;
     }
     </style>
     """, unsafe_allow_html=True)
