@@ -3,7 +3,6 @@ from streamlit_option_menu import option_menu
 import requests
 import json
 import math
-import pyperclip
 
 # تعيين الإعدادات الأولية
 st.set_page_config(
@@ -21,8 +20,8 @@ st.markdown("""
     /* الأنماط الأساسية */
     .main {
         font-family: 'Tajawal', sans-serif !important;
-        background: #1A1A1A;
-        color: #FFFFFF;
+        background: #1E1E2E;  /* لون خلفية أكثر فخامة */
+        color: #E0E0E0;
         direction: rtl;
         text-align: right;
         padding: 2rem;
@@ -35,12 +34,13 @@ st.markdown("""
 
     /* تنسيق مربع الحاسبة */
     .calculator-box {
-        background: #2D2D2D;
+        background: #2A2A3C;  /* لون خلفية أغمق وأكثر فخامة */
         padding: 2rem;
         border-radius: 15px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
         margin: 0 auto;
         max-width: 800px;
+        border: 1px solid #3D3D56;  /* إضافة حدود أنيقة */
     }
 
     /* تنسيق العنوان */
@@ -54,7 +54,7 @@ st.markdown("""
 
     /* تنسيق النتيجة */
     .result {
-        background: #363636;
+        background: linear-gradient(145deg, #2E2E44, #3D3D56);  /* تدرج لوني أنيق */
         padding: 2rem;
         border-radius: 10px;
         margin-top: 2rem;
@@ -62,6 +62,7 @@ st.markdown("""
         font-size: 1.8rem;
         font-weight: 700;
         color: #FFFFFF;
+        border: 1px solid #4A4A6A;
     }
 
     .sub-result {
@@ -72,8 +73,8 @@ st.markdown("""
 
     /* تنسيق عناصر الإدخال */
     .stNumberInput input {
-        background: #363636 !important;
-        border: 1px solid #4A4A4A !important;
+        background: #2E2E44 !important;  /* لون خلفية أغمق */
+        border: 1px solid #4A4A6A !important;
         border-radius: 8px !important;
         color: #FFFFFF !important;
         font-size: 1rem !important;
@@ -105,18 +106,20 @@ st.markdown("""
 
     /* تنسيق زر النسخ */
     .copy-button {
-        background: #4CAF50;
+        background: linear-gradient(145deg, #3D3D56, #2E2E44);  /* تدرج لوني للزر */
         color: white;
         padding: 0.5rem 1rem;
         border-radius: 5px;
-        border: none;
+        border: 1px solid #4A4A6A;
         cursor: pointer;
         margin-top: 1rem;
         font-family: 'Tajawal', sans-serif;
+        transition: all 0.3s ease;
     }
 
     .copy-button:hover {
-        background: #45a049;
+        background: linear-gradient(145deg, #4A4A6A, #3D3D56);
+        transform: translateY(-2px);
     }
 
     /* تنسيق ملخص الطلب */
@@ -213,8 +216,8 @@ def main():
     st.markdown(f"<div class='summary'>{summary.replace(chr(10), '<br>')}</div>", unsafe_allow_html=True)
     
     # زر نسخ الملخص
-    if st.button("نسخ الملخص", key="copy_button"):
-        st.session_state.clipboard = summary
+    if st.button("نسخ الملخص", key="copy_button", type="primary"):
+        st.write('<script>navigator.clipboard.writeText(`{}`);</script>'.format(summary), unsafe_allow_html=True)
         st.success("تم نسخ الملخص بنجاح!")
     
     st.markdown("</div>", unsafe_allow_html=True)
