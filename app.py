@@ -1072,12 +1072,11 @@ st.markdown("""
     /* تحديث CSS للتنسيق */
     st.markdown("""
         <style>
-        /* تنسيق عام لجميع النصوص */
+        /* تنسيق عام */
         * {
             text-align: center;
         }
 
-        /* تنسيق القسم الرئيسي */
         .main-section {
             background: rgba(20,20,20,0.95);
             border: 1px solid rgba(212,175,55,0.3);
@@ -1087,7 +1086,6 @@ st.markdown("""
             position: relative;
         }
 
-        /* تنسيق العنوان */
         .section-title {
             position: absolute;
             top: -15px;
@@ -1098,12 +1096,11 @@ st.markdown("""
             border-radius: 10px;
             color: #D4AF37;
             font-size: 1.2rem;
-            border: 1px solid rgba(212,175,55,0.3);
+            border: 1px solid #D4AF37;
             z-index: 1;
             white-space: nowrap;
         }
 
-        /* تنسيق خيارات الطباعة */
         .print-options {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1119,7 +1116,6 @@ st.markdown("""
             font-weight: 500;
         }
 
-        /* تنسيق حقول الإدخال */
         .stNumberInput {
             display: flex;
             justify-content: center;
@@ -1133,8 +1129,8 @@ st.markdown("""
         }
 
         .stNumberInput > div > div > input {
-            background: rgba(30,30,30,0.95) !important;
-            border: 1px solid rgba(212,175,55,0.3) !important;
+            background: #1a1a1a !important;
+            border: 1px solid #D4AF37 !important;
             color: #D4AF37 !important;
             font-size: 1.2rem !important;
             text-align: center !important;
@@ -1143,11 +1139,10 @@ st.markdown("""
             padding: 0.5rem !important;
         }
 
-        /* تنسيق أزرار الزيادة والنقصان */
         .stNumberInput [data-testid="stDecrement"],
         .stNumberInput [data-testid="stIncrement"] {
-            background: rgba(25,25,25,0.95) !important;
-            border: 1px solid rgba(212,175,55,0.3) !important;
+            background: #1a1a1a !important;
+            border: 1px solid #D4AF37 !important;
             color: #D4AF37 !important;
             border-radius: 8px !important;
             width: 35px !important;
@@ -1160,16 +1155,16 @@ st.markdown("""
 
         .stNumberInput [data-testid="stDecrement"]:hover,
         .stNumberInput [data-testid="stIncrement"]:hover {
-            background: linear-gradient(145deg, #D4AF37, #B8860B) !important;
+            background: #D4AF37 !important;
             color: #000 !important;
         }
 
-        /* تنسيق الخط الفاصل */
         .separator {
             width: 1px;
             height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.3), transparent);
+            background: linear-gradient(to bottom, transparent, #D4AF37, transparent);
             margin: 0 auto;
+            opacity: 0.3;
         }
         </style>
     """, unsafe_allow_html=True)
@@ -1321,12 +1316,11 @@ def main():
     # تحديث CSS للتنسيق
     st.markdown("""
         <style>
-        /* تنسيق عام لجميع النصوص */
+        /* تنسيق عام */
         * {
             text-align: center;
         }
 
-        /* تنسيق القسم الرئيسي */
         .main-section {
             background: rgba(20,20,20,0.95);
             border: 1px solid rgba(212,175,55,0.3);
@@ -1336,7 +1330,6 @@ def main():
             position: relative;
         }
 
-        /* تنسيق العنوان */
         .section-title {
             position: absolute;
             top: -15px;
@@ -1347,12 +1340,11 @@ def main():
             border-radius: 10px;
             color: #D4AF37;
             font-size: 1.2rem;
-            border: 1px solid rgba(212,175,55,0.3);
+            border: 1px solid #D4AF37;
             z-index: 1;
             white-space: nowrap;
         }
 
-        /* تنسيق خيارات الطباعة */
         .print-options {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1368,7 +1360,6 @@ def main():
             font-weight: 500;
         }
 
-        /* تنسيق حقول الإدخال */
         .stNumberInput {
             display: flex;
             justify-content: center;
@@ -1382,8 +1373,8 @@ def main():
         }
 
         .stNumberInput > div > div > input {
-            background: rgba(30,30,30,0.95) !important;
-            border: 1px solid rgba(212,175,55,0.3) !important;
+            background: #1a1a1a !important;
+            border: 1px solid #D4AF37 !important;
             color: #D4AF37 !important;
             font-size: 1.2rem !important;
             text-align: center !important;
@@ -1392,11 +1383,10 @@ def main():
             padding: 0.5rem !important;
         }
 
-        /* تنسيق أزرار الزيادة والنقصان */
         .stNumberInput [data-testid="stDecrement"],
         .stNumberInput [data-testid="stIncrement"] {
-            background: rgba(25,25,25,0.95) !important;
-            border: 1px solid rgba(212,175,55,0.3) !important;
+            background: #1a1a1a !important;
+            border: 1px solid #D4AF37 !important;
             color: #D4AF37 !important;
             border-radius: 8px !important;
             width: 35px !important;
@@ -1409,16 +1399,16 @@ def main():
 
         .stNumberInput [data-testid="stDecrement"]:hover,
         .stNumberInput [data-testid="stIncrement"]:hover {
-            background: linear-gradient(145deg, #D4AF37, #B8860B) !important;
+            background: #D4AF37 !important;
             color: #000 !important;
         }
 
-        /* تنسيق الخط الفاصل */
         .separator {
             width: 1px;
             height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.3), transparent);
+            background: linear-gradient(to bottom, transparent, #D4AF37, transparent);
             margin: 0 auto;
+            opacity: 0.3;
         }
         </style>
     """, unsafe_allow_html=True)
