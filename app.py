@@ -1304,76 +1304,54 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
     st.markdown("""
         <style>
-        .summary-section {
+        .fancy-summary {
+            font-family: 'Courier New', monospace;
             background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
             border: 2px solid rgba(212,175,55,0.3);
-            border-radius: 20px;
+            border-radius: 10px;
             padding: 2rem;
             margin: 2rem 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            white-space: pre-wrap;
+            direction: rtl;
+            color: #FFD700;
         }
 
-        .summary-title {
-            font-size: 1.6rem !important;
-            font-weight: 600 !important;
-            color: #D4AF37 !important;
-            text-align: center !important;
-            margin-bottom: 2rem !important;
+        .fancy-summary-content {
+            text-align: right;
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(212,175,55,0.2);
-        }
-
-        .summary-item:last-child {
-            border-bottom: none;
-        }
-
-        .summary-label {
-            font-size: 1.2rem !important;
-            font-weight: 500 !important;
-            color: #FFD700 !important;
-        }
-
-        .summary-value {
-            font-size: 1.2rem !important;
-            font-weight: 500 !important;
-            color: #FFFFFF !important;
+        .fancy-border {
+            color: #D4AF37;
         }
         </style>
 
-        <div class="summary-section">
-            <div class="summary-title">📋 خلاصة الطلب</div>
+        <div class="fancy-summary">
+            <div class="fancy-summary-content">
+╔══════════════════════════════════════════════════════════════════╗
+║                         ملخص الطلب ✨                           ║
+╠══════════════════════════════════════════════════════════════════╣
     """, unsafe_allow_html=True)
 
     # إضافة تفاصيل الصفحات
     if color_pages > 0:
-        st.markdown(f"""
-            <div class="summary-item">
-                <div class="summary-label">🎨 صفحات ملونة</div>
-                <div class="summary-value">{color_pages} صفحة</div>
-            </div>
-        """, unsafe_allow_html=True)
+        st.markdown("""
+            ║ 🎨 طباعة ملونة: {} صفحة
+            ╟──────────────────────────────────────────────────────────────────╢
+        """.format(color_pages), unsafe_allow_html=True)
 
     if bw_color_pages > 0:
-        st.markdown(f"""
-            <div class="summary-item">
-                <div class="summary-label">🖌️ صفحات أبيض وأسود مع تأثيرات لونية</div>
-                <div class="summary-value">{bw_color_pages} صفحة</div>
-            </div>
-        """, unsafe_allow_html=True)
+        st.markdown("""
+            ║ 🖌️ طباعة أبيض وأسود وقليل ألوان: {} صفحة
+            ╟──────────────────────────────────────────────────────────────────╢
+        """.format(bw_color_pages), unsafe_allow_html=True)
 
     if bw_pages > 0:
-        st.markdown(f"""
-            <div class="summary-item">
-                <div class="summary-label">📄 صفحات أبيض وأسود</div>
-                <div class="summary-value">{bw_pages} صفحة</div>
-            </div>
-        """, unsafe_allow_html=True)
+        st.markdown("""
+            ║ 📄 طباعة أبيض وأسود: {} صفحة
+            ╟──────────────────────────────────────────────────────────────────╢
+        """.format(bw_pages), unsafe_allow_html=True)
 
     # إضافة الإضافات المختارة
     extras = []
@@ -1384,24 +1362,18 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     if has_paper_holder: extras.append("📁 حاملة أوراق")
 
     if extras:
-        st.markdown("""
-            <div class="summary-item">
-                <div class="summary-label">✨ الإضافات المختارة</div>
-                <div class="summary-value">
-        """, unsafe_allow_html=True)
+        st.markdown("║ ✨ الإضافات المختارة:", unsafe_allow_html=True)
         for extra in extras:
-            st.markdown(f"<div>{extra}</div>", unsafe_allow_html=True)
-        st.markdown("</div></div>", unsafe_allow_html=True)
+            st.markdown(f"║     {extra}", unsafe_allow_html=True)
+        st.markdown("╟──────────────────────────────────────────────────────────────────╢", unsafe_allow_html=True)
 
     # إضافة السعر النهائي
     st.markdown(f"""
-        <div class="summary-item" style="margin-top: 1rem;">
-            <div class="summary-label" style="font-size: 1.3rem;">💰 السعر النهائي</div>
-            <div class="summary-value" style="font-size: 1.3rem; color: #D4AF37;">{exact_total:,} دينار</div>
+            ║ 💰 السعر النهائي: {exact_total:,} دينار
+            ╚══════════════════════════════════════════════════════════════════╝
         </div>
+    </div>
     """, unsafe_allow_html=True)
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
 def main():
     # تعديل العنوان الرئيسي بدون إيموجي
