@@ -155,11 +155,14 @@ st.markdown("""
     
     /* تنسيق حقول الإدخال */
     .stNumberInput > div > div > input {
-        background: rgba(255,255,255,0.05) !important;
-        border: 1px solid #D4AF37 !important;
-        color: #ffffff !important;
-        font-size: 1rem !important;
-        height: 2.5rem !important;
+        background: rgba(30,30,30,0.95) !important;
+        border: 1px solid rgba(212,175,55,0.3) !important;
+        color: #FFD700 !important;
+        text-align: center !important;
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
+        padding: 0.8rem !important;
+        width: 100% !important;
     }
     
     .stNumberInput > div > div > input:focus {
