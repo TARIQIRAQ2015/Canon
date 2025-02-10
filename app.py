@@ -1,5 +1,5 @@
 import streamlit as st
-from st_js_script import st_js_script  # إضافة المكتبة
+from streamlit_custom_notification_box import custom_notification_box  # تغيير المكتبة
 
 # تعيين تكوين الصفحة
 st.set_page_config(
@@ -311,6 +311,7 @@ st.markdown("""
     
     html {
         scroll-behavior: smooth;
+        scroll-padding-top: 2rem;
     }
     
     /* تحسين أزرار التقليل والزيادة */
@@ -589,19 +590,31 @@ st.markdown("""
         height: 100%;
         pointer-events: none;
         z-index: -1;
+        opacity: 0.6;
     }
     
     .particle {
         position: absolute;
-        background: rgba(212,175,55,0.2);
+        background: linear-gradient(45deg, #D4AF37, transparent);
         border-radius: 50%;
         pointer-events: none;
-        animation: float 15s infinite;
+        animation: float 20s infinite;
+        filter: blur(2px);
     }
     
     @keyframes float {
-        0% { transform: translateY(0) rotate(0deg); }
-        100% { transform: translateY(-100vh) rotate(360deg); }
+        0% { 
+            transform: translateY(0) rotate(0deg) scale(1);
+            opacity: 0;
+        }
+        50% { 
+            transform: translateY(-50vh) rotate(180deg) scale(1.5);
+            opacity: 0.5;
+        }
+        100% { 
+            transform: translateY(-100vh) rotate(360deg) scale(1);
+            opacity: 0;
+        }
     }
 
     .premium-button-3d {
@@ -962,6 +975,64 @@ st.markdown("""
     #myBtn.show-btn {
         animation: pulse 2s infinite;
     }
+
+    /* تحسين تأثير التحميل */
+    .loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(145deg, #000000, #1a1a1a);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        animation: fadeOut 1s ease-out forwards;
+        animation-delay: 1s;
+    }
+    
+    .loading::after {
+        content: '';
+        width: 50px;
+        height: 50px;
+        border: 3px solid #D4AF37;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    @keyframes fadeOut {
+        to { 
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+
+    /* تأثير التمرير السلس للروابط */
+    a[href^="#"] {
+        scroll-behavior: smooth;
+        transition: all 0.3s ease;
+    }
+
+    .result-card {
+        animation: updateGlow 0.5s ease-out;
+    }
+    
+    @keyframes updateGlow {
+        0% {
+            box-shadow: 0 0 20px rgba(212,175,55,0.5);
+            transform: scale(1.02);
+        }
+        100% {
+            box-shadow: none;
+            transform: scale(1);
+        }
+    }
     </style>
 
     <!-- زر العودة للأعلى -->
@@ -1029,67 +1100,46 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def main():
-    # إضافة JavaScript في بداية التطبيق
-    st_js_script("""
-    function getScrollPercent() {
-        var h = document.documentElement, 
-            b = document.body,
-            st = 'scrollTop',
-            sh = 'scrollHeight';
-        return (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
-    }
-
-    window.addEventListener('scroll', function() {
-        var mybutton = document.getElementById("myBtn");
-        var scrollPercent = getScrollPercent();
-        
-        if (scrollPercent > 30) {
-            mybutton.style.display = "flex";
-            mybutton.classList.add('show-btn');
-        } else {
-            mybutton.style.display = "none";
-            mybutton.classList.remove('show-btn');
-        }
-    });
-
-    function topFunction() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-    """)
-
-    # تحديث CSS للزر
+    # إضافة تأثير التحميل
     st.markdown("""
         <style>
-        #myBtn {
+        .loading {
             position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(45,45,45,0.9));
-            border: 2px solid rgba(212,175,55,0.5);
-            border-radius: 50%;
-            display: none;
-            align-items: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #000000, #1a1a1a);
+            display: flex;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            align-items: center;
             z-index: 9999;
-            box-shadow: 
-                0 5px 15px rgba(0,0,0,0.3),
-                inset 0 2px 10px rgba(255,255,255,0.1);
-            text-decoration: none;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            animation: fadeOut 1s ease-out forwards;
+            animation-delay: 1s;
         }
-
-        /* ... باقي تنسيقات CSS للزر ... */
+        
+        .loading::after {
+            content: '';
+            width: 50px;
+            height: 50px;
+            border: 3px solid #D4AF37;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeOut {
+            to { 
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
         </style>
-
-        <a href="#" id="myBtn" onclick="topFunction(); return false;" title="العودة للأعلى"></a>
+        <div class="loading"></div>
     """, unsafe_allow_html=True)
 
     # في بداية الصفحة (أعلى الكود)
