@@ -10,14 +10,14 @@ st.set_page_config(
 
 # تعريف الأسعار الثابتة
 PRICES = {
-    'color': 50,
-    'bw_with_color': 40,
-    'bw': 35,
-    'cover': 250,
-    'empty_last': 25,
-    'carton': 250,
-    'nylon': 250,
-    'paper_holder': 250,
+    'color': 500,
+    'bw_with_color': 300,
+    'bw': 150,
+    'cover': 2000,
+    'empty_last': 500,
+    'carton': 1000,
+    'nylon': 750,
+    'paper_holder': 1500
 }
 
 # تصميم CSS جديد وفاخر
@@ -1365,10 +1365,6 @@ st.markdown("""
     </script>
 """, unsafe_allow_html=True)
 
-def round_to_nearest_250(amount):
-    """تقريب المبلغ إلى أقرب 250 دينار"""
-    return round(amount / 250) * 250
-
 def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover, 
                         has_empty_last, has_carton, has_nylon, has_paper_holder):
     """حساب التكلفة الإجمالية"""
@@ -1388,8 +1384,7 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     if has_paper_holder:
         total += PRICES['paper_holder']
     
-    # تقريب المجموع النهائي إلى أقرب 250 دينار
-    rounded_total = round_to_nearest_250(total)
+    rounded_total = round(total / 250) * 250
     return total, rounded_total
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
