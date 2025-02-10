@@ -18,27 +18,33 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
     
+    /* إخفاء العناصر غير المرغوب فيها */
+    #MainMenu, header, footer {
+        visibility: hidden;
+    }
+
+    .stDeployButton {
+        display: none !important;
+    }
+
+    [data-testid="stToolbar"] {
+        display: none !important;
+    }
+
     /* الأنماط الأساسية */
     .main {
         font-family: 'Tajawal', sans-serif !important;
+        direction: rtl !important;
+        text-align: right !important;
+        padding: 0 !important;
+        margin: 0 !important;
         background: linear-gradient(135deg, #0A0F1E, #1A1F3F) !important;
-        color: #E2E8F0;
-        direction: rtl;
-        text-align: right;
-        padding: 1rem;
-        min-height: 100vh;
-        animation: gradientAnimation 15s ease infinite;
     }
 
-    @keyframes gradientAnimation {
-        0% { background-position: 0% 50% !important; }
-        50% { background-position: 100% 50% !important; }
-        100% { background-position: 0% 50% !important; }
-    }
-
-    /* إخفاء العناصر غير المرغوب فيها */
-    header[data-testid="stHeader"], footer, #MainMenu {
-        display: none !important;
+    .stApp {
+        background: linear-gradient(135deg, #0A0F1E, #1A1F3F) !important;
+        margin: 0 !important;
+        padding: 1rem !important;
     }
 
     /* تنسيق مربع الحاسبة */
@@ -48,26 +54,11 @@ st.markdown("""
         padding: clamp(1rem, 5vw, 3rem);
         border-radius: 25px;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        margin: 0 auto;
+        margin: 2rem auto !important;
         max-width: min(90vw, 850px);
         border: 1px solid rgba(255, 255, 255, 0.15);
         position: relative;
         overflow: hidden;
-    }
-
-    .calculator-box::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at 50% 0%, 
-            rgba(96, 165, 250, 0.1), 
-            transparent 70%);
-        animation: glowPulse 4s ease-in-out infinite;
-    }
-
-    @keyframes glowPulse {
-        0%, 100% { opacity: 0.5; }
-        50% { opacity: 0.8; }
     }
 
     /* تنسيق العنوان */
@@ -78,46 +69,35 @@ st.markdown("""
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-align: center;
-        margin-bottom: 2rem;
-        position: relative;
-    }
-
-    .title::after {
-        content: '🖨️';
-        position: absolute;
-        top: -10px;
-        right: -30px;
-        font-size: 0.8em;
-        animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
+        margin: 1rem 0 2rem 0;
+        padding: 0;
+        direction: rtl;
     }
 
     /* تنسيق النتيجة */
     .result {
         background: linear-gradient(145deg, rgba(37, 99, 235, 0.1), rgba(99, 102, 241, 0.1));
         backdrop-filter: blur(10px);
-        padding: 2.5rem;
-        border-radius: 20px;
-        margin-top: 2rem;
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 2rem 0;
         text-align: center;
-        font-size: 2.2rem;
+        font-size: clamp(1.5rem, 3vw, 2.2rem);
         font-weight: 700;
         color: #60A5FA;
         border: 2px solid rgba(96, 165, 250, 0.3);
-        transition: all 0.4s ease;
-        box-shadow: 0 0 30px rgba(96, 165, 250, 0.2);
-    }
-
-    .result:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        direction: rtl;
     }
 
     /* تنسيق عناصر الإدخال */
+    .stNumberInput {
+        direction: rtl !important;
+    }
+
+    .stNumberInput > div {
+        direction: rtl !important;
+    }
+
     .stNumberInput input {
         background: rgba(30, 41, 59, 0.8) !important;
         border: 2px solid rgba(96, 165, 250, 0.2) !important;
@@ -125,27 +105,8 @@ st.markdown("""
         color: #E2E8F0 !important;
         font-size: 1.1rem !important;
         padding: 0.8rem !important;
-        transition: all 0.3s ease !important;
-    }
-
-    .stNumberInput input:focus {
-        border-color: #60A5FA !important;
-        box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
-    }
-
-    /* تنسيق الأقسام */
-    .section {
-        background: rgba(30, 41, 59, 0.5);
-        padding: 2rem;
-        border-radius: 15px;
-        margin: 1.5rem 0;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease;
-    }
-
-    .section:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        text-align: right !important;
+        direction: rtl !important;
     }
 
     /* تنسيق ملخص الطلب */
@@ -153,88 +114,23 @@ st.markdown("""
         background: rgba(20, 30, 60, 0.8);
         padding: clamp(1rem, 3vw, 2.5rem);
         border-radius: 20px;
-        margin-top: 2rem;
+        margin: 2rem 0;
         font-family: monospace;
         font-size: clamp(0.8rem, 2vw, 1.1rem);
         line-height: 1.8;
         border: 2px solid rgba(96, 165, 250, 0.3);
-        position: relative;
+        white-space: pre-wrap;
+        direction: rtl;
+        text-align: right;
         overflow-x: auto;
-        color: #A5B4FC;
-        box-shadow: 0 0 30px rgba(96, 165, 250, 0.1);
-    }
-
-    .summary::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 20px;
-        padding: 2px;
-        background: linear-gradient(45deg, 
-            rgba(96, 165, 250, 0.3),
-            rgba(192, 132, 252, 0.3)
-        );
-        mask: linear-gradient(#fff 0 0) content-box,
-              linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        pointer-events: none;
     }
 
     /* تنسيق زر النسخ */
-    .stButton button {
-        background: linear-gradient(135deg, #4F46E5, #6366F1) !important;
-        color: white !important;
-        padding: 0.8rem 2rem !important;
-        border-radius: 12px !important;
-        border: none !important;
-        font-weight: 600 !important;
-        transition: all 0.3s ease !important;
-        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3) !important;
-    }
-
-    .stButton button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
-        background: linear-gradient(135deg, #6366F1, #4F46E5) !important;
-    }
-
-    /* تنسيق أيقونة النسخ */
-    .copy-icon {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px 20px;
-        background: linear-gradient(135deg, #4F46E5, #6366F1);
-        border-radius: 12px;
-        border: none;
-        color: white;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        gap: 8px;
-        font-family: 'Tajawal', sans-serif;
-        font-weight: 600;
-        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-    }
-
-    .copy-icon:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
-        background: linear-gradient(135deg, #6366F1, #4F46E5);
-    }
-
-    .copy-icon svg {
-        width: 20px;
-        height: 20px;
-        fill: currentColor;
-    }
-
-    /* تنسيق زر النسخ الجديد */
     .copy-button-container {
         display: flex;
         justify-content: center;
-        margin-top: 1rem;
+        margin: 2rem 0;
+        direction: rtl;
     }
 
     .modern-copy-button {
@@ -251,25 +147,6 @@ st.markdown("""
         cursor: pointer;
         transition: all 0.3s ease;
         backdrop-filter: blur(10px);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .modern-copy-button::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(45deg,
-            transparent,
-            rgba(255, 255, 255, 0.1),
-            transparent
-        );
-        transform: translateX(-100%);
-        transition: transform 0.6s ease;
-    }
-
-    .modern-copy-button:hover::before {
-        transform: translateX(100%);
     }
 
     .modern-copy-button:hover {
@@ -278,11 +155,30 @@ st.markdown("""
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
+    /* تنسيق الأقسام */
+    .section {
+        background: rgba(30, 41, 59, 0.5);
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 1.5rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        direction: rtl;
+    }
+
+    /* تنسيق العناوين الفرعية */
+    .section-title {
+        color: #E2E8F0;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        direction: rtl;
+    }
+
     /* تحسينات للأجهزة المحمولة */
     @media (max-width: 768px) {
         .calculator-box {
-            padding: 1.5rem;
-            margin: 1rem;
+            padding: 1rem;
+            margin: 1rem !important;
         }
 
         .summary {
@@ -290,9 +186,20 @@ st.markdown("""
             padding: 1rem;
         }
 
-        .title {
-            font-size: 2rem;
+        .section {
+            padding: 1rem;
         }
+
+        .stNumberInput input {
+            font-size: 1rem !important;
+            padding: 0.6rem !important;
+        }
+    }
+
+    /* تنسيق رسالة النجاح */
+    .stSuccess {
+        direction: rtl !important;
+        text-align: right !important;
     }
     </style>
     """, unsafe_allow_html=True)
