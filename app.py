@@ -179,7 +179,7 @@ def main():
                 <div class="info">عدد الصفحات بالأبيض والأسود: <span class="highlight">{bw_pages:,} صفحة</span></div>
                 <div class="info">تكلفة الصفحات بالأبيض والأسود: <span class="highlight">{bw_cost:,} دينار</span></div>
                 <div class="info">المبلغ الإجمالي: <span class="highlight">{total_cost:,} دينار</span></div>
-                <div class="info">المبلغ النهائي ): <span class="final-cost">{rounded_cost:,} دينار</span></div>
+                <div class="info">المبلغ النهائي (مقرب لأقرب 250 دينار): <span class="final-cost">{rounded_cost:,} دينار</span></div>
             </div>
         """, unsafe_allow_html=True)
 
