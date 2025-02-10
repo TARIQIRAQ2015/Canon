@@ -367,43 +367,67 @@ st.markdown("""
 
     /* تنسيق محسن لحقول الإدخال */
     .input-container {
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.8);
         border: 2px solid #FFD700;
         border-radius: 15px;
-        padding: 10px;
+        padding: 15px;
         margin: 10px 0;
-        text-align: center !important;
-        width: 100%;
+        text-align: center;
+        position: relative;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
     /* تنسيق عنوان حقل الإدخال */
     .input-label {
         color: #FFD700;
         font-weight: bold;
-        text-align: center !important;
-        margin-bottom: 5px;
-        font-size: 1rem;
+        text-align: center;
+        margin-bottom: 15px;
+        font-size: 1.1rem;
     }
 
     /* تنسيق حقل الإدخال نفسه */
     .stNumberInput {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        width: 80% !important;
+        margin: 0 auto;
     }
 
     /* تنسيق الأرقام في حقل الإدخال */
     .stNumberInput input {
+        background: rgba(0, 0, 0, 0.5) !important;
+        border: 1px solid #FFD700 !important;
+        color: #FFD700 !important;
         text-align: center !important;
+        font-size: 1.2rem !important;
+        padding: 10px !important;
+        border-radius: 10px !important;
         width: 100% !important;
+        transition: all 0.3s ease;
     }
 
-    /* تنسيق الأعمدة */
-    [data-testid="column"] {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+    .stNumberInput input:focus {
+        border-color: #FFD700 !important;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.3) !important;
+        background: rgba(0, 0, 0, 0.7) !important;
+    }
+
+    /* تنسيق أزرار + و - */
+    .stNumberInput button {
+        background: rgba(255, 215, 0, 0.1) !important;
+        border: 1px solid #FFD700 !important;
+        color: #FFD700 !important;
+        border-radius: 8px !important;
+        transition: all 0.3s ease;
+    }
+
+    .stNumberInput button:hover {
+        background: rgba(255, 215, 0, 0.2) !important;
+        transform: translateY(-2px);
     }
 
     /* تحسين العنوان الرئيسي */
@@ -1172,7 +1196,7 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     if bw_pages > 0:
         price = bw_pages * PRICES['bw']
         summary_text += f"""
-📄 طباعة أبيض وأسود:
+�� طباعة أبيض وأسود:
    • عدد الصفحات: {bw_pages} صفحة
    • سعر الصفحة: {PRICES['bw']} دينار
    • المجموع: {price:,} دينار
