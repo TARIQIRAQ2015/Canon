@@ -25,9 +25,10 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
     
-    /* تنسيق عام */
+    /* تحسين الخطوط العامة */
     * {
-        font-family: 'Tajawal', sans-serif;
+        font-family: 'Tajawal', sans-serif !important;
+        letter-spacing: 0.3px;
     }
     
     .main {
@@ -83,32 +84,20 @@ st.markdown("""
         pointer-events: none;
     }
     
+    /* تحسين العنوان الرئيسي */
     .premium-header h1 {
-        font-size: clamp(2.5rem, 5vw, 4.5rem) !important;
-        letter-spacing: 1px;
-        font-weight: 800;
-        transform: perspective(1000px) translateZ(30px);
-        text-shadow: 
-            0 1px 0 #ccc,
-            0 2px 0 #c9c9c9,
-            0 3px 0 #bbb,
-            0 4px 0 #b9b9b9,
-            0 5px 0 #aaa,
-            0 6px 1px rgba(0,0,0,.1),
-            0 0 5px rgba(0,0,0,.1),
-            0 1px 3px rgba(0,0,0,.3),
-            0 3px 5px rgba(0,0,0,.2),
-            0 5px 10px rgba(0,0,0,.25),
-            0 10px 10px rgba(0,0,0,.2),
-            0 20px 20px rgba(0,0,0,.15);
+        font-size: 3rem !important;
+        font-weight: 700 !important;
+        color: #D4AF37 !important;
+        margin-bottom: 1rem !important;
+        text-align: center !important;
     }
     
     .premium-header .subtitle {
-        font-size: clamp(1.2rem, 2.5vw, 1.8rem) !important;
-        color: #FFD700;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        margin-top: 1rem;
-        font-weight: 500;
+        font-size: 1.5rem !important;
+        color: #FFD700 !important;
+        font-weight: 500 !important;
+        text-align: center !important;
     }
     
     /* تنسيق الأقسام */
@@ -158,7 +147,7 @@ st.markdown("""
         background: rgba(255,255,255,0.05) !important;
         border: 1px solid #D4AF37 !important;
         color: #ffffff !important;
-        font-size: 1rem !important;
+        font-size: 1.3rem !important;
         height: 2.5rem !important;
     }
     
@@ -185,9 +174,10 @@ st.markdown("""
     }
     
     .premium-checkbox label {
-        font-size: 1.2rem !important;
-        color: #D4AF37 !important;
+        font-size: 1.1rem !important;
         font-weight: 500 !important;
+        color: #D4AF37 !important;
+        text-align: center !important;
     }
     
     .stCheckbox {
@@ -223,23 +213,19 @@ st.markdown("""
         100% { transform: scale(1); }
     }
     
+    /* تحسين نص النتائج */
     .result-label {
-        font-size: clamp(1.2rem, 2vw, 1.5rem);
-        font-weight: 600;
-        margin-bottom: 1rem;
-        background: linear-gradient(45deg, #FFD700, #D4AF37);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        font-size: 1.3rem !important;
+        font-weight: 600 !important;
+        color: #D4AF37 !important;
+        text-align: center !important;
     }
     
     .result-value {
-        font-size: clamp(2rem, 4vw, 3rem) !important;
-        font-weight: 800;
-        text-shadow: 
-            0 2px 4px rgba(0,0,0,0.3),
-            0 4px 8px rgba(0,0,0,0.2);
-        transform: perspective(1000px) translateZ(30px);
+        font-size: 1.8rem !important;
+        font-weight: 700 !important;
+        color: #FFD700 !important;
+        text-align: center !important;
     }
     
     /* تنسيق الزر */
@@ -364,13 +350,11 @@ st.markdown("""
     
     /* تحديث CSS لفصل تنسيق الإيموجيات عن العناوين */
     .section-title {
-        font-size: clamp(1.5rem, 3vw, 2rem);
-        background: linear-gradient(45deg, #FFD700, #B8860B);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        position: relative;
-        padding: 0.5rem 0;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        font-size: 1.8rem !important;
+        font-weight: 600 !important;
+        color: #D4AF37 !important;
+        text-align: center !important;
+        margin-bottom: 2rem !important;
     }
     
     /* تنسيق الإيموجيات */
@@ -422,15 +406,13 @@ st.markdown("""
             0 0 0 1px rgba(212,175,55,0.2);
     }
 
+    /* تحسين نص حقول الإدخال */
     .input-label {
-        font-size: clamp(1.1rem, 2vw, 1.3rem);
-        font-weight: 600;
-        color: #D4AF37;
-        margin-bottom: 1rem;
-        text-shadow: 
-            0 2px 4px rgba(0,0,0,0.3),
-            0 4px 8px rgba(0,0,0,0.2);
-        transform: perspective(1000px) translateZ(20px);
+        font-size: 1.2rem !important;
+        font-weight: 500 !important;
+        color: #FFD700 !important;
+        text-align: center !important;
+        margin-bottom: 1rem !important;
     }
 
     .input-label::before {
@@ -456,7 +438,7 @@ st.markdown("""
         border: 2px solid rgba(212,175,55,0.3) !important;
         border-radius: 15px !important;
         color: #FFD700 !important;
-        font-size: 1.2rem !important;
+        font-size: 1.3rem !important;
         padding: 1.2rem !important;
         width: 100% !important;
         transition: all 0.3s ease !important;
@@ -673,71 +655,53 @@ st.markdown("""
     }
 
     /* تحسين النصوص والعناوين */
-    h1, h2, h3, p, .input-label, .result-label {
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+    * {
+        text-rendering: optimizeLegibility !important;
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
     }
 
     /* تحسين العنوان الرئيسي */
     .premium-header h1 {
-        font-size: clamp(2.5rem, 5vw, 4.5rem) !important;
-        letter-spacing: 1px;
-        font-weight: 800;
-        transform: perspective(1000px) translateZ(30px);
-        text-shadow: 
-            0 1px 0 #ccc,
-            0 2px 0 #c9c9c9,
-            0 3px 0 #bbb,
-            0 4px 0 #b9b9b9,
-            0 5px 0 #aaa,
-            0 6px 1px rgba(0,0,0,.1),
-            0 0 5px rgba(0,0,0,.1),
-            0 1px 3px rgba(0,0,0,.3),
-            0 3px 5px rgba(0,0,0,.2),
-            0 5px 10px rgba(0,0,0,.25),
-            0 10px 10px rgba(0,0,0,.2),
-            0 20px 20px rgba(0,0,0,.15);
+        font-size: 3rem !important;
+        font-weight: 700 !important;
+        color: #D4AF37 !important;
+        margin-bottom: 1rem !important;
+        text-align: center !important;
     }
 
     /* تحسين العنوان الفرعي */
     .subtitle {
-        font-size: clamp(1.2rem, 2.5vw, 1.8rem) !important;
-        color: #FFD700;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        margin-top: 1rem;
-        font-weight: 500;
+        font-size: 1.5rem !important;
+        color: #FFD700 !important;
+        font-weight: 500 !important;
+        text-align: center !important;
     }
 
     /* تحسين عناوين الأقسام */
     .section-title {
-        font-size: clamp(1.5rem, 3vw, 2rem);
-        background: linear-gradient(45deg, #FFD700, #B8860B);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        position: relative;
-        padding: 0.5rem 0;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        font-size: 1.8rem !important;
+        font-weight: 600 !important;
+        color: #D4AF37 !important;
+        text-align: center !important;
+        margin-bottom: 2rem !important;
     }
 
     /* تحسين تسميات الإدخال */
     .input-label {
-        font-size: clamp(1.1rem, 2vw, 1.3rem);
-        font-weight: 600;
-        color: #D4AF37;
-        margin-bottom: 1rem;
-        text-shadow: 
-            0 2px 4px rgba(0,0,0,0.3),
-            0 4px 8px rgba(0,0,0,0.2);
-        transform: perspective(1000px) translateZ(20px);
+        font-size: 1.2rem !important;
+        font-weight: 500 !important;
+        color: #FFD700 !important;
+        text-align: center !important;
+        margin-bottom: 1rem !important;
     }
 
     /* تحسين بطاقات المعلومات */
     .info-card h3 {
-        font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-        color: #D4AF37;
-        margin-bottom: 1rem;
-        font-weight: 700;
+        font-size: 1.3rem !important;
+        color: #D4AF37 !important;
+        margin-bottom: 1rem !important;
+        font-weight: 700 !important;
         text-shadow: 
             0 2px 4px rgba(0,0,0,0.3),
             0 4px 8px rgba(0,0,0,0.2);
@@ -745,18 +709,18 @@ st.markdown("""
     }
 
     .info-card p {
-        font-size: clamp(1rem, 1.8vw, 1.2rem);
-        color: #fff;
-        line-height: 1.6;
+        font-size: 1.2rem !important;
+        color: #fff !important;
+        line-height: 1.6 !important;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     }
 
     /* تحسين الخيارات */
     .premium-checkbox label {
-        font-size: clamp(1rem, 1.8vw, 1.2rem);
-        font-weight: 500;
-        color: #D4AF37;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
+        color: #D4AF37 !important;
+        text-align: center !important;
     }
 
     /* تحسين التجاوب مع الأجهزة */
@@ -833,36 +797,27 @@ st.markdown("""
 
     /* تحسين العنوان الرئيسي */
     .premium-header h1 {
-        font-size: clamp(2.8rem, 5vw, 4.8rem) !important;
-        font-weight: 800;
-        color: #D4AF37;
-        text-shadow: 
-            0 2px 2px rgba(0,0,0,0.5),
-            0 4px 4px rgba(0,0,0,0.3),
-            0 6px 8px rgba(0,0,0,0.2);
-        margin-bottom: 1.5rem;
+        font-size: 3rem !important;
+        font-weight: 700 !important;
+        color: #D4AF37 !important;
+        margin-bottom: 1rem !important;
+        text-align: center !important;
     }
 
     .premium-header .subtitle {
-        font-size: clamp(1.3rem, 2.5vw, 1.8rem) !important;
-        color: #FFD700;
-        font-weight: 500;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        opacity: 0.9;
-        line-height: 1.6;
+        font-size: 1.5rem !important;
+        color: #FFD700 !important;
+        font-weight: 500 !important;
+        text-align: center !important;
     }
 
     /* تحسين عنوان القسم */
     .section-title {
-        font-size: clamp(1.6rem, 3vw, 2.2rem);
-        font-weight: 700;
-        background: linear-gradient(45deg, #FFD700, #D4AF37);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        padding: 0.5rem 0;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
+        font-size: 1.8rem !important;
+        font-weight: 600 !important;
+        color: #D4AF37 !important;
+        text-align: center !important;
+        margin-bottom: 2rem !important;
     }
 
     .emoji-icon {
@@ -942,11 +897,11 @@ st.markdown("""
     }
 
     .summary-title {
-        font-size: 1.8rem;
-        color: #D4AF37;
-        margin-bottom: 1.5rem;
-        text-align: center;
-        font-weight: 600;
+        font-size: 1.6rem !important;
+        font-weight: 600 !important;
+        color: #D4AF37 !important;
+        text-align: center !important;
+        margin-bottom: 2rem !important;
     }
 
     .summary-item {
@@ -962,13 +917,15 @@ st.markdown("""
     }
 
     .summary-label {
-        font-size: 1.1rem;
-        color: #FFD700;
+        font-size: 1.2rem !important;
+        font-weight: 500 !important;
+        color: #FFD700 !important;
     }
 
     .summary-value {
-        font-size: 1.1rem;
-        color: #fff;
+        font-size: 1.2rem !important;
+        font-weight: 500 !important;
+        color: #FFFFFF !important;
     }
 
     /* تعديل CSS للتنسيق الأفقي */
@@ -986,7 +943,6 @@ st.markdown("""
         padding: 2.5rem;
         margin-bottom: 2rem;
         position: relative;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
     .input-grid {
@@ -1036,17 +992,19 @@ st.markdown("""
     }
 
     .service-card h3 {
-        color: #D4AF37;
-        font-size: 1.4rem;
-        margin-bottom: 1rem;
-        font-weight: 600;
+        font-size: 1.4rem !important;
+        font-weight: 600 !important;
+        color: #D4AF37 !important;
+        text-align: center !important;
+        margin-bottom: 1rem !important;
     }
 
     .service-card p {
-        color: #fff;
-        opacity: 0.9;
-        font-size: 1.1rem;
-        line-height: 1.6;
+        font-size: 1.2rem !important;
+        font-weight: 400 !important;
+        color: #FFFFFF !important;
+        text-align: center !important;
+        line-height: 1.6 !important;
     }
 
     /* تنسيق عام للنصوص */
@@ -1137,7 +1095,7 @@ st.markdown("""
         border: 2px solid rgba(212,175,55,0.3) !important;
         border-radius: 15px !important;
         color: #FFD700 !important;
-        font-size: 1.2rem !important;
+        font-size: 1.3rem !important;
         padding: 1rem !important;
         text-align: center !important;
         width: 100% !important;
@@ -1295,11 +1253,11 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
         }
 
         .summary-title {
-            font-size: 1.8rem;
-            color: #D4AF37;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-weight: 600;
+            font-size: 1.6rem !important;
+            font-weight: 600 !important;
+            color: #D4AF37 !important;
+            text-align: center !important;
+            margin-bottom: 2rem !important;
         }
 
         .summary-item {
@@ -1315,13 +1273,15 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
         }
 
         .summary-label {
-            font-size: 1.1rem;
-            color: #FFD700;
+            font-size: 1.2rem !important;
+            font-weight: 500 !important;
+            color: #FFD700 !important;
         }
 
         .summary-value {
-            font-size: 1.1rem;
-            color: #fff;
+            font-size: 1.2rem !important;
+            font-weight: 500 !important;
+            color: #FFFFFF !important;
         }
         </style>
 
@@ -1429,7 +1389,7 @@ def main():
             border: 2px solid rgba(212,175,55,0.3) !important;
             border-radius: 15px !important;
             color: #FFD700 !important;
-            font-size: 1.2rem !important;
+            font-size: 1.3rem !important;
             padding: 1rem !important;
             text-align: center !important;
             width: 100% !important;
