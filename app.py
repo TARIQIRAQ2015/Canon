@@ -1520,7 +1520,7 @@ def main():
     # طباعة أبيض وأسود مع تأثيرات لونية (أول عمود على اليمين)
     with col1:
         st.markdown('<div class="input-container">', unsafe_allow_html=True)
-        st.markdown('<div class="input-label">طباعة أبيض وأسود مع تأثيرات لونية</div>', unsafe_allow_html=True)
+        st.markdown('<div class="input-label">طباعة أبيض وأسود وقليل الوان/div>', unsafe_allow_html=True)
         bw_color_pages = st.number_input("", min_value=0, value=0, key="bw_color_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
     
