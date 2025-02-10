@@ -1337,15 +1337,10 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
 💰 السعر النهائي (مع التقريب): {round_to_nearest_250(exact_total):,} دينار
 ═══════════════════════════════════════════════"""
 
-    # إضافة زر النسخ
-    if st.button("📋", help="نسخ الملخص"):
-        pyperclip.copy(summary_text)
-        st.toast("تم نسخ الملخص!", icon="✅")
-
-    # عرض الملخص
-    st.markdown("""
+    # عرض الملخص مع زر النسخ
+    st.markdown(f"""
         <style>
-        .fancy-summary {
+        .fancy-summary {{
             font-family: monospace !important;
             background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
             border: 2px solid rgba(212,175,55,0.3);
@@ -1358,44 +1353,52 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
             font-size: 1.1rem;
             line-height: 1.5;
             position: relative;
-        }
+        }}
 
-        .stButton button {
+        .copy-button {{
             position: absolute;
             top: 10px;
             left: 10px;
-            background: rgba(212,175,55,0.1) !important;
-            border: 1px solid rgba(212,175,55,0.3) !important;
-            color: #D4AF37 !important;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            color: #D4AF37;
             width: 40px;
             height: 40px;
-            border-radius: 50% !important;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            padding: 0 !important;
-            font-size: 1.2rem !important;
-        }
+            font-size: 1.2rem;
+        }}
 
-        .stButton button:hover {
-            background: rgba(212,175,55,0.2) !important;
+        .copy-button:hover {{
+            background: rgba(212,175,55,0.2);
             transform: translateY(-2px);
-        }
+        }}
 
-        .fancy-summary-content {
+        .fancy-summary-content {{
             text-align: right;
             display: inline-block;
             width: 100%;
             padding-top: 1rem;
-        }
+        }}
         </style>
 
         <div class="fancy-summary">
-            <div class="fancy-summary-content">""" + summary_text + """
-            </div>
+            <button class="copy-button" onclick="copyToClipboard()">📋</button>
+            <div class="fancy-summary-content" id="summary-content">{summary_text}</div>
         </div>
+
+        <script>
+        function copyToClipboard() {{
+            const text = `{summary_text}`;
+            navigator.clipboard.writeText(text).then(() => {{
+                // يمكن إضافة إشعار هنا إذا أردت
+            }});
+        }}
+        </script>
     """, unsafe_allow_html=True)
 
 def main():
