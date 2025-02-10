@@ -198,7 +198,6 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     """
     
     st.markdown(result_html, unsafe_allow_html=True)
-    return ""
 
 def main():
     # عرض العنوان الرئيسي
