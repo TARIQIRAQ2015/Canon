@@ -44,6 +44,10 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+def round_to_nearest_250(amount):
+    """تقريب المبلغ إلى أقرب 250 دينار"""
+    return round(amount / 250) * 250
+
 def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover, 
                         has_empty_last, has_carton, has_nylon, has_paper_holder):
     """حساب التكلفة الإجمالية"""
@@ -63,7 +67,9 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     if has_paper_holder:
         total += PRICES['paper_holder']
     
-    return total
+    # تقريب المجموع النهائي إلى أقرب 250 دينار
+    rounded_total = round_to_nearest_250(total)
+    return total, rounded_total
 
 def main():
     st.title("🖨️ حاسبة أرباح الطباعة")
@@ -86,15 +92,22 @@ def main():
         has_paper_holder = st.checkbox("حاملة اوراق")
 
     # حساب التكلفة الإجمالية
-    total_cost = calculate_total_cost(
+    exact_total, rounded_total = calculate_total_cost(
         color_pages, bw_color_pages, bw_pages,
         has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder
     )
     
     # عرض التكلفة الإجمالية
     st.markdown("---")
-    st.markdown(f'<div class="total-cost">التكلفة الإجمالية: {total_cost} دينار</div>', 
-                unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown(f'<div class="total-cost">المبلغ الدقيق: {exact_total} دينار</div>', 
+                    unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown(f'<div class="total-cost" style="color: #28a745">المبلغ المقرب: {rounded_total} دينار</div>', 
+                    unsafe_allow_html=True)
     
     # زر إعادة التعيين
     if st.button("إعادة تعيين"):
