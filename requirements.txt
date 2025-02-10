@@ -1,4 +1,2 @@
 streamlit>=1.28.0
 streamlit-toggle
-streamlit-custom-notification>=0.1.2
-st-js-script>=1.1.4

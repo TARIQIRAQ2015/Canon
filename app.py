@@ -1,5 +1,4 @@
 import streamlit as st
-from streamlit_custom_notification_box import custom_notification_box  # تغيير المكتبة
 
 # تعيين تكوين الصفحة
 st.set_page_config(
@@ -882,7 +881,7 @@ st.markdown("""
     }
 
     /* تحديث CSS للزر */
-    #myBtn {
+    .back-to-top {
         position: fixed;
         bottom: 30px;
         left: 30px;
@@ -891,183 +890,49 @@ st.markdown("""
         background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(45,45,45,0.9));
         border: 2px solid rgba(212,175,55,0.5);
         border-radius: 50%;
-        display: none;  /* إخفاء الزر افتراضياً */
+        display: none;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         z-index: 9999;
-        box-shadow: 
-            0 5px 15px rgba(0,0,0,0.3),
-            inset 0 2px 10px rgba(255,255,255,0.1);
         text-decoration: none;
         backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
     }
 
-    #myBtn::before {
+    .back-to-top::after {
         content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        background: linear-gradient(45deg, #D4AF37, #FFD700);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: -1;
-    }
-
-    #myBtn::after {
-        content: '';
-        position: absolute;
         width: 15px;
         height: 15px;
         border-left: 3px solid #D4AF37;
         border-top: 3px solid #D4AF37;
         transform: rotate(45deg);
         margin-bottom: -5px;
-        transition: all 0.3s ease;
     }
 
-    #myBtn:hover {
-        transform: translateY(-5px) scale(1.05);
+    .back-to-top:hover {
+        transform: translateY(-5px);
         border-color: #D4AF37;
-        box-shadow: 
-            0 8px 25px rgba(212,175,55,0.3),
-            inset 0 2px 15px rgba(255,255,255,0.2);
+        box-shadow: 0 8px 25px rgba(212,175,55,0.3);
     }
 
-    #myBtn:hover::before {
-        opacity: 0.1;
-    }
-
-    #myBtn:hover::after {
+    .back-to-top:hover::after {
         border-color: #FFD700;
-        transform: rotate(45deg) scale(1.2);
-    }
-
-    #myBtn:active {
-        transform: translateY(0) scale(0.95);
-        box-shadow: 
-            0 2px 10px rgba(0,0,0,0.2),
-            inset 0 1px 5px rgba(255,255,255,0.1);
-    }
-
-    @media (max-width: 768px) {
-        #myBtn {
-            bottom: 25px;
-            left: 25px;
-            width: 50px;
-            height: 50px;
-        }
-
-        #myBtn::after {
-            width: 12px;
-            height: 12px;
-            border-width: 2.5px;
-        }
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-
-    #myBtn.show-btn {
-        animation: pulse 2s infinite;
-    }
-
-    /* تحسين تأثير التحميل */
-    .loading {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(145deg, #000000, #1a1a1a);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        animation: fadeOut 1s ease-out forwards;
-        animation-delay: 1s;
-    }
-    
-    .loading::after {
-        content: '';
-        width: 50px;
-        height: 50px;
-        border: 3px solid #D4AF37;
-        border-radius: 50%;
-        border-top-color: transparent;
-        animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-    
-    @keyframes fadeOut {
-        to { 
-            opacity: 0;
-            visibility: hidden;
-        }
-    }
-
-    /* تأثير التمرير السلس للروابط */
-    a[href^="#"] {
-        scroll-behavior: smooth;
-        transition: all 0.3s ease;
-    }
-
-    .result-card {
-        animation: updateGlow 0.5s ease-out;
-    }
-    
-    @keyframes updateGlow {
-        0% {
-            box-shadow: 0 0 20px rgba(212,175,55,0.5);
-            transform: scale(1.02);
-        }
-        100% {
-            box-shadow: none;
-            transform: scale(1);
-        }
     }
     </style>
 
     <!-- زر العودة للأعلى -->
-    <a href="#top" id="myBtn" onclick="topFunction()" title="العودة للأعلى"></a>
+    <a href="#top" class="back-to-top" id="backToTop"></a>
 
     <script>
-    // حساب نسبة التمرير
-    function getScrollPercent() {
-        var h = document.documentElement, 
-            b = document.body,
-            st = 'scrollTop',
-            sh = 'scrollHeight';
-        return (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
-    }
-
-    // التحكم في ظهور الزر
     window.onscroll = function() {
-        var mybutton = document.getElementById("myBtn");
-        var scrollPercent = getScrollPercent();
-        
-        // إظهار الزر عندما يتم التمرير لأكثر من 30% من طول الصفحة
-        if (scrollPercent > 30) {
-            mybutton.style.display = "flex";
-            mybutton.classList.add('show-btn');
+        var btn = document.getElementById("backToTop");
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            btn.style.display = "flex";
         } else {
-            mybutton.style.display = "none";
-            mybutton.classList.remove('show-btn');
+            btn.style.display = "none";
         }
-    };
-
-    function topFunction() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
     }
     </script>
 """, unsafe_allow_html=True)
@@ -1100,46 +965,62 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def main():
-    # إضافة تأثير التحميل
+    # إضافة زر العودة للأعلى
     st.markdown("""
         <style>
-        .loading {
+        .back-to-top {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(145deg, #000000, #1a1a1a);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            animation: fadeOut 1s ease-out forwards;
-            animation-delay: 1s;
-        }
-        
-        .loading::after {
-            content: '';
-            width: 50px;
-            height: 50px;
-            border: 3px solid #D4AF37;
+            bottom: 30px;
+            left: 30px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(45,45,45,0.9));
+            border: 2px solid rgba(212,175,55,0.5);
             border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s linear infinite;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9999;
+            text-decoration: none;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
         }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+
+        .back-to-top::after {
+            content: '';
+            width: 15px;
+            height: 15px;
+            border-left: 3px solid #D4AF37;
+            border-top: 3px solid #D4AF37;
+            transform: rotate(45deg);
+            margin-bottom: -5px;
         }
-        
-        @keyframes fadeOut {
-            to { 
-                opacity: 0;
-                visibility: hidden;
-            }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            border-color: #D4AF37;
+            box-shadow: 0 8px 25px rgba(212,175,55,0.3);
+        }
+
+        .back-to-top:hover::after {
+            border-color: #FFD700;
         }
         </style>
-        <div class="loading"></div>
+
+        <a href="#top" class="back-to-top" id="backToTop"></a>
+
+        <script>
+            window.onscroll = function() {
+                var btn = document.getElementById("backToTop");
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    btn.style.display = "flex";
+                } else {
+                    btn.style.display = "none";
+                }
+            }
+        </script>
     """, unsafe_allow_html=True)
 
     # في بداية الصفحة (أعلى الكود)
