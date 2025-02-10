@@ -1243,7 +1243,8 @@ st.markdown("""
         text-align: center !important;
         font-size: 1.1rem !important;
         font-weight: 500 !important;
-        padding: 0.5rem !important;
+        padding: 0.8rem !important;
+        width: 100% !important;
     }
 
     /* تنسيق مربعات الاختيار */
@@ -1252,8 +1253,11 @@ st.markdown("""
     }
 
     .stCheckbox > label {
-        color: #fff !important;
+        color: #FFD700 !important;
         font-size: 1rem !important;
+        text-align: center !important;
+        width: 100% !important;
+        display: block !important;
     }
 
     /* تأثيرات التحويم */
