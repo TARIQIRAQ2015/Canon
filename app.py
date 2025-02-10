@@ -159,80 +159,76 @@ def calculate_cost(colored_pages, bw_pages):
     return colored_cost + bw_cost
 
 def main():
-    st.set_page_config(page_title="حاسبة تكلفة الطباعة", page_icon="🖨️", layout="wide")
-    
-    # إضافة CSS
+    # العنوان الرئيسي
     st.markdown("""
-        <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-        
-        * {
-            font-family: 'Tajawal', sans-serif !important;
-        }
-        
-        .stApp {
-            background-color: #1a1a2e;
-            color: white;
-        }
-        
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        
-        .card-header {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            border-bottom: 2px solid #64ffda;
-            padding-bottom: 5px;
-        }
-        
-        .info {
-            margin: 10px 0;
-            font-size: 1.1rem;
-        }
-        
-        .highlight {
-            color: #64ffda;
-            font-weight: bold;
-        }
-        
-        .final-cost {
-            color: #4CAF50;
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-        </style>
+        <div class="card">
+            <h1 style="color: white; text-align: center; font-size: 2rem; margin-bottom: 1rem;">
+                🖨️ حاسبة تكلفة الطباعة
+            </h1>
+            <p style="color: rgba(255,255,255,0.8); text-align: center;">
+                حاسبة متطورة لتقدير تكاليف الطباعة بدقة عالية
+            </p>
+        </div>
     """, unsafe_allow_html=True)
-    
-    st.title("🖨️ حاسبة تكلفة الطباعة")
-    
-    # إدخال البيانات
-    colored_pages = st.number_input("عدد الصفحات الملونة:", min_value=0, value=0)
-    bw_pages = st.number_input("عدد الصفحات بالأبيض والأسود:", min_value=0, value=0)
-    
-    if colored_pages > 0 or bw_pages > 0:
-        # حساب التكاليف
-        colored_cost = colored_pages * 50
-        bw_cost = bw_pages * 35
-        total_cost = colored_cost + bw_cost
+
+    # قسم الإدخال
+    with st.container():
+        st.markdown('<div class="card">', unsafe_allow_html=True)
+        
+        # عدد الصفحات
+        colored_pages = st.number_input("عدد الصفحات الملونة:", min_value=0, value=0)
+        bw_pages = st.number_input("عدد الصفحات بالأبيض والأسود:", min_value=0, value=0)
+        
+        # الإضافات
+        st.markdown('<div class="title">✨ الإضافات</div>', unsafe_allow_html=True)
+        col1, col2 = st.columns(2)
+        with col1:
+            cover = st.checkbox("تصميم غلاف")
+            carton = st.checkbox("كرتون فاخر")
+        with col2:
+            nylon = st.checkbox("تغليف نايلون")
+            ruler = st.checkbox("مسطرة خاصة")
+        
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # حساب وعرض النتائج
+    if st.button("حساب التكلفة", type="primary"):
+        total_cost = calculate_cost(colored_pages, bw_pages)
         rounded_cost = round_to_nearest_250(total_cost)
         current_time = get_iraq_time()
-
-        # عرض النتائج في قالب موحد
+        
+        # عرض النتائج
         st.markdown(f"""
-            <div class="card">
-                <div class="card-header">📝 ملخص الطباعة</div>
-                <div class="info">⏰ وقت الحساب: <span class="highlight">{current_time}</span></div>
-                <div class="info">عدد الصفحات الملونة: <span class="highlight">{colored_pages:,} صفحة</span></div>
-                <div class="info">تكلفة الصفحات الملونة: <span class="highlight">{colored_cost:,} دينار</span></div>
-                <div class="info">عدد الصفحات بالأبيض والأسود: <span class="highlight">{bw_pages:,} صفحة</span></div>
-                <div class="info">تكلفة الصفحات بالأبيض والأسود: <span class="highlight">{bw_cost:,} دينار</span></div>
-                <div class="info">المبلغ الإجمالي: <span class="highlight">{total_cost:,} دينار</span></div>
-                <div class="info">المبلغ النهائي (مقرب لأقرب 250 دينار): <span class="final-cost">{rounded_cost:,} دينار</span></div>
+            <div class="summary-card">
+                <div class="timestamp">⏰ {current_time}</div>
+                <div class="summary-header">
+                    <span>📝 ملخص الطباعة</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span class="summary-label">عدد الصفحات الملونة</span>
+                    <span class="summary-value">{colored_pages:,} صفحة</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">تكلفة الصفحات الملونة</span>
+                    <span class="summary-value">{colored_pages * 50:,} دينار</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">عدد الصفحات بالأبيض والأسود</span>
+                    <span class="summary-value">{bw_pages:,} صفحة</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">تكلفة الصفحات بالأبيض والأسود</span>
+                    <span class="summary-value">{bw_pages * 35:,} دينار</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">المبلغ الإجمالي</span>
+                    <span class="summary-value">{total_cost:,} دينار</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">المبلغ النهائي (مقرب لأقرب 250 دينار)</span>
+                    <span class="final-cost">{rounded_cost:,} دينار</span>
+                </div>
             </div>
         """, unsafe_allow_html=True)
 
@@ -243,8 +239,8 @@ def main():
 ⏰ وقت الحساب: {current_time}
 
 تفاصيل الطلب:
-- عدد الصفحات الملونة: {colored_pages:,} صفحة ({colored_cost:,} دينار)
-- عدد الصفحات بالأبيض والأسود: {bw_pages:,} صفحة ({bw_cost:,} دينار)
+- عدد الصفحات الملونة: {colored_pages:,} صفحة ({colored_pages * 50:,} دينار)
+- عدد الصفحات بالأبيض والأسود: {bw_pages:,} صفحة ({bw_pages * 35:,} دينار)
 
 التكاليف:
 - المبلغ الإجمالي: {total_cost:,} دينار
