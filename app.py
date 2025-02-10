@@ -20,8 +20,8 @@ st.markdown("""
     /* الأنماط الأساسية */
     .main {
         font-family: 'Tajawal', sans-serif !important;
-        background: #1E1E2E;  /* لون خلفية أكثر فخامة */
-        color: #E0E0E0;
+        background: linear-gradient(135deg, #0F172A, #1E293B) !important;
+        color: #E2E8F0;
         direction: rtl;
         text-align: right;
         padding: 2rem;
@@ -34,103 +34,88 @@ st.markdown("""
 
     /* تنسيق مربع الحاسبة */
     .calculator-box {
-        background: #2A2A3C;  /* لون خلفية أغمق وأكثر فخامة */
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(10px);
+        padding: 2.5rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         margin: 0 auto;
         max-width: 800px;
-        border: 1px solid #3D3D56;  /* إضافة حدود أنيقة */
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     /* تنسيق العنوان */
     .title {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
         font-weight: 700;
-        color: #FFFFFF;
+        background: linear-gradient(120deg, #60A5FA, #818CF8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
     }
 
     /* تنسيق النتيجة */
     .result {
-        background: linear-gradient(145deg, #2E2E44, #3D3D56);  /* تدرج لوني أنيق */
+        background: linear-gradient(145deg, rgba(37, 99, 235, 0.1), rgba(99, 102, 241, 0.1));
+        backdrop-filter: blur(5px);
         padding: 2rem;
-        border-radius: 10px;
+        border-radius: 15px;
         margin-top: 2rem;
         text-align: center;
-        font-size: 1.8rem;
+        font-size: 2rem;
         font-weight: 700;
-        color: #FFFFFF;
-        border: 1px solid #4A4A6A;
+        color: #60A5FA;
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        transition: all 0.3s ease;
     }
 
-    .sub-result {
-        font-size: 1.1rem;
-        color: #B0B0B0;
-        margin-top: 0.5rem;
+    .result:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     }
 
     /* تنسيق عناصر الإدخال */
     .stNumberInput input {
-        background: #2E2E44 !important;  /* لون خلفية أغمق */
-        border: 1px solid #4A4A6A !important;
-        border-radius: 8px !important;
-        color: #FFFFFF !important;
-        font-size: 1rem !important;
-        padding: 0.5rem !important;
+        background: rgba(30, 41, 59, 0.8) !important;
+        border: 2px solid rgba(96, 165, 250, 0.2) !important;
+        border-radius: 10px !important;
+        color: #E2E8F0 !important;
+        font-size: 1.1rem !important;
+        padding: 0.8rem !important;
+        transition: all 0.3s ease !important;
     }
 
-    .stCheckbox {
-        background: #363636 !important;
-        border-radius: 8px !important;
-        padding: 1rem !important;
-        margin: 0.5rem 0 !important;
-    }
-
-    /* تنسيق العناوين */
-    .section-title {
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: #FFFFFF;
-        margin: 1rem 0;
+    .stNumberInput input:focus {
+        border-color: #60A5FA !important;
+        box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
     }
 
     /* تنسيق الأقسام */
     .section {
-        background: #363636;
-        padding: 1.5rem;
-        border-radius: 10px;
-        margin: 1rem 0;
-    }
-
-    /* تنسيق زر النسخ */
-    .copy-button {
-        background: linear-gradient(145deg, #3D3D56, #2E2E44);  /* تدرج لوني للزر */
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 5px;
-        border: 1px solid #4A4A6A;
-        cursor: pointer;
-        margin-top: 1rem;
-        font-family: 'Tajawal', sans-serif;
+        background: rgba(30, 41, 59, 0.5);
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 1.5rem 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
         transition: all 0.3s ease;
     }
 
-    .copy-button:hover {
-        background: linear-gradient(145deg, #4A4A6A, #3D3D56);
+    .section:hover {
         transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     }
 
     /* تنسيق ملخص الطلب */
     .summary {
-        background: #404040;
-        padding: 1.5rem;
-        border-radius: 10px;
-        margin-top: 1rem;
+        background: rgba(30, 41, 59, 0.6);
+        padding: 2rem;
+        border-radius: 15px;
+        margin-top: 1.5rem;
         text-align: right;
-        font-size: 1.1rem;
-        line-height: 1.6;
+        font-size: 1.2rem;
+        line-height: 1.8;
+        border: 1px solid rgba(96, 165, 250, 0.2);
     }
     </style>
     """, unsafe_allow_html=True)
@@ -217,8 +202,23 @@ def main():
     
     # زر نسخ الملخص
     if st.button("نسخ الملخص", key="copy_button", type="primary"):
-        st.write('<script>navigator.clipboard.writeText(`{}`);</script>'.format(summary), unsafe_allow_html=True)
-        st.success("تم نسخ الملخص بنجاح!")
+        st.markdown(f"""
+            <div class="copy-container">
+                <textarea id="summary-text" style="position: absolute; left: -9999px;">{summary}</textarea>
+                <script>
+                    var textArea = document.getElementById('summary-text');
+                    textArea.select();
+                    try {{
+                        navigator.clipboard.writeText(textArea.value).then(function() {{
+                            console.log('تم النسخ بنجاح');
+                        }});
+                    }} catch (err) {{
+                        console.error('فشل النسخ:', err);
+                    }}
+                </script>
+            </div>
+        """, unsafe_allow_html=True)
+        st.success("✨ تم نسخ الملخص بنجاح!")
     
     st.markdown("</div>", unsafe_allow_html=True)
 
