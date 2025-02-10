@@ -193,6 +193,40 @@ st.markdown("""
         height: 20px;
         fill: currentColor;
     }
+
+    /* تنسيق زر النسخ الجديد */
+    .copy-button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .modern-copy-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 8px 16px;
+        border-radius: 8px;
+        color: white;
+        font-family: 'Tajawal', sans-serif;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .modern-copy-button:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .modern-copy-button svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -218,8 +252,7 @@ def round_to_nearest_currency(amount):
 def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost):
     # تنسيق التاريخ والوقت حسب توقيت بغداد
     current_time = datetime.now() + timedelta(hours=3)
-    date_str = current_time.strftime("%Y-%m-%d")
-    time_str = current_time.strftime("%I:%M %p")
+    date_time_str = current_time.strftime("%Y-%m-%d %I:%M %p")
     
     extras = []
     if cover: extras.append("تصميم غلاف")
@@ -227,28 +260,27 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     if nylon: extras.append("تغليف نايلون")
     if ruler: extras.append("مسطرة خاصة")
     
-    summary = f"""╔══════════════════ ملخص الطلب ══════════════════╗
-
-║  📅 التاريخ: {date_str}
-║  🕒 الوقت: {time_str}
-║
-║  📄 تفاصيل الصفحات:
-║  • عدد الصفحات الملونة: {colored_pages} صفحة
-║  • عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة
-║
+    summary = f"""╔══════════════════════════════════════════════════════════════════╗
+║                         ملخص النتائج ✨                         ║
+╠══════════════════════════════════════════════════════════════════╣
+║ وقت الحساب ⏰: {date_time_str}
+╟──────────────────────────────────────────────────────────────────
+║ 📄 تفاصيل الصفحات:
+║ • عدد الصفحات الملونة: {colored_pages} صفحة
+║ • عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة
 """
 
     if extras:
-        summary += f"""║  ✨ الإضافات المطلوبة:
-║  • {' + '.join(extras)}
-║
+        summary += f"""╟──────────────────────────────────────────────────────────────────
+║ ✨ الإضافات المطلوبة:
+║ • {' + '.join(extras)}
 """
     
-    summary += f"""║  💰 التفاصيل المالية:
-║  • التكلفة قبل التقريب: {total_cost:,} دينار
-║  • التكلفة النهائية: {rounded_cost:,} دينار
-║
-╚══════════════════════════════════════════════════╝"""
+    summary += f"""╟──────────────────────────────────────────────────────────────────
+║ 💰 التفاصيل المالية:
+║ • التكلفة قبل التقريب: {total_cost:,} دينار
+║ • التكلفة النهائية: {rounded_cost:,} دينار
+╚══════════════════════════════════════════════════════════════════╝"""
     
     return summary
 
@@ -291,12 +323,12 @@ def main():
 
     # إنشاء وعرض الملخص
     summary = generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost)
-    st.markdown(f"<div class='summary'>{summary.replace(chr(10), '<br>')}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='summary'>{summary}</div>", unsafe_allow_html=True)
     
-    # تحديث زر النسخ ليكون أيقونة
+    # زر النسخ الجديد
     st.markdown(f"""
-        <div class="copy-container">
-            <button class="copy-icon" onclick="copyToClipboard()">
+        <div class="copy-button-container">
+            <button class="modern-copy-button" onclick="copyToClipboard()">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
                 </svg>
@@ -309,24 +341,20 @@ def main():
                     textArea.select();
                     try {{
                         navigator.clipboard.writeText(textArea.value).then(function() {{
-                            // إظهار رسالة النجاح
-                            const element = window.parent.document.querySelector('.stAlert');
-                            if (!element) {{
-                                const streamlitDoc = window.parent.document;
-                                const div = streamlitDoc.createElement('div');
-                                div.innerHTML = `
-                                    <div class="stAlert success" style="
-                                        padding: 16px;
-                                        border-radius: 8px;
-                                        margin-top: 16px;
-                                        background: rgba(45, 212, 191, 0.1);
-                                        border: 1px solid rgba(45, 212, 191, 0.2);
-                                        color: #2DD4BF;">
-                                        ✨ تم نسخ النتائج بنجاح!
-                                    </div>`;
-                                streamlitDoc.body.appendChild(div);
-                                setTimeout(() => div.remove(), 3000);
-                            }}
+                            const streamlitDoc = window.parent.document;
+                            const div = streamlitDoc.createElement('div');
+                            div.innerHTML = `
+                                <div class="stAlert success" style="
+                                    padding: 16px;
+                                    border-radius: 8px;
+                                    margin-top: 16px;
+                                    background: rgba(45, 212, 191, 0.1);
+                                    border: 1px solid rgba(45, 212, 191, 0.2);
+                                    color: #2DD4BF;">
+                                    ✨ تم نسخ النتائج بنجاح!
+                                </div>`;
+                            streamlitDoc.body.appendChild(div);
+                            setTimeout(() => div.remove(), 3000);
                         }});
                     }} catch (err) {{
                         console.error('فشل النسخ:', err);
