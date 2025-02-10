@@ -1304,32 +1304,9 @@ st.markdown("""
     </script>
 """, unsafe_allow_html=True)
 
-def round_to_currency(amount):
-    """
-    تقريب المبلغ لأقرب فئة عملة متداولة في العراق
-    الفئات: 250، 500، 1000، 5000، 10000، 25000، 50000
-    """
-    currency_notes = [250, 500, 1000, 5000, 10000, 25000, 50000]
-    
-    # إذا كان المبلغ أقل من أصغر فئة
-    if amount < currency_notes[0]:
-        return currency_notes[0]
-    
-    # إذا كان المبلغ أكبر من أكبر فئة
-    if amount > currency_notes[-1]:
-        # نقرب لأقرب مضاعف لأكبر فئة
-        return round(amount / currency_notes[-1]) * currency_notes[-1]
-    
-    # البحث عن أقرب فئة
-    for i in range(len(currency_notes) - 1):
-        if currency_notes[i] <= amount <= currency_notes[i + 1]:
-            # نختار الفئة الأقرب
-            if (amount - currency_notes[i]) < (currency_notes[i + 1] - amount):
-                return currency_notes[i]
-            else:
-                return currency_notes[i + 1]
-    
-    return amount
+def round_to_250(amount):
+    """تقريب المبلغ إلى أقرب 250 دينار (أصغر فئة متداولة)"""
+    return round(amount / 250) * 250
 
 def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover, 
                         has_empty_last, has_carton, has_nylon, has_paper_holder):
@@ -1350,8 +1327,8 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     if has_paper_holder:
         total += PRICES['paper_holder']
     
-    # تقريب المجموع النهائي إلى أقرب فئة عملة متداولة في العراق
-    rounded_total = round_to_currency(total)
+    # تقريب المجموع النهائي إلى أقرب 250 دينار
+    rounded_total = round_to_250(total)
     return total, rounded_total
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
@@ -1362,29 +1339,29 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
 
     # إضافة تفاصيل الصفحات مع الأسعار
     if color_pages > 0:
-        price = color_pages * 50  # سعر الطباعة الملونة 50 دينار
+        price = color_pages * PRICES['color']
         summary_text += f"""
 🎨 طباعة ملونة:
    • عدد الصفحات: {color_pages} صفحة
-   • سعر الصفحة: 50 دينار
+   • سعر الصفحة: {PRICES['color']} دينار
    • المجموع: {price:,} دينار
 ───────────────────────────────────────"""
 
     if bw_color_pages > 0:
-        price = bw_color_pages * 40  # سعر الطباعة أبيض وأسود مع قليل ألوان 40 دينار
+        price = bw_color_pages * PRICES['bw_with_color']
         summary_text += f"""
 🖌️ طباعة أبيض وأسود وقليل ألوان:
    • عدد الصفحات: {bw_color_pages} صفحة
-   • سعر الصفحة: 40 دينار
+   • سعر الصفحة: {PRICES['bw_with_color']} دينار
    • المجموع: {price:,} دينار
 ───────────────────────────────────────"""
 
     if bw_pages > 0:
-        price = bw_pages * 35  # سعر الطباعة أبيض وأسود 35 دينار
+        price = bw_pages * PRICES['bw']
         summary_text += f"""
 📄 طباعة أبيض وأسود:
    • عدد الصفحات: {bw_pages} صفحة
-   • سعر الصفحة: 35 دينار
+   • سعر الصفحة: {PRICES['bw']} دينار
    • المجموع: {price:,} دينار
 ───────────────────────────────────────"""
 
@@ -1392,36 +1369,36 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     extras = []
     extras_total = 0
     if has_cover: 
-        extras.append(("تصميم غلاف ملون", 250))
-        extras_total += 250
+        extras.append(("تصميم غلاف ملون", PRICES['cover']))
+        extras_total += PRICES['cover']
     if has_empty_last: 
-        extras.append(("الصفحة الاخيرة فارغة", 25))
-        extras_total += 25
+        extras.append(("الصفحة الاخيرة فارغة", PRICES['empty_last']))
+        extras_total += PRICES['empty_last']
     if has_carton: 
-        extras.append(("كرتون", 250))
-        extras_total += 250
+        extras.append(("كرتون", PRICES['carton']))
+        extras_total += PRICES['carton']
     if has_nylon: 
-        extras.append(("نايلون شفاف", 250))
-        extras_total += 250
+        extras.append(("نايلون شفاف", PRICES['nylon']))
+        extras_total += PRICES['nylon']
     if has_paper_holder: 
-        extras.append(("حاملة أوراق", 250))
-        extras_total += 250
+        extras.append(("حاملة أوراق", PRICES['paper_holder']))
+        extras_total += PRICES['paper_holder']
 
     if extras:
         summary_text += """
 الإضافات المختارة:"""
         for extra, price in extras:
             summary_text += f"""
-   • {extra}: {price:,} دينار"""
+   • {extra}: {price} دينار"""
         summary_text += f"""
-   • مجموع الإضافات: {extras_total:,} دينار
+   • مجموع الإضافات: {extras_total} دينار
 ───────────────────────────────────────"""
 
     # إضافة الأسعار النهائية
-    rounded_total = round_to_currency(exact_total)
+    rounded_total = round_to_250(exact_total)
     summary_text += f"""
-💵 السعر الكلي: {exact_total:,} دينار
-💰 السعر النهائي (مقرب لأقرب فئة متداولة): {rounded_total:,} دينار
+💵 السعر الكلي: {exact_total} دينار
+💰 السعر النهائي (مقرب لأقرب 250 دينار): {rounded_total} دينار
 ═══════════════════════════════════════"""
 
     # عرض الملخص باستخدام st.code
