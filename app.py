@@ -8,16 +8,16 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تعريف الأسعار الثابتة
+# تعريف الأسعار
 PRICES = {
-    'color': 50,
-    'bw_with_color': 40,
-    'bw': 35,
-    'cover': 250,
-    'empty_last': 25,
-    'carton': 250,
-    'nylon': 250,
-    'paper_holder': 250,
+    'color': 500,
+    'bw_with_color': 300,
+    'bw': 150,
+    'cover': 2000,
+    'empty_last': 500,
+    'carton': 1000,
+    'nylon': 750,
+    'paper_holder': 1500
 }
 
 # تصميم CSS جديد وفاخر
@@ -1319,7 +1319,7 @@ def main():
     has_nylon = False
     has_paper_holder = False
 
-    # إضافة CSS
+    # تعريف CSS مرة واحدة في بداية التطبيق
     st.markdown("""
         <style>
         * { text-align: center; }
@@ -1411,6 +1411,32 @@ def main():
             background: linear-gradient(to bottom, transparent, #D4AF37, transparent);
             margin: 0 auto;
             opacity: 0.3;
+        }
+
+        .service-card {
+            background: #141414;
+            border: 1px solid #D4AF37;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212,175,55,0.1);
+        }
+
+        .service-card h3 {
+            color: #D4AF37;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .service-card p {
+            color: #FFD700;
+            opacity: 0.8;
+            font-size: 1.1rem;
         }
         </style>
     """, unsafe_allow_html=True)
