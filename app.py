@@ -1170,6 +1170,44 @@ st.markdown("""
         margin-left: 5px;
         cursor: help;
     }
+
+    /* تنسيق حاوية الإدخال */
+    .input-container {
+        text-align: center !important;
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    /* تنسيق عنوان حقل الإدخال */
+    .input-label {
+        color: #FFD700;
+        font-weight: bold;
+        text-align: center !important;
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+        width: 100%;
+    }
+
+    /* تنسيق حقل الإدخال نفسه */
+    .stNumberInput {
+        display: flex;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: 0 auto !important;
+    }
+
+    /* تنسيق الأرقام في حقل الإدخال */
+    .stNumberInput input {
+        text-align: center !important;
+    }
+
+    /* تنسيق الأعمدة */
+    [data-testid="column"] {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
     </style>
 
     <!-- زر العودة للأعلى -->
