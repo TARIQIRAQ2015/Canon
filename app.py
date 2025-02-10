@@ -198,39 +198,20 @@ def main():
         current_time = get_iraq_time()
         
         # عرض النتائج
-        st.markdown(f"""
-            <div class="summary-card">
-                <div class="timestamp">⏰ {current_time}</div>
-                <div class="summary-header">
-                    <span>📝 ملخص الطباعة</span>
-                </div>
-                
-                <div class="summary-row">
-                    <span class="summary-label">عدد الصفحات الملونة</span>
-                    <span class="summary-value">{colored_pages:,} صفحة</span>
-                </div>
-                <div class="summary-row">
-                    <span class="summary-label">تكلفة الصفحات الملونة</span>
-                    <span class="summary-value">{colored_pages * 50:,} دينار</span>
-                </div>
-                <div class="summary-row">
-                    <span class="summary-label">عدد الصفحات بالأبيض والأسود</span>
-                    <span class="summary-value">{bw_pages:,} صفحة</span>
-                </div>
-                <div class="summary-row">
-                    <span class="summary-label">تكلفة الصفحات بالأبيض والأسود</span>
-                    <span class="summary-value">{bw_pages * 35:,} دينار</span>
-                </div>
-                <div class="summary-row">
-                    <span class="summary-label">المبلغ الإجمالي</span>
-                    <span class="summary-value">{total_cost:,} دينار</span>
-                </div>
-                <div class="summary-row">
-                    <span class="summary-label">المبلغ النهائي (مقرب لأقرب 250 دينار)</span>
-                    <span class="final-cost">{rounded_cost:,} دينار</span>
-                </div>
-            </div>
-        """, unsafe_allow_html=True)
+        st.subheader("📝 ملخص الطباعة")
+        st.write(f"⏰ {current_time}")
+        
+        st.write("**تفاصيل الصفحات:**")
+        st.write(f"- عدد الصفحات الملونة: {colored_pages:,} صفحة")
+        st.write(f"- عدد الصفحات بالأبيض والأسود: {bw_pages:,} صفحة")
+        
+        st.write("**تفاصيل التكلفة:**")
+        st.write(f"- تكلفة الصفحات الملونة: {colored_pages * 50:,} دينار")
+        st.write(f"- تكلفة الصفحات بالأبيض والأسود: {bw_pages * 35:,} دينار")
+        
+        st.write("**المبالغ:**")
+        st.write(f"- المبلغ الإجمالي: {total_cost:,} دينار")
+        st.write(f"- المبلغ النهائي (مقرب لأقرب 250 دينار): {rounded_cost:,} دينار")
 
         # نص النسخ
         copy_text = f"""
