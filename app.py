@@ -3,7 +3,7 @@ import streamlit as st
 # تعيين تكوين الصفحة
 st.set_page_config(
     page_title="Premium Printing | الطباعة الفاخرة",
-    page_icon="👑",
+    page_icon="🖨️",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
