@@ -20,8 +20,6 @@ def load_lottieurl(url):
         return None
     return r.json()
 
-lottie_printer = load_lottieurl('https://assets5.lottiefiles.com/packages/lf20_szviypry.json')
-
 # تطبيق الأنماط المتقدمة
 st.markdown("""
     <style>
@@ -86,6 +84,7 @@ st.markdown("""
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         backdrop-filter: blur(10px);
         margin-bottom: 1rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
     
     .stSelectbox:hover, .stNumberInput:hover {
