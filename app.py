@@ -1,4 +1,5 @@
 import streamlit as st
+from st_js_script import st_js_script  # إضافة المكتبة
 
 # تعيين تكوين الصفحة
 st.set_page_config(
@@ -1028,6 +1029,69 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def main():
+    # إضافة JavaScript في بداية التطبيق
+    st_js_script("""
+    function getScrollPercent() {
+        var h = document.documentElement, 
+            b = document.body,
+            st = 'scrollTop',
+            sh = 'scrollHeight';
+        return (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
+    }
+
+    window.addEventListener('scroll', function() {
+        var mybutton = document.getElementById("myBtn");
+        var scrollPercent = getScrollPercent();
+        
+        if (scrollPercent > 30) {
+            mybutton.style.display = "flex";
+            mybutton.classList.add('show-btn');
+        } else {
+            mybutton.style.display = "none";
+            mybutton.classList.remove('show-btn');
+        }
+    });
+
+    function topFunction() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+    """)
+
+    # تحديث CSS للزر
+    st.markdown("""
+        <style>
+        #myBtn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(45,45,45,0.9));
+            border: 2px solid rgba(212,175,55,0.5);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 9999;
+            box-shadow: 
+                0 5px 15px rgba(0,0,0,0.3),
+                inset 0 2px 10px rgba(255,255,255,0.1);
+            text-decoration: none;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        /* ... باقي تنسيقات CSS للزر ... */
+        </style>
+
+        <a href="#" id="myBtn" onclick="topFunction(); return false;" title="العودة للأعلى"></a>
+    """, unsafe_allow_html=True)
+
     # في بداية الصفحة (أعلى الكود)
     st.markdown('<div id="top"></div>', unsafe_allow_html=True)
     
