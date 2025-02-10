@@ -432,7 +432,10 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     result_html = f"""
         <div class="result-container">
             <div class="result-section">
-                <div class="result-header">📋 تفاصيل الطلب</div>
+                <div class="result-header">
+                    <span class="header-icon">📋</span>
+                    <span class="header-text">تفاصيل الطلب</span>
+                </div>
                 <div class="result-content">
                     <div class="detail-row">• عدد الصفحات الملونة: {colored_pages} صفحة</div>
                     <div class="detail-row">• عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة</div>
@@ -444,7 +447,10 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     if extras:
         result_html += f"""
             <div class="result-section">
-                <div class="result-header">✨ الإضافات المطلوبة</div>
+                <div class="result-header">
+                    <span class="header-icon">✨</span>
+                    <span class="header-text">الإضافات المطلوبة</span>
+                </div>
                 <div class="result-content">
                     {"".join(f'<div class="detail-row">• {extra}</div>' for extra in extras)}
                 </div>
@@ -454,7 +460,10 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     # إضافة التفاصيل المالية
     result_html += f"""
             <div class="result-section">
-                <div class="result-header">💰 التفاصيل المالية</div>
+                <div class="result-header">
+                    <span class="header-icon">💰</span>
+                    <span class="header-text">التفاصيل المالية</span>
+                </div>
                 <div class="result-content">
                     <div class="cost-row">
                         <div class="cost-label">التكلفة قبل التقريب:</div>
@@ -490,12 +499,23 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
         }
         
         .result-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-size: 1.2rem;
             font-weight: bold;
             color: #ffffff;
             margin-bottom: 1rem;
             padding-right: 1rem;
             border-right: 4px solid #64ffda;
+        }
+        
+        .header-icon {
+            font-size: 1.4rem;
+        }
+        
+        .header-text {
+            margin-right: 0.5rem;
         }
         
         .result-content {
