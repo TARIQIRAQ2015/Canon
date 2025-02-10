@@ -440,6 +440,7 @@ st.markdown("""
         color: #FFD700 !important;
         font-size: 1.3rem !important;
         padding: 1.2rem !important;
+        text-align: center !important;
         width: 100% !important;
         transition: all 0.3s ease !important;
     }
@@ -1302,6 +1303,42 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
+    # تجهيز نص الملخص
+    summary_text = f"""═══════════════════════════════════════════════
+           ملخص الطلب ✨           
+═══════════════════════════════════════════════"""
+
+    if color_pages > 0:
+        summary_text += f"\n🎨 طباعة ملونة: {color_pages} صفحة\n───────────────────────────────────────────────"
+
+    if bw_color_pages > 0:
+        summary_text += f"\n🖌️ طباعة أبيض وأسود وقليل ألوان: {bw_color_pages} صفحة\n───────────────────────────────────────────────"
+
+    if bw_pages > 0:
+        summary_text += f"\n📄 طباعة أبيض وأسود: {bw_pages} صفحة\n───────────────────────────────────────────────"
+
+    # إضافة الإضافات المختارة
+    extras = []
+    if has_cover: extras.append("⭐ تصميم غلاف ملون فاخر")
+    if has_empty_last: extras.append("📄 صفحة ختامية مميزة")
+    if has_carton: extras.append("📦 كرتون فاخر")
+    if has_nylon: extras.append("✨ نايلون شفاف")
+    if has_paper_holder: extras.append("📁 حاملة أوراق")
+
+    if extras:
+        summary_text += "\n✨ الإضافات المختارة:"
+        for extra in extras:
+            summary_text += f"\n   {extra}"
+        summary_text += "\n───────────────────────────────────────────────"
+
+    # إضافة الأسعار
+    summary_text += f"""
+💵 السعر الكلي: {exact_total:,} دينار
+───────────────────────────────────────────────
+💰 السعر النهائي (مع التقريب): {round_to_nearest_250(exact_total):,} دينار
+═══════════════════════════════════════════════"""
+
+    # عرض الملخص
     st.markdown("""
         <style>
         .fancy-summary {
@@ -1316,112 +1353,27 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
             color: #FFD700;
             font-size: 1.1rem;
             line-height: 1.5;
-            position: relative;
-        }
-
-        .copy-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(212,175,55,0.1);
-            border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 5px;
-            padding: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .copy-button:hover {
-            background: rgba(212,175,55,0.2);
-            transform: translateY(-2px);
-        }
-
-        .copy-icon {
-            width: 20px;
-            height: 20px;
-            fill: #D4AF37;
         }
 
         .fancy-summary-content {
             text-align: right;
             display: inline-block;
             width: 100%;
-            user-select: all;
         }
         </style>
 
         <div class="fancy-summary">
-            <button class="copy-button" onclick="copyContent()">
-                <svg class="copy-icon" viewBox="0 0 24 24">
-                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                </svg>
-            </button>
-            <div class="fancy-summary-content" id="summary-content">
-═══════════════════════════════════════════════
-           ملخص الطلب ✨           
-═══════════════════════════════════════════════""", unsafe_allow_html=True)
-
-    # إضافة تفاصيل الصفحات
-    if color_pages > 0:
-        st.markdown(f"""
-🎨 طباعة ملونة: {color_pages} صفحة
-───────────────────────────────────────────────""", unsafe_allow_html=True)
-
-    if bw_color_pages > 0:
-        st.markdown(f"""
-🖌️ طباعة أبيض وأسود وقليل ألوان: {bw_color_pages} صفحة
-───────────────────────────────────────────────""", unsafe_allow_html=True)
-
-    if bw_pages > 0:
-        st.markdown(f"""
-📄 طباعة أبيض وأسود: {bw_pages} صفحة
-───────────────────────────────────────────────""", unsafe_allow_html=True)
-
-    # إضافة الإضافات المختارة
-    extras = []
-    if has_cover: extras.append("⭐ تصميم غلاف ملون فاخر")
-    if has_empty_last: extras.append("📄 صفحة ختامية مميزة")
-    if has_carton: extras.append("📦 كرتون فاخر")
-    if has_nylon: extras.append("✨ نايلون شفاف")
-    if has_paper_holder: extras.append("📁 حاملة أوراق")
-
-    if extras:
-        st.markdown("""
-✨ الإضافات المختارة:""", unsafe_allow_html=True)
-        for extra in extras:
-            st.markdown(f"""   {extra}""", unsafe_allow_html=True)
-        st.markdown("""───────────────────────────────────────────────""", unsafe_allow_html=True)
-
-    # إضافة السعر الكلي والنهائي
-    st.markdown(f"""
-💵 السعر الكلي: {exact_total:,} دينار
-───────────────────────────────────────────────
-💰 السعر النهائي (مع التقريب): {round_to_nearest_250(exact_total):,} دينار
-═══════════════════════════════════════════════
+            <div class="fancy-summary-content">""" + summary_text + """
             </div>
         </div>
     """, unsafe_allow_html=True)
 
-    # إضافة سكريبت JavaScript للنسخ
-    st.markdown("""
-        <script>
-        function copyContent() {
-            const content = document.getElementById('summary-content').innerText;
-            navigator.clipboard.writeText(content).then(() => {
-                const button = document.querySelector('.copy-button');
-                button.style.background = 'rgba(212,175,55,0.3)';
-                setTimeout(() => {
-                    button.style.background = 'rgba(212,175,55,0.1)';
-                }, 200);
-            });
-        }
-        </script>
-    """, unsafe_allow_html=True)
+    # إضافة زر النسخ باستخدام Streamlit
+    col1, col2, col3 = st.columns([1,8,1])
+    with col1:
+        if st.button("📋 نسخ"):
+            st.write("تم النسخ!")
+            st.code(summary_text, language=None)
 
 def main():
     # تعديل العنوان الرئيسي بدون إيموجي
