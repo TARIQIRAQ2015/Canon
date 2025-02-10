@@ -428,101 +428,44 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     if nylon: extras.append("تغليف نايلون")
     if ruler: extras.append("مسطرة خاصة")
 
-    # إنشاء HTML للنتائج مع تنسيق محسن
-    result_html = f"""
-        <div class="result-container">
-            <div class="result-section">
-                <div class="result-header">
-                    <span class="header-icon">📋</span>
-                    <span class="header-text">تفاصيل الطلب</span>
-                </div>
-                <div class="result-content">
-                    <div class="detail-row">• عدد الصفحات الملونة: {colored_pages} صفحة</div>
-                    <div class="detail-row">• عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة</div>
-                </div>
-            </div>
-    """
-    
-    # إضافة الإضافات إذا وجدت
-    if extras:
-        result_html += f"""
-            <div class="result-section">
-                <div class="result-header">
-                    <span class="header-icon">✨</span>
-                    <span class="header-text">الإضافات المطلوبة</span>
-                </div>
-                <div class="result-content">
-                    {"".join(f'<div class="detail-row">• {extra}</div>' for extra in extras)}
-                </div>
-            </div>
-        """
-    
-    # إضافة التفاصيل المالية
-    result_html += f"""
-            <div class="result-section">
-                <div class="result-header">
-                    <span class="header-icon">💰</span>
-                    <span class="header-text">التفاصيل المالية</span>
-                </div>
-                <div class="result-content">
-                    <div class="cost-row">
-                        <div class="cost-label">التكلفة قبل التقريب:</div>
-                        <div class="cost-value">{total_cost:,} دينار</div>
-                    </div>
-                    <div class="cost-row final">
-                        <div class="cost-label">التكلفة النهائية:</div>
-                        <div class="cost-value">{rounded_cost:,} دينار</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    """
-
-    # إضافة الأنماط المحسنة
+    # إضافة الأنماط المحسنة أولاً
     st.markdown("""
         <style>
-        .result-container {
+        .summary-card {
             background: rgba(255,255,255,0.05);
             border-radius: 15px;
             padding: 2rem;
             margin-top: 2rem;
             border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
         }
         
-        .result-section {
+        .summary-header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .summary-title {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .summary-icon {
+            font-size: 1.4rem;
+            margin-left: 0.5rem;
+        }
+        
+        .summary-content {
             margin-bottom: 2rem;
         }
         
-        .result-section:last-child {
-            margin-bottom: 0;
-        }
-        
-        .result-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 1rem;
-            padding-right: 1rem;
-            border-right: 4px solid #64ffda;
-        }
-        
-        .header-icon {
-            font-size: 1.4rem;
-        }
-        
-        .header-text {
-            margin-right: 0.5rem;
-        }
-        
-        .result-content {
-            padding: 0.5rem 1rem;
-        }
-        
-        .detail-row {
+        .summary-item {
+            text-align: right;
             padding: 0.5rem 0;
             color: rgba(255,255,255,0.9);
             font-size: 1.1rem;
@@ -532,9 +475,8 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.8rem 0;
+            padding: 1rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.9);
         }
         
         .cost-row:last-child {
@@ -542,36 +484,69 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
         }
         
         .cost-label {
+            color: rgba(255,255,255,0.9);
             font-size: 1.1rem;
         }
         
         .cost-value {
-            font-weight: bold;
             color: #64ffda;
+            font-weight: bold;
             font-size: 1.2rem;
         }
         
-        .cost-row.final .cost-value {
+        .final-cost .cost-value {
             color: #4CAF50;
             font-size: 1.3rem;
         }
-        
-        @media (max-width: 768px) {
-            .result-container {
-                padding: 1rem;
-            }
-            
-            .cost-row {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-        }
         </style>
     """, unsafe_allow_html=True)
-    
+
+    # إنشاء محتوى النتائج
+    summary_html = f"""
+        <div class="summary-card">
+            <div class="summary-header">
+                <div class="summary-title">تفاصيل الطلب</div>
+                <div class="summary-icon">📋</div>
+            </div>
+            
+            <div class="summary-content">
+                <div class="summary-item">• عدد الصفحات الملونة: {colored_pages} صفحة</div>
+                <div class="summary-item">• عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة</div>
+            </div>
+    """
+
+    if extras:
+        summary_html += """
+            <div class="summary-header">
+                <div class="summary-title">الإضافات المطلوبة</div>
+                <div class="summary-icon">✨</div>
+            </div>
+            <div class="summary-content">
+        """
+        for extra in extras:
+            summary_html += f'<div class="summary-item">• {extra}</div>'
+        summary_html += "</div>"
+
+    summary_html += f"""
+            <div class="summary-header">
+                <div class="summary-title">التفاصيل المالية</div>
+                <div class="summary-icon">💰</div>
+            </div>
+            <div class="summary-content">
+                <div class="cost-row">
+                    <div class="cost-value">{total_cost:,} دينار</div>
+                    <div class="cost-label">التكلفة قبل التقريب:</div>
+                </div>
+                <div class="cost-row final-cost">
+                    <div class="cost-value">{rounded_cost:,} دينار</div>
+                    <div class="cost-label">التكلفة النهائية:</div>
+                </div>
+            </div>
+        </div>
+    """
+
     # عرض النتائج
-    st.markdown(result_html, unsafe_allow_html=True)
+    st.markdown(summary_html, unsafe_allow_html=True)
     return None
 
 def main():
