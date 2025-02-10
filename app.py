@@ -25,7 +25,15 @@ st.markdown("""
         color: #E2E8F0;
         direction: rtl;
         text-align: right;
-        padding: 2rem;
+        padding: 1rem;
+        min-height: 100vh;
+        animation: gradientAnimation 15s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+        0% { background-position: 0% 50% !important; }
+        50% { background-position: 100% 50% !important; }
+        100% { background-position: 0% 50% !important; }
     }
 
     /* إخفاء العناصر غير المرغوب فيها */
@@ -37,12 +45,11 @@ st.markdown("""
     .calculator-box {
         background: rgba(20, 30, 60, 0.7);
         backdrop-filter: blur(20px);
-        padding: 3rem;
+        padding: clamp(1rem, 5vw, 3rem);
         border-radius: 25px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
-                    inset 0 0 80px rgba(96, 165, 250, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         margin: 0 auto;
-        max-width: 850px;
+        max-width: min(90vw, 850px);
         border: 1px solid rgba(255, 255, 255, 0.15);
         position: relative;
         overflow: hidden;
@@ -51,29 +58,42 @@ st.markdown("""
     .calculator-box::before {
         content: '';
         position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
-        animation: glowAnimation 10s infinite linear;
+        inset: 0;
+        background: radial-gradient(circle at 50% 0%, 
+            rgba(96, 165, 250, 0.1), 
+            transparent 70%);
+        animation: glowPulse 4s ease-in-out infinite;
     }
 
-    @keyframes glowAnimation {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+    @keyframes glowPulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 0.8; }
     }
 
     /* تنسيق العنوان */
     .title {
-        font-size: 3rem;
+        font-size: clamp(1.8rem, 4vw, 3rem);
         font-weight: 700;
         background: linear-gradient(120deg, #60A5FA, #818CF8, #C084FC);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-align: center;
-        margin-bottom: 3rem;
-        text-shadow: 0 0 30px rgba(96, 165, 250, 0.5);
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .title::after {
+        content: '🖨️';
+        position: absolute;
+        top: -10px;
+        right: -30px;
+        font-size: 0.8em;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
     }
 
     /* تنسيق النتيجة */
@@ -131,18 +151,34 @@ st.markdown("""
     /* تنسيق ملخص الطلب */
     .summary {
         background: rgba(20, 30, 60, 0.8);
-        padding: 2.5rem;
+        padding: clamp(1rem, 3vw, 2.5rem);
         border-radius: 20px;
         margin-top: 2rem;
-        text-align: right;
         font-family: monospace;
-        font-size: 1.1rem;
+        font-size: clamp(0.8rem, 2vw, 1.1rem);
         line-height: 1.8;
         border: 2px solid rgba(96, 165, 250, 0.3);
-        white-space: pre;
+        position: relative;
         overflow-x: auto;
         color: #A5B4FC;
         box-shadow: 0 0 30px rgba(96, 165, 250, 0.1);
+    }
+
+    .summary::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        padding: 2px;
+        background: linear-gradient(45deg, 
+            rgba(96, 165, 250, 0.3),
+            rgba(192, 132, 252, 0.3)
+        );
+        mask: linear-gradient(#fff 0 0) content-box,
+              linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
     }
 
     /* تنسيق زر النسخ */
@@ -207,13 +243,33 @@ st.markdown("""
         gap: 8px;
         background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 8px 16px;
-        border-radius: 8px;
+        padding: clamp(0.5rem, 2vw, 1rem) clamp(1rem, 3vw, 2rem);
+        border-radius: 12px;
         color: white;
         font-family: 'Tajawal', sans-serif;
+        font-size: clamp(0.9rem, 2vw, 1.1rem);
         cursor: pointer;
         transition: all 0.3s ease;
         backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .modern-copy-button::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(45deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent
+        );
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+    }
+
+    .modern-copy-button:hover::before {
+        transform: translateX(100%);
     }
 
     .modern-copy-button:hover {
@@ -222,10 +278,21 @@ st.markdown("""
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
-    .modern-copy-button svg {
-        width: 18px;
-        height: 18px;
-        fill: currentColor;
+    /* تحسينات للأجهزة المحمولة */
+    @media (max-width: 768px) {
+        .calculator-box {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+
+        .summary {
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
+
+        .title {
+            font-size: 2rem;
+        }
     }
     </style>
     """, unsafe_allow_html=True)
