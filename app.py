@@ -84,28 +84,31 @@ st.markdown("""
     }
     
     .premium-header h1 {
-        font-size: 4rem !important;
+        font-size: clamp(2.5rem, 5vw, 4.5rem) !important;
+        letter-spacing: 1px;
         font-weight: 800;
-        background: linear-gradient(45deg, #FFD700, #B8860B, #FFD700);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 1rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        position: relative;
-        animation: titleGlow 2s ease-in-out infinite;
-    }
-    
-    @keyframes titleGlow {
-        0% { text-shadow: 0 0 10px rgba(212,175,55,0.5); }
-        50% { text-shadow: 0 0 20px rgba(212,175,55,0.8); }
-        100% { text-shadow: 0 0 10px rgba(212,175,55,0.5); }
+        transform: perspective(1000px) translateZ(30px);
+        text-shadow: 
+            0 1px 0 #ccc,
+            0 2px 0 #c9c9c9,
+            0 3px 0 #bbb,
+            0 4px 0 #b9b9b9,
+            0 5px 0 #aaa,
+            0 6px 1px rgba(0,0,0,.1),
+            0 0 5px rgba(0,0,0,.1),
+            0 1px 3px rgba(0,0,0,.3),
+            0 3px 5px rgba(0,0,0,.2),
+            0 5px 10px rgba(0,0,0,.25),
+            0 10px 10px rgba(0,0,0,.2),
+            0 20px 20px rgba(0,0,0,.15);
     }
     
     .premium-header .subtitle {
-        color: #D4AF37;
-        font-size: 1.3rem;
+        font-size: clamp(1.2rem, 2.5vw, 1.8rem) !important;
+        color: #FFD700;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        margin-top: 1rem;
         font-weight: 500;
-        opacity: 0.9;
     }
     
     /* تنسيق الأقسام */
@@ -209,18 +212,22 @@ st.markdown("""
     }
     
     .result-label {
-        color: #D4AF37;
-        font-size: 1.2rem;
+        font-size: clamp(1.2rem, 2vw, 1.5rem);
+        font-weight: 600;
         margin-bottom: 1rem;
-        font-weight: 500;
-    }
-    
-    .result-value {
-        font-size: 2.5rem;
-        font-weight: 700;
         background: linear-gradient(45deg, #FFD700, #D4AF37);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .result-value {
+        font-size: clamp(2rem, 4vw, 3rem) !important;
+        font-weight: 800;
+        text-shadow: 
+            0 2px 4px rgba(0,0,0,0.3),
+            0 4px 8px rgba(0,0,0,0.2);
+        transform: perspective(1000px) translateZ(30px);
     }
     
     /* تنسيق الزر */
@@ -344,12 +351,13 @@ st.markdown("""
     
     /* تحديث CSS لفصل تنسيق الإيموجيات عن العناوين */
     .section-title {
-        color: #D4AF37;
-        font-size: 1.5rem;
-        margin-right: 0.5rem;
+        font-size: clamp(1.5rem, 3vw, 2rem);
         background: linear-gradient(45deg, #FFD700, #B8860B);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        position: relative;
+        padding: 0.5rem 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
     
     /* تنسيق الإيموجيات */
@@ -402,16 +410,14 @@ st.markdown("""
     }
 
     .input-label {
-        color: #D4AF37;
-        font-size: 1.2rem;
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
         font-weight: 600;
+        color: #D4AF37;
         margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        position: relative;
-        padding-right: 1rem;
+        text-shadow: 
+            0 2px 4px rgba(0,0,0,0.3),
+            0 4px 8px rgba(0,0,0,0.2);
+        transform: perspective(1000px) translateZ(20px);
     }
 
     .input-label::before {
@@ -661,6 +667,128 @@ st.markdown("""
                 0 0 40px #D4AF37,
                 0 0 80px #D4AF37;
         }
+    }
+
+    /* تحسين النصوص والعناوين */
+    h1, h2, h3, p, .input-label, .result-label {
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* تحسين العنوان الرئيسي */
+    .premium-header h1 {
+        font-size: clamp(2.5rem, 5vw, 4.5rem) !important;
+        letter-spacing: 1px;
+        font-weight: 800;
+        transform: perspective(1000px) translateZ(30px);
+        text-shadow: 
+            0 1px 0 #ccc,
+            0 2px 0 #c9c9c9,
+            0 3px 0 #bbb,
+            0 4px 0 #b9b9b9,
+            0 5px 0 #aaa,
+            0 6px 1px rgba(0,0,0,.1),
+            0 0 5px rgba(0,0,0,.1),
+            0 1px 3px rgba(0,0,0,.3),
+            0 3px 5px rgba(0,0,0,.2),
+            0 5px 10px rgba(0,0,0,.25),
+            0 10px 10px rgba(0,0,0,.2),
+            0 20px 20px rgba(0,0,0,.15);
+    }
+
+    /* تحسين العنوان الفرعي */
+    .subtitle {
+        font-size: clamp(1.2rem, 2.5vw, 1.8rem) !important;
+        color: #FFD700;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        margin-top: 1rem;
+        font-weight: 500;
+    }
+
+    /* تحسين عناوين الأقسام */
+    .section-title {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        background: linear-gradient(45deg, #FFD700, #B8860B);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        padding: 0.5rem 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    /* تحسين تسميات الإدخال */
+    .input-label {
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+        font-weight: 600;
+        color: #D4AF37;
+        margin-bottom: 1rem;
+        text-shadow: 
+            0 2px 4px rgba(0,0,0,0.3),
+            0 4px 8px rgba(0,0,0,0.2);
+        transform: perspective(1000px) translateZ(20px);
+    }
+
+    /* تحسين بطاقات المعلومات */
+    .info-card h3 {
+        font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+        color: #D4AF37;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        text-shadow: 
+            0 2px 4px rgba(0,0,0,0.3),
+            0 4px 8px rgba(0,0,0,0.2);
+        transform: perspective(1000px) translateZ(25px);
+    }
+
+    .info-card p {
+        font-size: clamp(1rem, 1.8vw, 1.2rem);
+        color: #fff;
+        line-height: 1.6;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    /* تحسين الخيارات */
+    .premium-checkbox label {
+        font-size: clamp(1rem, 1.8vw, 1.2rem);
+        font-weight: 500;
+        color: #D4AF37;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    /* تحسين التجاوب مع الأجهزة */
+    @media (max-width: 768px) {
+        .premium-header {
+            padding: 2rem 1rem;
+        }
+
+        .premium-section {
+            padding: 1.5rem;
+        }
+
+        .info-cards {
+            grid-template-columns: 1fr;
+        }
+
+        .result-card {
+            padding: 1.5rem;
+        }
+    }
+
+    /* تأثيرات 3D إضافية */
+    .premium-section, .info-card, .result-card {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+
+    .premium-section:hover, .info-card:hover, .result-card:hover {
+        transform: translateZ(20px) scale(1.02);
+    }
+
+    /* تحسين القراءة */
+    * {
+        letter-spacing: 0.3px;
+        word-spacing: 1px;
     }
     </style>
 """, unsafe_allow_html=True)
