@@ -899,7 +899,7 @@ st.markdown("""
         left: 30px;
         width: 55px;
         height: 55px;
-        background: linear-gradient(145deg, rgba(26,26,26,0.95), rgba(45,45,45,0.95));
+        background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(45,45,45,0.9));
         border: 2px solid rgba(212,175,55,0.5);
         border-radius: 50%;
         display: none;
@@ -1078,10 +1078,23 @@ st.markdown("""
     .header-section {
         background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
         border-radius: 20px;
-        padding: 2rem;
-        margin-bottom: 2rem;
+        padding: 2.5rem;
+        margin-bottom: 3rem;
         border: 2px solid rgba(212,175,55,0.3);
         text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .header-section h1 {
+        font-size: 2.5rem;
+        color: #D4AF37;
+        margin-bottom: 1rem;
+    }
+
+    .header-section p {
+        color: #FFD700;
+        font-size: 1.2rem;
+        opacity: 0.9;
     }
 
     /* تنسيق الأقسام */
@@ -1091,16 +1104,22 @@ st.markdown("""
         border-radius: 20px;
         padding: 2rem;
         margin-bottom: 2rem;
+        position: relative;
     }
 
+    /* تنسيق العناوين الرئيسية للأقسام */
     .section-title {
+        position: absolute;
+        top: -15px;
+        right: 30px;
+        background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+        padding: 5px 20px;
+        border-radius: 10px;
         color: #D4AF37;
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-        text-align: center;
+        font-size: 1.2rem;
+        border: 1px solid rgba(212,175,55,0.3);
         display: flex;
         align-items: center;
-        justify-content: center;
         gap: 0.5rem;
     }
 
@@ -1109,12 +1128,21 @@ st.markdown("""
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
-        margin-top: 1.5rem;
+        margin-top: 2rem;
     }
 
     .input-container {
-        text-align: center;
+        background: rgba(25,25,25,0.95);
+        border: 1px solid rgba(212,175,55,0.3);
+        border-radius: 15px;
         padding: 1.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .input-container:hover {
+        transform: translateY(-3px);
+        border-color: #D4AF37;
     }
 
     /* تنسيق الإضافات */
@@ -1122,11 +1150,21 @@ st.markdown("""
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 1rem;
+        margin-top: 2rem;
     }
 
     .premium-checkbox {
-        text-align: center;
+        background: rgba(25,25,25,0.95);
+        border: 1px solid rgba(212,175,55,0.3);
+        border-radius: 12px;
         padding: 1rem;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .premium-checkbox:hover {
+        transform: translateY(-2px);
+        border-color: #D4AF37;
     }
 
     /* تنسيق النتائج */
@@ -1149,41 +1187,81 @@ st.markdown("""
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
-        margin-top: 1.5rem;
     }
 
     .service-card {
         background: rgba(25,25,25,0.95);
         border: 1px solid rgba(212,175,55,0.3);
         border-radius: 15px;
-        padding: 2rem;
+        padding: 1.5rem;
         text-align: center;
     }
 
     /* تنسيق الخلاصة */
     .summary-section {
-        text-align: center;
-        margin-top: 2rem;
+        text-align: right;
+        direction: rtl;
     }
 
     .summary-item {
-        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 0;
         border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
+
+    .summary-title {
+        font-size: 1.4rem;
+        color: #D4AF37;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .summary-label {
+        color: #FFD700;
+        font-size: 1.1rem;
+    }
+
+    .summary-value {
+        color: #fff;
+        font-size: 1.1rem;
     }
 
     /* تحسينات عامة */
     .emoji-icon {
-        font-size: 1.5rem;
-        margin-left: 0.5rem;
+        font-size: 1.2rem;
     }
 
-    .input-label, .result-label, .summary-label {
-        color: #D4AF37;
-        margin-bottom: 0.5rem;
+    /* تنسيق حقول الأرقام */
+    .stNumberInput > div > div > input {
+        background: rgba(30,30,30,0.95) !important;
+        border: 1px solid rgba(212,175,55,0.3) !important;
+        color: #fff !important;
+        text-align: center !important;
+        font-size: 1.1rem !important;
     }
 
-    .stNumberInput {
-        margin: 0 auto;
+    /* تنسيق مربعات الاختيار */
+    .stCheckbox {
+        background: transparent !important;
+    }
+
+    .stCheckbox > label {
+        color: #fff !important;
+        font-size: 1rem !important;
+    }
+
+    /* تأثيرات التحويم */
+    .section-container:hover {
+        box-shadow: 0 8px 25px rgba(212,175,55,0.1);
+    }
+
+    .service-card:hover {
+        transform: translateY(-3px);
+        border-color: #D4AF37;
     }
     </style>
 
