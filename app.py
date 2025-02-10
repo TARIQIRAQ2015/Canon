@@ -7,9 +7,9 @@ import math
 
 # تعيين الإعدادات الأولية
 st.set_page_config(
-    page_title="حاسبة تكلفة الطباعة",
-    page_icon="✨",
-    layout="wide",
+    page_title="حاسبة تكلفة الطباعة الذكية",
+    page_icon="🎨",
+    layout="wide", 
     initial_sidebar_state="collapsed"
 )
 
@@ -21,8 +21,8 @@ st.markdown("""
     /* الأنماط الأساسية */
     .main {
         font-family: 'Cairo', sans-serif !important;
-        background: #f0f2f6;
-        color: #1f1f1f;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #ffffff;
         direction: rtl;
         text-align: right;
     }
@@ -34,32 +34,53 @@ st.markdown("""
 
     /* تنسيق مربع الحاسبة */
     .calculator-box {
-        background: white;
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 2.5rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
         margin: 2rem auto;
         max-width: 800px;
     }
 
     /* تنسيق العنوان */
     .title {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #1f1f1f;
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(120deg, #00ffff, #ff00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }
 
     /* تنسيق النتيجة */
     .result {
-        background: #f8f9fa;
-        padding: 1.5rem;
-        border-radius: 10px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        padding: 2rem;
+        border-radius: 15px;
         margin-top: 2rem;
         text-align: center;
-        font-size: 1.5rem;
-        font-weight: 600;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #00ffff;
+        border: 1px solid rgba(255,255,255,0.2);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    /* تنسيق عناصر الإدخال */
+    .stNumberInput, .stCheckbox {
+        background: rgba(255,255,255,0.05) !important;
+        border-radius: 10px !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        color: #ffffff !important;
+    }
+
+    .stNumberInput:hover, .stCheckbox:hover {
+        border-color: #00ffff !important;
+        transition: all 0.3s ease;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -85,20 +106,20 @@ def round_to_nearest_currency(amount):
 
 def main():
     st.markdown("<div class='calculator-box'>", unsafe_allow_html=True)
-    st.markdown("<h1 class='title'>حاسبة تكلفة الطباعة</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='title'>✨ حاسبة تكلفة الطباعة المتطورة ✨</h1>", unsafe_allow_html=True)
 
     # المدخلات
-    colored_pages = st.number_input("عدد الصفحات الملونة", min_value=0, value=0)
-    bw_pages = st.number_input("عدد الصفحات السوداء", min_value=0, value=0)
+    colored_pages = st.number_input("🎨 عدد الصفحات الملونة", min_value=0, value=0)
+    bw_pages = st.number_input("📄 عدد الصفحات السوداء", min_value=0, value=0)
     
     # الإضافات
     col1, col2 = st.columns(2)
     with col1:
-        cover = st.checkbox("تصميم غلاف احترافي")
-        carton = st.checkbox("كرتون فاخر")
+        cover = st.checkbox("🎯 تصميم غلاف احترافي")
+        carton = st.checkbox("📦 كرتون فاخر")
     with col2:
-        nylon = st.checkbox("تغليف نايلون")
-        ruler = st.checkbox("مسطرة خاصة")
+        nylon = st.checkbox("✨ تغليف نايلون")
+        ruler = st.checkbox("📏 مسطرة خاصة")
 
     # حساب التكلفة
     total_cost = calculate_total_cost(colored_pages, bw_pages, cover, carton, nylon, ruler)
@@ -107,7 +128,7 @@ def main():
     # عرض النتيجة
     st.markdown(f"""
         <div class='result'>
-            التكلفة الإجمالية: {rounded_cost} دينار
+            💎 التكلفة الإجمالية: {rounded_cost} دينار 💎
         </div>
     """, unsafe_allow_html=True)
     
