@@ -1078,8 +1078,8 @@ st.markdown("""
         }
 
         .main-section {
-            background: rgba(20,20,20,0.95);
-            border: 1px solid rgba(212,175,55,0.3);
+            background: #141414;
+            border: 1px solid #D4AF37;
             border-radius: 20px;
             padding: 2.5rem;
             margin-bottom: 2rem;
@@ -1112,7 +1112,6 @@ st.markdown("""
             color: #D4AF37;
             font-size: 1.1rem;
             margin-bottom: 1rem;
-            text-align: center;
             font-weight: 500;
         }
 
@@ -1313,17 +1312,21 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     st.markdown("</div>", unsafe_allow_html=True)
 
 def main():
-    # تحديث CSS للتنسيق
+    # تعريف المتغيرات
+    has_cover = False
+    has_empty_last = False
+    has_carton = False
+    has_nylon = False
+    has_paper_holder = False
+
+    # إضافة CSS
     st.markdown("""
         <style>
-        /* تنسيق عام */
-        * {
-            text-align: center;
-        }
+        * { text-align: center; }
 
         .main-section {
-            background: rgba(20,20,20,0.95);
-            border: 1px solid rgba(212,175,55,0.3);
+            background: #141414;
+            border: 1px solid #D4AF37;
             border-radius: 20px;
             padding: 2.5rem;
             margin-bottom: 2rem;
@@ -1356,7 +1359,6 @@ def main():
             color: #D4AF37;
             font-size: 1.1rem;
             margin-bottom: 1rem;
-            text-align: center;
             font-weight: 500;
         }
 
@@ -1412,26 +1414,6 @@ def main():
         }
         </style>
     """, unsafe_allow_html=True)
-
-    # في بداية الصفحة (أعلى الكود)
-    st.markdown('<div id="top"></div>', unsafe_allow_html=True)
-    
-    # العنوان الرئيسي
-    st.markdown("""
-        <div class="premium-header">
-            <h1><span style="color: initial; background: none; -webkit-text-fill-color: initial;">🖨️</span> مكتب طارق الياسين</h1>
-            <div class="subtitle">
-                نقدم خدمات طباعة احترافية بجودة عالية وكفاءة مميزة
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    # تعريف المتغيرات قبل استخدامها
-    has_cover = False
-    has_empty_last = False
-    has_carton = False
-    has_nylon = False
-    has_paper_holder = False
 
     # قسم تفاصيل الطباعة
     st.markdown("""
