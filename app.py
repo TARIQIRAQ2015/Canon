@@ -23,9 +23,14 @@ st.markdown("""
         display: none !important;
     }
     
-    /* الأنماط الأساسية */
+    /* الأنماط الأساسية مع الخلفية المتحركة */
     .stApp {
-        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #162447);
+        background: linear-gradient(135deg, 
+            #1a1a2e,
+            #16213e,
+            #0f3460,
+            #162447
+        );
         background-size: 400% 400%;
         animation: gradient 15s ease infinite;
         font-family: 'Tajawal', sans-serif !important;
@@ -33,6 +38,7 @@ st.markdown("""
         color: #e2e2e2;
     }
     
+    /* تأثير الخلفية المتحركة */
     @keyframes gradient {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
@@ -57,20 +63,19 @@ st.markdown("""
         opacity: 0.9;
     }
     
-    /* تحسين عناصر الإدخال */
+    /* تحسين عناصر الإدخال مع تأثيرات الشفافية */
     .stSelectbox > div > div,
     .stNumberInput > div > div {
         background: rgba(30, 37, 48, 0.7) !important;
         border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        border-radius: 8px !important;
         backdrop-filter: blur(10px);
-        padding: 0.8rem !important;
-        font-size: 1rem !important;
         transition: all 0.3s ease;
     }
     
+    /* تأثيرات التحويم */
     .stSelectbox > div > div:hover,
     .stNumberInput > div > div:hover {
+        background: rgba(22, 27, 37, 0.8) !important;
         border-color: rgba(255, 255, 255, 0.3) !important;
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -83,34 +88,35 @@ st.markdown("""
         padding: 0.5rem !important;
     }
     
-    /* تحسين ملخص النتائج */
+    /* تحسين ملخص النتائج مع تأثير الشفافية */
     pre {
         background: rgba(20, 30, 60, 0.8) !important;
+        backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 10px !important;
-        padding: 1rem !important;
-        font-family: 'Courier New', monospace !important;
-        direction: ltr !important;
-        white-space: pre-wrap !important;
-        color: #e2e2e2 !important;
+        transition: all 0.3s ease;
     }
     
-    /* تحسين الأزرار */
+    pre:hover {
+        border-color: rgba(255, 255, 255, 0.2) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    
+    /* تحسين الأزرار مع تأثيرات الشفافية */
     .stButton > button {
-        background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)) !important;
-        border: 1px solid rgba(255,255,255,0.2) !important;
-        color: #ffffff !important;
-        border-radius: 8px !important;
-        padding: 0.8rem 1.5rem !important;
-        font-weight: 500 !important;
-        transition: all 0.3s ease !important;
+        background: linear-gradient(135deg, 
+            rgba(255,255,255,0.1),
+            rgba(255,255,255,0.05)
+        ) !important;
         backdrop-filter: blur(10px);
-        width: 100%;
+        transition: all 0.3s ease !important;
     }
     
     .stButton > button:hover {
-        background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.1)) !important;
-        border-color: rgba(255,255,255,0.3) !important;
+        background: linear-gradient(135deg, 
+            rgba(255,255,255,0.15),
+            rgba(255,255,255,0.1)
+        ) !important;
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
