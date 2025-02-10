@@ -33,6 +33,30 @@ st.markdown("""
     .main {
         background: linear-gradient(135deg, #000000, #1a1a1a);
         color: #ffffff;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .main::before {
+        content: '';
+        position: fixed;
+        width: 200%;
+        height: 200%;
+        top: -50%;
+        left: -50%;
+        z-index: -1;
+        background: 
+            radial-gradient(circle at 30% 30%, rgba(212,175,55,0.05) 0%, transparent 30%),
+            radial-gradient(circle at 70% 70%, rgba(212,175,55,0.05) 0%, transparent 30%),
+            radial-gradient(circle at 50% 50%, rgba(212,175,55,0.05) 0%, transparent 50%),
+            linear-gradient(45deg, transparent 48%, rgba(212,175,55,0.02) 50%, transparent 52%);
+        animation: gradientBG 15s ease infinite;
+    }
+    
+    /* تأثير متحرك للخلفية */
+    @keyframes gradientBG {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
     
     /* تنسيق الهيدر */
@@ -67,6 +91,14 @@ st.markdown("""
         -webkit-text-fill-color: transparent;
         margin-bottom: 1rem;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        position: relative;
+        animation: titleGlow 2s ease-in-out infinite;
+    }
+    
+    @keyframes titleGlow {
+        0% { text-shadow: 0 0 10px rgba(212,175,55,0.5); }
+        50% { text-shadow: 0 0 20px rgba(212,175,55,0.8); }
+        100% { text-shadow: 0 0 10px rgba(212,175,55,0.5); }
     }
     
     .premium-header .subtitle {
@@ -85,6 +117,25 @@ st.markdown("""
         border: 1px solid rgba(184,134,11,0.3);
         box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .premium-section::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(212,175,55,0.1), transparent);
+        animation: shine 3s infinite;
+    }
+    
+    @keyframes shine {
+        0% { left: -100%; }
+        50% { left: 100%; }
+        100% { left: 100%; }
     }
     
     .premium-section h2 {
@@ -124,9 +175,8 @@ st.markdown("""
     }
     
     .premium-checkbox:hover {
-        background: rgba(184,134,11,0.1);
-        border-color: rgba(184,134,11,0.4);
-        transform: translateY(-2px);
+        transform: translateX(-5px);
+        background: rgba(212,175,55,0.1);
     }
     
     /* تنسيق النتائج */
@@ -146,11 +196,16 @@ st.markdown("""
         padding: 2rem;
         border: 1px solid rgba(184,134,11,0.3);
         transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        animation: cardPulse 2s ease-in-out infinite;
     }
     
-    .result-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 20px rgba(184,134,11,0.2);
+    @keyframes cardPulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
     }
     
     .result-label {
@@ -325,7 +380,7 @@ def main():
     with col1:
         st.markdown("""
             <div class="premium-section">
-                <h2><span class="section-icon">🖨️</span> خدمات الطباعة الفاخرة</h2>
+                <h2><span class="section-icon">📋</span> المعلومات الرئيسية</h2>
             </div>
         """, unsafe_allow_html=True)
         
@@ -336,7 +391,7 @@ def main():
     with col2:
         st.markdown("""
             <div class="premium-section">
-                <h2><span class="section-icon">✨</span> الإضافات الحصرية</h2>
+                <h2><span class="section-icon">✨</span> الإضافات الاختيارية</h2>
             </div>
         """, unsafe_allow_html=True)
         
