@@ -15,110 +15,127 @@ st.markdown("""
     }
     
     .stApp {
-        background-color: #1a1a2e;
+        background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
     }
     
-    .main-title {
-        color: white;
+    .card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 30px;
+        margin: 20px 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(8px);
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.45);
+    }
+    
+    .card-header {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        background: linear-gradient(45deg, #64ffda, #48cae4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         display: flex;
-        justify-content: flex-end;
         align-items: center;
         gap: 10px;
-        margin-bottom: 30px;
     }
     
-    .extras-section {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 10px;
-        padding: 20px;
-        margin: 20px 0;
-    }
-    
-    .extras-title {
-        color: #64ffda;
+    .info {
+        margin: 15px 0;
         font-size: 1.1rem;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .summary-card {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 15px;
-        padding: 25px;
-        margin-top: 30px;
-    }
-    
-    .summary-header {
-        color: #64ffda;
-        font-size: 1.2rem;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #64ffda;
-    }
-    
-    .summary-row {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         display: flex;
         justify-content: space-between;
-        padding: 10px 0;
-        color: white;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        align-items: center;
     }
     
-    .summary-value {
+    .highlight {
         color: #64ffda;
         font-weight: bold;
+        font-size: 1.2rem;
     }
     
     .final-cost {
         color: #4CAF50;
+        font-size: 1.5rem;
         font-weight: bold;
+        text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
     }
     
-    .timestamp {
+    .extras-section {
+        background: rgba(255, 255, 255, 0.07);
+        padding: 20px;
+        border-radius: 15px;
+        margin: 20px 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .extras-title {
         color: #64ffda;
-        font-size: 0.9rem;
-        text-align: left;
+        font-size: 1.3rem;
         margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
     
     .copy-button {
         position: fixed;
         top: 70px;
         left: 20px;
-        padding: 8px 16px;
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 5px;
+        padding: 12px 24px;
+        background: linear-gradient(45deg, #64ffda, #48cae4);
+        color: #1a1a2e;
+        border: none;
+        border-radius: 10px;
         cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        font-size: 0.9rem;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(100, 255, 218, 0.2);
     }
     
     .copy-button:hover {
-        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(100, 255, 218, 0.3);
     }
     
     /* تحسين شكل المدخلات */
-    .stNumberInput {
-        background: rgba(255, 255, 255, 0.05) !important;
-        border-radius: 8px !important;
+    .stNumberInput > div > div > input {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
+        border-radius: 10px !important;
+        padding: 10px !important;
     }
     
     .stCheckbox {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 5px 0;
+    }
+    
+    /* تحسين العناوين */
+    .stMarkdown {
         color: white !important;
     }
     
-    /* تحسين شكل العناوين */
-    .stMarkdown {
-        color: white !important;
+    .timestamp {
+        color: #64ffda;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
     }
     </style>
 """, unsafe_allow_html=True)
