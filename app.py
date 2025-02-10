@@ -367,67 +367,43 @@ st.markdown("""
 
     /* تنسيق محسن لحقول الإدخال */
     .input-container {
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(0, 0, 0, 0.7);
         border: 2px solid #FFD700;
         border-radius: 15px;
-        padding: 15px;
+        padding: 10px;
         margin: 10px 0;
-        text-align: center;
-        position: relative;
-        min-height: 120px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        text-align: center !important;
+        width: 100%;
     }
 
     /* تنسيق عنوان حقل الإدخال */
     .input-label {
         color: #FFD700;
         font-weight: bold;
-        text-align: center;
-        margin-bottom: 15px;
-        font-size: 1.1rem;
+        text-align: center !important;
+        margin-bottom: 5px;
+        font-size: 1rem;
     }
 
     /* تنسيق حقل الإدخال نفسه */
     .stNumberInput {
-        width: 80% !important;
-        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     /* تنسيق الأرقام في حقل الإدخال */
     .stNumberInput input {
-        background: rgba(0, 0, 0, 0.5) !important;
-        border: 1px solid #FFD700 !important;
-        color: #FFD700 !important;
         text-align: center !important;
-        font-size: 1.2rem !important;
-        padding: 10px !important;
-        border-radius: 10px !important;
         width: 100% !important;
-        transition: all 0.3s ease;
     }
 
-    .stNumberInput input:focus {
-        border-color: #FFD700 !important;
-        box-shadow: 0 0 10px rgba(255, 215, 0, 0.3) !important;
-        background: rgba(0, 0, 0, 0.7) !important;
-    }
-
-    /* تنسيق أزرار + و - */
-    .stNumberInput button {
-        background: rgba(255, 215, 0, 0.1) !important;
-        border: 1px solid #FFD700 !important;
-        color: #FFD700 !important;
-        border-radius: 8px !important;
-        transition: all 0.3s ease;
-    }
-
-    .stNumberInput button:hover {
-        background: rgba(255, 215, 0, 0.2) !important;
-        transform: translateY(-2px);
+    /* تنسيق الأعمدة */
+    [data-testid="column"] {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
 
     /* تحسين العنوان الرئيسي */
@@ -1119,95 +1095,6 @@ st.markdown("""
     [data-testid="stMarkdownContainer"] {
         text-align: center !important;
     }
-
-    /* تنسيق حاوية الأزرار */
-    .number-controls {
-        background: rgba(0, 0, 0, 0.8);
-        border: 2px solid #FFD700;
-        border-radius: 15px;
-        padding: 8px;
-        margin-bottom: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-        width: fit-content;
-    }
-
-    /* تنسيق الأزرار نفسها */
-    .number-controls button {
-        background: rgba(255, 215, 0, 0.1) !important;
-        border: 1px solid #FFD700 !important;
-        color: #FFD700 !important;
-        width: 35px !important;
-        height: 35px !important;
-        border-radius: 8px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        cursor: pointer !important;
-        transition: all 0.3s ease !important;
-        font-size: 1.2rem !important;
-        padding: 0 !important;
-    }
-
-    .number-controls button:hover {
-        background: rgba(255, 215, 0, 0.2) !important;
-        transform: translateY(-2px);
-    }
-
-    /* تنسيق النقطة بين الأزرار */
-    .number-controls .dot {
-        color: #FFD700;
-        font-size: 1.2rem;
-        margin: 0 5px;
-    }
-
-    /* تنسيق أيقونة المعلومات */
-    .number-controls .info-icon {
-        color: #FFD700;
-        font-size: 1.2rem;
-        margin-left: 5px;
-        cursor: help;
-    }
-
-    /* تنسيق حاوية الإدخال */
-    .input-container {
-        text-align: center !important;
-        margin: 10px 0;
-        width: 100%;
-    }
-
-    /* تنسيق عنوان حقل الإدخال */
-    .input-label {
-        color: #FFD700;
-        font-weight: bold;
-        text-align: center !important;
-        margin-bottom: 10px;
-        font-size: 1.1rem;
-        width: 100%;
-    }
-
-    /* تنسيق حقل الإدخال نفسه */
-    .stNumberInput {
-        display: flex;
-        justify-content: center !important;
-        align-items: center !important;
-        margin: 0 auto !important;
-    }
-
-    /* تنسيق الأرقام في حقل الإدخال */
-    .stNumberInput input {
-        text-align: center !important;
-    }
-
-    /* تنسيق الأعمدة */
-    [data-testid="column"] {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        text-align: center !important;
-    }
     </style>
 
     <!-- زر العودة للأعلى -->
@@ -1285,7 +1172,7 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     if bw_pages > 0:
         price = bw_pages * PRICES['bw']
         summary_text += f"""
-طباعة أبيض وأسود:
+📄 طباعة أبيض وأسود:
    • عدد الصفحات: {bw_pages} صفحة
    • سعر الصفحة: {PRICES['bw']} دينار
    • المجموع: {price:,} دينار
