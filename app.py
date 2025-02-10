@@ -1024,155 +1024,48 @@ st.markdown("""
     }
 
     .services-section {
-        margin-top: 2rem;
-        text-align: center;
+        margin-top: 3rem;
+        margin-bottom: 2rem;
     }
 
     .services-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
-        margin-top: 1.5rem;
     }
 
     .service-card {
-        background: linear-gradient(145deg, rgba(25,25,25,0.95), rgba(35,35,35,0.95));
+        background: rgba(20,20,20,0.95);
         border: 1px solid rgba(212,175,55,0.3);
         border-radius: 15px;
-        padding: 2rem;
+        padding: 1.5rem;
+        text-align: center;
         transition: all 0.3s ease;
     }
 
     .service-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(212,175,55,0.2);
+        transform: translateY(-3px);
+        border-color: #D4AF37;
+        box-shadow: 0 8px 25px rgba(212,175,55,0.1);
     }
 
     .service-card h3 {
         color: #D4AF37;
-        font-size: 1.4rem;
-        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
     }
 
     .service-card p {
-        color: #fff;
-        opacity: 0.9;
-    }
-
-    /* تنسيق عام للنصوص */
-    * {
-        text-align: center;
-    }
-
-    /* تنسيق القسم الرئيسي */
-    .main-container {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem;
-    }
-
-    /* تنسيق العنوان الرئيسي */
-    .header-section {
-        background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
-        border-radius: 20px;
-        padding: 2.5rem;
-        margin-bottom: 3rem;
-        border: 2px solid rgba(212,175,55,0.3);
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    .header-section h1 {
-        font-size: 2.5rem;
-        color: #D4AF37;
-        margin-bottom: 1rem;
-    }
-
-    .header-section p {
         color: #FFD700;
-        font-size: 1.2rem;
-        opacity: 0.9;
-    }
-
-    /* تنسيق الأقسام */
-    .section-container {
-        background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
-        border: 2px solid rgba(212,175,55,0.3);
-        border-radius: 20px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        position: relative;
-    }
-
-    /* تنسيق العناوين الرئيسية للأقسام */
-    .section-title {
-        position: absolute;
-        top: -15px;
-        right: 50%;
-        transform: translateX(50%);
-        background: #1a1a1a;
-        padding: 5px 20px;
-        border-radius: 10px;
-        color: #D4AF37;
-        font-size: 1.2rem;
-        border: 1px solid rgba(212,175,55,0.3);
-        z-index: 1;
-    }
-
-    /* تنسيق حاويات الطباعة */
-    .print-options {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
-        margin-top: 1.5rem;
-    }
-
-    /* تنسيق عنوان خيار الطباعة */
-    .print-option-title {
-        color: #D4AF37;
+        opacity: 0.8;
         font-size: 1.1rem;
-        margin-bottom: 1rem;
-        text-align: center;
     }
 
-    /* تنسيق حقل الإدخال */
-    .stNumberInput {
-        background: rgba(30,30,30,0.95) !important;
-        border-radius: 10px;
-        padding: 0.5rem;
-    }
-
-    .stNumberInput > div {
-        background: transparent !important;
-    }
-
-    .stNumberInput > div > div > input {
-        background: transparent !important;
-        border: none !important;
-        color: #fff !important;
-        font-size: 1.2rem !important;
-        text-align: center !important;
-    }
-
-    /* تنسيق أزرار الزيادة والنقصان */
-    .stNumberInput [data-testid="stDecrement"],
-    .stNumberInput [data-testid="stIncrement"] {
-        background: rgba(25,25,25,0.95) !important;
-        border: 1px solid rgba(212,175,55,0.3) !important;
-        color: #D4AF37 !important;
-        border-radius: 5px !important;
-        width: 30px !important;
-        height: 30px !important;
-    }
-
-    /* تنسيق الخط الفاصل */
-    .separator {
-        width: 1px;
-        background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.3), transparent);
-        margin: 0 auto;
+    /* خط فاصل ذهبي */
+    .golden-line {
+        height: 1px;
+        background: linear-gradient(to right, transparent, rgba(212,175,55,0.5), transparent);
+        margin: 2rem 0;
     }
     </style>
 
@@ -1458,7 +1351,59 @@ def main():
             </div>
         """, unsafe_allow_html=True)
 
+    # إضافة الخلاصة
+    show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total)
+
+    # إضافة قسم الخدمات في النهاية
     st.markdown("""
+        <style>
+        .services-section {
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(20,20,20,0.95);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-3px);
+            border-color: #D4AF37;
+            box-shadow: 0 8px 25px rgba(212,175,55,0.1);
+        }
+
+        .service-card h3 {
+            color: #D4AF37;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .service-card p {
+            color: #FFD700;
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+
+        /* خط فاصل ذهبي */
+        .golden-line {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(212,175,55,0.5), transparent);
+            margin: 2rem 0;
+        }
+        </style>
+
+        <div class="golden-line"></div>
         <div class="services-section">
             <div class="services-grid">
                 <div class="service-card">
@@ -1472,11 +1417,6 @@ def main():
             </div>
         </div>
     """, unsafe_allow_html=True)
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    # استدعاء دالة الخلاصة في نهاية main()
-    show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total)
 
 if __name__ == "__main__":
     main() 
