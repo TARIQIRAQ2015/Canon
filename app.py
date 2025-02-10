@@ -1,4 +1,5 @@
 import streamlit as st
+import pyperclip
 
 # تعيين تكوين الصفحة
 st.set_page_config(
@@ -1309,13 +1310,13 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
 ═══════════════════════════════════════════════"""
 
     if color_pages > 0:
-        summary_text += f"\n🎨 طباعة ملونة: {color_pages} صفحة\n───────────────────────────────────────────────"
+        summary_text += f"\n🎨 طباعة ملونة: {color_pages} صفحة"
 
     if bw_color_pages > 0:
-        summary_text += f"\n🖌️ طباعة أبيض وأسود وقليل ألوان: {bw_color_pages} صفحة\n───────────────────────────────────────────────"
+        summary_text += f"\n🖌️ طباعة أبيض وأسود وقليل ألوان: {bw_color_pages} صفحة"
 
     if bw_pages > 0:
-        summary_text += f"\n📄 طباعة أبيض وأسود: {bw_pages} صفحة\n───────────────────────────────────────────────"
+        summary_text += f"\n📄 طباعة أبيض وأسود: {bw_pages} صفحة"
 
     # إضافة الإضافات المختارة
     extras = []
@@ -1329,14 +1330,17 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
         summary_text += "\n✨ الإضافات المختارة:"
         for extra in extras:
             summary_text += f"\n   {extra}"
-        summary_text += "\n───────────────────────────────────────────────"
 
     # إضافة الأسعار
     summary_text += f"""
 💵 السعر الكلي: {exact_total:,} دينار
-───────────────────────────────────────────────
 💰 السعر النهائي (مع التقريب): {round_to_nearest_250(exact_total):,} دينار
 ═══════════════════════════════════════════════"""
+
+    # إضافة زر النسخ
+    if st.button("📋", help="نسخ الملخص"):
+        pyperclip.copy(summary_text)
+        st.toast("تم نسخ الملخص!", icon="✅")
 
     # عرض الملخص
     st.markdown("""
@@ -1347,18 +1351,44 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
             border: 2px solid rgba(212,175,55,0.3);
             border-radius: 10px;
             padding: 2rem;
-            margin: 2rem 0;
+            margin: 1rem 0;
             white-space: pre;
             direction: rtl;
             color: #FFD700;
             font-size: 1.1rem;
             line-height: 1.5;
+            position: relative;
+        }
+
+        .stButton button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(212,175,55,0.1) !important;
+            border: 1px solid rgba(212,175,55,0.3) !important;
+            color: #D4AF37 !important;
+            width: 40px;
+            height: 40px;
+            border-radius: 50% !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0 !important;
+            font-size: 1.2rem !important;
+        }
+
+        .stButton button:hover {
+            background: rgba(212,175,55,0.2) !important;
+            transform: translateY(-2px);
         }
 
         .fancy-summary-content {
             text-align: right;
             display: inline-block;
             width: 100%;
+            padding-top: 1rem;
         }
         </style>
 
@@ -1367,13 +1397,6 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
             </div>
         </div>
     """, unsafe_allow_html=True)
-
-    # إضافة زر النسخ باستخدام Streamlit
-    col1, col2, col3 = st.columns([1,8,1])
-    with col1:
-        if st.button("📋 نسخ"):
-            st.write("تم النسخ!")
-            st.code(summary_text, language=None)
 
 def main():
     # تعديل العنوان الرئيسي بدون إيموجي
