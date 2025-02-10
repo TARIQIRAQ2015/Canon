@@ -466,86 +466,44 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     return None
 
 def main():
-    # عرض العنوان الرئيسي
-    st.markdown("""
-        <div class="main-header">
-            <div class="title-container">
-                <h1 class="main-title">حاسبة تكلفة الطباعة الذكية 🖨️</h1>
-                <p class="subtitle">حاسبة متطورة لتقدير تكاليف الطباعة بدقة عالية مع دعم كامل للإضافات والخيارات المتنوعة</p>
-                <div class="features-list">
-                    <div class="feature-item">✨ دقة في الحساب</div>
-                    <div class="feature-item">🚀 سرعة في الأداء</div>
-                    <div class="feature-item">💡 خيارات متعددة</div>
-                    <div class="feature-item">📊 تقارير مفصلة</div>
-                </div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # استخدام الأعمدة لتخطيط أفضل
-    col1, col2 = st.columns(2)
-
-    # قسم الصفحات
-    st.markdown('<div class="section-title">🖨️ خيارات الطباعة</div>', unsafe_allow_html=True)
-    st.markdown("""
-        <div class="input-section">
-            <div class="section-title">📄 عدد الصفحات</div>
-            <div class="options-grid">
-                <div class="option-item">
-                    <label for="colored_pages">عدد الصفحات الملونة</label>
-                    <input type="number" id="colored_pages" name="colored_pages" min="0" value="0">
-                </div>
-                <div class="option-item">
-                    <label for="bw_pages">عدد الصفحات بالأبيض والأسود</label>
-                    <input type="number" id="bw_pages" name="bw_pages" min="0" value="0">
-                </div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
+    # تعريف المتغيرات الأساسية
+    colored_pages = st.number_input("عدد الصفحات الملونة:", min_value=0, value=0)
+    bw_pages = st.number_input("عدد الصفحات بالأبيض والأسود:", min_value=0, value=0)
     
-    # قسم الإضافات
-    st.markdown("<div class='section'>", unsafe_allow_html=True)
-    st.markdown("<h2 class='section-title'>الإضافات</h2>", unsafe_allow_html=True)
-    col1, col2 = st.columns(2)
-    with col1:
-        cover = st.checkbox("تصميم غلاف")
-        carton = st.checkbox("كرتون فاخر")
-    with col2:
-        nylon = st.checkbox("تغليف نايلون")
-        ruler = st.checkbox("مسطرة خاصة")
-    st.markdown("</div>", unsafe_allow_html=True)
-
+    # خيارات إضافية
+    st.markdown('<div class="section-title">✨ خيارات إضافية</div>', unsafe_allow_html=True)
+    cover = st.checkbox("تصميم غلاف")
+    carton = st.checkbox("كرتون فاخر")
+    nylon = st.checkbox("تغليف نايلون")
+    ruler = st.checkbox("مسطرة خاصة")
+    
     # حساب التكلفة
-    total_cost = calculate_total_cost(colored_pages, bw_pages, cover, carton, nylon, ruler)
-    rounded_cost = round_to_nearest_currency(total_cost)
-
-    # عرض النتيجة والملخص
-    st.markdown(f"""
-        <div class='result'>
-            التكلفة الإجمالية: {rounded_cost:,} دينار
-            <div class='sub-result'>
-                التكلفة قبل التقريب: {total_cost:,} دينار
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # عرض النتائج
-    generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost)
-
-    # زر النسخ
-    st.markdown(f"""
-        <div class="copy-button-container">
-            <button class="modern-copy-button" onclick="copyToClipboard()">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
-                    <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                </svg>
-                نسخ النتائج
-            </button>
-            <textarea id="summary-text" style="position: absolute; left: -9999px;">{generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost)}</textarea>
-        </div>
-    """, unsafe_allow_html=True)
+    def calculate_total_cost(colored_pages, bw_pages, cover, carton, nylon, ruler):
+        # تكلفة الصفحات
+        colored_cost = colored_pages * 50  # سعر الصفحة الملونة
+        bw_cost = bw_pages * 25  # سعر الصفحة بالأبيض والأسود
+        
+        # تكلفة الإضافات
+        extras_cost = 0
+        if cover: extras_cost += 1000
+        if carton: extras_cost += 500
+        if nylon: extras_cost += 250
+        if ruler: extras_cost += 150
+        
+        # التكلفة الإجمالية
+        total = colored_cost + bw_cost + extras_cost
+        
+        return total
     
-    st.markdown("</div>", unsafe_allow_html=True)
+    # حساب التكلفة النهائية
+    if st.button("حساب التكلفة"):
+        total_cost = calculate_total_cost(colored_pages, bw_pages, cover, carton, nylon, ruler)
+        
+        # تقريب السعر
+        rounded_cost = round(total_cost / 100) * 100
+        
+        # عرض النتائج
+        generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost)
 
 if __name__ == "__main__":
     main()
