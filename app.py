@@ -359,51 +359,100 @@ st.markdown("""
         -webkit-text-fill-color: initial;  /* إزالة التأثير الذهبي من الإيموجيات */
     }
 
-    /* تنسيق جديد لحقول الإدخال */
+    /* تنسيق محسن لحقول الإدخال */
     .input-container {
-        background: linear-gradient(145deg, rgba(20,20,20,0.8), rgba(30,30,30,0.8));
+        background: linear-gradient(165deg, rgba(30,30,30,0.9), rgba(15,15,15,0.9));
         border: 1px solid rgba(212,175,55,0.2);
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin: 1rem 0;
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        box-shadow: 
+            0 10px 20px rgba(0,0,0,0.3),
+            inset 0 2px 10px rgba(255,255,255,0.1),
+            0 0 0 1px rgba(212,175,55,0.1);
         backdrop-filter: blur(10px);
-        transition: all 0.3s ease;
+        transform-style: preserve-3d;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .input-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        background: linear-gradient(180deg, 
+            rgba(212,175,55,0.1) 0%,
+            transparent 15%,
+            transparent 85%,
+            rgba(212,175,55,0.1) 100%);
+        pointer-events: none;
     }
 
     .input-container:hover {
-        transform: translateY(-2px);
+        transform: translateY(-5px) scale(1.02);
         border-color: rgba(212,175,55,0.4);
-        box-shadow: 0 5px 15px rgba(212,175,55,0.1);
+        box-shadow: 
+            0 15px 30px rgba(0,0,0,0.4),
+            inset 0 2px 15px rgba(255,255,255,0.1),
+            0 0 0 1px rgba(212,175,55,0.2);
     }
 
     .input-label {
         color: #D4AF37;
-        font-size: 1.1rem;
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-        display: block;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        position: relative;
+        padding-right: 1rem;
+    }
+
+    .input-label::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(180deg, #D4AF37, transparent);
+        transform: translateY(-50%);
+        border-radius: 3px;
     }
 
     /* تحسين مظهر حقول الأرقام */
     .stNumberInput {
         background: transparent !important;
+        position: relative;
     }
 
     .stNumberInput > div > div > input {
-        background: rgba(0,0,0,0.3) !important;
+        background: rgba(0,0,0,0.4) !important;
         border: 2px solid rgba(212,175,55,0.3) !important;
-        border-radius: 10px !important;
+        border-radius: 15px !important;
         color: #ffffff !important;
-        font-size: 1.1rem !important;
-        padding: 1rem !important;
-        height: 3rem !important;
-        transition: all 0.3s ease !important;
+        font-size: 1.2rem !important;
+        padding: 1.2rem !important;
+        height: 3.5rem !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 
+            inset 0 2px 10px rgba(0,0,0,0.3),
+            0 5px 15px rgba(0,0,0,0.2);
     }
 
     .stNumberInput > div > div > input:focus {
         border-color: #D4AF37 !important;
-        box-shadow: 0 0 15px rgba(212,175,55,0.2) !important;
-        transform: translateY(-1px);
+        box-shadow: 
+            0 0 20px rgba(212,175,55,0.2),
+            inset 0 2px 10px rgba(0,0,0,0.3) !important;
+        transform: translateY(-2px);
+        background: rgba(0,0,0,0.5) !important;
     }
 
     /* تحسين أزرار الزيادة والنقصان */
@@ -412,27 +461,52 @@ st.markdown("""
         background: linear-gradient(145deg, #1a1a1a, #2d2d2d) !important;
         color: #D4AF37 !important;
         border: 2px solid rgba(212,175,55,0.3) !important;
-        border-radius: 8px !important;
-        width: 40px !important;
-        height: 40px !important;
-        transition: all 0.3s ease;
+        border-radius: 12px !important;
+        width: 45px !important;
+        height: 45px !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        box-shadow: 
+            0 5px 15px rgba(0,0,0,0.2),
+            inset 0 2px 5px rgba(255,255,255,0.1);
     }
 
     .stNumberInput [data-testid="stDecrement"]:hover, 
     .stNumberInput [data-testid="stIncrement"]:hover {
         background: linear-gradient(145deg, #D4AF37, #B8860B) !important;
         color: #000000 !important;
-        transform: scale(1.05);
+        transform: translateY(-2px) scale(1.1);
+        box-shadow: 
+            0 8px 20px rgba(212,175,55,0.3),
+            inset 0 2px 5px rgba(255,255,255,0.2);
     }
 
-    /* إضافة أيقونات للحقول */
-    .input-icon {
-        font-size: 1.2rem;
-        margin-right: 0.5rem;
-        color: #D4AF37;
+    .stNumberInput [data-testid="stDecrement"]:active, 
+    .stNumberInput [data-testid="stIncrement"]:active {
+        transform: translateY(1px) scale(0.95);
+    }
+
+    /* تأثير الضوء عند التحويم */
+    .input-container::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, 
+            rgba(212,175,55,0.1),
+            transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        transform: rotate(30deg);
+    }
+
+    .input-container:hover::after {
+        opacity: 1;
     }
     </style>
 """, unsafe_allow_html=True)
