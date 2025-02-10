@@ -348,11 +348,16 @@ def main():
         </div>
     """.format(exact_total, rounded_total), unsafe_allow_html=True)
     
-    # زر إعادة التعيين
-    col1, col2, col3 = st.columns([1,2,1])
-    with col2:
-        if st.button("🔄 إعادة تعيين", key="reset"):
-            st.rerun()
+    # زر العودة للأعلى
+    st.markdown("""
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="https://tariqoffice.streamlit.app/~/+/#dd12d7f3" 
+               class="stButton premium-button" 
+               style="text-decoration: none; display: inline-block;">
+                ⬆️ العودة للأعلى
+            </a>
+        </div>
+    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main() 
