@@ -421,33 +421,43 @@ def round_to_nearest_currency(amount):
         return amount - remainder
 
 def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost):
+    # تجميع الإضافات المطلوبة
     extras = []
     if cover: extras.append("تصميم غلاف")
     if carton: extras.append("كرتون فاخر")
     if nylon: extras.append("تغليف نايلون")
     if ruler: extras.append("مسطرة خاصة")
     
+    # تنسيق التاريخ والوقت
     current_time = datetime.now() + timedelta(hours=3)
-    
+    date_str = current_time.strftime("%Y-%m-%d")
+    time_str = current_time.strftime("%I:%M %p")
+
+    # إنشاء HTML للنتائج بشكل صحيح
     result_html = f"""
         <div class="result-card">
-            <div class="section-title">📄 تفاصيل الطلب</div>
+            <div class="section-title">📋 تفاصيل الطلب</div>
             <div class="section-content">
-                <ul class="details-list">
-                    {"<li>عدد الصفحات الملونة: " + str(colored_pages) + " صفحة</li>" if colored_pages > 0 else ""}
-                    {"<li>عدد الصفحات الأبيض والأسود: " + str(bw_pages) + " صفحة</li>" if bw_pages > 0 else ""}
-                </ul>
+                <div class="details-list">
+                    <div class="detail-item">• عدد الصفحات الملونة: {colored_pages} صفحة</div>
+                    <div class="detail-item">• عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة</div>
+                </div>
             </div>
-            
-            {f'''
+    """
+    
+    # إضافة الإضافات إذا وجدت
+    if extras:
+        result_html += f"""
             <div class="section-title">✨ الإضافات المطلوبة</div>
             <div class="section-content">
-                <ul class="details-list">
-                    {"".join(f"<li>{extra}</li>" for extra in extras)}
-                </ul>
+                <div class="details-list">
+                    {"".join(f'<div class="detail-item">• {extra}</div>' for extra in extras)}
+                </div>
             </div>
-            ''' if extras else ""}
-            
+        """
+    
+    # إضافة التفاصيل المالية
+    result_html += f"""
             <div class="section-title">💰 التفاصيل المالية</div>
             <div class="section-content">
                 <div class="price-row">
@@ -462,6 +472,64 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
         </div>
     """
     
+    # إضافة الأنماط الخاصة بالنتائج
+    st.markdown("""
+        <style>
+        .result-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .details-list {
+            margin: 1rem 0;
+        }
+        
+        .detail-item {
+            padding: 0.5rem 0;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .price-row:last-child {
+            border-bottom: none;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: #64ffda;
+            font-size: 1.1rem;
+        }
+        
+        .final-price .price {
+            font-size: 1.3rem;
+            color: #4CAF50;
+        }
+        
+        @media (max-width: 768px) {
+            .result-card {
+                padding: 1rem;
+            }
+            
+            .price-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    
+    # عرض النتائج
     st.markdown(result_html, unsafe_allow_html=True)
     return None
 
