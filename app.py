@@ -5,7 +5,7 @@ import json
 import math
 from datetime import datetime, timedelta
 
-# تعيين إعدادات الصفحة مع إخفاء كامل للقائمة الجانبية
+# تحسين إعدادات الصفحة
 st.set_page_config(
     page_title="حاسبة تكلفة الطباعة",
     page_icon="🖨️",
@@ -13,126 +13,124 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تحسين الأنماط مع دعم كامل للغة العربية
+# تحسين الأنماط مع دعم اللغة العربية
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
-
-    /* إعدادات عامة للغة العربية */
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+    
+    /* الإعدادات الأساسية */
     * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
         direction: rtl !important;
         text-align: right !important;
         font-family: 'Tajawal', sans-serif !important;
     }
     
-    /* تحسين محاذاة العناصر */
-    .stTextInput, .stNumberInput, .stSelectbox, .stMultiselect {
-        direction: rtl !important;
+    /* إخفاء العناصر غير المرغوبة */
+    #MainMenu, header, footer, [data-testid="stToolbar"],
+    .css-1544g2n.e1fqkh3o4, [data-testid="stSidebar"],
+    .css-r698ls.e8zbici2, .css-18e3th9.egzxvld2,
+    .css-1dp5vir.e8zbici1, .css-14xtw13.e8zbici0,
+    .css-eh5xgm.e1ewe7hr3, .viewerBadge_container__1QSob,
+    .css-1aehpvj.euu6i2w0, .css-qrbaxs {
+        display: none !important;
     }
     
-    .stTextInput > div > div > input {
-        text-align: right !important;
-        direction: rtl !important;
+    /* تحسين المحتوى الرئيسي */
+    .main .block-container {
+        padding: 2rem 3rem !important;
+        max-width: 100% !important;
     }
     
-    .stNumberInput > div > div > input {
-        text-align: right !important;
-        direction: rtl !important;
-    }
-    
-    /* تحسين محاذاة العناوين */
-    h1, h2, h3, p {
-        text-align: right !important;
-        direction: rtl !important;
-    }
-    
-    /* تحسين محاذاة مربعات الاختيار */
-    .stCheckbox > label {
-        direction: rtl !important;
-        text-align: right !important;
-        display: flex !important;
-        justify-content: flex-end !important;
-        flex-direction: row-reverse !important;
-    }
-    
-    .stCheckbox > label > div {
-        margin-left: 0.5rem !important;
-        margin-right: 0 !important;
-    }
-    
-    /* تحسين بطاقة النتائج */
+    /* تنسيق بطاقة النتائج */
     .result-card {
-        direction: rtl !important;
-        text-align: right !important;
-        padding: 2rem !important;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 1rem 0;
+        direction: rtl;
+        text-align: right;
     }
     
-    /* تحسين القوائم */
+    /* تنسيق العناوين */
+    .section-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 1rem;
+        border-right: 4px solid #64ffda;
+        padding-right: 1rem;
+    }
+    
+    /* تنسيق المحتوى */
+    .section-content {
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+    
+    /* تنسيق الأسعار */
+    .price-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .price {
+        font-weight: bold;
+        color: #64ffda;
+        font-size: 1.1rem;
+    }
+    
+    .final-price .price {
+        font-size: 1.3rem;
+        color: #4CAF50;
+    }
+    
+    /* تحسين حقول الإدخال */
+    .stNumberInput > div > div {
+        direction: rtl !important;
+        text-align: right !important;
+    }
+    
+    .stSelectbox > div > div {
+        direction: rtl !important;
+        text-align: right !important;
+    }
+    
+    /* تحسين التفاصيل */
     .details-list {
-        padding-right: 0 !important;
-        padding-left: 0 !important;
+        list-style: none;
+        padding: 0;
     }
     
     .details-list li {
-        text-align: right !important;
-        padding-right: 0 !important;
-    }
-    
-    /* تحسين صفوف الأسعار */
-    .price-row {
-        flex-direction: row-reverse !important;
-    }
-    
-    /* تحسين العناوين الرئيسية */
-    .main-title {
-        text-align: right !important;
-        margin-right: 0 !important;
-        padding-right: 0 !important;
-    }
-    
-    .section-title {
-        text-align: right !important;
-        padding-right: 1rem !important;
-        margin-right: 0 !important;
-    }
-    
-    /* تحسين الأزرار */
-    .stButton {
-        text-align: right !important;
-    }
-    
-    /* تحسين النصوص */
-    .stMarkdown {
-        direction: rtl !important;
-        text-align: right !important;
-    }
-    
-    /* تحسين المدخلات الرقمية */
-    input[type="number"] {
-        direction: ltr !important;
-        text-align: left !important;
-    }
-    
-    /* تحسين التذييل */
-    .element-container {
-        direction: rtl !important;
-    }
-    
-    /* تحسين الهوامش */
-    .block-container {
-        padding-right: 5% !important;
-        padding-left: 5% !important;
+        padding: 0.5rem 0;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     /* تحسينات للأجهزة المحمولة */
     @media (max-width: 768px) {
-        .block-container {
-            padding-right: 2% !important;
-            padding-left: 2% !important;
+        .main .block-container {
+            padding: 1rem !important;
         }
         
         .result-card {
-            padding: 1rem !important;
+            padding: 1rem;
+        }
+        
+        .price-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
         }
     }
     </style>
@@ -200,6 +198,7 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     """
     
     st.markdown(result_html, unsafe_allow_html=True)
+    return ""
 
 def main():
     # عرض العنوان الرئيسي
