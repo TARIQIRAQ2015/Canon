@@ -1058,6 +1058,133 @@ st.markdown("""
         color: #fff;
         opacity: 0.9;
     }
+
+    /* تنسيق عام للنصوص */
+    * {
+        text-align: center;
+    }
+
+    /* تنسيق القسم الرئيسي */
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    /* تنسيق العنوان الرئيسي */
+    .header-section {
+        background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border: 2px solid rgba(212,175,55,0.3);
+        text-align: center;
+    }
+
+    /* تنسيق الأقسام */
+    .section-container {
+        background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
+        border: 2px solid rgba(212,175,55,0.3);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        color: #D4AF37;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    /* تنسيق حقول الإدخال */
+    .input-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .input-container {
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    /* تنسيق الإضافات */
+    .extras-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+    }
+
+    .premium-checkbox {
+        text-align: center;
+        padding: 1rem;
+    }
+
+    /* تنسيق النتائج */
+    .results-section {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin: 2rem 0;
+    }
+
+    .result-card {
+        background: rgba(20,20,20,0.95);
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    /* تنسيق الخدمات */
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin-top: 1.5rem;
+    }
+
+    .service-card {
+        background: rgba(25,25,25,0.95);
+        border: 1px solid rgba(212,175,55,0.3);
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    /* تنسيق الخلاصة */
+    .summary-section {
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .summary-item {
+        padding: 1rem;
+        border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
+
+    /* تحسينات عامة */
+    .emoji-icon {
+        font-size: 1.5rem;
+        margin-left: 0.5rem;
+    }
+
+    .input-label, .result-label, .summary-label {
+        color: #D4AF37;
+        margin-bottom: 0.5rem;
+    }
+
+    .stNumberInput {
+        margin: 0 auto;
+    }
     </style>
 
     <!-- زر العودة للأعلى -->
