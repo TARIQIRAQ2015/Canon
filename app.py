@@ -36,98 +36,197 @@ def main():
     has_nylon = False
     has_paper_holder = False
 
-    # إضافة CSS
+    # تحديث CSS للتنسيق
     st.markdown("""
         <style>
-        * { text-align: center; }
-
-        .main-section {
-            background: #141414;
-            border: 1px solid #D4AF37;
+        /* تنسيق العنوان الرئيسي */
+        .header-section {
+            background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
             border-radius: 20px;
             padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(212,175,55,0.3);
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            color: #D4AF37;
+            margin-bottom: 1rem;
+        }
+
+        .header-section p {
+            color: #FFD700;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* تنسيق الأقسام */
+        .section-container {
+            background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
+            border: 2px solid rgba(212,175,55,0.3);
+            border-radius: 20px;
+            padding: 2rem;
             margin-bottom: 2rem;
             position: relative;
         }
 
+        /* تنسيق العناوين الرئيسية للأقسام */
         .section-title {
             position: absolute;
             top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1a1a1a;
-            padding: 5px 25px;
+            right: 30px;
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            padding: 5px 20px;
             border-radius: 10px;
             color: #D4AF37;
             font-size: 1.2rem;
-            border: 1px solid #D4AF37;
-            z-index: 1;
-            white-space: nowrap;
+            border: 1px solid rgba(212,175,55,0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .print-options {
+        /* تنسيق حقول الإدخال */
+        .input-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 1.5rem;
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
-        .print-option-title {
-            color: #D4AF37;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            font-weight: 500;
-        }
-
-        .stNumberInput {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .stNumberInput > div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .stNumberInput > div > div > input {
-            background: #1a1a1a !important;
-            border: 1px solid #D4AF37 !important;
-            color: #D4AF37 !important;
-            font-size: 1.2rem !important;
-            text-align: center !important;
-            width: 120px !important;
-            border-radius: 10px !important;
-            padding: 0.5rem !important;
-        }
-
-        .stNumberInput [data-testid="stDecrement"],
-        .stNumberInput [data-testid="stIncrement"] {
-            background: #1a1a1a !important;
-            border: 1px solid #D4AF37 !important;
-            color: #D4AF37 !important;
-            border-radius: 8px !important;
-            width: 35px !important;
-            height: 35px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
+        .input-container {
+            background: rgba(25,25,25,0.95);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
             transition: all 0.3s ease;
         }
 
-        .stNumberInput [data-testid="stDecrement"]:hover,
-        .stNumberInput [data-testid="stIncrement"]:hover {
-            background: #D4AF37 !important;
-            color: #000 !important;
+        .input-container:hover {
+            transform: translateY(-3px);
+            border-color: #D4AF37;
         }
 
-        .separator {
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, #D4AF37, transparent);
-            margin: 0 auto;
-            opacity: 0.3;
+        /* تنسيق الإضافات */
+        .extras-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .premium-checkbox {
+            background: rgba(25,25,25,0.95);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .premium-checkbox:hover {
+            transform: translateY(-2px);
+            border-color: #D4AF37;
+        }
+
+        /* تنسيق النتائج */
+        .results-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .result-card {
+            background: rgba(20,20,20,0.95);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        /* تنسيق الخدمات */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(25,25,25,0.95);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        /* تنسيق خلاصة الطلب */
+        .summary-section {
+            text-align: right;
+            direction: rtl;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(212,175,55,0.2);
+        }
+
+        .summary-title {
+            font-size: 1.4rem;
+            color: #D4AF37;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .summary-label {
+            color: #FFD700;
+            font-size: 1.1rem;
+        }
+
+        .summary-value {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        /* تحسينات عامة */
+        .emoji-icon {
+            font-size: 1.2rem;
+        }
+
+        /* تنسيق حقول الأرقام */
+        .stNumberInput > div > div > input {
+            background: rgba(30,30,30,0.95) !important;
+            border: 1px solid rgba(212,175,55,0.3) !important;
+            color: #fff !important;
+            text-align: center !important;
+            font-size: 1.1rem !important;
+        }
+
+        /* تنسيق مربعات الاختيار */
+        .stCheckbox {
+            background: transparent !important;
+        }
+
+        .stCheckbox > label {
+            color: #fff !important;
+            font-size: 1rem !important;
+        }
+
+        /* تأثيرات التحويم */
+        .section-container:hover {
+            box-shadow: 0 8px 25px rgba(212,175,55,0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-3px);
+            border-color: #D4AF37;
         }
         </style>
     """, unsafe_allow_html=True)
@@ -219,81 +318,6 @@ def main():
             </div>
         </div>
     """.format(exact_total, rounded_total), unsafe_allow_html=True)
-
-    # إضافة CSS للأقسام الجديدة
-    st.markdown("""
-        <style>
-        /* تنسيق قسم الإضافات */
-        .extras-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .premium-checkbox {
-            background: rgba(20,20,20,0.95);
-            border: 1px solid #D4AF37;
-            border-radius: 15px;
-            padding: 1.2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .premium-checkbox:hover {
-            transform: translateY(-3px);
-            border-color: #FFD700;
-            box-shadow: 0 5px 15px rgba(212,175,55,0.1);
-        }
-
-        /* تنسيق قسم النتائج */
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .result-card {
-            background: rgba(20,20,20,0.95);
-            border: 1px solid #D4AF37;
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .result-card:hover {
-            transform: translateY(-3px);
-            border-color: #FFD700;
-            box-shadow: 0 5px 15px rgba(212,175,55,0.1);
-        }
-
-        .result-title {
-            color: #D4AF37;
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .result-value {
-            color: #FFD700;
-            font-size: 1.5rem;
-            font-weight: 500;
-        }
-
-        /* تنسيق مربعات الاختيار */
-        .stCheckbox {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .stCheckbox > label {
-            color: #D4AF37 !important;
-            font-size: 1rem !important;
-        }
-        </style>
-    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
