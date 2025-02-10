@@ -330,6 +330,17 @@ st.markdown("""
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
+    
+    /* تنسيق أيقونات الخيارات */
+    .premium-checkbox .stCheckbox label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .premium-checkbox .stCheckbox label::before {
+        color: #D4AF37;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -377,10 +388,10 @@ def main():
     # الأقسام الرئيسية - تبديل المواقع
     col1, col2 = st.columns(2)
     
-    with col2:  # تغيير من col1 إلى col2
+    with col2:
         st.markdown("""
             <div class="premium-section">
-                <h2><span class="section-icon">📋</span> المعلومات الرئيسية</h2>
+                <h2><span class="section-icon">📑</span> المعلومات الرئيسية</h2>
             </div>
         """, unsafe_allow_html=True)
         
@@ -388,15 +399,15 @@ def main():
         bw_color_pages = st.number_input("عدد الصفحات المميزة مع لمسات لونية", min_value=0, value=0)
         bw_pages = st.number_input("عدد الصفحات الكلاسيكية", min_value=0, value=0)
     
-    with col1:  # تغيير من col2 إلى col1
+    with col1:
         st.markdown("""
             <div class="premium-section">
-                <h2><span class="section-icon">✨</span> الإضافات الاختيارية</h2>
+                <h2><span class="section-icon">⭐</span> الإضافات الاختيارية</h2>
             </div>
         """, unsafe_allow_html=True)
         
         st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_cover = st.checkbox("🎨 تصميم غلاف ملون فاخر")
+        has_cover = st.checkbox("⭐ تصميم غلاف ملون فاخر")
         st.markdown('</div>', unsafe_allow_html=True)
         
         st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
