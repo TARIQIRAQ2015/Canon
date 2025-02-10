@@ -1332,6 +1332,11 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
+    # التحقق من عدد الصفحات
+    if color_pages > 500 or bw_color_pages > 500 or bw_pages > 500:
+        st.error("⚠️ عذراً، لا يمكن طباعة أكثر من 500 صفحة في النوع الواحد")
+        return
+
     # تجهيز نص الملخص
     summary_text = f"""═══════════════════════════════════════
            ملخص الطلب ✨           
@@ -1518,21 +1523,39 @@ def main():
     with col1:
         st.markdown('<div class="input-container">', unsafe_allow_html=True)
         st.markdown('<div class="input-label">طباعة أبيض وأسود وقليل الوان </div>', unsafe_allow_html=True)
-        bw_color_pages = st.number_input("", min_value=0, value=0, key="bw_color_pages", label_visibility="collapsed")
+        bw_color_pages = st.number_input(
+            "طباعة أبيض وأسود وقليل ألوان",
+            min_value=0,
+            max_value=500,
+            value=0,
+            help="الحد الأقصى 500 صفحة"
+        )
         st.markdown('</div>', unsafe_allow_html=True)
     
     # طباعة أبيض وأسود (العمود الثاني)
     with col2:
         st.markdown('<div class="input-container">', unsafe_allow_html=True)
         st.markdown('<div class="input-label">طباعة أبيض وأسود</div>', unsafe_allow_html=True)
-        bw_pages = st.number_input("", min_value=0, value=0, key="bw_pages", label_visibility="collapsed")
+        bw_pages = st.number_input(
+            "طباعة أبيض وأسود",
+            min_value=0,
+            max_value=500,
+            value=0,
+            help="الحد الأقصى 500 صفحة"
+        )
         st.markdown('</div>', unsafe_allow_html=True)
     
     # طباعة ملونة (العمود الثالث)
     with col3:
         st.markdown('<div class="input-container">', unsafe_allow_html=True)
         st.markdown('<div class="input-label">طباعة ملونة </div>', unsafe_allow_html=True)
-        color_pages = st.number_input("", min_value=0, value=0, key="color_pages", label_visibility="collapsed")
+        color_pages = st.number_input(
+            "طباعة ملونة",
+            min_value=0,
+            max_value=500,
+            value=0,
+            help="الحد الأقصى 500 صفحة"
+        )
         st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown('</div></div>', unsafe_allow_html=True)
