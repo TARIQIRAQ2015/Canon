@@ -1316,18 +1316,52 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
             color: #FFD700;
             font-size: 1.1rem;
             line-height: 1.5;
-            user-select: all; /* يجعل النص قابل للنسخ بالكامل */
+            position: relative;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .copy-button:hover {
+            background: rgba(212,175,55,0.2);
+            transform: translateY(-2px);
+        }
+
+        .copy-icon {
+            width: 20px;
+            height: 20px;
+            fill: #D4AF37;
         }
 
         .fancy-summary-content {
             text-align: right;
             display: inline-block;
             width: 100%;
+            user-select: all;
         }
         </style>
 
         <div class="fancy-summary">
-            <div class="fancy-summary-content">
+            <button class="copy-button" onclick="copyContent()">
+                <svg class="copy-icon" viewBox="0 0 24 24">
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                </svg>
+            </button>
+            <div class="fancy-summary-content" id="summary-content">
 ═══════════════════════════════════════════════
            ملخص الطلب ✨           
 ═══════════════════════════════════════════════""", unsafe_allow_html=True)
@@ -1371,6 +1405,22 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
 ═══════════════════════════════════════════════
             </div>
         </div>
+    """, unsafe_allow_html=True)
+
+    # إضافة سكريبت JavaScript للنسخ
+    st.markdown("""
+        <script>
+        function copyContent() {
+            const content = document.getElementById('summary-content').innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                const button = document.querySelector('.copy-button');
+                button.style.background = 'rgba(212,175,55,0.3)';
+                setTimeout(() => {
+                    button.style.background = 'rgba(212,175,55,0.1)';
+                }, 200);
+            });
+        }
+        </script>
     """, unsafe_allow_html=True)
 
 def main():
