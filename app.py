@@ -998,7 +998,7 @@ st.markdown("""
 
     .extras-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(5, 1fr);
         gap: 1rem;
         margin-top: 1.5rem;
     }
@@ -1178,6 +1178,55 @@ st.markdown("""
         color: #fff;
         font-size: 0.9rem;
         opacity: 0.9;
+    }
+
+    /* تنسيق قسم الإضافات الاختيارية */
+    .extras-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .premium-checkbox {
+        background: linear-gradient(145deg, rgba(25,25,25,0.95), rgba(35,35,35,0.95));
+        border: 1px solid rgba(212,175,55,0.3);
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .premium-checkbox:hover {
+        transform: translateY(-3px);
+        border-color: #D4AF37;
+        box-shadow: 0 5px 15px rgba(212,175,55,0.1);
+    }
+
+    .premium-checkbox label {
+        color: #D4AF37 !important;
+        font-size: 1rem !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+    }
+
+    /* تحسين مظهر مربعات الاختيار */
+    .stCheckbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .stCheckbox > div {
+        display: flex;
+        justify-content: center;
+    }
+
+    .stCheckbox label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
     }
     </style>
 
@@ -1466,6 +1515,41 @@ def main():
         st.markdown('<div class="input-container">', unsafe_allow_html=True)
         st.markdown('<div class="input-label">طباعة أبيض وأسود</div>', unsafe_allow_html=True)
         bw_pages = st.number_input("", min_value=0, value=0, key="bw_pages", label_visibility="collapsed")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    st.markdown('</div></div>', unsafe_allow_html=True)
+
+    # إضافة قسم الإضافات الاختيارية
+    st.markdown("""
+        <div class="section-container">
+            <h2 class="section-title">الإضافات الاختيارية</h2>
+            <div class="extras-grid">
+    """, unsafe_allow_html=True)
+    
+    col1, col2, col3, col4, col5 = st.columns(5)
+    with col1:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_cover = st.checkbox("تصميم غلاف ملون فاخر")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_empty_last = st.checkbox("صفحة ختامية مميزة")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_carton = st.checkbox("كرتون فاخر")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col4:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_nylon = st.checkbox("نايلون شفاف")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col5:
+        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
+        has_paper_holder = st.checkbox("حاملة أوراق")
         st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown('</div></div>', unsafe_allow_html=True)
