@@ -866,7 +866,85 @@ st.markdown("""
         font-size: 1.8rem;
         margin-left: 0.5rem;
     }
+
+    /* تنسيق زر العودة للأعلى */
+    .scroll-to-top {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+        border: 2px solid #D4AF37;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .scroll-to-top:hover {
+        transform: translateY(-5px);
+        background: linear-gradient(145deg, #D4AF37, #B8860B);
+        border-color: #FFD700;
+        box-shadow: 0 6px 20px rgba(212,175,55,0.3);
+    }
+
+    .scroll-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .scroll-to-top span {
+        font-size: 1.5rem;
+        color: #D4AF37;
+        transition: color 0.3s ease;
+    }
+
+    .scroll-to-top:hover span {
+        color: #000;
+    }
+
+    @media (max-width: 768px) {
+        .scroll-to-top {
+            bottom: 20px;
+            left: 20px;
+            width: 45px;
+            height: 45px;
+        }
+    }
     </style>
+
+    <!-- زر العودة للأعلى -->
+    <a href="#top" class="scroll-to-top" id="scrollBtn">
+        <span>⬆️</span>
+    </a>
+
+    <script>
+    // التحكم في ظهور الزر عند النزول
+    window.onscroll = function() {
+        var btn = document.getElementById('scrollBtn');
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    };
+
+    // التمرير السلس عند النقر
+    document.getElementById('scrollBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    </script>
 """, unsafe_allow_html=True)
 
 def round_to_nearest_250(amount):
@@ -1031,15 +1109,6 @@ def main():
         }
         createParticles();
         </script>
-
-        <!-- زر العودة للأعلى في نهاية الصفحة -->
-        <div style="text-align: center; margin-top: 3rem; margin-bottom: 2rem;">
-            <a href="#top" 
-               class="premium-button" 
-               style="text-decoration: none; display: inline-block;">
-                ⬆️ العودة للأعلى
-            </a>
-        </div>
     """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
