@@ -4,7 +4,6 @@ import requests
 import json
 import math
 from datetime import datetime, timedelta
-import pytz
 
 # تعيين إعدادات الصفحة مع دعم اللغة العربية
 st.set_page_config(
@@ -97,108 +96,18 @@ st.markdown("""
         color: #4CAF50 !important;
         font-size: 1.2rem;
     }
-
-    .copy-button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 20px;
-    }
-
-    .timestamp {
-        color: #64ffda;
-        font-size: 0.9rem;
-        margin-bottom: 15px;
-    }
-
-    .section-title {
-        color: white;
-        font-size: 1.3rem;
-        font-weight: bold;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .detail-row {
-        display: flex;
-        justify-content: space-between;
-        padding: 12px 0;
-        color: white;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .main-card {
-        background: rgba(255,255,255,0.05);
-        border-radius: 15px;
-        padding: 25px;
-        margin: 20px 0;
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .card-header {
-        color: white;
-        font-size: 1.3rem;
-        font-weight: bold;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #64ffda;
-    }
-
-    .info-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .info-label {
-        color: rgba(255,255,255,0.9);
-    }
-
-    .info-value {
-        color: #64ffda;
-        font-weight: bold;
-    }
-
-    .final-value {
-        color: #4CAF50 !important;
-        font-size: 1.2rem;
-    }
     </style>
 """, unsafe_allow_html=True)
 
-def round_to_nearest_currency(amount):
-    """تقريب المبلغ لأقرب فئة عملة متداولة"""
-    currency_denominations = [250, 500, 1000]
-    min_diff = float('inf')
-    rounded_amount = amount
-    
-    for denom in currency_denominations:
-        quotient = round(amount / denom)
-        rounded = quotient * denom
-        diff = abs(amount - rounded)
-        if diff < min_diff:
-            min_diff = diff
-            rounded_amount = rounded
-    
-    return rounded_amount
-
-def get_iraq_time():
-    """الحصول على الوقت في العراق"""
-    iraq_tz = pytz.timezone('Asia/Baghdad')
-    return datetime.now(iraq_tz).strftime("%Y-%m-%d %I:%M %p")
-
-def calculate_cost(colored_pages, bw_pages):
+def calculate_cost(colored_pages, bw_pages, cover, carton, nylon, ruler):
     """حساب التكلفة الإجمالية"""
-    colored_cost = colored_pages * 50
-    bw_cost = bw_pages * 35
+    colored_cost = colored_pages * 50  # 50 دينار للصفحة الملونة
+    bw_cost = bw_pages * 35  # 35 دينار للصفحة الأبيض والأسود
     total = colored_cost + bw_cost
+    if cover: total += 1000
+    if carton: total += 500
+    if nylon: total += 250
+    if ruler: total += 150
     return total
 
 def main():
@@ -236,58 +145,50 @@ def main():
 
     # حساب وعرض النتائج
     if st.button("حساب التكلفة", type="primary"):
-        total_cost = calculate_cost(colored_pages, bw_pages)
-        rounded_cost = round_to_nearest_currency(total_cost)
-        current_time = get_iraq_time()
+        total_cost = calculate_cost(colored_pages, bw_pages, cover, carton, nylon, ruler)
+        rounded_cost = round(total_cost / 100) * 100
         
-        col1, col2 = st.columns([2, 1])
-        
-        with col1:
-            st.markdown(f"""
-                <div class="main-card">
-                    <div class="timestamp">⏰ {current_time}</div>
-                    <div class="card-header">📊 ملخص الطلب والتكلفة</div>
-                    
-                    <div class="info-row">
-                        <span class="info-label">عدد الصفحات الملونة</span>
-                        <span class="info-value">{colored_pages} صفحة</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">تكلفة الصفحات الملونة</span>
-                        <span class="info-value">{colored_pages * 50:,} دينار</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">عدد الصفحات بالأبيض والأسود</span>
-                        <span class="info-value">{bw_pages} صفحة</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">تكلفة الصفحات بالأبيض والأسود</span>
-                        <span class="info-value">{bw_pages * 35:,} دينار</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">التكلفة قبل التقريب</span>
-                        <span class="info-value">{total_cost:,} دينار</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">التكلفة النهائية</span>
-                        <span class="final-value">{rounded_cost:,} دينار</span>
-                    </div>
+        # عرض النتائج
+        st.markdown("""
+            <div class="result-card">
+                <div class="result-title">📋 تفاصيل الطلب</div>
+                <div class="result-row">
+                    <span>عدد الصفحات الملونة:</span>
+                    <span class="result-value">{} صفحة</span>
                 </div>
-            """, unsafe_allow_html=True)
+                <div class="result-row">
+                    <span>عدد الصفحات بالأبيض والأسود:</span>
+                    <span class="result-value">{} صفحة</span>
+                </div>
+            </div>
 
-        # نص النسخ
-        copy_text = f"""
-تفاصيل الطلب:
-=============
-⏰ {current_time}
-عدد الصفحات الملونة: {colored_pages} صفحة
-عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة
-التكلفة قبل التقريب: {total_cost:,} دينار
-التكلفة النهائية: {rounded_cost:,} دينار"""
-
-        if st.button("نسخ النتائج 📋"):
-            st.code(copy_text)
-            st.success("تم نسخ النتائج بنجاح! يمكنك لصقها في أي مكان.")
+            <div class="result-card">
+                <div class="result-title">💰 التفاصيل المالية</div>
+                <div class="result-row">
+                    <span>تكلفة الصفحات الملونة:</span>
+                    <span class="result-value">{:,} دينار</span>
+                </div>
+                <div class="result-row">
+                    <span>تكلفة الصفحات بالأبيض والأسود:</span>
+                    <span class="result-value">{:,} دينار</span>
+                </div>
+                <div class="result-row">
+                    <span>التكلفة قبل التقريب:</span>
+                    <span class="result-value">{:,} دينار</span>
+                </div>
+                <div class="result-row">
+                    <span>التكلفة النهائية:</span>
+                    <span class="result-value final-cost">{:,} دينار</span>
+                </div>
+            </div>
+        """.format(
+            colored_pages,
+            bw_pages,
+            colored_pages * 50,
+            bw_pages * 35,
+            total_cost,
+            rounded_cost
+        ), unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
