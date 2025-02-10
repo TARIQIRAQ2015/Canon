@@ -131,6 +131,124 @@ st.markdown("""
             align-items: flex-start !important;
         }
     }
+
+    /* تنسيق العنوان الرئيسي */
+    .main-header {
+        background: linear-gradient(to left, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        text-align: right;
+        direction: rtl;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .main-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, 
+            rgba(100,255,218,0.1) 0%,
+            rgba(0,0,0,0) 70%);
+        z-index: 0;
+    }
+
+    .title-container {
+        position: relative;
+        z-index: 1;
+    }
+
+    .main-title {
+        font-family: 'Tajawal', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .subtitle {
+        font-family: 'Tajawal', sans-serif;
+        font-size: 1.2rem;
+        color: rgba(255,255,255,0.8);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .features-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .feature-item {
+        background: rgba(255,255,255,0.05);
+        padding: 0.7rem 1.2rem;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        color: rgba(255,255,255,0.9);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+        transform: translateY(-2px);
+        background: rgba(255,255,255,0.1);
+    }
+
+    /* تنسيق العناوين الفرعية */
+    .section-header {
+        background: linear-gradient(to left, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+        border-radius: 10px;
+        padding: 1rem 1.5rem;
+        margin: 2rem 0 1rem 0;
+        font-family: 'Tajawal', sans-serif;
+        font-size: 1.5rem;
+        color: #ffffff;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .section-header::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 4px;
+        background: #64ffda;
+        border-radius: 2px;
+    }
+
+    @media (max-width: 768px) {
+        .main-title {
+            font-size: 1.8rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+        }
+
+        .feature-item {
+            font-size: 0.9rem;
+        }
+
+        .section-header {
+            font-size: 1.3rem;
+            padding: 0.8rem 1.2rem;
+        }
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -201,10 +319,16 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
 def main():
     # عرض العنوان الرئيسي
     st.markdown("""
-        <div class="main-title">
-            حاسبة تكلفة الطباعة
-            <div class="subtitle">
-                احسب تكلفة طباعتك بسهولة وسرعة
+        <div class="main-header">
+            <div class="title-container">
+                <h1 class="main-title">حاسبة تكلفة الطباعة الذكية 🖨️</h1>
+                <p class="subtitle">حاسبة متطورة لتقدير تكاليف الطباعة بدقة عالية مع دعم كامل للإضافات والخيارات المتنوعة</p>
+                <div class="features-list">
+                    <div class="feature-item">✨ دقة في الحساب</div>
+                    <div class="feature-item">🚀 سرعة في الأداء</div>
+                    <div class="feature-item">💡 خيارات متعددة</div>
+                    <div class="feature-item">📊 تقارير مفصلة</div>
+                </div>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -213,6 +337,7 @@ def main():
     col1, col2 = st.columns(2)
 
     # قسم الصفحات
+    st.markdown('<div class="section-header">إعدادات الطباعة</div>', unsafe_allow_html=True)
     st.markdown("<div class='section'>", unsafe_allow_html=True)
     st.markdown("<h2 class='section-title'>تفاصيل الصفحات</h2>", unsafe_allow_html=True)
     colored_pages = st.number_input("عدد الصفحات الملونة", min_value=0, value=0)
