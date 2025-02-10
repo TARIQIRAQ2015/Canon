@@ -395,7 +395,7 @@ def main():
     # العنوان الرئيسي
     st.markdown("""
         <div class="premium-header">
-            <h1>🖨️ الطباعة الفاخرة</h1>
+            <h1><span style="color: initial; background: none; -webkit-text-fill-color: initial;">🖨️</span> الطباعة الفاخرة</h1>
             <div class="subtitle">
                 نرتقي بمشاريعكم إلى آفاق جديدة من التميز والإبداع
             </div>
