@@ -867,75 +867,126 @@ st.markdown("""
         margin-left: 0.5rem;
     }
 
-    /* تنسيق زر العودة للأعلى */
+    /* تحديث CSS للزر */
     #myBtn {
         position: fixed;
         bottom: 30px;
         left: 30px;
-        width: 50px;
-        height: 50px;
-        background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
-        border: 2px solid #D4AF37;
+        width: 55px;
+        height: 55px;
+        background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(45,45,45,0.9));
+        border: 2px solid rgba(212,175,55,0.5);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         z-index: 9999;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        box-shadow: 
+            0 5px 15px rgba(0,0,0,0.3),
+            inset 0 2px 10px rgba(255,255,255,0.1);
         text-decoration: none;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+    }
+
+    #myBtn::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #D4AF37, #FFD700);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+    }
+
+    #myBtn::after {
+        content: '';
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        border-left: 3px solid #D4AF37;
+        border-top: 3px solid #D4AF37;
+        transform: rotate(45deg);
+        margin-bottom: -5px;
+        transition: all 0.3s ease;
     }
 
     #myBtn:hover {
-        transform: translateY(-5px);
-        background: linear-gradient(145deg, #D4AF37, #B8860B);
+        transform: translateY(-5px) scale(1.05);
+        border-color: #D4AF37;
+        box-shadow: 
+            0 8px 25px rgba(212,175,55,0.3),
+            inset 0 2px 15px rgba(255,255,255,0.2);
+    }
+
+    #myBtn:hover::before {
+        opacity: 0.1;
+    }
+
+    #myBtn:hover::after {
         border-color: #FFD700;
-        box-shadow: 0 6px 20px rgba(212,175,55,0.3);
+        transform: rotate(45deg) scale(1.2);
     }
 
-    #myBtn span {
-        font-size: 1.5rem;
-        color: #D4AF37;
-        transition: color 0.3s ease;
-    }
-
-    #myBtn:hover span {
-        color: #000;
+    #myBtn:active {
+        transform: translateY(0) scale(0.95);
+        box-shadow: 
+            0 2px 10px rgba(0,0,0,0.2),
+            inset 0 1px 5px rgba(255,255,255,0.1);
     }
 
     @media (max-width: 768px) {
         #myBtn {
-            bottom: 20px;
-            left: 20px;
-            width: 45px;
-            height: 45px;
+            bottom: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
         }
+
+        #myBtn::after {
+            width: 12px;
+            height: 12px;
+            border-width: 2.5px;
+        }
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    #myBtn.show-btn {
+        animation: pulse 2s infinite;
     }
     </style>
 
     <!-- زر العودة للأعلى -->
-    <a href="#top" id="myBtn" onclick="topFunction()" title="العودة للأعلى">
-        <span>⬆️</span>
-    </a>
+    <a href="#top" id="myBtn" onclick="topFunction()" title="العودة للأعلى"></a>
 
     <script>
-        // عندما يتم التمرير لأسفل 20 بكسل من أعلى الصفحة، أظهر الزر
         window.onscroll = function() {scrollFunction()};
 
         function scrollFunction() {
             var mybutton = document.getElementById("myBtn");
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 mybutton.style.display = "flex";
+                mybutton.classList.add('show-btn');
             } else {
                 mybutton.style.display = "none";
+                mybutton.classList.remove('show-btn');
             }
         }
 
-        // عند النقر على الزر، انتقل إلى أعلى المستند
         function topFunction() {
-            document.body.scrollTop = 0; // For Safari
-            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
     </script>
 """, unsafe_allow_html=True)
