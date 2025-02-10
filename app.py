@@ -1131,7 +1131,6 @@ st.markdown("""
         padding: 1rem !important;
         text-align: center !important;
         width: 100% !important;
-        transition: all 0.3s ease !important;
     }
 
     .stNumberInput > div > div > input:focus {
@@ -1140,8 +1139,8 @@ st.markdown("""
         transform: translateY(-2px);
     }
 
-    /* تنسيق الخيارات الإضافية */
-    .options-container {
+    /* تنسيق الخيارات الثلاث */
+    .printing-options {
         display: flex;
         justify-content: center;
         gap: 2rem;
@@ -1154,11 +1153,12 @@ st.markdown("""
 
     .option-item {
         text-align: center;
-        padding: 1rem 2rem;
+        padding: 1.5rem 2rem;
         border-radius: 10px;
         transition: all 0.3s ease;
         background: rgba(30,30,30,0.95);
         border: 1px solid rgba(212,175,55,0.2);
+        flex: 1;
     }
 
     .option-item:hover {
@@ -1324,157 +1324,131 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     st.markdown("</div>", unsafe_allow_html=True)
 
 def main():
-    # إضافة زر العودة للأعلى
-    st.markdown("""
-        <style>
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(45,45,45,0.9));
-            border: 2px solid rgba(212,175,55,0.5);
-            border-radius: 50%;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 9999;
-            text-decoration: none;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-        }
-
-        .back-to-top::after {
-            content: '';
-            width: 15px;
-            height: 15px;
-            border-left: 3px solid #D4AF37;
-            border-top: 3px solid #D4AF37;
-            transform: rotate(45deg);
-            margin-bottom: -5px;
-        }
-
-        .back-to-top:hover {
-            transform: translateY(-5px);
-            border-color: #D4AF37;
-            box-shadow: 0 8px 25px rgba(212,175,55,0.3);
-        }
-
-        .back-to-top:hover::after {
-            border-color: #FFD700;
-        }
-        </style>
-
-        <a href="#top" class="back-to-top" id="backToTop"></a>
-
-        <script>
-            window.onscroll = function() {
-                var btn = document.getElementById("backToTop");
-                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-                    btn.style.display = "flex";
-                } else {
-                    btn.style.display = "none";
-                }
-            }
-        </script>
-    """, unsafe_allow_html=True)
-
-    # في بداية الصفحة (أعلى الكود)
-    st.markdown('<div id="top"></div>', unsafe_allow_html=True)
-    
-    # العنوان الرئيسي
+    # تعديل العنوان الرئيسي بدون إيموجي
     st.markdown("""
         <div class="premium-header">
-            <h1><span style="color: initial; background: none; -webkit-text-fill-color: initial;">🖨️</span> مكتب طارق الياسين</h1>
+            <h1>مكتب طارق الياسين</h1>
             <div class="subtitle">
                 نقدم خدمات طباعة احترافية بجودة عالية وكفاءة مميزة
             </div>
         </div>
     """, unsafe_allow_html=True)
     
-    # تعديل CSS للتنسيق الأفقي
+    # تحديث CSS للتنسيق الجديد
     st.markdown("""
         <style>
-        .horizontal-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            padding: 2rem 0;
-        }
-
-        .section-container {
-            background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
-            border: 2px solid rgba(212,175,55,0.3);
+        /* تحسين تنسيق حقول الإدخال */
+        .input-container {
+            background: linear-gradient(165deg, rgba(30,30,30,0.9), rgba(15,15,15,0.9));
+            border: 1px solid rgba(212,175,55,0.2);
             border-radius: 20px;
             padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .input-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .extras-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .services-section {
-            margin-top: 2rem;
+            margin: 1.5rem 0;
             text-align: center;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .service-card {
-            background: linear-gradient(145deg, rgba(25,25,25,0.95), rgba(35,35,35,0.95));
-            border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 15px;
-            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
         }
 
-        .service-card:hover {
+        .input-container:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(212,175,55,0.2);
+            border-color: rgba(212,175,55,0.4);
         }
 
-        .service-card h3 {
-            color: #D4AF37;
-            font-size: 1.4rem;
+        /* تحسين عنوان حقل الإدخال */
+        .input-label {
+            color: #FFD700;
+            font-size: 1.2rem;
+            font-weight: 500;
             margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        .service-card p {
+        /* تحسين حقل الإدخال نفسه */
+        .stNumberInput > div > div > input {
+            background: rgba(0,0,0,0.4) !important;
+            border: 2px solid rgba(212,175,55,0.3) !important;
+            border-radius: 15px !important;
+            color: #FFD700 !important;
+            font-size: 1.2rem !important;
+            padding: 1rem !important;
+            text-align: center !important;
+            width: 100% !important;
+        }
+
+        /* تحسين أزرار الزيادة والنقصان */
+        .stNumberInput [data-testid="stDecrement"], 
+        .stNumberInput [data-testid="stIncrement"] {
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d) !important;
+            color: #D4AF37 !important;
+            border: 2px solid rgba(212,175,55,0.3) !important;
+            border-radius: 12px !important;
+        }
+
+        /* تحسين الخيارات الثلاث */
+        .printing-options {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(25,25,25,0.95);
+            border-radius: 15px;
+            border: 1px solid rgba(212,175,55,0.3);
+        }
+
+        .option-item {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background: rgba(30,30,30,0.95);
+            border: 1px solid rgba(212,175,55,0.2);
+            flex: 1;
+        }
+
+        .option-item:hover {
+            transform: translateY(-3px);
+            border-color: #D4AF37;
+            box-shadow: 0 5px 15px rgba(212,175,55,0.1);
+        }
+
+        .option-title {
+            color: #D4AF37;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .option-description {
             color: #fff;
+            font-size: 0.9rem;
             opacity: 0.9;
         }
         </style>
     """, unsafe_allow_html=True)
 
-    # تنظيم المحتوى بشكل أفقي
-    st.markdown('<div class="horizontal-layout">', unsafe_allow_html=True)
-
-    # 1. قسم تفاصيل الطباعة
+    # تحديث قسم تفاصيل الطباعة
     st.markdown("""
         <div class="section-container">
             <h2 class="section-title">تفاصيل الطباعة</h2>
+            <div class="printing-options">
+                <div class="option-item">
+                    <div class="option-title">طباعة ملونة عالية الجودة</div>
+                    <div class="option-description">جودة عالية للصور والرسومات الملونة</div>
+                </div>
+                <div class="option-item">
+                    <div class="option-title">طباعة مع تأثيرات لونية</div>
+                    <div class="option-description">مثالية للرسوم البيانية والمخططات</div>
+                </div>
+                <div class="option-item">
+                    <div class="option-title">طباعة أبيض وأسود</div>
+                    <div class="option-description">مناسبة للنصوص والمستندات العادية</div>
+                </div>
+            </div>
             <div class="input-grid">
     """, unsafe_allow_html=True)
-    
+
     col1, col2, col3 = st.columns(3)
     with col1:
         st.markdown('<div class="input-container">', unsafe_allow_html=True)
@@ -1492,44 +1466,6 @@ def main():
         st.markdown('<div class="input-container">', unsafe_allow_html=True)
         st.markdown('<div class="input-label">طباعة أبيض وأسود</div>', unsafe_allow_html=True)
         bw_pages = st.number_input("", min_value=0, value=0, key="bw_pages", label_visibility="collapsed")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    st.markdown('</div></div>', unsafe_allow_html=True)
-
-    # 2. قسم الإضافات
-    st.markdown("""
-        <div class="section-container">
-            <h2>
-                <span class="emoji-icon">⭐</span>
-                <span class="section-title">الإضافات الاختيارية</span>
-            </h2>
-            <div class="extras-grid">
-    """, unsafe_allow_html=True)
-    
-    col1, col2, col3, col4, col5 = st.columns(5)
-    with col1:
-        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_cover = st.checkbox("⭐ تصميم غلاف ملون فاخر")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_empty_last = st.checkbox("📄 صفحة ختامية مميزة")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_carton = st.checkbox("📦 كرتون فاخر")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with col4:
-        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_nylon = st.checkbox("✨ نايلون شفاف")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with col5:
-        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_paper_holder = st.checkbox("📁 حاملة أوراق")
         st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown('</div></div>', unsafe_allow_html=True)
