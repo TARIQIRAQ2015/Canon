@@ -13,29 +13,39 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تطبيق الأنماط المتقدمة
+# تحسين الأنماط CSS مع إخفاء كامل للشريط الجانبي
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-    
-    /* إخفاء الشريط الجانبي والعناصر غير المرغوب فيها */
-    .css-1d391kg, .css-1p05t8e, .css-r698ls, .css-18e3th9 {
-        padding: 0 1rem !important;
+    /* إخفاء كامل للشريط الجانبي والعناصر المرتبطة به */
+    [data-testid="stSidebar"] {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        visibility: hidden !important;
+        z-index: -1 !important;
     }
     
-    /* إخفاء زر فتح الشريط الجانبي */
-    .css-14xtw13 {
+    /* إزالة التباعد الناتج عن الشريط الجانبي */
+    .main .block-container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    /* إخفاء زر القائمة وأي عناصر إضافية */
+    .css-14xtw13, .css-1d391kg, .css-1p05t8e {
         display: none !important;
     }
     
-    /* إخفاء الشريط الجانبي نفسه */
-    section[data-testid="stSidebar"] {
-        display: none !important;
-    }
-    
-    /* إخفاء جميع العناصر غير المرغوب فيها */
-    #MainMenu, header, footer, [data-testid="stToolbar"] {
-        display: none !important;
+    /* تحسين عرض المحتوى الرئيسي */
+    .stApp {
+        margin: 0 auto !important;
+        padding: 1rem !important;
     }
     
     /* الأنماط الأساسية مع الخلفية المتحركة */
