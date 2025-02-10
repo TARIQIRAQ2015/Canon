@@ -5,7 +5,7 @@ import json
 import math
 from datetime import datetime, timedelta
 
-# تعيين الإعدادات الأولية
+# تعيين إعدادات الصفحة في البداية
 st.set_page_config(
     page_title="حاسبة تكلفة الطباعة",
     page_icon="🖨️",
@@ -13,10 +13,65 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تطبيق الأنماط المتقدمة
+# إضافة الأنماط لإخفاء القائمة الجانبية وتحسين التنسيق
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+    /* إخفاء القائمة الجانبية والعناصر المرتبطة بها */
+    .css-1544g2n.e1fqkh3o4 {
+        display: none !important;
+    }
+    
+    [data-testid="stSidebar"] {
+        display: none !important;
+    }
+    
+    .css-18e3th9.egzxvld2 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    .css-1d391kg.e1fqkh3o3 {
+        width: 100% !important;
+        padding: 0 1rem !important;
+    }
+    
+    /* تحسين عرض المحتوى */
+    .stApp {
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100vw !important;
+    }
+    
+    .main .block-container {
+        max-width: 100% !important;
+        padding-top: 1rem !important;
+        padding-right: 1rem !important;
+        padding-left: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+    
+    /* إخفاء عناصر إضافية */
+    #MainMenu, header, footer {
+        display: none !important;
+    }
+    
+    /* تحسين الخلفية */
+    .stApp {
+        background: linear-gradient(135deg, 
+            #1a1a2e,
+            #16213e,
+            #0f3460,
+            #162447
+        ) !important;
+        background-size: 400% 400% !important;
+        animation: gradient 15s ease infinite !important;
+    }
+    
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
     
     /* إخفاء الشريط الجانبي والعناصر غير المرغوب فيها */
     .css-1d391kg, .css-1p05t8e, .css-r698ls, .css-18e3th9 {
