@@ -18,7 +18,22 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
     
-    /* إخفاء العناصر غير المرغوب فيها */
+    /* إخفاء الشريط الجانبي والعناصر غير المرغوب فيها */
+    .css-1d391kg, .css-1p05t8e, .css-r698ls, .css-18e3th9 {
+        padding: 0 1rem !important;
+    }
+    
+    /* إخفاء زر فتح الشريط الجانبي */
+    .css-14xtw13 {
+        display: none !important;
+    }
+    
+    /* إخفاء الشريط الجانبي نفسه */
+    section[data-testid="stSidebar"] {
+        display: none !important;
+    }
+    
+    /* إخفاء جميع العناصر غير المرغوب فيها */
     #MainMenu, header, footer, [data-testid="stToolbar"] {
         display: none !important;
     }
