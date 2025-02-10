@@ -1341,20 +1341,20 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     extras = []
     extras_total = 0
     if has_cover: 
-        extras.append(("⭐ تصميم غلاف ملون فاخر", 3000))
-        extras_total += 3000
+        extras.append(("⭐ تصميم غلاف ملون", 250))
+        extras_total += 250
     if has_empty_last: 
-        extras.append(("📄 صفحة ختامية مميزة", 500))
-        extras_total += 500
+        extras.append(("📄 الصفحة الاخيرة فارغة", 25))
+        extras_total += 25
     if has_carton: 
-        extras.append(("📦 كرتون فاخر", 1000))
-        extras_total += 1000
+        extras.append(("📦 كرتون", 250))
+        extras_total += 250
     if has_nylon: 
         extras.append(("✨ نايلون شفاف", 250))
         extras_total += 250
     if has_paper_holder: 
-        extras.append(("📁 حاملة أوراق", 1000))
-        extras_total += 1000
+        extras.append(("📁 حاملة أوراق", 250))
+        extras_total += 250
 
     if extras:
         summary_text += """
@@ -1522,17 +1522,17 @@ def main():
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
         st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_cover = st.checkbox("تصميم غلاف ملون فاخر")
+        has_cover = st.checkbox("تصميم غلاف ملون")
         st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
         st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_empty_last = st.checkbox("صفحة ختامية مميزة")
+        has_empty_last = st.checkbox("صفحة ختامية فارغة")
         st.markdown('</div>', unsafe_allow_html=True)
     
     with col3:
         st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_carton = st.checkbox("كرتون فاخر")
+        has_carton = st.checkbox("كرتون")
         st.markdown('</div>', unsafe_allow_html=True)
     
     with col4:
