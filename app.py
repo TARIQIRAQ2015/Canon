@@ -20,7 +20,7 @@ PRICES = {
     'paper_holder': 250,  # حاملة اوراق
 }
 
-# تحديث CSS للحصول على تصميم فاخر
+# تحديث CSS للحصول على تصميم أكثر احترافية
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
@@ -31,67 +31,103 @@ st.markdown("""
         font-family: 'Tajawal', sans-serif;
     }
     
-    .stTitle {
-        background: linear-gradient(45deg, #FFD700, #FFA500);
+    .main-header {
+        background: linear-gradient(120deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.9) 100%);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        border: 1px solid rgba(255,215,0,0.3);
+        backdrop-filter: blur(10px);
+    }
+    
+    .main-header h1 {
+        font-size: 3.5rem !important;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        font-size: 3rem !important;
         text-align: center;
-        padding: 2rem 0;
+        font-weight: 700;
+        letter-spacing: 2px;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
     
-    .stSubheader {
-        color: #FFD700 !important;
-        font-size: 1.5rem !important;
-        border-bottom: 2px solid #FFD700;
-        padding-bottom: 0.5rem;
+    .main-header .subtitle {
+        font-size: 1.2rem;
+        color: #FFD700;
+        text-align: center;
+        font-weight: 400;
+        opacity: 0.9;
+    }
+    
+    .input-section {
+        background: rgba(0,0,0,0.4);
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(255,215,0,0.2);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        backdrop-filter: blur(5px);
+    }
+    
+    .input-section h2 {
+        font-size: 1.8rem !important;
+        margin-bottom: 1.5rem;
+        color: #FFD700;
+        text-align: right;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .input-section h2 i {
+        font-size: 1.5rem;
+        background: linear-gradient(45deg, #FFD700, #FFA500);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .stNumberInput {
+        background: rgba(255,255,255,0.05);
+        border-radius: 10px;
+        padding: 1rem;
         margin-bottom: 1rem;
+        border: 1px solid rgba(255,215,0,0.1);
     }
     
     .stNumberInput > div > div > input {
-        background-color: rgba(255, 255, 255, 0.1) !important;
-        color: #ffffff !important;
-        border: 1px solid #FFD700 !important;
-        border-radius: 10px !important;
-        padding: 0.5rem !important;
+        font-size: 1.1rem !important;
+        height: 45px !important;
     }
     
     .stCheckbox {
-        background: rgba(255, 255, 255, 0.05);
-        padding: 1rem;
+        background: rgba(255,255,255,0.05);
         border-radius: 10px;
-        border: 1px solid rgba(255, 215, 0, 0.3);
-        margin: 0.5rem 0;
+        padding: 1.2rem;
+        margin: 0.8rem 0;
+        border: 1px solid rgba(255,215,0,0.1);
+        transition: all 0.3s ease;
     }
     
-    .stButton button {
-        background: linear-gradient(45deg, #FFD700, #FFA500) !important;
-        color: #000000 !important;
-        font-weight: bold !important;
-        border: none !important;
-        padding: 0.7rem 2rem !important;
-        border-radius: 25px !important;
-        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3) !important;
-        transition: all 0.3s ease !important;
+    .stCheckbox:hover {
+        background: rgba(255,215,0,0.1);
+        border-color: rgba(255,215,0,0.3);
     }
     
-    .stButton button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4) !important;
+    .results-container {
+        background: rgba(0,0,0,0.6);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-top: 2rem;
+        border: 2px solid rgba(255,215,0,0.3);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        backdrop-filter: blur(10px);
     }
     
     .total-cost {
-        font-size: 28px !important;
-        font-weight: bold;
-        text-align: center;
-        padding: 1.5rem;
-        border-radius: 15px;
-        background: rgba(0, 0, 0, 0.5);
-        border: 2px solid #FFD700;
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-        margin: 1rem 0;
-        backdrop-filter: blur(10px);
+        font-size: 2rem !important;
+        letter-spacing: 1px;
     }
     
     .exact-cost {
@@ -156,11 +192,13 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def main():
-    # إضافة شعار وعنوان مميز
+    # تحديث العنوان الرئيسي
     st.markdown("""
-        <h1 class="stTitle">👑 الطباعة الذهبية الفاخرة</h1>
-        <div style="text-align: center; color: #FFD700; margin-bottom: 2rem;">
-            نقدم لكم أفضل خدمات الطباعة بجودة عالية
+        <div class="main-header">
+            <h1>👑 الطباعة الذهبية الفاخرة</h1>
+            <div class="subtitle">
+                نقدم لكم أرقى خدمات الطباعة بجودة استثنائية وتصميم عصري
+            </div>
         </div>
     """, unsafe_allow_html=True)
     
@@ -168,18 +206,26 @@ def main():
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown('<h2 class="stSubheader">📄 عدد الصفحات</h2>', unsafe_allow_html=True)
-        color_pages = st.number_input("عدد الصفحات الملونة", min_value=0, value=0)
-        bw_color_pages = st.number_input("عدد الصفحات الأبيض والأسود مع ألوان قليلة", min_value=0, value=0)
-        bw_pages = st.number_input("عدد الصفحات الأبيض والأسود فقط", min_value=0, value=0)
+        st.markdown("""
+            <div class="input-section">
+                <h2><i class="fas fa-file-alt"></i> تفاصيل الطباعة</h2>
+            </div>
+        """, unsafe_allow_html=True)
+        color_pages = st.number_input("عدد الصفحات الملونة الفاخرة", min_value=0, value=0)
+        bw_color_pages = st.number_input("عدد الصفحات المميزة مع لمسات لونية", min_value=0, value=0)
+        bw_pages = st.number_input("عدد الصفحات الكلاسيكية", min_value=0, value=0)
     
     with col2:
-        st.markdown('<h2 class="stSubheader">✨ الإضافات الفاخرة</h2>', unsafe_allow_html=True)
-        has_cover = st.checkbox("تصميم غلاف ملون فاخر")
-        has_empty_last = st.checkbox("صفحة أخيرة فاخرة")
-        has_carton = st.checkbox("كرتون فاخر")
-        has_nylon = st.checkbox("نايلون شفاف عالي الجودة")
-        has_paper_holder = st.checkbox("حاملة أوراق مميزة")
+        st.markdown("""
+            <div class="input-section">
+                <h2><i class="fas fa-star"></i> الإضافات الحصرية</h2>
+            </div>
+        """, unsafe_allow_html=True)
+        has_cover = st.checkbox("⭐ تصميم غلاف ملون فاخر")
+        has_empty_last = st.checkbox("📄 صفحة ختامية مميزة")
+        has_carton = st.checkbox("📦 كرتون فاخر")
+        has_nylon = st.checkbox("✨ نايلون شفاف عالي الجودة")
+        has_paper_holder = st.checkbox("📁 حاملة أوراق مميزة")
 
     # حساب التكلفة
     exact_total, rounded_total = calculate_total_cost(
@@ -187,23 +233,38 @@ def main():
         has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder
     )
     
-    # عرض خط فاصل مميز
-    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    # عرض النتائج في قسم مميز
+    st.markdown("""
+        <div class="results-container">
+            <div class="divider"></div>
+    """, unsafe_allow_html=True)
     
-    # عرض التكلفة
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown(f'<div class="total-cost exact-cost">المبلغ الدقيق: {exact_total:,} دينار</div>', 
-                    unsafe_allow_html=True)
+        st.markdown(f"""
+            <div class="total-cost exact-cost">
+                <div style="font-size: 1rem; opacity: 0.8;">المبلغ الأساسي</div>
+                {exact_total:,} دينار
+            </div>
+        """, unsafe_allow_html=True)
     with col2:
-        st.markdown(f'<div class="total-cost rounded-cost">المبلغ النهائي: {rounded_total:,} دينار</div>', 
-                    unsafe_allow_html=True)
+        st.markdown(f"""
+            <div class="total-cost rounded-cost">
+                <div style="font-size: 1rem; opacity: 0.8;">المبلغ النهائي</div>
+                {rounded_total:,} دينار
+            </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("</div>", unsafe_allow_html=True)
     
     # زر إعادة التعيين
-    st.markdown('<div style="text-align: center; margin-top: 2rem;">', unsafe_allow_html=True)
+    st.markdown("""
+        <div style="text-align: center; margin-top: 2rem;">
+            <button class="reset-button">إعادة تعيين الحساب</button>
+        </div>
+    """, unsafe_allow_html=True)
     if st.button("إعادة تعيين الحساب"):
         st.rerun()
-    st.markdown('</div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main() 
