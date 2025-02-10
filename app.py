@@ -1005,9 +1005,7 @@ st.markdown("""
         background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
         border: 2px solid rgba(212,175,55,0.3);
         border-radius: 20px;
-        padding: 2.5rem;
-        margin-bottom: 2rem;
-        position: relative;
+        padding: 2rem;
         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
@@ -1104,7 +1102,7 @@ st.markdown("""
         background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
         border: 2px solid rgba(212,175,55,0.3);
         border-radius: 20px;
-        padding: 2.5rem;
+        padding: 2rem;
         margin-bottom: 2rem;
         position: relative;
     }
@@ -1115,12 +1113,14 @@ st.markdown("""
         top: -15px;
         right: 30px;
         background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
-        padding: 8px 25px;
-        border-radius: 12px;
+        padding: 5px 20px;
+        border-radius: 10px;
         color: #D4AF37;
         font-size: 1.2rem;
-        font-weight: 600;
         border: 1px solid rgba(212,175,55,0.3);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
     /* تنسيق حقول الإدخال */
@@ -1135,7 +1135,7 @@ st.markdown("""
         background: rgba(25,25,25,0.95);
         border: 1px solid rgba(212,175,55,0.3);
         border-radius: 15px;
-        padding: 1.8rem;
+        padding: 1.5rem;
         text-align: center;
         transition: all 0.3s ease;
     }
@@ -1239,11 +1239,9 @@ st.markdown("""
     .stNumberInput > div > div > input {
         background: rgba(30,30,30,0.95) !important;
         border: 1px solid rgba(212,175,55,0.3) !important;
-        color: #FFD700 !important;
+        color: #fff !important;
         text-align: center !important;
         font-size: 1.1rem !important;
-        font-weight: 500 !important;
-        padding: 0.5rem !important;
     }
 
     /* تنسيق مربعات الاختيار */
@@ -1264,72 +1262,6 @@ st.markdown("""
     .service-card:hover {
         transform: translateY(-3px);
         border-color: #D4AF37;
-    }
-
-    /* تحسين تنسيق القسم */
-    .section-container {
-        background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
-        border: 2px solid rgba(212,175,55,0.3);
-        border-radius: 20px;
-        padding: 2.5rem;
-        margin-bottom: 2rem;
-        position: relative;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    /* تحسين حقول الإدخال */
-    .input-container {
-        background: rgba(25,25,25,0.95);
-        border: 1px solid rgba(212,175,55,0.3);
-        border-radius: 15px;
-        padding: 1.8rem;
-        margin: 1rem 0;
-        transition: all 0.3s ease;
-    }
-
-    .input-label {
-        color: #FFD700;
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
-        text-align: center;
-        font-weight: 500;
-    }
-
-    /* تحسين الخدمات */
-    .services-container {
-        display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-        margin-top: 1rem;
-    }
-
-    .service-item {
-        background: rgba(25,25,25,0.95);
-        border: 1px solid rgba(212,175,55,0.3);
-        border-radius: 12px;
-        padding: 1.5rem 2rem;
-        text-align: center;
-        flex: 1;
-        transition: all 0.3s ease;
-    }
-
-    .service-item:hover {
-        transform: translateY(-3px);
-        border-color: #D4AF37;
-        box-shadow: 0 8px 25px rgba(212,175,55,0.1);
-    }
-
-    .service-title {
-        color: #D4AF37;
-        font-size: 1.1rem;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-    }
-
-    .service-description {
-        color: #fff;
-        font-size: 0.9rem;
-        opacity: 0.9;
     }
     </style>
 
@@ -1561,9 +1493,7 @@ def main():
             background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
             border: 2px solid rgba(212,175,55,0.3);
             border-radius: 20px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            position: relative;
+            padding: 2rem;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
