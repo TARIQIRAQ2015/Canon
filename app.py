@@ -20,7 +20,7 @@ st.markdown("""
     /* الأنماط الأساسية */
     .main {
         font-family: 'Tajawal', sans-serif !important;
-        background: linear-gradient(135deg, #0F172A, #1E293B) !important;
+        background: linear-gradient(135deg, #0A0F1E, #1A1F3F) !important;
         color: #E2E8F0;
         direction: rtl;
         text-align: right;
@@ -34,40 +34,61 @@ st.markdown("""
 
     /* تنسيق مربع الحاسبة */
     .calculator-box {
-        background: rgba(30, 41, 59, 0.7);
-        backdrop-filter: blur(10px);
-        padding: 2.5rem;
-        border-radius: 20px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        background: rgba(20, 30, 60, 0.7);
+        backdrop-filter: blur(20px);
+        padding: 3rem;
+        border-radius: 25px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                    inset 0 0 80px rgba(96, 165, 250, 0.1);
         margin: 0 auto;
-        max-width: 800px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        max-width: 850px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .calculator-box::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
+        animation: glowAnimation 10s infinite linear;
+    }
+
+    @keyframes glowAnimation {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
 
     /* تنسيق العنوان */
     .title {
-        font-size: 2.8rem;
+        font-size: 3rem;
         font-weight: 700;
-        background: linear-gradient(120deg, #60A5FA, #818CF8);
+        background: linear-gradient(120deg, #60A5FA, #818CF8, #C084FC);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-align: center;
-        margin-bottom: 2.5rem;
+        margin-bottom: 3rem;
+        text-shadow: 0 0 30px rgba(96, 165, 250, 0.5);
     }
 
     /* تنسيق النتيجة */
     .result {
         background: linear-gradient(145deg, rgba(37, 99, 235, 0.1), rgba(99, 102, 241, 0.1));
-        backdrop-filter: blur(5px);
-        padding: 2rem;
-        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        padding: 2.5rem;
+        border-radius: 20px;
         margin-top: 2rem;
         text-align: center;
-        font-size: 2rem;
+        font-size: 2.2rem;
         font-weight: 700;
         color: #60A5FA;
-        border: 1px solid rgba(96, 165, 250, 0.2);
-        transition: all 0.3s ease;
+        border: 2px solid rgba(96, 165, 250, 0.3);
+        transition: all 0.4s ease;
+        box-shadow: 0 0 30px rgba(96, 165, 250, 0.2);
     }
 
     .result:hover {
@@ -108,14 +129,37 @@ st.markdown("""
 
     /* تنسيق ملخص الطلب */
     .summary {
-        background: rgba(30, 41, 59, 0.6);
-        padding: 2rem;
-        border-radius: 15px;
-        margin-top: 1.5rem;
+        background: rgba(20, 30, 60, 0.8);
+        padding: 2.5rem;
+        border-radius: 20px;
+        margin-top: 2rem;
         text-align: right;
-        font-size: 1.2rem;
+        font-family: monospace;
+        font-size: 1.1rem;
         line-height: 1.8;
-        border: 1px solid rgba(96, 165, 250, 0.2);
+        border: 2px solid rgba(96, 165, 250, 0.3);
+        white-space: pre;
+        overflow-x: auto;
+        color: #A5B4FC;
+        box-shadow: 0 0 30px rgba(96, 165, 250, 0.1);
+    }
+
+    /* تنسيق زر النسخ */
+    .stButton button {
+        background: linear-gradient(135deg, #4F46E5, #6366F1) !important;
+        color: white !important;
+        padding: 0.8rem 2rem !important;
+        border-radius: 12px !important;
+        border: none !important;
+        font-weight: 600 !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3) !important;
+    }
+
+    .stButton button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
+        background: linear-gradient(135deg, #6366F1, #4F46E5) !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -146,16 +190,25 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     if nylon: extras.append("تغليف نايلون")
     if ruler: extras.append("مسطرة خاصة")
     
-    summary = f"""خلاصة الطلب:
-• عدد الصفحات الملونة: {colored_pages} صفحة
-• عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة"""
+    summary = f"""╔══════════════════ ملخص الطلب ══════════════════╗
+
+║  📄 تفاصيل الصفحات:
+║  • عدد الصفحات الملونة: {colored_pages} صفحة
+║  • عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة
+║
+"""
 
     if extras:
-        summary += f"\n• الإضافات المطلوبة: {' + '.join(extras)}"
+        summary += f"""║  ✨ الإضافات المطلوبة:
+║  • {' + '.join(extras)}
+║
+"""
     
-    summary += f"""
-• التكلفة قبل التقريب: {total_cost:,} دينار
-• التكلفة النهائية بعد التقريب: {rounded_cost:,} دينار"""
+    summary += f"""║  💰 التفاصيل المالية:
+║  • التكلفة قبل التقريب: {total_cost:,} دينار
+║  • التكلفة النهائية: {rounded_cost:,} دينار
+║
+╚══════════════════════════════════════════════════╝"""
     
     return summary
 
@@ -201,7 +254,7 @@ def main():
     st.markdown(f"<div class='summary'>{summary.replace(chr(10), '<br>')}</div>", unsafe_allow_html=True)
     
     # زر نسخ الملخص
-    if st.button("نسخ الملخص", key="copy_button", type="primary"):
+    if st.button("✨ نسخ الملخص", key="copy_button", type="primary"):
         st.markdown(f"""
             <div class="copy-container">
                 <textarea id="summary-text" style="position: absolute; left: -9999px;">{summary}</textarea>
