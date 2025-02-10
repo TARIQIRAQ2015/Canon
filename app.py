@@ -3,6 +3,7 @@ from streamlit_option_menu import option_menu
 import requests
 import json
 import math
+from datetime import datetime, timedelta
 
 # تعيين الإعدادات الأولية
 st.set_page_config(
@@ -161,6 +162,37 @@ st.markdown("""
         box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
         background: linear-gradient(135deg, #6366F1, #4F46E5) !important;
     }
+
+    /* تنسيق أيقونة النسخ */
+    .copy-icon {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #4F46E5, #6366F1);
+        border-radius: 12px;
+        border: none;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        gap: 8px;
+        font-family: 'Tajawal', sans-serif;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    .copy-icon:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        background: linear-gradient(135deg, #6366F1, #4F46E5);
+    }
+
+    .copy-icon svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -184,6 +216,11 @@ def round_to_nearest_currency(amount):
         return amount - remainder
 
 def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost):
+    # تنسيق التاريخ والوقت حسب توقيت بغداد
+    current_time = datetime.now() + timedelta(hours=3)
+    date_str = current_time.strftime("%Y-%m-%d")
+    time_str = current_time.strftime("%I:%M %p")
+    
     extras = []
     if cover: extras.append("تصميم غلاف")
     if carton: extras.append("كرتون فاخر")
@@ -192,6 +229,9 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     
     summary = f"""╔══════════════════ ملخص الطلب ══════════════════╗
 
+║  📅 التاريخ: {date_str}
+║  🕒 الوقت: {time_str}
+║
 ║  📄 تفاصيل الصفحات:
 ║  • عدد الصفحات الملونة: {colored_pages} صفحة
 ║  • عدد الصفحات بالأبيض والأسود: {bw_pages} صفحة
@@ -253,25 +293,48 @@ def main():
     summary = generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost)
     st.markdown(f"<div class='summary'>{summary.replace(chr(10), '<br>')}</div>", unsafe_allow_html=True)
     
-    # زر نسخ الملخص
-    if st.button("✨ نسخ الملخص", key="copy_button", type="primary"):
-        st.markdown(f"""
-            <div class="copy-container">
-                <textarea id="summary-text" style="position: absolute; left: -9999px;">{summary}</textarea>
-                <script>
+    # تحديث زر النسخ ليكون أيقونة
+    st.markdown(f"""
+        <div class="copy-container">
+            <button class="copy-icon" onclick="copyToClipboard()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                </svg>
+                نسخ النتائج
+            </button>
+            <textarea id="summary-text" style="position: absolute; left: -9999px;">{summary}</textarea>
+            <script>
+                function copyToClipboard() {{
                     var textArea = document.getElementById('summary-text');
                     textArea.select();
                     try {{
                         navigator.clipboard.writeText(textArea.value).then(function() {{
-                            console.log('تم النسخ بنجاح');
+                            // إظهار رسالة النجاح
+                            const element = window.parent.document.querySelector('.stAlert');
+                            if (!element) {{
+                                const streamlitDoc = window.parent.document;
+                                const div = streamlitDoc.createElement('div');
+                                div.innerHTML = `
+                                    <div class="stAlert success" style="
+                                        padding: 16px;
+                                        border-radius: 8px;
+                                        margin-top: 16px;
+                                        background: rgba(45, 212, 191, 0.1);
+                                        border: 1px solid rgba(45, 212, 191, 0.2);
+                                        color: #2DD4BF;">
+                                        ✨ تم نسخ النتائج بنجاح!
+                                    </div>`;
+                                streamlitDoc.body.appendChild(div);
+                                setTimeout(() => div.remove(), 3000);
+                            }}
                         }});
                     }} catch (err) {{
                         console.error('فشل النسخ:', err);
                     }}
-                </script>
-            </div>
-        """, unsafe_allow_html=True)
-        st.success("✨ تم نسخ الملخص بنجاح!")
+                }}
+            </script>
+        </div>
+    """, unsafe_allow_html=True)
     
     st.markdown("</div>", unsafe_allow_html=True)
 
