@@ -36,7 +36,8 @@ st.markdown("""
         margin: 0;
         max-width: 100% !important;
         position: relative;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
     
     .main::before {
@@ -84,6 +85,7 @@ st.markdown("""
         border: 1px solid rgba(0, 78, 146, 0.3);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         backdrop-filter: blur(10px);
+        margin-bottom: 1rem;
     }
     
     .stSelectbox:hover, .stNumberInput:hover {
@@ -96,7 +98,7 @@ st.markdown("""
     .stMarkdown h3 {
         color: #00a8ff;
         font-size: 1.8rem;
-        margin-bottom: 1.5rem;
+        margin: 2rem 0 1.5rem 0;
         font-weight: 800;
         text-shadow: 0 0 15px rgba(0, 168, 255, 0.4);
     }
@@ -122,7 +124,7 @@ st.markdown("""
     .header {
         background: linear-gradient(135deg, rgba(0, 4, 40, 0.97), rgba(0, 78, 146, 0.97));
         padding: 5rem 2rem;
-        margin: -6rem -4rem 4rem -4rem;
+        margin: -1rem -1rem 4rem -1rem;
         border-bottom: 3px solid rgba(0, 168, 255, 0.3);
         text-align: center;
         position: relative;
@@ -231,6 +233,43 @@ st.markdown("""
         text-shadow: 0 0 25px rgba(0, 168, 255, 0.4);
     }
 
+    /* زر العودة للأعلى */
+    .scroll-to-top {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: linear-gradient(135deg, #00a8ff, #0097e6);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 168, 255, 0.4);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .scroll-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .scroll-to-top:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 168, 255, 0.6);
+    }
+
+    /* تحسينات الأداء */
+    * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
     @keyframes backgroundFlow {
         0% { transform: scale(1); }
         100% { transform: scale(1.1); }
@@ -252,6 +291,27 @@ st.markdown("""
         100% { transform: scale(1.3); opacity: 0.9; }
     }
     </style>
+
+    <script>
+    // زر العودة للأعلى
+    window.onscroll = function() {
+        var scrollButton = document.querySelector('.scroll-to-top');
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            scrollButton.classList.add('visible');
+        } else {
+            scrollButton.classList.remove('visible');
+        }
+    };
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+    </script>
+
+    <div class="scroll-to-top" onclick="scrollToTop()">↑</div>
     """, unsafe_allow_html=True)
 
 def calculate_total_cost(colored_pages, bw_pages, cover, carton, nylon, ruler):
@@ -338,11 +398,11 @@ def main():
         if cover:
             st.markdown("<div class='cost-item'><span>🎨 تصميم غلاف احترافي</span><span>250 دينار</span></div>", unsafe_allow_html=True)
         if carton:
-            st.markdown("<div class='cost-item'><span> كرتون </span><span>250 دينار</span></div>", unsafe_allow_html=True)
+            st.markdown("<div class='cost-item'><span>📦 كرتون فاخر</span><span>250 دينار</span></div>", unsafe_allow_html=True)
         if nylon:
             st.markdown("<div class='cost-item'><span>✨ تغليف نايلون</span><span>250 دينار</span></div>", unsafe_allow_html=True)
         if ruler:
-            st.markdown("<div class='cost-item'><span> مسطرة </span><span>250 دينار</span></div>", unsafe_allow_html=True)
+            st.markdown("<div class='cost-item'><span>📏 مسطرة خاصة</span><span>250 دينار</span></div>", unsafe_allow_html=True)
 
     st.markdown(f"""
         <div class='total-cost'>
