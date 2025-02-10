@@ -1341,24 +1341,24 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     extras = []
     extras_total = 0
     if has_cover: 
-        extras.append(("⭐ تصميم غلاف ملون", 250))
+        extras.append(("تصميم غلاف ملون", 250))
         extras_total += 250
     if has_empty_last: 
-        extras.append(("📄 الصفحة الاخيرة فارغة", 25))
+        extras.append(("الصفحة الاخيرة فارغة", 25))
         extras_total += 25
     if has_carton: 
-        extras.append(("📦 كرتون", 250))
+        extras.append(("كرتون", 250))
         extras_total += 250
     if has_nylon: 
-        extras.append(("✨ نايلون شفاف", 250))
+        extras.append(("نايلون شفاف", 250))
         extras_total += 250
     if has_paper_holder: 
-        extras.append(("📁 حاملة أوراق", 250))
+        extras.append(("حاملة أوراق", 250))
         extras_total += 250
 
     if extras:
         summary_text += """
-✨ الإضافات المختارة:"""
+الإضافات المختارة:"""
         for extra, price in extras:
             summary_text += f"""
    • {extra}: {price:,} دينار"""
