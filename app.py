@@ -1310,7 +1310,7 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     # إضافة السعر النهائي
     st.markdown(f"""
         <div class="summary-item" style="margin-top: 1rem;">
-            <div class="summary-label" style="font-size: 1.3rem;">�� السعر النهائي</div>
+            <div class="summary-label" style="font-size: 1.3rem;">السعر النهائي</div>
             <div class="summary-value" style="font-size: 1.3rem; color: #D4AF37;">{exact_total:,} دينار</div>
         </div>
     """, unsafe_allow_html=True)
@@ -1318,62 +1318,109 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     st.markdown("</div>", unsafe_allow_html=True)
 
 def main():
-    # إضافة زر العودة للأعلى
+    # تحديث CSS للتنسيق
     st.markdown("""
         <style>
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(145deg, rgba(26,26,26,0.9), rgba(45,45,45,0.9));
-            border: 2px solid rgba(212,175,55,0.5);
-            border-radius: 50%;
-            display: none;
-            align-items: center;
+        /* تنسيق عام لجميع النصوص */
+        * {
+            text-align: center;
+        }
+
+        /* تنسيق القسم الرئيسي */
+        .main-section {
+            background: rgba(20,20,20,0.95);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        /* تنسيق العنوان */
+        .section-title {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a1a;
+            padding: 5px 25px;
+            border-radius: 10px;
+            color: #D4AF37;
+            font-size: 1.2rem;
+            border: 1px solid rgba(212,175,55,0.3);
+            z-index: 1;
+            white-space: nowrap;
+        }
+
+        /* تنسيق خيارات الطباعة */
+        .print-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .print-option-title {
+            color: #D4AF37;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* تنسيق حقول الإدخال */
+        .stNumberInput {
+            display: flex;
             justify-content: center;
-            cursor: pointer;
-            z-index: 9999;
-            text-decoration: none;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            align-items: center;
+        }
+
+        .stNumberInput > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stNumberInput > div > div > input {
+            background: rgba(30,30,30,0.95) !important;
+            border: 1px solid rgba(212,175,55,0.3) !important;
+            color: #D4AF37 !important;
+            font-size: 1.2rem !important;
+            text-align: center !important;
+            width: 120px !important;
+            border-radius: 10px !important;
+            padding: 0.5rem !important;
+        }
+
+        /* تنسيق أزرار الزيادة والنقصان */
+        .stNumberInput [data-testid="stDecrement"],
+        .stNumberInput [data-testid="stIncrement"] {
+            background: rgba(25,25,25,0.95) !important;
+            border: 1px solid rgba(212,175,55,0.3) !important;
+            color: #D4AF37 !important;
+            border-radius: 8px !important;
+            width: 35px !important;
+            height: 35px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
             transition: all 0.3s ease;
         }
 
-        .back-to-top::after {
-            content: '';
-            width: 15px;
-            height: 15px;
-            border-left: 3px solid #D4AF37;
-            border-top: 3px solid #D4AF37;
-            transform: rotate(45deg);
-            margin-bottom: -5px;
+        .stNumberInput [data-testid="stDecrement"]:hover,
+        .stNumberInput [data-testid="stIncrement"]:hover {
+            background: linear-gradient(145deg, #D4AF37, #B8860B) !important;
+            color: #000 !important;
         }
 
-        .back-to-top:hover {
-            transform: translateY(-5px);
-            border-color: #D4AF37;
-            box-shadow: 0 8px 25px rgba(212,175,55,0.3);
-        }
-
-        .back-to-top:hover::after {
-            border-color: #FFD700;
+        /* تنسيق الخط الفاصل */
+        .separator {
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.3), transparent);
+            margin: 0 auto;
         }
         </style>
-
-        <a href="#top" class="back-to-top" id="backToTop"></a>
-
-        <script>
-            window.onscroll = function() {
-                var btn = document.getElementById("backToTop");
-                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-                    btn.style.display = "flex";
-                } else {
-                    btn.style.display = "none";
-                }
-            }
-        </script>
     """, unsafe_allow_html=True)
 
     # في بداية الصفحة (أعلى الكود)
