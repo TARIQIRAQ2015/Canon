@@ -455,23 +455,17 @@ st.markdown("""
         background: rgba(0,0,0,0.4) !important;
         border: 2px solid rgba(212,175,55,0.3) !important;
         border-radius: 15px !important;
-        color: #ffffff !important;
+        color: #FFD700 !important;
         font-size: 1.2rem !important;
         padding: 1.2rem !important;
-        height: 3.5rem !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        box-shadow: 
-            inset 0 2px 10px rgba(0,0,0,0.3),
-            0 5px 15px rgba(0,0,0,0.2);
+        width: 100% !important;
+        transition: all 0.3s ease !important;
     }
 
     .stNumberInput > div > div > input:focus {
         border-color: #D4AF37 !important;
-        box-shadow: 
-            0 0 20px rgba(212,175,55,0.2),
-            inset 0 2px 10px rgba(0,0,0,0.3) !important;
+        box-shadow: 0 0 20px rgba(212,175,55,0.2) !important;
         transform: translateY(-2px);
-        background: rgba(0,0,0,0.5) !important;
     }
 
     /* تحسين أزرار الزيادة والنقصان */
@@ -481,30 +475,14 @@ st.markdown("""
         color: #D4AF37 !important;
         border: 2px solid rgba(212,175,55,0.3) !important;
         border-radius: 12px !important;
-        width: 45px !important;
-        height: 45px !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        box-shadow: 
-            0 5px 15px rgba(0,0,0,0.2),
-            inset 0 2px 5px rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
     }
 
     .stNumberInput [data-testid="stDecrement"]:hover, 
     .stNumberInput [data-testid="stIncrement"]:hover {
         background: linear-gradient(145deg, #D4AF37, #B8860B) !important;
         color: #000000 !important;
-        transform: translateY(-2px) scale(1.1);
-        box-shadow: 
-            0 8px 20px rgba(212,175,55,0.3),
-            inset 0 2px 5px rgba(255,255,255,0.2);
-    }
-
-    .stNumberInput [data-testid="stDecrement"]:active, 
-    .stNumberInput [data-testid="stIncrement"]:active {
-        transform: translateY(1px) scale(0.95);
+        transform: translateY(-2px);
     }
 
     /* تأثير الضوء عند التحويم */
@@ -1008,12 +986,12 @@ st.markdown("""
         padding: 2.5rem;
         margin-bottom: 2rem;
         position: relative;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
     .input-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
         margin-top: 1.5rem;
     }
@@ -1138,21 +1116,28 @@ st.markdown("""
     .input-label {
         color: #FFD700;
         font-size: 1.1rem;
-        margin-bottom: 1rem;
         font-weight: 500;
+        margin-bottom: 1rem;
+        text-align: center;
     }
 
     /* تنسيق حقول الأرقام */
     .stNumberInput > div > div > input {
-        background: rgba(30,30,30,0.95) !important;
-        border: 1px solid rgba(212,175,55,0.3) !important;
+        background: rgba(0,0,0,0.4) !important;
+        border: 2px solid rgba(212,175,55,0.3) !important;
+        border-radius: 15px !important;
         color: #FFD700 !important;
-        text-align: center !important;
         font-size: 1.2rem !important;
-        font-weight: 500 !important;
-        padding: 0.5rem !important;
-        width: 150px !important;
-        margin: 0 auto !important;
+        padding: 1rem !important;
+        text-align: center !important;
+        width: 100% !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .stNumberInput > div > div > input:focus {
+        border-color: #D4AF37 !important;
+        box-shadow: 0 0 20px rgba(212,175,55,0.2) !important;
+        transform: translateY(-2px);
     }
 
     /* تنسيق الخيارات الإضافية */
@@ -1430,7 +1415,7 @@ def main():
 
         .input-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
@@ -1486,29 +1471,26 @@ def main():
     # 1. قسم تفاصيل الطباعة
     st.markdown("""
         <div class="section-container">
-            <h2>
-                <span class="emoji-icon">📋</span>
-                <span class="section-title">تفاصيل الطباعة</span>
-            </h2>
+            <h2 class="section-title">تفاصيل الطباعة</h2>
             <div class="input-grid">
     """, unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.markdown('<div class="input-container premium-input">', unsafe_allow_html=True)
-        st.markdown('<div class="input-label"><span class="input-icon">🎨</span>طباعة ملونة عالية الجودة</div>', unsafe_allow_html=True)
+        st.markdown('<div class="input-container">', unsafe_allow_html=True)
+        st.markdown('<div class="input-label">طباعة ملونة عالية الجودة</div>', unsafe_allow_html=True)
         color_pages = st.number_input("", min_value=0, value=0, key="color_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
-        st.markdown('<div class="input-container premium-input">', unsafe_allow_html=True)
-        st.markdown('<div class="input-label"><span class="input-icon">🖌️</span>طباعة مع تأثيرات لونية</div>', unsafe_allow_html=True)
+        st.markdown('<div class="input-container">', unsafe_allow_html=True)
+        st.markdown('<div class="input-label">طباعة مع تأثيرات لونية</div>', unsafe_allow_html=True)
         bw_color_pages = st.number_input("", min_value=0, value=0, key="bw_color_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
     
     with col3:
-        st.markdown('<div class="input-container premium-input">', unsafe_allow_html=True)
-        st.markdown('<div class="input-label"><span class="input-icon">📄</span>طباعة أبيض وأسود</div>', unsafe_allow_html=True)
+        st.markdown('<div class="input-container">', unsafe_allow_html=True)
+        st.markdown('<div class="input-label">طباعة أبيض وأسود</div>', unsafe_allow_html=True)
         bw_pages = st.number_input("", min_value=0, value=0, key="bw_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
     
