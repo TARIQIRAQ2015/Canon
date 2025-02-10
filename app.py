@@ -790,6 +790,82 @@ st.markdown("""
         letter-spacing: 0.3px;
         word-spacing: 1px;
     }
+
+    /* تحسين مظهر حقول الإدخال */
+    .premium-input {
+        background: linear-gradient(165deg, rgba(25,25,25,0.95), rgba(15,15,15,0.95));
+        border: 1px solid rgba(212,175,55,0.3);
+        border-radius: 15px;
+        padding: 1.8rem;
+        margin: 1.2rem 0;
+        box-shadow: 
+            0 10px 20px rgba(0,0,0,0.2),
+            inset 0 2px 10px rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .premium-input:hover {
+        transform: translateY(-3px);
+        border-color: rgba(212,175,55,0.5);
+        box-shadow: 
+            0 15px 30px rgba(0,0,0,0.3),
+            inset 0 2px 15px rgba(255,255,255,0.1);
+    }
+
+    .input-icon {
+        font-size: 1.4rem;
+        margin-left: 1rem;
+        vertical-align: middle;
+    }
+
+    .input-label {
+        display: flex;
+        align-items: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #D4AF37;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    /* تحسين العنوان الرئيسي */
+    .premium-header h1 {
+        font-size: clamp(2.8rem, 5vw, 4.8rem) !important;
+        font-weight: 800;
+        color: #D4AF37;
+        text-shadow: 
+            0 2px 2px rgba(0,0,0,0.5),
+            0 4px 4px rgba(0,0,0,0.3),
+            0 6px 8px rgba(0,0,0,0.2);
+        margin-bottom: 1.5rem;
+    }
+
+    .premium-header .subtitle {
+        font-size: clamp(1.3rem, 2.5vw, 1.8rem) !important;
+        color: #FFD700;
+        font-weight: 500;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        opacity: 0.9;
+        line-height: 1.6;
+    }
+
+    /* تحسين عنوان القسم */
+    .section-title {
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-weight: 700;
+        background: linear-gradient(45deg, #FFD700, #D4AF37);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        padding: 0.5rem 0;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .emoji-icon {
+        font-size: 1.8rem;
+        margin-left: 0.5rem;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -827,9 +903,9 @@ def main():
     # العنوان الرئيسي
     st.markdown("""
         <div class="premium-header">
-            <h1><span style="color: initial; background: none; -webkit-text-fill-color: initial;">🖨️</span> الطباعة الفاخرة</h1>
+            <h1><span style="color: initial; background: none; -webkit-text-fill-color: initial;">🖨️</span> مكتب طارق الياسين</h1>
             <div class="subtitle">
-                نرتقي بمشاريعكم إلى آفاق جديدة من التميز والإبداع
+                نقدم خدمات طباعة احترافية بجودة عالية وكفاءة مميزة
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -841,24 +917,24 @@ def main():
         st.markdown("""
             <div class="premium-section">
                 <h2>
-                    <span class="emoji-icon">📑</span>
-                    <span class="section-title">المعلومات الرئيسية</span>
+                    <span class="emoji-icon">📋</span>
+                    <span class="section-title">تفاصيل الطباعة</span>
                 </h2>
             </div>
         """, unsafe_allow_html=True)
         
-        st.markdown('<div class="input-container">', unsafe_allow_html=True)
-        st.markdown('<div class="input-label">📄 عدد الصفحات الملونة الفاخرة</div>', unsafe_allow_html=True)
+        st.markdown('<div class="input-container premium-input">', unsafe_allow_html=True)
+        st.markdown('<div class="input-label"><span class="input-icon">🎨</span>طباعة ملونة عالية الجودة</div>', unsafe_allow_html=True)
         color_pages = st.number_input("", min_value=0, value=0, key="color_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
         
-        st.markdown('<div class="input-container">', unsafe_allow_html=True)
-        st.markdown('<div class="input-label">🎨 عدد الصفحات المميزة مع لمسات لونية</div>', unsafe_allow_html=True)
+        st.markdown('<div class="input-container premium-input">', unsafe_allow_html=True)
+        st.markdown('<div class="input-label"><span class="input-icon">🖌️</span>طباعة مع تأثيرات لونية</div>', unsafe_allow_html=True)
         bw_color_pages = st.number_input("", min_value=0, value=0, key="bw_color_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
         
-        st.markdown('<div class="input-container">', unsafe_allow_html=True)
-        st.markdown('<div class="input-label">📝 عدد الصفحات الكلاسيكية</div>', unsafe_allow_html=True)
+        st.markdown('<div class="input-container premium-input">', unsafe_allow_html=True)
+        st.markdown('<div class="input-label"><span class="input-icon">📄</span>طباعة أبيض وأسود</div>', unsafe_allow_html=True)
         bw_pages = st.number_input("", min_value=0, value=0, key="bw_pages", label_visibility="collapsed")
         st.markdown('</div>', unsafe_allow_html=True)
     
