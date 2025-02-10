@@ -690,7 +690,7 @@ st.markdown("""
         font-weight: bold;
         font-size: 1.2rem;
         display: inline-block;
-        margin: 10px 0;
+        margin: 10px auto;
         position: relative;
         z-index: 1000;
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -1282,10 +1282,9 @@ st.markdown("""
 
     /* الحاوية الرئيسية للعنوان */
     .title-container {
-        text-align: right;
-        position: relative;
-        z-index: 1000;
-        margin-bottom: 20px;
+        text-align: center !important;
+        width: 100% !important;
+        direction: rtl !important;
     }
 
     /* إخفاء أزرار المشاركة والتحرير */
