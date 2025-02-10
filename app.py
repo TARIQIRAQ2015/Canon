@@ -1259,6 +1259,20 @@ st.markdown("""
         transform: none !important;
         text-align: center !important;
     }
+
+    /* تنسيق عنوان تفاصيل الطباعة */
+    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+        text-align: center !important;
+        color: #FFD700 !important;
+        padding: 1rem 0 !important;
+        font-size: 1.5rem !important;
+        font-weight: bold !important;
+    }
+    
+    /* لضمان توسيط جميع العناوين */
+    [data-testid="stMarkdownContainer"] {
+        text-align: center !important;
+    }
     </style>
 
     <!-- زر العودة للأعلى -->
