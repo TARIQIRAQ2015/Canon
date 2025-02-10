@@ -1196,6 +1196,141 @@ st.markdown("""
         align-items: center;
         gap: 0.5rem;
     }
+
+    /* تحديث CSS لتوسيط النصوص */
+    * {
+        text-align: center !important;
+    }
+
+    /* تحسين عناوين حقول الإدخال */
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        margin: 1rem 0;
+        background: linear-gradient(165deg, rgba(30,30,30,0.9), rgba(15,15,15,0.9));
+        border: 1px solid rgba(212,175,55,0.2);
+        border-radius: 20px;
+    }
+
+    .input-label {
+        font-size: 1.3rem !important;
+        font-weight: 600 !important;
+        color: #D4AF37 !important;
+        margin-bottom: 1.5rem !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    /* تحسين حقول الإدخال */
+    .stNumberInput {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .stNumberInput > div {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .stNumberInput > div > div > input {
+        text-align: center !important;
+        font-size: 1.2rem !important;
+        color: #FFD700 !important;
+        background: rgba(0,0,0,0.4) !important;
+        border: 2px solid rgba(212,175,55,0.3) !important;
+        border-radius: 15px !important;
+        padding: 1rem !important;
+    }
+
+    /* تحسين عناوين الأقسام */
+    .section-title {
+        text-align: center !important;
+        font-size: 1.8rem !important;
+        color: #D4AF37 !important;
+        margin-bottom: 2rem !important;
+        padding: 1rem 0 !important;
+    }
+
+    /* تحسين الإضافات الاختيارية */
+    .premium-checkbox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center !important;
+        padding: 1.5rem !important;
+    }
+
+    .premium-checkbox label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center !important;
+        font-size: 1.1rem !important;
+        color: #D4AF37 !important;
+    }
+
+    /* تحسين عرض النتائج */
+    .result-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem !important;
+    }
+
+    .result-label, .result-value {
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    /* تحسين عرض الخدمات */
+    .service-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center !important;
+        padding: 2rem !important;
+    }
+
+    .service-card h3, .service-card p {
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    /* تحسين العنوان الرئيسي */
+    .premium-header {
+        text-align: center !important;
+        padding: 3rem 2rem !important;
+    }
+
+    .premium-header h1, .premium-header .subtitle {
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    /* تحسين خلاصة الطلب */
+    .summary-section {
+        text-align: center !important;
+    }
+
+    .summary-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        padding: 1rem 0;
+    }
+
+    .summary-label, .summary-value {
+        text-align: center !important;
+    }
     </style>
 
     <!-- زر العودة للأعلى -->
