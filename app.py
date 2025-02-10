@@ -694,6 +694,7 @@ st.markdown("""
         position: relative;
         z-index: 1000;
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        text-align: center !important;
     }
 
     /* تحسين تسميات الإدخال */
@@ -1285,6 +1286,10 @@ st.markdown("""
         text-align: center !important;
         width: 100% !important;
         direction: rtl !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: 0 auto !important;
     }
 
     /* إخفاء أزرار المشاركة والتحرير */
@@ -1305,6 +1310,57 @@ st.markdown("""
     /* إخفاء أي عناصر إضافية في الهيدر */
     .stApp header {
         display: none !important;
+    }
+
+    /* تنسيق شامل للمحاذاة */
+    .stApp {
+        direction: rtl !important;
+    }
+
+    /* تنسيق حاوية العنوان */
+    .title-container {
+        text-align: center !important;
+        width: 100% !important;
+        direction: rtl !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: 0 auto !important;
+    }
+
+    /* تنسيق العنوان نفسه */
+    .section-title {
+        background: rgba(0, 0, 0, 0.9);
+        border: 2px solid #FFD700;
+        border-radius: 15px;
+        color: #FFD700;
+        padding: 8px 25px;
+        font-weight: bold;
+        font-size: 1.2rem;
+        display: inline-block;
+        margin: 10px auto;
+        position: relative;
+        z-index: 1000;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        text-align: center !important;
+    }
+
+    /* تنسيق الأعمدة */
+    .stColumn {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    /* تنسيق حاويات الإدخال */
+    .input-container {
+        text-align: center !important;
+        margin: 0 auto !important;
+    }
+
+    /* تنسيق عناصر streamlit */
+    [data-testid="stMarkdownContainer"] {
+        text-align: center !important;
     }
     </style>
 
