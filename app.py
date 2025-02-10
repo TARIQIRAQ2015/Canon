@@ -18,188 +18,67 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
     
-    /* إخفاء العناصر غير المرغوب فيها */
-    #MainMenu, header, footer {
-        visibility: hidden;
-    }
-
-    .stDeployButton {
+    /* إخفاء العناصر غير المرغوب فيها بشكل صحيح */
+    #MainMenu, header, footer, [data-testid="stToolbar"] {
         display: none !important;
     }
-
-    [data-testid="stToolbar"] {
-        display: none !important;
-    }
-
-    /* الأنماط الأساسية */
-    .main {
-        font-family: 'Tajawal', sans-serif !important;
+    
+    /* تحسين الاتجاه والمحاذاة للغة العربية */
+    .stApp, .main, [data-testid="stMarkdownContainer"], .element-container {
         direction: rtl !important;
         text-align: right !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        background: linear-gradient(135deg, #0A0F1E, #1A1F3F) !important;
+        font-family: 'Tajawal', sans-serif !important;
     }
-
-    .stApp {
-        background: linear-gradient(135deg, #0A0F1E, #1A1F3F) !important;
-        margin: 0 !important;
+    
+    /* تحسين تنسيق العنوان والنصوص */
+    .main-title {
+        font-size: clamp(1.8rem, 4vw, 2.5rem) !important;
+        text-align: center !important;
+        margin: 1rem 0 !important;
+        color: #ffffff !important;
+        text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+    
+    /* تحسين القوائم المنسدلة */
+    .stSelectbox > div > div {
+        background: rgba(30, 37, 48, 0.7) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        backdrop-filter: blur(10px);
+        padding: 0.8rem !important;
+        font-size: 1rem !important;
+    }
+    
+    /* تحسين حقول الإدخال */
+    .stNumberInput > div > div > input {
+        text-align: right !important;
+        direction: rtl !important;
+        font-size: 1rem !important;
+    }
+    
+    /* تحسين الجداول */
+    .stTable th, .stTable td {
+        text-align: right !important;
+        direction: rtl !important;
+    }
+    
+    /* تحسين ملخص النتائج */
+    pre {
+        direction: ltr !important;
+        font-family: 'Courier New', monospace !important;
+        background: rgba(20, 30, 60, 0.8) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 10px !important;
         padding: 1rem !important;
     }
-
-    /* تنسيق مربع الحاسبة */
-    .calculator-box {
-        background: rgba(20, 30, 60, 0.7);
-        backdrop-filter: blur(20px);
-        padding: clamp(1rem, 5vw, 3rem);
-        border-radius: 25px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        margin: 2rem auto !important;
-        max-width: min(90vw, 850px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        position: relative;
-        overflow: hidden;
-    }
-
-    /* تنسيق العنوان */
-    .title {
-        font-size: clamp(1.8rem, 4vw, 3rem);
-        font-weight: 700;
-        background: linear-gradient(120deg, #60A5FA, #818CF8, #C084FC);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-align: center;
-        margin: 1rem 0 2rem 0;
-        padding: 0;
-        direction: rtl;
-    }
-
-    /* تنسيق النتيجة */
-    .result {
-        background: linear-gradient(145deg, rgba(37, 99, 235, 0.1), rgba(99, 102, 241, 0.1));
-        backdrop-filter: blur(10px);
-        padding: 2rem;
-        border-radius: 15px;
-        margin: 2rem 0;
-        text-align: center;
-        font-size: clamp(1.5rem, 3vw, 2.2rem);
-        font-weight: 700;
-        color: #60A5FA;
-        border: 2px solid rgba(96, 165, 250, 0.3);
-        direction: rtl;
-    }
-
-    /* تنسيق عناصر الإدخال */
-    .stNumberInput {
-        direction: rtl !important;
-    }
-
-    .stNumberInput > div {
-        direction: rtl !important;
-    }
-
-    .stNumberInput input {
-        background: rgba(30, 41, 59, 0.8) !important;
-        border: 2px solid rgba(96, 165, 250, 0.2) !important;
-        border-radius: 10px !important;
-        color: #E2E8F0 !important;
-        font-size: 1.1rem !important;
-        padding: 0.8rem !important;
-        text-align: right !important;
-        direction: rtl !important;
-    }
-
-    /* تنسيق ملخص الطلب */
-    .summary {
-        background: rgba(20, 30, 60, 0.8);
-        padding: clamp(1rem, 3vw, 2.5rem);
-        border-radius: 20px;
-        margin: 2rem 0;
-        font-family: monospace;
-        font-size: clamp(0.8rem, 2vw, 1.1rem);
-        line-height: 1.8;
-        border: 2px solid rgba(96, 165, 250, 0.3);
-        white-space: pre-wrap;
-        direction: rtl;
-        text-align: right;
-        overflow-x: auto;
-    }
-
-    /* تنسيق زر النسخ */
-    .copy-button-container {
-        display: flex;
-        justify-content: center;
-        margin: 2rem 0;
-        direction: rtl;
-    }
-
-    .modern-copy-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: clamp(0.5rem, 2vw, 1rem) clamp(1rem, 3vw, 2rem);
-        border-radius: 12px;
-        color: white;
-        font-family: 'Tajawal', sans-serif;
-        font-size: clamp(0.9rem, 2vw, 1.1rem);
-        cursor: pointer;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-    }
-
-    .modern-copy-button:hover {
-        background: rgba(255, 255, 255, 0.15);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    /* تنسيق الأقسام */
-    .section {
-        background: rgba(30, 41, 59, 0.5);
-        padding: 2rem;
-        border-radius: 15px;
-        margin: 1.5rem 0;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        direction: rtl;
-    }
-
-    /* تنسيق العناوين الفرعية */
-    .section-title {
-        color: #E2E8F0;
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        font-weight: 700;
-        direction: rtl;
-    }
-
+    
     /* تحسينات للأجهزة المحمولة */
     @media (max-width: 768px) {
-        .calculator-box {
-            padding: 1rem;
-            margin: 1rem !important;
+        .main-title {
+            font-size: 1.5rem !important;
         }
-
-        .summary {
-            font-size: 0.9rem;
-            padding: 1rem;
-        }
-
-        .section {
-            padding: 1rem;
-        }
-
-        .stNumberInput input {
-            font-size: 1rem !important;
+        .stSelectbox > div > div {
             padding: 0.6rem !important;
         }
-    }
-
-    /* تنسيق رسالة النجاح */
-    .stSuccess {
-        direction: rtl !important;
-        text-align: right !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -226,7 +105,8 @@ def round_to_nearest_currency(amount):
 def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost):
     # تنسيق التاريخ والوقت حسب توقيت بغداد
     current_time = datetime.now() + timedelta(hours=3)
-    date_time_str = current_time.strftime("%Y-%m-%d %I:%M %p")
+    date_str = current_time.strftime("%Y-%m-%d")
+    time_str = current_time.strftime("%I:%M %p")
     
     extras = []
     if cover: extras.append("تصميم غلاف")
@@ -237,7 +117,8 @@ def generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total
     summary = f"""╔══════════════════════════════════════════════════════════════════╗
 ║                         ملخص النتائج ✨                         ║
 ╠══════════════════════════════════════════════════════════════════╣
-║ وقت الحساب ⏰: {date_time_str}
+║ 📅 التاريخ: {date_str}
+║ ⏰ الوقت: {time_str}
 ╟──────────────────────────────────────────────────────────────────
 ║ 📄 تفاصيل الصفحات:
 ║ • عدد الصفحات الملونة: {colored_pages} صفحة
@@ -305,46 +186,20 @@ def main():
         </div>
     """, unsafe_allow_html=True)
 
-    # إنشاء وعرض الملخص
+    # عرض النتائج
     summary = generate_summary(colored_pages, bw_pages, cover, carton, nylon, ruler, total_cost, rounded_cost)
-    st.markdown(f"<div class='summary'>{summary}</div>", unsafe_allow_html=True)
-    
-    # زر النسخ الجديد
+    st.markdown(f'<div class="summary">{summary}</div>', unsafe_allow_html=True)
+
+    # زر النسخ
     st.markdown(f"""
         <div class="copy-button-container">
             <button class="modern-copy-button" onclick="copyToClipboard()">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+                    <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
                 </svg>
                 نسخ النتائج
             </button>
             <textarea id="summary-text" style="position: absolute; left: -9999px;">{summary}</textarea>
-            <script>
-                function copyToClipboard() {{
-                    var textArea = document.getElementById('summary-text');
-                    textArea.select();
-                    try {{
-                        navigator.clipboard.writeText(textArea.value).then(function() {{
-                            const streamlitDoc = window.parent.document;
-                            const div = streamlitDoc.createElement('div');
-                            div.innerHTML = `
-                                <div class="stAlert success" style="
-                                    padding: 16px;
-                                    border-radius: 8px;
-                                    margin-top: 16px;
-                                    background: rgba(45, 212, 191, 0.1);
-                                    border: 1px solid rgba(45, 212, 191, 0.2);
-                                    color: #2DD4BF;">
-                                    ✨ تم نسخ النتائج بنجاح!
-                                </div>`;
-                            streamlitDoc.body.appendChild(div);
-                            setTimeout(() => div.remove(), 3000);
-                        }});
-                    }} catch (err) {{
-                        console.error('فشل النسخ:', err);
-                    }}
-                }}
-            </script>
         </div>
     """, unsafe_allow_html=True)
     
