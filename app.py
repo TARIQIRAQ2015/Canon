@@ -873,6 +873,8 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
     st.markdown(f"""
+        💵 السعر الكلي: {exact_total} دينار ║ السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار 💰
+    """, unsafe_allow_html=True)
 
 def main():
     # تعديل العنوان الرئيسي بدون إيموجي
