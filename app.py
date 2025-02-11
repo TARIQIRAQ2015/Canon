@@ -830,85 +830,69 @@ st.markdown("""
 
     /* تحسين المظهر العام والخلفية */
     .stApp {
-        background: linear-gradient(135deg, 
-            #0a192f,
-            #112240,
-            #1a365d,
-            #0a192f
+        background: linear-gradient(
+            125deg,
+            #000428,
+            #004e92,
+            #000428,
+            #002649,
+            #001630
         );
-        background-size: 400% 400%;
-        animation: gradient 15s ease infinite;
-    }
-    
-    @keyframes gradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    /* تحسين القوائم المنسدلة */
-    .stSelectbox > div > div,
-    .stNumberInput > div > div {
-        background: rgba(10, 25, 47, 0.7) !important;
-        border: 1px solid rgba(100, 255, 218, 0.3) !important;
-        border-radius: 12px !important;
-        color: #64ffda !important;
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    .stSelectbox > div > div:hover,
-    .stNumberInput > div > div:hover {
-        border-color: #64ffda !important;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(100, 255, 218, 0.15);
-    }
-
-    /* تحسين الأزرار */
-    .stButton > button {
-        background: linear-gradient(135deg, 
-            rgba(100, 255, 218, 0.1),
-            rgba(100, 255, 218, 0.05)
-        ) !important;
-        border: 1px solid rgba(100, 255, 218, 0.3) !important;
-        color: #64ffda !important;
-        border-radius: 12px !important;
-        padding: 12px 24px !important;
-        font-weight: 500 !important;
-        transition: all 0.3s ease !important;
-        backdrop-filter: blur(10px);
-        text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
-    }
-
-    .stButton > button:hover {
-        background: rgba(100, 255, 218, 0.15) !important;
-        border-color: #64ffda !important;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(100, 255, 218, 0.2);
-    }
-
-    /* تحسين شريط التقدم */
-    .progress-container {
-        background: rgba(10, 25, 47, 0.7) !important;
-        border: 1px solid rgba(100, 255, 218, 0.3) !important;
-        border-radius: 12px !important;
-        overflow: hidden;
+        background-size: 300% 300%;
+        animation: gradientBG 20s ease infinite;
         position: relative;
-        height: 8px !important;
-        margin: 1rem 0;
+        overflow: hidden;
     }
 
-    .progress-bar {
-        background: linear-gradient(90deg, 
-            #64ffda,
-            #00b4d8,
-            #64ffda
-        ) !important;
-        border-radius: 12px !important;
-        height: 100% !important;
-        transition: width 0.5s ease-in-out;
-        box-shadow: 0 0 20px rgba(100, 255, 218, 0.5);
+    /* إضافة تأثير التوهج في الخلفية */
+    .stApp::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 20%, rgba(100, 255, 218, 0.05) 0%, transparent 25%),
+            radial-gradient(circle at 80% 80%, rgba(0, 180, 216, 0.05) 0%, transparent 25%),
+            radial-gradient(circle at 50% 50%, rgba(100, 255, 218, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    @keyframes gradientBG {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    /* تحسين تأثير الضباب للعناصر */
+    .stSelectbox > div > div,
+    .stNumberInput > div > div,
+    .stButton > button {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background: rgba(10, 25, 47, 0.4) !important;
+        border: 1px solid rgba(100, 255, 218, 0.2) !important;
+        box-shadow: 
+            0 4px 15px rgba(0, 0, 0, 0.2),
+            0 0 20px rgba(100, 255, 218, 0.1);
+    }
+
+    /* تحسين تأثير التوهج عند التحويم */
+    .stSelectbox > div > div:hover,
+    .stNumberInput > div > div:hover,
+    .stButton > button:hover {
+        border-color: rgba(100, 255, 218, 0.8) !important;
+        box-shadow: 
+            0 8px 25px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(100, 255, 218, 0.2);
+        transform: translateY(-2px);
     }
 
     /* تحسين العناوين */
