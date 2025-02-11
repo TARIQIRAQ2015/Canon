@@ -773,12 +773,12 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
     # تجهيز نص الملخص
-    summary_text = f"""═════════════════════════════════════════════════════════════════════
-                                ✨ ملخص الطلب
-═════════════════════════════════════════════════════════════════════
+    summary_text = f"""══════════════════════════════════
+✨ ملخص الطلب
+══════════════════════════════════
 💵 السعر الكلي: {exact_total} دينار
 💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
-═════════════════════════════════════════════════════════════════════"""
+══════════════════════════════════"""
 
     # عرض الملخص باستخدام st.code
     st.code(summary_text, language=None)
@@ -975,17 +975,29 @@ def main():
     st.markdown("""
         <div class="premium-results">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                <div class="result-card">
-                    <div class="result-label">السعر الكلي</div>
-                    <div class="result-value">{:,} دينار</div>
+                <div class="result-card" style="
+                    background: rgba(0, 0, 0, 0.7);
+                    border: 1px solid #FFD700;
+                    border-radius: 15px;
+                    padding: 20px;
+                    text-align: center;
+                ">
+                    <div style="color: #FFD700; font-size: 1.2rem; margin-bottom: 10px;">السعر الكلي</div>
+                    <div style="color: #FFD700; font-size: 1.5rem; font-weight: bold;">دينار {exact_total:,}</div>
                 </div>
-                <div class="result-card">
-                    <div class="result-label">السعر النهائي</div>
-                    <div class="result-value">{:,} دينار</div>
+                <div class="result-card" style="
+                    background: rgba(0, 0, 0, 0.7);
+                    border: 1px solid #FFD700;
+                    border-radius: 15px;
+                    padding: 20px;
+                    text-align: center;
+                ">
+                    <div style="color: #FFD700; font-size: 1.2rem; margin-bottom: 10px;">السعر النهائي</div>
+                    <div style="color: #FFD700; font-size: 1.5rem; font-weight: bold;">دينار {round_to_250(exact_total):,}</div>
                 </div>
             </div>
         </div>
-    """.format(exact_total, rounded_total), unsafe_allow_html=True)
+    """.format(exact_total=exact_total), unsafe_allow_html=True)
     
     # إضافة الشريط في الواجهة
     total_pages = color_pages + bw_color_pages + bw_pages
