@@ -752,6 +752,33 @@ st.markdown("""
     .stNumberInput:hover {
         border-color: #FFF !important;
     }
+
+    /* تنسيق CSS للإضافات */
+    div.row-widget.stRadio > div {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+        padding: 1rem;
+    }
+    div.row-widget.stRadio > div[role="radiogroup"] {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid #FFD700;
+        border-radius: 15px;
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    div.row-widget.stCheckbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0.5rem 0;
+    }
+    div.row-widget.stCheckbox > label {
+        color: #FFD700;
+        font-size: 1rem;
+        margin-right: 0.5rem;
+    }
     </style>
 
     <!-- زر العودة للأعلى -->
@@ -987,31 +1014,18 @@ def main():
     # إضافة قسم الإضافات الاختيارية
     st.markdown('<div class="title-container"><div class="section-title">الإضافات الاختيارية</div></div>', unsafe_allow_html=True)
     
+    # عرض الإضافات في صف واحد
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
-        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_cover = st.checkbox("تصميم غلاف ملون")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
+        has_cover = st.checkbox("تصميم غلاف ملون", key="cover")
     with col2:
-        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_empty_last = st.checkbox("صفحة ختامية فارغة")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
+        has_empty_last = st.checkbox("صفحة ختامية فارغة", key="empty_last")
     with col3:
-        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_carton = st.checkbox("كرتون")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
+        has_carton = st.checkbox("كرتون", key="carton")
     with col4:
-        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_nylon = st.checkbox("نايلون شفاف")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
+        has_nylon = st.checkbox("نايلون شفاف", key="nylon")
     with col5:
-        st.markdown('<div class="premium-checkbox">', unsafe_allow_html=True)
-        has_paper_holder = st.checkbox("حاملة أوراق")
-        st.markdown('</div>', unsafe_allow_html=True)
+        has_paper_holder = st.checkbox("حاملة أوراق", key="paper_holder")
     
     st.markdown('</div></div>', unsafe_allow_html=True)
 
