@@ -799,19 +799,25 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
     # تجهيز نص الملخص مع محاذاة للوسط
     summary_text = f"""
-                ══════════════════════════════════
-                         ✨ ملخص الطلب
-                ══════════════════════════════════
-                💵 السعر الكلي: {exact_total} دينار
-                💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
-                ══════════════════════════════════"""
+                ═══════════════════════════════════
+                          ✨ ملخص الطلب
+                ═══════════════════════════════════
+                         💵 السعر الكلي: {exact_total} دينار
+                         💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
+                ═══════════════════════════════════"""
 
     # إضافة تنسيق CSS لتوسيط القائمة
     st.markdown("""
         <style>
             div[data-testid="stCodeBlock"] {
-                text-align: center !important;
-                direction: rtl !important;
+                display: flex;
+                justify-content: center;
+                text-align: center;
+            }
+            div[data-testid="stCodeBlock"] > pre {
+                text-align: center;
+                direction: rtl;
+                min-width: 50%;
             }
         </style>
     """, unsafe_allow_html=True)
