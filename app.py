@@ -871,11 +871,6 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     rounded_total = round_to_250(total)
     return total, rounded_total
 
-def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
-    st.markdown(f"""
-        💵 السعر الكلي: {exact_total} دينار ║ السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار 💰
-    """, unsafe_allow_html=True)
-
 def main():
     # تعديل العنوان الرئيسي بدون إيموجي
     st.markdown("""
@@ -1099,72 +1094,6 @@ def main():
                 <div class="progress-bar" style="width: {progress * 100}%"></div>
             </div>
         """, unsafe_allow_html=True)
-
-    # استدعاء دالة الخلاصة
-    show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total)
-
-    # إضافة قسم الخدمات في النهاية مع تحسين التصميم
-    st.markdown("""
-        <div style="
-            margin-top: 2rem;
-            padding: 1rem;
-            border: 1px solid #FFD700;
-            border-radius: 15px;
-        ">
-            <div style="
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 2rem;
-            ">
-                <div style="
-                    text-align: center;
-                    padding: 1.5rem;
-                    background: rgba(20, 20, 20, 0.5);
-                    border-radius: 10px;
-                    border: 1px solid #FFD700;
-                ">
-                    <div style="
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: 0.5rem;
-                    ">
-                        <span style="color: #FFD700; font-size: 1.5rem;">⚡</span>
-                        <span style="color: #FFD700; font-size: 1.3rem;">خدمة سريعة</span>
-                </div>
-                    <p style="
-                        color: #e0e0e0;
-                        margin: 0.5rem 0 0 0;
-                        font-size: 0.9rem;
-                        text-align: center;
-                    ">إنجاز في وقت قياسي</p>
-                </div>
-                <div style="
-                    text-align: center;
-                    padding: 1.5rem;
-                    background: rgba(20, 20, 20, 0.5);
-                    border-radius: 10px;
-                    border: 1px solid #FFD700;
-                ">
-                    <div style="
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: 0.5rem;
-                    ">
-                        <span style="color: #FFD700; font-size: 1.5rem;">💰</span>
-                        <span style="color: #FFD700; font-size: 1.3rem;">أسعار تنافسية</span>
-                    </div>
-                    <p style="
-                        color: #e0e0e0;
-                        margin: 0.5rem 0 0 0;
-                        font-size: 0.9rem;
-                        text-align: center;
-                    ">قيمة مقابل الجودة</p>
-                </div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
 
