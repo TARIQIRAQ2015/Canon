@@ -1014,27 +1014,23 @@ def main():
 
     # إضافة قسم الخدمات في النهاية مع تحسين التصميم
     st.markdown("""
-        <div class="services-section" style="
+        <div style="
             margin-top: 2rem;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
             border: 1px solid #FFD700;
             border-radius: 15px;
         ">
-            <div class="services-grid" style="
+            <div style="
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 2rem;
             ">
-                <div class="service-card" style="
+                <div style="
                     text-align: right;
                     padding: 1.5rem;
                     background: rgba(20, 20, 20, 0.5);
                     border-radius: 10px;
-                    border: 1px solid rgba(255, 215, 0, 0.3);
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
+                    border: 1px solid #FFD700;
                 ">
                     <div style="
                         display: flex;
@@ -1042,28 +1038,20 @@ def main():
                         gap: 0.5rem;
                     ">
                         <span style="color: #FFD700; font-size: 1.5rem;">⚡</span>
-                        <h3 style="
-                            color: #FFD700;
-                            font-size: 1.3rem;
-                            margin: 0;
-                        ">خدمة سريعة</h3>
+                        <span style="color: #FFD700; font-size: 1.3rem;">خدمة سريعة</span>
                     </div>
                     <p style="
                         color: #e0e0e0;
                         margin: 0.5rem 0 0 0;
                         font-size: 0.9rem;
-                        text-align: left;
                     ">إنجاز في وقت قياسي</p>
                 </div>
-                <div class="service-card" style="
+                <div style="
                     text-align: right;
                     padding: 1.5rem;
                     background: rgba(20, 20, 20, 0.5);
                     border-radius: 10px;
-                    border: 1px solid rgba(255, 215, 0, 0.3);
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
+                    border: 1px solid #FFD700;
                 ">
                     <div style="
                         display: flex;
@@ -1071,17 +1059,12 @@ def main():
                         gap: 0.5rem;
                     ">
                         <span style="color: #FFD700; font-size: 1.5rem;">💰</span>
-                        <h3 style="
-                            color: #FFD700;
-                            font-size: 1.3rem;
-                            margin: 0;
-                        ">أسعار تنافسية</h3>
+                        <span style="color: #FFD700; font-size: 1.3rem;">أسعار تنافسية</span>
                     </div>
                     <p style="
                         color: #e0e0e0;
                         margin: 0.5rem 0 0 0;
                         font-size: 0.9rem;
-                        text-align: left;
                     ">قيمة مقابل الجودة</p>
                 </div>
             </div>
