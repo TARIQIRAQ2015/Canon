@@ -872,15 +872,6 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
-    # إنشاء نص الملخص
-    summary_text = f"""
-╔══════════════════════════════════════════╗
-║                ✨ ملخص الطلب             ║
-╠══════════════════════════════════════════╣
-║ 💵 السعر الكلي: {exact_total} دينار
-║ 💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
-╚══════════════════════════════════════════╝"""
-
     # عرض الملخص في قالب جميل
     st.markdown(f"""
         <div class="summary-container">
@@ -889,17 +880,14 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
                 <span>ملخص الطلب</span>
                 <span>✨</span>
             </div>
-            <div class="summary-content">
+            <div class="summary-content" style="text-align: center; direction: rtl; font-family: monospace; white-space: pre;">
                 💵 السعر الكلي: {exact_total} دينار
             </div>
-            <div class="summary-content">
+            <div class="summary-content" style="text-align: center; direction: rtl; font-family: monospace; white-space: pre;">
                 💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
             </div>
         </div>
     """, unsafe_allow_html=True)
-
-    # عرض النتائج في code block مع زر النسخ
-    st.code(summary_text)
 
 def main():
     # تعديل العنوان الرئيسي بدون إيموجي
