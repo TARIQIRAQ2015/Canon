@@ -889,9 +889,13 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
         </div>
     """, unsafe_allow_html=True)
 
-    # إضافة نص للنسخ باستخدام st.code
-    copy_text = f"""💵 السعر الكلي: {exact_total} دينار
-💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار"""
+    # إضافة نص للنسخ باستخدام st.code مع تنسيق أفضل
+    copy_text = f"""╔══════════════════════════════════════════╗
+║                ✨ ملخص الطلب             ║
+╠══════════════════════════════════════════╣
+║ 💵 السعر الكلي: {exact_total} دينار
+║ 💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
+╚══════════════════════════════════════════╝"""
     st.code(copy_text)
 
 def main():
