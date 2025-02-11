@@ -919,38 +919,8 @@ def main():
     # تقسيم الصفحة إلى 3 أعمدة متساوية
     col1, col2, col3 = st.columns(3)
 
-    # تنسيق مشترك للعناوين وحقول الإدخال
-    input_style = """
-        <style>
-            .print-section {
-                background: rgba(0, 0, 0, 0.3);
-                border: 1px solid #FFD700;
-                border-radius: 10px;
-                padding: 1rem;
-                margin: 0.5rem;
-            }
-            .print-title {
-                color: #FFD700;
-                font-size: 1.1rem;
-                text-align: center;
-                margin-bottom: 15px;
-                font-weight: bold;
-            }
-            .stNumberInput {
-                background: rgba(0, 0, 0, 0.5) !important;
-                border: 1px solid #FFD700 !important;
-                border-radius: 8px !important;
-                color: white !important;
-            }
-            .stNumberInput:hover {
-                border-color: #FFF !important;
-            }
-        </style>
-    """
-
-    st.markdown(input_style, unsafe_allow_html=True)
-
-    with col1:
+    # العمود الأول (يمين) - طباعة ملونة
+    with col3:
         st.markdown("""
             <div class="print-section">
                 <div class="print-title">طباعة ملونة</div>
@@ -964,6 +934,7 @@ def main():
             key="color_pages"
         )
 
+    # العمود الثاني (وسط) - طباعة أبيض وأسود
     with col2:
         st.markdown("""
             <div class="print-section">
@@ -978,7 +949,8 @@ def main():
             key="bw_pages"
         )
 
-    with col3:
+    # العمود الثالث (يسار) - طباعة أبيض وأسود وقليل ألوان
+    with col1:
         st.markdown("""
             <div class="print-section">
                 <div class="print-title">طباعة أبيض وأسود وقليل ألوان</div>
