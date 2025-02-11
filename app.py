@@ -893,44 +893,47 @@ def main():
     
     col1, col2, col3 = st.columns(3)
     
-    # طباعة أبيض وأسود مع تأثيرات لونية (أول عمود على اليمين)
     with col1:
-        st.markdown('<div class="input-container">', unsafe_allow_html=True)
-        st.markdown('<div class="input-label">طباعة أبيض وأسود وقليل الوان </div>', unsafe_allow_html=True)
-        bw_color_pages = st.number_input(
-            "طباعة أبيض وأسود وقليل ألوان",
-            min_value=0,
-            max_value=500,
-            value=0,
-            help="الحد الأقصى 500 صفحة"
-        )
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    # طباعة أبيض وأسود (العمود الثاني)
-    with col2:
-        st.markdown('<div class="input-container">', unsafe_allow_html=True)
-        st.markdown('<div class="input-label">طباعة أبيض وأسود</div>', unsafe_allow_html=True)
-        bw_pages = st.number_input(
-            "طباعة أبيض وأسود",
-            min_value=0,
-            max_value=500,
-            value=0,
-            help="الحد الأقصى 500 صفحة"
-        )
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    # طباعة ملونة (العمود الثالث)
-    with col3:
-        st.markdown('<div class="input-container">', unsafe_allow_html=True)
-        st.markdown('<div class="input-label">طباعة ملونة </div>', unsafe_allow_html=True)
+        st.markdown("""
+            <div style="text-align: center;">
+                <h3 style="color: #FFD700; font-size: 1.1rem; margin-bottom: 10px;">طباعة ملونة</h3>
+            </div>
+        """, unsafe_allow_html=True)
         color_pages = st.number_input(
-            "طباعة ملونة",
+            "",  # إزالة العنوان لأننا وضعناه في الأعلى
             min_value=0,
             max_value=500,
             value=0,
-            help="الحد الأقصى 500 صفحة"
+            key="color_pages"
         )
-        st.markdown('</div>', unsafe_allow_html=True)
+
+    with col2:
+        st.markdown("""
+            <div style="text-align: center;">
+                <h3 style="color: #FFD700; font-size: 1.1rem; margin-bottom: 10px;">طباعة أبيض وأسود</h3>
+            </div>
+        """, unsafe_allow_html=True)
+        bw_pages = st.number_input(
+            "",
+            min_value=0,
+            max_value=500,
+            value=0,
+            key="bw_pages"
+        )
+
+    with col3:
+        st.markdown("""
+            <div style="text-align: center;">
+                <h3 style="color: #FFD700; font-size: 1.1rem; margin-bottom: 10px;">طباعة أبيض وأسود وقليل ألوان</h3>
+            </div>
+        """, unsafe_allow_html=True)
+        bw_color_pages = st.number_input(
+            "",
+            min_value=0,
+            max_value=500,
+            value=0,
+            key="bw_color_pages"
+        )
     
     st.markdown('</div></div>', unsafe_allow_html=True)
 
