@@ -873,24 +873,13 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
     # إنشاء نص الملخص
-    summary_text = f"""السعر الكلي: {exact_total} دينار
-السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار"""
-
-    # إضافة JavaScript لوظيفة النسخ
-    st.markdown("""
-        <script>
-            function copyResults() {
-                const text = document.querySelector('.summary-content').innerText;
-                navigator.clipboard.writeText(text).then(() => {
-                    const button = document.querySelector('.copy-button');
-                    button.innerHTML = '✓ تم النسخ';
-                    setTimeout(() => {
-                        button.innerHTML = '📋 نسخ النتائج';
-                    }, 2000);
-                });
-            }
-        </script>
-    """, unsafe_allow_html=True)
+    summary_text = f"""
+╔══════════════════════════════════════════╗
+║                ✨ ملخص الطلب             ║
+╠══════════════════════════════════════════╣
+║ 💵 السعر الكلي: {exact_total} دينار
+║ 💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
+╚══════════════════════════════════════════╝"""
 
     # عرض الملخص في قالب جميل
     st.markdown(f"""
@@ -906,11 +895,11 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
             <div class="summary-content">
                 💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
             </div>
-            <button class="copy-button" onclick="copyResults()">
-                📋 نسخ النتائج
-            </button>
         </div>
     """, unsafe_allow_html=True)
+
+    # عرض النتائج في code block مع زر النسخ
+    st.code(summary_text)
 
 def main():
     # تعديل العنوان الرئيسي بدون إيموجي
