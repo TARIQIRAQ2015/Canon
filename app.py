@@ -754,30 +754,39 @@ st.markdown("""
     }
 
     /* تنسيق CSS للإضافات */
-    div.row-widget.stRadio > div {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        flex-wrap: wrap;
-        padding: 1rem;
-    }
-    div.row-widget.stRadio > div[role="radiogroup"] {
+    .additions-container {
         background: rgba(0, 0, 0, 0.3);
         border: 1px solid #FFD700;
         border-radius: 15px;
-        padding: 1rem;
+        padding: 1.5rem;
         margin: 1rem 0;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
     }
     div.row-widget.stCheckbox {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0.5rem 0;
+        background: rgba(20, 20, 20, 0.5);
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        border-radius: 10px;
+        padding: 0.8rem;
+        margin: 0.3rem;
+        transition: all 0.3s ease;
+    }
+    div.row-widget.stCheckbox:hover {
+        border-color: #FFD700;
+        transform: translateY(-2px);
     }
     div.row-widget.stCheckbox > label {
         color: #FFD700;
-        font-size: 1rem;
-        margin-right: 0.5rem;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+    /* تحسين شكل مربع الاختيار */
+    div.row-widget.stCheckbox input[type="checkbox"] {
+        margin-right: 8px;
     }
     </style>
 
@@ -1014,6 +1023,9 @@ def main():
     # إضافة قسم الإضافات الاختيارية
     st.markdown('<div class="title-container"><div class="section-title">الإضافات الاختيارية</div></div>', unsafe_allow_html=True)
     
+    # بداية قالب الإضافات
+    st.markdown('<div class="additions-container">', unsafe_allow_html=True)
+
     # عرض الإضافات في صف واحد
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
@@ -1027,7 +1039,8 @@ def main():
     with col5:
         has_paper_holder = st.checkbox("حاملة أوراق", key="paper_holder")
     
-    st.markdown('</div></div>', unsafe_allow_html=True)
+    # نهاية قالب الإضافات
+    st.markdown('</div>', unsafe_allow_html=True)
 
     # حساب التكلفة
     exact_total, rounded_total = calculate_total_cost(
