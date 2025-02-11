@@ -1189,6 +1189,9 @@ def main():
                         font-size: 0.9rem;
                         text-align: center;
                     ">قيمة مقابل الجودة</p>
+                </div>
+            </div>
+        </div>
     """, unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
