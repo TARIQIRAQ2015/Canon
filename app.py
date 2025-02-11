@@ -949,11 +949,11 @@ def main():
             key="bw_pages"
         )
 
-    # العمود الثالث (يسار) - طباعة أبيض وأسود وقليل ألوان
+    # العمود الثالث (يسار)
     with col1:
         st.markdown("""
             <div class="print-section">
-                <div class="print-title">طباعة أبيض وأسود وقليل ألوان</div>
+                <div class="print-title">طباعة أبيض وأسود وألوان قليلة</div>
             </div>
         """, unsafe_allow_html=True)
         bw_color_pages = st.number_input(
