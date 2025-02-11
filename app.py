@@ -872,33 +872,12 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
-    # تحضير تفاصيل الطلب
-    details = []
-    if color_pages > 0:
-        details.append(f"🎨 عدد الصفحات الملونة: {color_pages}")
-    if bw_color_pages > 0:
-        details.append(f"📄 عدد صفحات الأبيض والأسود مع ألوان: {bw_color_pages}")
-    if bw_pages > 0:
-        details.append(f"📝 عدد صفحات الأبيض والأسود: {bw_pages}")
-    if has_cover:
-        details.append("📔 مع غلاف")
-    if has_empty_last:
-        details.append("📑 مع صفحة فارغة في النهاية")
-    if has_carton:
-        details.append("📦 مع كارتون")
-    if has_nylon:
-        details.append("💼 مع نايلون")
-    if has_paper_holder:
-        details.append("📎 مع حافظة ورق")
-
-    details_text = "\n".join(details)
-
     # عرض الملخص في قالب جميل
     st.markdown(f"""
         <div class="summary-box" style="background-color: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; margin: 20px 0;">
             <div style="text-align: center; direction: rtl;">
                 <div style="margin: 15px 0; text-align: right; color: white;">
-                    {details_text.replace('<', '&lt;').replace('>', '&gt;')}
+                    💵 السعر الكلي: {exact_total} دينار ║ السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار 💰
                 </div>
             </div>
         </div>
