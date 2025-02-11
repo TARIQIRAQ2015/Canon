@@ -1026,7 +1026,7 @@ def main():
                 gap: 2rem;
             ">
                 <div style="
-                    text-align: right;
+                    text-align: center;
                     padding: 1.5rem;
                     background: rgba(20, 20, 20, 0.5);
                     border-radius: 10px;
@@ -1035,6 +1035,7 @@ def main():
                     <div style="
                         display: flex;
                         align-items: center;
+                        justify-content: center;
                         gap: 0.5rem;
                     ">
                         <span style="color: #FFD700; font-size: 1.5rem;">⚡</span>
@@ -1044,10 +1045,11 @@ def main():
                         color: #e0e0e0;
                         margin: 0.5rem 0 0 0;
                         font-size: 0.9rem;
+                        text-align: center;
                     ">إنجاز في وقت قياسي</p>
                 </div>
                 <div style="
-                    text-align: right;
+                    text-align: center;
                     padding: 1.5rem;
                     background: rgba(20, 20, 20, 0.5);
                     border-radius: 10px;
@@ -1056,6 +1058,7 @@ def main():
                     <div style="
                         display: flex;
                         align-items: center;
+                        justify-content: center;
                         gap: 0.5rem;
                     ">
                         <span style="color: #FFD700; font-size: 1.5rem;">💰</span>
@@ -1065,6 +1068,7 @@ def main():
                         color: #e0e0e0;
                         margin: 0.5rem 0 0 0;
                         font-size: 0.9rem;
+                        text-align: center;
                     ">قيمة مقابل الجودة</p>
                 </div>
             </div>
