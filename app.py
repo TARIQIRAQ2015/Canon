@@ -727,6 +727,13 @@ st.markdown("""
     .stApp header {
         display: none !important;
     }
+
+    .stCodeBlock {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+        border-radius: 10px !important;
+        padding: 1em !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
     </style>
 
     <!-- زر العودة للأعلى -->
@@ -773,12 +780,26 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
     # تجهيز نص الملخص
-    summary_text = f"""══════════════════════════════════
-✨ ملخص الطلب
-══════════════════════════════════
+    summary_text = f"""═════════════════════════════════
+      ✨ ملخص الطلب
+═════════════════════════════════
+
 💵 السعر الكلي: {exact_total} دينار
 💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
-══════════════════════════════════"""
+
+═════════════════════════════════"""
+
+    # تنسيق CSS لتحسين مظهر القالب
+    st.markdown("""
+        <style>
+        .stCodeBlock {
+            background-color: rgba(0, 0, 0, 0.2) !important;
+            border-radius: 10px !important;
+            padding: 1em !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
     # عرض الملخص باستخدام st.code
     st.code(summary_text, language=None)
