@@ -831,6 +831,7 @@ st.markdown("""
     /* تحسين المظهر العام والخلفية */
     .stApp {
         background: #0a192f;
+        font-family: 'Tajawal', sans-serif !important;
     }
 
     /* إضافة تأثير التوهج في الخلفية */
@@ -868,6 +869,9 @@ st.markdown("""
         border-radius: 12px !important;
         color: #64ffda !important;
         transition: all 0.3s ease;
+        font-family: 'Tajawal', sans-serif !important;
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
     }
 
     .stSelectbox > div > div:hover,
@@ -883,6 +887,10 @@ st.markdown("""
         color: #64ffda !important;
         border-radius: 12px !important;
         transition: all 0.3s ease !important;
+        font-family: 'Tajawal', sans-serif !important;
+        font-size: 1.2rem !important;
+        font-weight: 700 !important;
+        padding: 0.5rem 2rem !important;
     }
 
     .stButton > button:hover {
@@ -894,11 +902,19 @@ st.markdown("""
     /* تحسين العناوين */
     h1, h2, h3 {
         color: #64ffda !important;
+        font-family: 'Tajawal', sans-serif !important;
+        font-weight: 700 !important;
+        font-size: 1.8rem !important;
+        letter-spacing: 0.5px !important;
     }
 
     /* تحسين النصوص */
     p, label, .stMarkdown {
         color: #8892b0 !important;
+        font-family: 'Tajawal', sans-serif !important;
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.3px !important;
     }
 
     /* إخفاء العناصر غير الضرورية */
