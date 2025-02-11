@@ -788,6 +788,45 @@ st.markdown("""
     div.row-widget.stCheckbox input[type="checkbox"] {
         margin-right: 8px;
     }
+
+    /* تحسين ملخص الطلب */
+    .summary-container {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid #FFD700;
+        border-radius: 15px;
+        padding: 1.5rem;
+        width: 90%;
+        margin: 1rem auto;
+        text-align: center;
+    }
+    .summary-title {
+        color: #FFD700;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    .summary-content {
+        color: #e0e0e0;
+        font-size: 1rem;
+        margin: 0.5rem 0;
+    }
+    .copy-button {
+        background: rgba(255, 215, 0, 0.1);
+        border: 1px solid #FFD700;
+        color: #FFD700;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+    }
+    .copy-button:hover {
+        background: rgba(255, 215, 0, 0.2);
+        transform: translateY(-2px);
+    }
     </style>
 
     <!-- زر العودة للأعلى -->
@@ -833,34 +872,72 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
-    # تجهيز نص الملخص مع محاذاة للوسط بدقة
-    summary_text = f"""                  ═══════════════════════════════════════════
-                                ✨ ملخص الطلب
-                  ═══════════════════════════════════════════
-                           💵 السعر الكلي: {exact_total} دينار
-                           💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
-                  ═══════════════════════════════════════════"""
-
-    # إضافة تنسيق CSS محسّن للتوسيط المثالي
+    # إضافة تنسيق CSS للملخص
     st.markdown("""
         <style>
-            div[data-testid="stCodeBlock"] {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 1rem;
-            }
-            div[data-testid="stCodeBlock"] > pre {
+            .summary-container {
+                background: rgba(0, 0, 0, 0.3);
+                border: 1px solid #FFD700;
+                border-radius: 15px;
+                padding: 1.5rem;
+                width: 90%;
+                margin: 1rem auto;
                 text-align: center;
-                margin: 0 auto;
-                direction: rtl;
-                width: 100%;
+            }
+            .summary-title {
+                color: #FFD700;
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            .summary-content {
+                color: #e0e0e0;
+                font-size: 1rem;
+                margin: 0.5rem 0;
+            }
+            .copy-button {
+                background: rgba(255, 215, 0, 0.1);
+                border: 1px solid #FFD700;
+                color: #FFD700;
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
+                cursor: pointer;
+                margin-top: 1rem;
+                transition: all 0.3s ease;
+            }
+            .copy-button:hover {
+                background: rgba(255, 215, 0, 0.2);
+                transform: translateY(-2px);
             }
         </style>
     """, unsafe_allow_html=True)
 
-    # عرض الملخص باستخدام st.code مع تنسيق مركزي
-    st.code(summary_text, language=None)
+    # إنشاء نص الملخص
+    summary_text = f"""السعر الكلي: {exact_total} دينار
+السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار"""
+
+    # عرض الملخص في قالب جميل
+    st.markdown(f"""
+        <div class="summary-container">
+            <div class="summary-title">
+                <span>✨</span>
+                <span>ملخص الطلب</span>
+                <span>✨</span>
+            </div>
+            <div class="summary-content">
+                💵 السعر الكلي: {exact_total} دينار
+            </div>
+            <div class="summary-content">
+                💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
+            </div>
+            <button class="copy-button" onclick="navigator.clipboard.writeText(`{summary_text}`)">
+                📋 نسخ الملخص
+            </button>
+        </div>
+    """, unsafe_allow_html=True)
 
 def main():
     # تعديل العنوان الرئيسي بدون إيموجي
