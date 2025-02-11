@@ -872,6 +872,26 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
+    # إنشاء نص الملخص للنسخ
+    summary_text = f"""💵 السعر الكلي: {exact_total} دينار
+💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار"""
+
+    # إضافة JavaScript لوظيفة النسخ
+    st.markdown("""
+        <script>
+            function copyResults() {
+                const text = document.querySelector('.summary-content').innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    const button = document.querySelector('.copy-button');
+                    button.innerHTML = '✓ تم النسخ';
+                    setTimeout(() => {
+                        button.innerHTML = '📋 نسخ الملخص';
+                    }, 2000);
+                });
+            }
+        </script>
+    """, unsafe_allow_html=True)
+
     # عرض الملخص في قالب جميل
     st.markdown(f"""
         <div class="summary-container">
@@ -886,6 +906,9 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
             <div class="summary-content" style="text-align: center; direction: rtl; font-family: monospace; white-space: pre;">
                 💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
             </div>
+            <button class="copy-button" onclick="copyResults()">
+                📋 نسخ الملخص
+            </button>
         </div>
     """, unsafe_allow_html=True)
 
