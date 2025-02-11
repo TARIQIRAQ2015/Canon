@@ -690,11 +690,10 @@ st.markdown("""
         font-weight: bold;
         font-size: 1.2rem;
         display: inline-block;
-        margin: 10px auto;
+        margin: 10px 0;
         position: relative;
         z-index: 1000;
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        text-align: center !important;
     }
 
     /* تحسين تسميات الإدخال */
@@ -1283,13 +1282,10 @@ st.markdown("""
 
     /* الحاوية الرئيسية للعنوان */
     .title-container {
-        text-align: center !important;
-        width: 100% !important;
-        direction: rtl !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        margin: 0 auto !important;
+        text-align: right;
+        position: relative;
+        z-index: 1000;
+        margin-bottom: 20px;
     }
 
     /* إخفاء أزرار المشاركة والتحرير */
@@ -1310,57 +1306,6 @@ st.markdown("""
     /* إخفاء أي عناصر إضافية في الهيدر */
     .stApp header {
         display: none !important;
-    }
-
-    /* تنسيق شامل للمحاذاة */
-    .stApp {
-        direction: rtl !important;
-    }
-
-    /* تنسيق حاوية العنوان */
-    .title-container {
-        text-align: center !important;
-        width: 100% !important;
-        direction: rtl !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        margin: 0 auto !important;
-    }
-
-    /* تنسيق العنوان نفسه */
-    .section-title {
-        background: rgba(0, 0, 0, 0.9);
-        border: 2px solid #FFD700;
-        border-radius: 15px;
-        color: #FFD700;
-        padding: 8px 25px;
-        font-weight: bold;
-        font-size: 1.2rem;
-        display: inline-block;
-        margin: 10px auto;
-        position: relative;
-        z-index: 1000;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        text-align: center !important;
-    }
-
-    /* تنسيق الأعمدة */
-    .stColumn {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-    }
-
-    /* تنسيق حاويات الإدخال */
-    .input-container {
-        text-align: center !important;
-        margin: 0 auto !important;
-    }
-
-    /* تنسيق عناصر streamlit */
-    [data-testid="stMarkdownContainer"] {
-        text-align: center !important;
     }
     </style>
 
@@ -1412,38 +1357,38 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
         st.error("⚠️ عذراً، لا يمكن طباعة أكثر من 500 صفحة في النوع الواحد")
         return
 
-    # تجهيز نص الملخص مع توسيط
-    summary_text = f"""{'═' * 35}
-{' ' * 11}ملخص الطلب ✨{' ' * 11}
-{'═' * 35}"""
+    # تجهيز نص الملخص
+    summary_text = f"""═══════════════════════════════════════
+           ملخص الطلب ✨           
+═══════════════════════════════════════"""
 
     # إضافة تفاصيل الصفحات مع الأسعار
     if color_pages > 0:
         price = color_pages * PRICES['color']
         summary_text += f"""
-{' ' * 5}🎨 طباعة ملونة:
-{' ' * 5}• عدد الصفحات: {color_pages} صفحة
-{' ' * 5}• سعر الصفحة: {PRICES['color']} دينار
-{' ' * 5}• المجموع: {price:,} دينار
-{' ' * 5}{'─' * 35}"""
+🎨 طباعة ملونة:
+   • عدد الصفحات: {color_pages} صفحة
+   • سعر الصفحة: {PRICES['color']} دينار
+   • المجموع: {price:,} دينار
+───────────────────────────────────────"""
 
     if bw_color_pages > 0:
         price = bw_color_pages * PRICES['bw_with_color']
         summary_text += f"""
-{' ' * 5}🖌️ طباعة أبيض وأسود وقليل ألوان:
-{' ' * 5}• عدد الصفحات: {bw_color_pages} صفحة
-{' ' * 5}• سعر الصفحة: {PRICES['bw_with_color']} دينار
-{' ' * 5}• المجموع: {price:,} دينار
-{' ' * 5}{'─' * 35}"""
+🖌️ طباعة أبيض وأسود وقليل ألوان:
+   • عدد الصفحات: {bw_color_pages} صفحة
+   • سعر الصفحة: {PRICES['bw_with_color']} دينار
+   • المجموع: {price:,} دينار
+───────────────────────────────────────"""
 
     if bw_pages > 0:
         price = bw_pages * PRICES['bw']
         summary_text += f"""
-{' ' * 5}📄 طباعة أبيض وأسود:
-{' ' * 5}• عدد الصفحات: {bw_pages} صفحة
-{' ' * 5}• سعر الصفحة: {PRICES['bw']} دينار
-{' ' * 5}• المجموع: {price:,} دينار
-{' ' * 5}{'─' * 35}"""
+📄 طباعة أبيض وأسود:
+   • عدد الصفحات: {bw_pages} صفحة
+   • سعر الصفحة: {PRICES['bw']} دينار
+   • المجموع: {price:,} دينار
+───────────────────────────────────────"""
 
     # إضافة الإضافات المختارة مع الأسعار
     extras = []
@@ -1465,21 +1410,21 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
         extras_total += PRICES['paper_holder']
 
     if extras:
-        summary_text += f"""
-{' ' * 5}الإضافات المختارة:"""
+        summary_text += """
+الإضافات المختارة:"""
         for extra, price in extras:
             summary_text += f"""
-{' ' * 5}• {extra}: {price:,} دينار"""
+   • {extra}: {price} دينار"""
         summary_text += f"""
-{' ' * 5}• مجموع الإضافات: {extras_total:,} دينار
-{' ' * 5}{'─' * 35}"""
+   • مجموع الإضافات: {extras_total} دينار
+───────────────────────────────────────"""
 
     # إضافة الأسعار النهائية
     rounded_total = round_to_250(exact_total)
     summary_text += f"""
-{' ' * 5}💵 السعر الكلي: {exact_total:,} دينار
-{' ' * 5}💰 السعر بعد التقريب للفئة المناسبة: {rounded_total:,} دينار
-{'═' * 35}"""
+💵 السعر الكلي: {exact_total} دينار
+💰 السعر بعد التقريب للفئة المناسبة: {rounded_total} دينار
+═══════════════════════════════════════"""
 
     # عرض الملخص باستخدام st.code
     st.code(summary_text, language=None)
