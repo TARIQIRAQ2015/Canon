@@ -871,28 +871,69 @@ st.markdown("""
         }
     }
 
-    /* تحسين تأثير الضباب للعناصر */
+    /* تحسين القوائم المنسدلة */
     .stSelectbox > div > div,
-    .stNumberInput > div > div,
-    .stButton > button {
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        background: rgba(10, 25, 47, 0.4) !important;
-        border: 1px solid rgba(100, 255, 218, 0.2) !important;
-        box-shadow: 
-            0 4px 15px rgba(0, 0, 0, 0.2),
-            0 0 20px rgba(100, 255, 218, 0.1);
+    .stNumberInput > div > div {
+        background: rgba(10, 25, 47, 0.7) !important;
+        border: 1px solid rgba(100, 255, 218, 0.3) !important;
+        border-radius: 12px !important;
+        color: #64ffda !important;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    /* تحسين تأثير التوهج عند التحويم */
     .stSelectbox > div > div:hover,
-    .stNumberInput > div > div:hover,
-    .stButton > button:hover {
-        border-color: rgba(100, 255, 218, 0.8) !important;
-        box-shadow: 
-            0 8px 25px rgba(0, 0, 0, 0.3),
-            0 0 30px rgba(100, 255, 218, 0.2);
+    .stNumberInput > div > div:hover {
+        border-color: #64ffda !important;
         transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(100, 255, 218, 0.15);
+    }
+
+    /* تحسين الأزرار */
+    .stButton > button {
+        background: linear-gradient(135deg, 
+            rgba(100, 255, 218, 0.1),
+            rgba(100, 255, 218, 0.05)
+        ) !important;
+        border: 1px solid rgba(100, 255, 218, 0.3) !important;
+        color: #64ffda !important;
+        border-radius: 12px !important;
+        padding: 12px 24px !important;
+        font-weight: 500 !important;
+        transition: all 0.3s ease !important;
+        backdrop-filter: blur(10px);
+        text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+    }
+
+    .stButton > button:hover {
+        background: rgba(100, 255, 218, 0.15) !important;
+        border-color: #64ffda !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(100, 255, 218, 0.2);
+    }
+
+    /* تحسين شريط التقدم */
+    .progress-container {
+        background: rgba(10, 25, 47, 0.7) !important;
+        border: 1px solid rgba(100, 255, 218, 0.3) !important;
+        border-radius: 12px !important;
+        overflow: hidden;
+        position: relative;
+        height: 8px !important;
+        margin: 1rem 0;
+    }
+
+    .progress-bar {
+        background: linear-gradient(90deg, 
+            #64ffda,
+            #00b4d8,
+            #64ffda
+        ) !important;
+        border-radius: 12px !important;
+        height: 100% !important;
+        transition: width 0.5s ease-in-out;
+        box-shadow: 0 0 20px rgba(100, 255, 218, 0.5);
     }
 
     /* تحسين العناوين */
@@ -933,6 +974,12 @@ st.markdown("""
         backdrop-filter: blur(10px);
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
+
+    /* إخفاء العناصر غير الضرورية */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    [data-testid="stToolbar"] {visibility: hidden;}
     </style>
 
     <!-- زر العودة للأعلى -->
