@@ -972,7 +972,7 @@ def main():
     )
     
     # عرض النتائج
-    st.markdown("""
+    st.markdown(f"""
         <div class="premium-results">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                 <div class="result-card" style="
@@ -993,11 +993,11 @@ def main():
                     text-align: center;
                 ">
                     <div style="color: #FFD700; font-size: 1.2rem; margin-bottom: 10px;">السعر النهائي</div>
-                    <div style="color: #FFD700; font-size: 1.5rem; font-weight: bold;">دينار {round_to_250(exact_total):,}</div>
+                    <div style="color: #FFD700; font-size: 1.5rem; font-weight: bold;">دينار {rounded_total:,}</div>
                 </div>
             </div>
         </div>
-    """.format(exact_total=exact_total), unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
     
     # إضافة الشريط في الواجهة
     total_pages = color_pages + bw_color_pages + bw_pages
