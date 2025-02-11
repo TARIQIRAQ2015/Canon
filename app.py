@@ -367,43 +367,300 @@ st.markdown("""
 
     /* تنسيق محسن لحقول الإدخال */
     .input-container {
-        background: rgba(0, 0, 0, 0.7);
-        border: 2px solid #FFD700;
-        border-radius: 15px;
-        padding: 10px;
-        margin: 10px 0;
-        text-align: center !important;
-        width: 100%;
+        background: linear-gradient(165deg, rgba(30,30,30,0.9), rgba(15,15,15,0.9));
+        border: 1px solid rgba(212,175,55,0.2);
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        box-shadow: 
+            0 10px 20px rgba(0,0,0,0.3),
+            inset 0 2px 10px rgba(255,255,255,0.1),
+            0 0 0 1px rgba(212,175,55,0.1);
+        backdrop-filter: blur(10px);
+        transform-style: preserve-3d;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
     }
 
-    /* تنسيق عنوان حقل الإدخال */
+    .input-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        background: linear-gradient(180deg, 
+            rgba(212,175,55,0.1) 0%,
+            transparent 15%,
+            transparent 85%,
+            rgba(212,175,55,0.1) 100%);
+        pointer-events: none;
+    }
+
+    .input-container:hover {
+        transform: translateY(-5px) scale(1.02);
+        border-color: rgba(212,175,55,0.4);
+        box-shadow: 
+            0 15px 30px rgba(0,0,0,0.4),
+            inset 0 2px 15px rgba(255,255,255,0.1),
+            0 0 0 1px rgba(212,175,55,0.2);
+    }
+
+    /* تحسين نص حقول الإدخال */
     .input-label {
-        color: #FFD700;
-        font-weight: bold;
+        font-size: 1.2rem !important;
+        font-weight: 500 !important;
+        color: #FFD700 !important;
         text-align: center !important;
-        margin-bottom: 5px;
-        font-size: 1rem;
+        margin-bottom: 1rem !important;
     }
 
-    /* تنسيق حقل الإدخال نفسه */
+    .input-label::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(180deg, #D4AF37, transparent);
+        transform: translateY(-50%);
+        border-radius: 3px;
+    }
+
+    /* تحسين مظهر حقول الأرقام */
     .stNumberInput {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        background: transparent !important;
+        position: relative;
     }
 
-    /* تنسيق الأرقام في حقل الإدخال */
-    .stNumberInput input {
+    .stNumberInput > div > div > input {
+        background: rgba(0,0,0,0.4) !important;
+        border: 2px solid rgba(212,175,55,0.3) !important;
+        border-radius: 15px !important;
+        color: #FFD700 !important;
+        font-size: 1.3rem !important;
+        padding: 1.2rem !important;
         text-align: center !important;
         width: 100% !important;
+        transition: all 0.3s ease !important;
     }
 
-    /* تنسيق الأعمدة */
-    [data-testid="column"] {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .stNumberInput > div > div > input:focus {
+        border-color: #D4AF37 !important;
+        box-shadow: 0 0 20px rgba(212,175,55,0.2) !important;
+        transform: translateY(-2px);
+    }
+
+    /* تحسين أزرار الزيادة والنقصان */
+    .stNumberInput [data-testid="stDecrement"], 
+    .stNumberInput [data-testid="stIncrement"] {
+        background: linear-gradient(145deg, #1a1a1a, #2d2d2d) !important;
+        color: #D4AF37 !important;
+        border: 2px solid rgba(212,175,55,0.3) !important;
+        border-radius: 12px !important;
+        transition: all 0.3s ease;
+    }
+
+    .stNumberInput [data-testid="stDecrement"]:hover, 
+    .stNumberInput [data-testid="stIncrement"]:hover {
+        background: linear-gradient(145deg, #D4AF37, #B8860B) !important;
+        color: #000000 !important;
+        transform: translateY(-2px);
+    }
+
+    /* تأثير الضوء عند التحويم */
+    .input-container::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, 
+            rgba(212,175,55,0.1),
+            transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        transform: rotate(30deg);
+    }
+
+    .input-container:hover::after {
+        opacity: 1;
+    }
+
+    /* إضافة CSS للشريط المتحرك */
+    .progress-container {
+        background: rgba(0,0,0,0.3);
+        border-radius: 50px;
+        padding: 5px;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(212,175,55,0.3);
+    }
+    
+    .progress-bar {
+        background: linear-gradient(90deg, #D4AF37, #FFD700);
+        height: 10px;
+        border-radius: 50px;
+        transition: width 0.5s ease;
+        position: relative;
+        animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+    }
+
+    .info-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+    
+    .info-card {
+        background: rgba(20,20,20,0.95);
+        border-radius: 20px;
+        padding: 2rem;
         text-align: center;
+        transform-style: preserve-3d;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .info-card:hover {
+        transform: translateZ(20px) rotateX(10deg);
+    }
+    
+    .info-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 50% 0%, 
+            rgba(212,175,55,0.4),
+            transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .info-card:hover::before {
+        opacity: 1;
+    }
+
+    .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        opacity: 0.6;
+    }
+    
+    .particle {
+        position: absolute;
+        background: linear-gradient(45deg, #D4AF37, transparent);
+        border-radius: 50%;
+        pointer-events: none;
+        animation: float 20s infinite;
+        filter: blur(2px);
+    }
+    
+    @keyframes float {
+        0% { 
+            transform: translateY(0) rotate(0deg) scale(1);
+            opacity: 0;
+        }
+        50% { 
+            transform: translateY(-50vh) rotate(180deg) scale(1.5);
+            opacity: 0.5;
+        }
+        100% { 
+            transform: translateY(-100vh) rotate(360deg) scale(1);
+            opacity: 0;
+        }
+    }
+
+    .premium-button-3d {
+        background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+        color: #D4AF37;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 15px;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.2s;
+        cursor: pointer;
+    }
+    
+    .premium-button-3d::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #D4AF37;
+        transform: translateZ(-10px);
+        border-radius: 15px;
+        filter: blur(10px);
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+    
+    .premium-button-3d:hover {
+        transform: translateY(-5px);
+    }
+    
+    .premium-button-3d:hover::before {
+        opacity: 0.5;
+    }
+    
+    .premium-button-3d:active {
+        transform: translateY(0);
+    }
+
+    .neon-title {
+        color: #fff;
+        text-shadow:
+            0 0 5px #D4AF37,
+            0 0 10px #D4AF37,
+            0 0 20px #D4AF37,
+            0 0 40px #D4AF37;
+        animation: neon 1.5s ease-in-out infinite alternate;
+    }
+    
+    @keyframes neon {
+        from {
+            text-shadow:
+                0 0 5px #D4AF37,
+                0 0 10px #D4AF37,
+                0 0 20px #D4AF37,
+                0 0 40px #D4AF37;
+        }
+        to {
+            text-shadow:
+                0 0 10px #D4AF37,
+                0 0 20px #D4AF37,
+                0 0 40px #D4AF37,
+                0 0 80px #D4AF37;
+        }
+    }
+
+    /* تحسين النصوص والعناوين */
+    * {
+        text-rendering: optimizeLegibility !important;
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
     }
 
     /* تحسين العنوان الرئيسي */
@@ -415,7 +672,8 @@ st.markdown("""
         text-align: center !important;
     }
 
-    .premium-header .subtitle {
+    /* تحسين العنوان الفرعي */
+    .subtitle {
         font-size: 1.5rem !important;
         color: #FFD700 !important;
         font-weight: 500 !important;
@@ -437,6 +695,15 @@ st.markdown("""
         z-index: 1000;
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         text-align: center !important;
+    }
+
+    /* تحسين تسميات الإدخال */
+    .input-label {
+        font-size: 1.2rem !important;
+        font-weight: 500 !important;
+        color: #FFD700 !important;
+        text-align: center !important;
+        margin-bottom: 1rem !important;
     }
 
     /* تحسين بطاقات المعلومات */
@@ -842,7 +1109,7 @@ st.markdown("""
         border-radius: 15px !important;
         color: #FFD700 !important;
         font-size: 1.3rem !important;
-        padding: 1.2rem !important;
+        padding: 1rem !important;
         text-align: center !important;
         width: 100% !important;
     }
@@ -1259,16 +1526,24 @@ def main():
         }
 
         /* تحسين حقل الإدخال نفسه */
-        .stNumberInput {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* تحسين الأرقام في حقل الإدخال */
-        .stNumberInput input {
+        .stNumberInput > div > div > input {
+            background: rgba(0,0,0,0.4) !important;
+            border: 2px solid rgba(212,175,55,0.3) !important;
+            border-radius: 15px !important;
+            color: #FFD700 !important;
+            font-size: 1.3rem !important;
+            padding: 1rem !important;
             text-align: center !important;
             width: 100% !important;
+        }
+
+        /* تحسين أزرار الزيادة والنقصان */
+        .stNumberInput [data-testid="stDecrement"], 
+        .stNumberInput [data-testid="stIncrement"] {
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d) !important;
+            color: #D4AF37 !important;
+            border: 2px solid rgba(212,175,55,0.3) !important;
+            border-radius: 12px !important;
         }
 
         /* تحسين الخيارات الثلاث */
@@ -1322,7 +1597,7 @@ def main():
     # طباعة أبيض وأسود مع تأثيرات لونية (أول عمود على اليمين)
     with col1:
         st.markdown('<div class="input-container">', unsafe_allow_html=True)
-        st.markdown('<div class="input-label">طباعة أبيض وأسود وقليل ألوان </div>', unsafe_allow_html=True)
+        st.markdown('<div class="input-label">طباعة أبيض وأسود وقليل الوان </div>', unsafe_allow_html=True)
         bw_color_pages = st.number_input(
             "طباعة أبيض وأسود وقليل ألوان",
             min_value=0,
