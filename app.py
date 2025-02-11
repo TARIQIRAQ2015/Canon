@@ -727,6 +727,31 @@ st.markdown("""
     .stApp header {
         display: none !important;
     }
+
+    /* تنسيق مشترك للعناوين وحقول الإدخال */
+    .print-section {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid #FFD700;
+        border-radius: 10px;
+        padding: 1rem;
+        margin: 0.5rem;
+    }
+    .print-title {
+        color: #FFD700;
+        font-size: 1.1rem;
+        text-align: center;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+    .stNumberInput {
+        background: rgba(0, 0, 0, 0.5) !important;
+        border: 1px solid #FFD700 !important;
+        border-radius: 8px !important;
+        color: white !important;
+    }
+    .stNumberInput:hover {
+        border-color: #FFF !important;
+    }
     </style>
 
     <!-- زر العودة للأعلى -->
@@ -891,16 +916,48 @@ def main():
     # تحديث قسم تفاصيل الطباعة
     st.markdown('<div class="title-container"><div class="section-title">تفاصيل الطباعة</div></div>', unsafe_allow_html=True)
     
+    # تقسيم الصفحة إلى 3 أعمدة متساوية
     col1, col2, col3 = st.columns(3)
-    
+
+    # تنسيق مشترك للعناوين وحقول الإدخال
+    input_style = """
+        <style>
+            .print-section {
+                background: rgba(0, 0, 0, 0.3);
+                border: 1px solid #FFD700;
+                border-radius: 10px;
+                padding: 1rem;
+                margin: 0.5rem;
+            }
+            .print-title {
+                color: #FFD700;
+                font-size: 1.1rem;
+                text-align: center;
+                margin-bottom: 15px;
+                font-weight: bold;
+            }
+            .stNumberInput {
+                background: rgba(0, 0, 0, 0.5) !important;
+                border: 1px solid #FFD700 !important;
+                border-radius: 8px !important;
+                color: white !important;
+            }
+            .stNumberInput:hover {
+                border-color: #FFF !important;
+            }
+        </style>
+    """
+
+    st.markdown(input_style, unsafe_allow_html=True)
+
     with col1:
         st.markdown("""
-            <div style="text-align: center;">
-                <h3 style="color: #FFD700; font-size: 1.1rem; margin-bottom: 10px;">طباعة ملونة</h3>
+            <div class="print-section">
+                <div class="print-title">طباعة ملونة</div>
             </div>
         """, unsafe_allow_html=True)
         color_pages = st.number_input(
-            "",  # إزالة العنوان لأننا وضعناه في الأعلى
+            "",
             min_value=0,
             max_value=500,
             value=0,
@@ -909,8 +966,8 @@ def main():
 
     with col2:
         st.markdown("""
-            <div style="text-align: center;">
-                <h3 style="color: #FFD700; font-size: 1.1rem; margin-bottom: 10px;">طباعة أبيض وأسود</h3>
+            <div class="print-section">
+                <div class="print-title">طباعة أبيض وأسود</div>
             </div>
         """, unsafe_allow_html=True)
         bw_pages = st.number_input(
@@ -923,8 +980,8 @@ def main():
 
     with col3:
         st.markdown("""
-            <div style="text-align: center;">
-                <h3 style="color: #FFD700; font-size: 1.1rem; margin-bottom: 10px;">طباعة أبيض وأسود وقليل ألوان</h3>
+            <div class="print-section">
+                <div class="print-title">طباعة أبيض وأسود وقليل ألوان</div>
             </div>
         """, unsafe_allow_html=True)
         bw_color_pages = st.number_input(
