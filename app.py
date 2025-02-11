@@ -830,18 +830,7 @@ st.markdown("""
 
     /* تحسين المظهر العام والخلفية */
     .stApp {
-        background: linear-gradient(
-            125deg,
-            #000428,
-            #004e92,
-            #000428,
-            #002649,
-            #001630
-        );
-        background-size: 300% 300%;
-        animation: gradientBG 20s ease infinite;
-        position: relative;
-        overflow: hidden;
+        background: #0a192f;
     }
 
     /* إضافة تأثير التوهج في الخلفية */
@@ -878,101 +867,38 @@ st.markdown("""
         border: 1px solid rgba(100, 255, 218, 0.3) !important;
         border-radius: 12px !important;
         color: #64ffda !important;
-        backdrop-filter: blur(10px);
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
     .stSelectbox > div > div:hover,
     .stNumberInput > div > div:hover {
         border-color: #64ffda !important;
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(100, 255, 218, 0.15);
     }
 
     /* تحسين الأزرار */
     .stButton > button {
-        background: linear-gradient(135deg, 
-            rgba(100, 255, 218, 0.1),
-            rgba(100, 255, 218, 0.05)
-        ) !important;
+        background: rgba(100, 255, 218, 0.1) !important;
         border: 1px solid rgba(100, 255, 218, 0.3) !important;
         color: #64ffda !important;
         border-radius: 12px !important;
-        padding: 12px 24px !important;
-        font-weight: 500 !important;
         transition: all 0.3s ease !important;
-        backdrop-filter: blur(10px);
-        text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
     }
 
     .stButton > button:hover {
         background: rgba(100, 255, 218, 0.15) !important;
         border-color: #64ffda !important;
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(100, 255, 218, 0.2);
-    }
-
-    /* تحسين شريط التقدم */
-    .progress-container {
-        background: rgba(10, 25, 47, 0.7) !important;
-        border: 1px solid rgba(100, 255, 218, 0.3) !important;
-        border-radius: 12px !important;
-        overflow: hidden;
-        position: relative;
-        height: 8px !important;
-        margin: 1rem 0;
-    }
-
-    .progress-bar {
-        background: linear-gradient(90deg, 
-            #64ffda,
-            #00b4d8,
-            #64ffda
-        ) !important;
-        border-radius: 12px !important;
-        height: 100% !important;
-        transition: width 0.5s ease-in-out;
-        box-shadow: 0 0 20px rgba(100, 255, 218, 0.5);
     }
 
     /* تحسين العناوين */
     h1, h2, h3 {
         color: #64ffda !important;
-        text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
-        letter-spacing: 1px;
     }
 
     /* تحسين النصوص */
     p, label, .stMarkdown {
         color: #8892b0 !important;
-        letter-spacing: 0.5px;
-    }
-
-    /* تحسين الخانات الرقمية */
-    .stNumberInput input {
-        color: #64ffda !important;
-        background: rgba(10, 25, 47, 0.7) !important;
-        border: 1px solid rgba(100, 255, 218, 0.3) !important;
-        border-radius: 12px !important;
-    }
-
-    /* تأثيرات إضافية للعناصر */
-    .element-container {
-        transition: all 0.3s ease;
-    }
-
-    .element-container:hover {
-        transform: translateY(-1px);
-    }
-
-    /* تحسين الإطارات */
-    .css-1r6slb0 {
-        border: 1px solid rgba(100, 255, 218, 0.2);
-        border-radius: 12px;
-        background: rgba(10, 25, 47, 0.7);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
     /* إخفاء العناصر غير الضرورية */
