@@ -1029,9 +1029,9 @@ def main():
     # عرض الإضافات في صف واحد
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
-        has_cover = st.checkbox("تصميم غلاف ملون", key="cover")
+        has_cover = st.checkbox("تصميم غلاف", key="cover")
     with col2:
-        has_empty_last = st.checkbox("صفحة ختامية فارغة", key="empty_last")
+        has_empty_last = st.checkbox("الصفحة الأخيرة فارغة", key="empty_last")
     with col3:
         has_carton = st.checkbox("كرتون", key="carton")
     with col4:
