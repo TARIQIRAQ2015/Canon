@@ -897,7 +897,6 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     st.markdown(f"""
         <div class="summary-box" style="background-color: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; margin: 20px 0;">
             <div style="text-align: center; direction: rtl;">
-                <h2 style="margin: 0; color: white;">║ ✨ ║ ملخص الطلب</h2>
                 <div style="margin: 15px 0; text-align: right; color: white;">
                     {details_text.replace('<', '&lt;').replace('>', '&gt;')}
                 </div>
