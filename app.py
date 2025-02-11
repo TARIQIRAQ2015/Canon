@@ -900,9 +900,6 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
                 <div style="margin: 15px 0; text-align: right; color: white;">
                     {details_text.replace('<', '&lt;').replace('>', '&gt;')}
                 </div>
-                <div style="margin: 10px 0; color: white;">
-                    💵 السعر الكلي: {exact_total} دينار ║ السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار 💰
-                </div>
             </div>
         </div>
     """, unsafe_allow_html=True)
