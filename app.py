@@ -810,22 +810,15 @@ def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_las
     st.markdown("""
         <style>
             div[data-testid="stCodeBlock"] {
-                display: flex !important;
-                justify-content: center !important;
-                align-items: center !important;
-                padding: 1rem !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 1rem;
             }
             div[data-testid="stCodeBlock"] > pre {
-                display: inline-block !important;
-                text-align: center !important;
-                width: auto !important;
-                margin: 0 auto !important;
-                direction: rtl !important;
-            }
-            div[data-testid="stCodeBlock"] code {
-                text-align: center !important;
-                display: inline-block !important;
-                width: 100% !important;
+                text-align: center;
+                margin: 0 auto;
+                direction: rtl;
             }
         </style>
     """, unsafe_allow_html=True)
