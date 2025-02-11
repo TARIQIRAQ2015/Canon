@@ -3,7 +3,7 @@ import pyperclip
 
 # تعيين تكوين الصفحة
 st.set_page_config(
-    page_title="مكتب طارق الياسين",
+    page_title="Print Calculator Pro",
     page_icon="🖨️",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -21,827 +21,181 @@ PRICES = {
     'paper_holder': 250,
 }
 
-# تصميم CSS جديد وفاخر
+# تحسين CSS العام
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
-    
-    /* تحسين الخطوط العامة */
-    * {
-        font-family: 'Tajawal', sans-serif !important;
-        letter-spacing: 0.3px;
-    }
-    
-    .main {
-        background: linear-gradient(135deg, #000000, #1a1a1a);
-        color: #ffffff;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .main::before {
-        content: '';
-        position: fixed;
-        width: 200%;
-        height: 200%;
-        top: -50%;
-        left: -50%;
-        z-index: -1;
-        background: 
-            radial-gradient(circle at 30% 30%, rgba(212,175,55,0.05) 0%, transparent 30%),
-            radial-gradient(circle at 70% 70%, rgba(212,175,55,0.05) 0%, transparent 30%),
-            radial-gradient(circle at 50% 50%, rgba(212,175,55,0.05) 0%, transparent 50%),
-            linear-gradient(45deg, transparent 48%, rgba(212,175,55,0.02) 50%, transparent 52%);
-        animation: gradientBG 15s ease infinite;
-    }
-    
-    /* تأثير متحرك للخلفية */
-    @keyframes gradientBG {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    
-    /* تنسيق الهيدر */
-    .premium-header {
-        background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(20,20,20,0.9));
-        padding: 3rem 2rem;
-        border-radius: 0 0 30px 30px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        margin-bottom: 3rem;
-        border-bottom: 2px solid #B8860B;
-    }
-    
-    .premium-header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(circle at center, rgba(184,134,11,0.2), transparent 70%);
-        pointer-events: none;
-    }
-    
-    /* تحسين العنوان الرئيسي */
-    .premium-header h1 {
-        font-size: 3rem !important;
-        font-weight: 700 !important;
-        color: #D4AF37 !important;
-        margin-bottom: 1rem !important;
-        text-align: center !important;
-    }
-    
-    .premium-header .subtitle {
-        font-size: 1.5rem !important;
-        color: #FFD700 !important;
-        font-weight: 500 !important;
-        text-align: center !important;
-    }
-    
-    /* تنسيق الأقسام */
-    .premium-section {
-        background: rgba(20,20,20,0.95);
-        border-radius: 20px;
-        padding: 2rem;
-        margin: 1rem 0;
-        border: 1px solid rgba(184,134,11,0.3);
-        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        backdrop-filter: blur(10px);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .premium-section::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(212,175,55,0.1), transparent);
-        animation: shine 3s infinite;
-    }
-    
-    @keyframes shine {
-        0% { left: -100%; }
-        50% { left: 100%; }
-        100% { left: 100%; }
-    }
-    
-    .premium-section h2 {
-        color: #D4AF37;
-        font-size: 2rem !important;
-        font-weight: 700;
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 2px solid rgba(184,134,11,0.3);
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-    
-    /* تنسيق حقول الإدخال */
-    .stNumberInput > div > div > input {
-        background: rgba(255,255,255,0.05) !important;
-        border: 1px solid #D4AF37 !important;
-        color: #ffffff !important;
-        font-size: 1.3rem !important;
-        height: 2.5rem !important;
-    }
-    
-    .stNumberInput > div > div > input:focus {
-        box-shadow: 0 0 10px rgba(212,175,55,0.3) !important;
-        border-color: #FFD700 !important;
-    }
-    
-    /* تنسيق مربعات الاختيار */
-    .premium-checkbox {
-        background: linear-gradient(145deg, rgba(25,25,25,0.95), rgba(35,35,35,0.95));
-        border: 1px solid rgba(212,175,55,0.3);
-        border-radius: 15px;
-        padding: 1.5rem 2rem;
-        margin: 1.2rem 0;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-    
-    .premium-checkbox:hover {
-        transform: translateY(-3px);
-        border-color: rgba(212,175,55,0.5);
-        box-shadow: 0 8px 20px rgba(212,175,55,0.2);
-    }
-    
-    .premium-checkbox label {
-        font-size: 1.1rem !important;
-        font-weight: 500 !important;
-        color: #D4AF37 !important;
-        text-align: center !important;
-    }
-    
-    .stCheckbox {
-        scale: 1.2;
-    }
-    
-    /* تنسيق النتائج */
-    .premium-results {
-        background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
-        border-radius: 25px;
-        padding: 2.5rem;
-        margin-top: 3rem;
-        border: 2px solid rgba(184,134,11,0.4);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        text-align: center;
-    }
-    
-    .result-card {
-        background: rgba(0,0,0,0.3);
-        border-radius: 15px;
-        padding: 2rem;
-        border: 1px solid rgba(184,134,11,0.3);
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        backdrop-filter: blur(10px);
-        animation: cardPulse 2s ease-in-out infinite;
-    }
-    
-    @keyframes cardPulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.02); }
-        100% { transform: scale(1); }
-    }
-    
-    /* تحسين نص النتائج */
-    .result-label {
-        font-size: 1.3rem !important;
-        font-weight: 600 !important;
-        color: #D4AF37 !important;
-        text-align: center !important;
-    }
-    
-    .result-value {
-        font-size: 1.8rem !important;
-        font-weight: 700 !important;
-        color: #FFD700 !important;
-        text-align: center !important;
-    }
-    
-    /* تنسيق الزر */
-    .premium-button {
-        background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
-        color: #D4AF37;
-        font-family: 'Tajawal', sans-serif;
-        font-size: 1.1rem;
-        font-weight: 500;
-        padding: 0.8rem 2.5rem;
-        border: 2px solid #D4AF37;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-    
-    .premium-button:hover {
-        background: linear-gradient(45deg, #D4AF37, #B8860B);
-        color: #000000;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(212,175,55,0.3);
-    }
-    
-    .reset-button-container {
-        margin-top: 2rem;
-        text-align: center;
-    }
-    
-    .premium-reset-button {
-        background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
-        color: #D4AF37;
-        font-family: 'Tajawal', sans-serif;
-        font-size: 1.1rem;
-        font-weight: 500;
-        padding: 0.8rem 2.5rem;
-        border: 2px solid #D4AF37;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-    
-    .premium-reset-button:hover {
-        background: linear-gradient(45deg, #D4AF37, #B8860B);
-        color: #000000;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(212,175,55,0.3);
-    }
-    
-    .premium-reset-button i {
-        margin-left: 8px;
-    }
-    
-    div[data-testid="stButton"] {
-        text-align: center;
-        margin-top: 2rem;
-    }
-    
-    .stButton > button {
-        background: linear-gradient(45deg, #1a1a1a, #2d2d2d) !important;
-        color: #D4AF37 !important;
-        font-family: 'Tajawal', sans-serif !important;
-        font-size: 1.1rem !important;
-        font-weight: 500 !important;
-        padding: 0.8rem 2.5rem !important;
-        border: 2px solid #D4AF37 !important;
-        border-radius: 50px !important;
-        cursor: pointer !important;
-        transition: all 0.3s ease !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
-    }
-    
-    .stButton > button:hover {
-        background: linear-gradient(45deg, #D4AF37, #B8860B) !important;
-        color: #000000 !important;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(212,175,55,0.3) !important;
-    }
-    
-    html {
-        scroll-behavior: smooth;
-        scroll-padding-top: 2rem;
-    }
-    
-    /* تحسين أزرار التقليل والزيادة */
-    .stNumberInput [data-testid="stDecrement"], 
-    .stNumberInput [data-testid="stIncrement"] {
-        background: linear-gradient(45deg, #1a1a1a, #2d2d2d) !important;
-        color: #D4AF37 !important;
-        border: 1px solid #D4AF37 !important;
-        border-radius: 5px !important;
-        transition: all 0.3s ease;
-    }
-    
-    .stNumberInput [data-testid="stDecrement"]:hover, 
-    .stNumberInput [data-testid="stIncrement"]:hover {
-        background: linear-gradient(45deg, #D4AF37, #B8860B) !important;
-        color: #000000 !important;
-    }
-    
-    /* تحسين أيقونات العناوين */
-    .section-icon {
-        color: #D4AF37;
-        font-size: 1.5rem;
-        margin-left: 0.5rem;
-        background: linear-gradient(45deg, #FFD700, #B8860B);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    
-    /* تنسيق أيقونات الخيارات */
-    .premium-checkbox .stCheckbox label {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    
-    .premium-checkbox .stCheckbox label::before {
-        color: #D4AF37;
-    }
-    
-    /* تحديث CSS لفصل تنسيق الإيموجيات عن العناوين */
-    .section-title {
-        font-size: 1.8rem !important;
-        font-weight: 600 !important;
-        color: #D4AF37 !important;
-        text-align: center !important;
-        margin-bottom: 2rem !important;
-    }
-    
-    /* تنسيق الإيموجيات */
-    .emoji-icon {
-        font-size: 1.5rem;
-        margin-left: 0.5rem;
-        -webkit-text-fill-color: initial;  /* إزالة التأثير الذهبي من الإيموجيات */
-    }
-
-    /* تنسيق محسن لحقول الإدخال */
-    .input-container {
-        background: linear-gradient(165deg, rgba(30,30,30,0.9), rgba(15,15,15,0.9));
-        border: 1px solid rgba(212,175,55,0.2);
-        border-radius: 20px;
-        padding: 2rem;
-        margin: 1.5rem 0;
-        box-shadow: 
-            0 10px 20px rgba(0,0,0,0.3),
-            inset 0 2px 10px rgba(255,255,255,0.1),
-            0 0 0 1px rgba(212,175,55,0.1);
-        backdrop-filter: blur(10px);
-        transform-style: preserve-3d;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .input-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100%;
-        background: linear-gradient(180deg, 
-            rgba(212,175,55,0.1) 0%,
-            transparent 15%,
-            transparent 85%,
-            rgba(212,175,55,0.1) 100%);
-        pointer-events: none;
-    }
-
-    .input-container:hover {
-        transform: translateY(-5px) scale(1.02);
-        border-color: rgba(212,175,55,0.4);
-        box-shadow: 
-            0 15px 30px rgba(0,0,0,0.4),
-            inset 0 2px 15px rgba(255,255,255,0.1),
-            0 0 0 1px rgba(212,175,55,0.2);
-    }
-
-    /* تحسين نص حقول الإدخال */
-    .input-label {
-        font-size: 1.2rem !important;
-        font-weight: 500 !important;
-        color: #FFD700 !important;
-        text-align: center !important;
-        margin-bottom: 1rem !important;
-    }
-
-    .input-label::before {
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 50%;
-        width: 3px;
-        height: 100%;
-        background: linear-gradient(180deg, #D4AF37, transparent);
-        transform: translateY(-50%);
-        border-radius: 3px;
-    }
-
-    /* تحسين مظهر حقول الأرقام */
-    .stNumberInput {
-        background: transparent !important;
-        position: relative;
-    }
-
-    .stNumberInput > div > div > input {
-        background: rgba(0,0,0,0.4) !important;
-        border: 2px solid rgba(212,175,55,0.3) !important;
-        border-radius: 15px !important;
-        color: #FFD700 !important;
-        font-size: 1.3rem !important;
-        padding: 1rem !important;
-        text-align: center !important;
-        width: 100% !important;
-        transition: all 0.3s ease !important;
-    }
-
-    .stNumberInput > div > div > input:focus {
-        border-color: #D4AF37 !important;
-        box-shadow: 0 0 20px rgba(212,175,55,0.2) !important;
-        transform: translateY(-2px);
-    }
-
-    /* تحسين أزرار الزيادة والنقصان */
-    .stNumberInput [data-testid="stDecrement"], 
-    .stNumberInput [data-testid="stIncrement"] {
-        background: linear-gradient(145deg, #1a1a1a, #2d2d2d) !important;
-        color: #D4AF37 !important;
-        border: 2px solid rgba(212,175,55,0.3) !important;
-        border-radius: 12px !important;
-        transition: all 0.3s ease;
-    }
-
-    .stNumberInput [data-testid="stDecrement"]:hover, 
-    .stNumberInput [data-testid="stIncrement"]:hover {
-        background: linear-gradient(145deg, #D4AF37, #B8860B) !important;
-        color: #000000 !important;
-        transform: translateY(-2px);
-    }
-
-    /* تأثير الضوء عند التحويم */
-    .input-container::after {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle at center, 
-            rgba(212,175,55,0.1),
-            transparent 70%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-        transform: rotate(30deg);
-    }
-
-    .input-container:hover::after {
-        opacity: 1;
-    }
-
-    /* إضافة CSS للشريط المتحرك */
-    .progress-container {
-        background: rgba(0,0,0,0.3);
-        border-radius: 50px;
-        padding: 5px;
-        margin: 2rem 0;
-        position: relative;
-        overflow: hidden;
-        border: 1px solid rgba(212,175,55,0.3);
-    }
-    
-    .progress-bar {
-        background: linear-gradient(90deg, #D4AF37, #FFD700);
-        height: 10px;
-        border-radius: 50px;
-        transition: width 0.5s ease;
-        position: relative;
-        animation: shimmer 2s infinite;
-    }
-    
-    @keyframes shimmer {
-        0% { background-position: -200% center; }
-        100% { background-position: 200% center; }
-    }
-
-    .info-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-        margin: 2rem 0;
-    }
-    
-    .info-card {
-        background: rgba(20,20,20,0.95);
-        border-radius: 20px;
-        padding: 2rem;
-        text-align: center;
-        transform-style: preserve-3d;
-        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .info-card:hover {
-        transform: translateZ(20px) rotateX(10deg);
-    }
-    
-    .info-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(circle at 50% 0%, 
-            rgba(212,175,55,0.4),
-            transparent 70%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    
-    .info-card:hover::before {
-        opacity: 1;
-    }
-
-    .particles {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: -1;
-        opacity: 0.6;
-    }
-    
-    .particle {
-        position: absolute;
-        background: linear-gradient(45deg, #D4AF37, transparent);
-        border-radius: 50%;
-        pointer-events: none;
-        animation: float 20s infinite;
-        filter: blur(2px);
-    }
-    
-    @keyframes float {
-        0% { 
-            transform: translateY(0) rotate(0deg) scale(1);
-            opacity: 0;
+        /* تحسين المظهر العام */
+        .stApp {
+            background: linear-gradient(
+                135deg, 
+                #0a192f 0%,
+                #0c1b2b 50%,
+                #0a192f 100%
+            );
+            background-attachment: fixed;
         }
-        50% { 
-            transform: translateY(-50vh) rotate(180deg) scale(1.5);
-            opacity: 0.5;
+        
+        /* تحسين العناوين */
+        h1, h2, h3 {
+            background: linear-gradient(120deg, #64ffda, #00bfa5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 2rem;
         }
-        100% { 
-            transform: translateY(-100vh) rotate(360deg) scale(1);
-            opacity: 0;
+        
+        /* تحسين حقول الإدخال */
+        .stNumberInput > div > div,
+        .stSelectbox > div > div {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(100, 255, 218, 0.2) !important;
+            border-radius: 10px !important;
+            color: #e6f1ff !important;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
-    }
-
-    .premium-button-3d {
-        background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
-        color: #D4AF37;
-        padding: 1rem 2rem;
-        border: none;
-        border-radius: 15px;
-        position: relative;
-        transform-style: preserve-3d;
-        transition: transform 0.2s;
-        cursor: pointer;
-    }
-    
-    .premium-button-3d::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: #D4AF37;
-        transform: translateZ(-10px);
-        border-radius: 15px;
-        filter: blur(10px);
-        opacity: 0;
-        transition: opacity 0.2s;
-    }
-    
-    .premium-button-3d:hover {
-        transform: translateY(-5px);
-    }
-    
-    .premium-button-3d:hover::before {
-        opacity: 0.5;
-    }
-    
-    .premium-button-3d:active {
-        transform: translateY(0);
-    }
-
-    .neon-title {
-        color: #fff;
-        text-shadow:
-            0 0 5px #D4AF37,
-            0 0 10px #D4AF37,
-            0 0 20px #D4AF37,
-            0 0 40px #D4AF37;
-        animation: neon 1.5s ease-in-out infinite alternate;
-    }
-    
-    @keyframes neon {
-        from {
-            text-shadow:
-                0 0 5px #D4AF37,
-                0 0 10px #D4AF37,
-                0 0 20px #D4AF37,
-                0 0 40px #D4AF37;
+        
+        .stNumberInput > div > div:hover,
+        .stSelectbox > div > div:hover {
+            border-color: #64ffda !important;
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.2);
+            transform: translateY(-2px);
         }
-        to {
-            text-shadow:
-                0 0 10px #D4AF37,
-                0 0 20px #D4AF37,
-                0 0 40px #D4AF37,
-                0 0 80px #D4AF37;
+        
+        /* تحسين الأزرار */
+        .stButton > button {
+            background: linear-gradient(
+                45deg,
+                rgba(100, 255, 218, 0.1),
+                rgba(0, 191, 165, 0.1)
+            ) !important;
+            border: 1px solid #64ffda !important;
+            color: #64ffda !important;
+            border-radius: 10px !important;
+            padding: 1rem 2rem !important;
+            font-weight: 600 !important;
+            letter-spacing: 1px;
+            transition: all 0.3s ease !important;
+            text-transform: uppercase;
         }
-    }
-
-    /* تحسين النصوص والعناوين */
-    * {
-        text-rendering: optimizeLegibility !important;
-        -webkit-font-smoothing: antialiased !important;
-        -moz-osx-font-smoothing: grayscale !important;
-    }
-
-    /* تحسين العنوان الرئيسي */
-    .premium-header h1 {
-        font-size: 3rem !important;
-        font-weight: 700 !important;
-        color: #D4AF37 !important;
-        margin-bottom: 1rem !important;
-        text-align: center !important;
-    }
-
-    /* تحسين العنوان الفرعي */
-    .subtitle {
-        font-size: 1.5rem !important;
-        color: #FFD700 !important;
-        font-weight: 500 !important;
-        text-align: center !important;
-    }
-
-    /* تحسين عناوين الأقسام */
-    .section-title {
-        background: rgba(0, 0, 0, 0.9);
-        border: 2px solid #FFD700;
-        border-radius: 15px;
-        color: #FFD700;
-        padding: 8px 25px;
-        font-weight: bold;
-        font-size: 1.2rem;
-        display: inline-block;
-        margin: 10px 0;
-        position: relative;
-        z-index: 1000;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    /* الحاوية الرئيسية للعنوان */
-    .title-container {
-        text-align: center;
-        position: relative;
-        z-index: 1000;
-        margin-bottom: 20px;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* إخفاء أزرار المشاركة والتحرير */
-    .stDeployButton, [data-testid="stToolbar"] {
-        display: none !important;
-    }
-    
-    /* إخفاء القائمة العلوية بالكامل */
-    header[data-testid="stHeader"] {
-        display: none !important;
-    }
-    
-    /* إخفاء زر القائمة الجانبية */
-    button[kind="header"] {
-        display: none !important;
-    }
-    
-    /* إخفاء أي عناصر إضافية في الهيدر */
-    .stApp header {
-        display: none !important;
-    }
-
-    /* تنسيق مشترك للعناوين وحقول الإدخال */
-    .print-section {
-        background: rgba(0, 0, 0, 0.3);
-        border: 1px solid #FFD700;
-        border-radius: 10px;
-        padding: 1rem;
-        margin: 0.5rem;
-    }
-    .print-title {
-        color: #FFD700;
-        font-size: 1.1rem;
-        text-align: center;
-        margin-bottom: 15px;
-        font-weight: bold;
-    }
-    .stNumberInput {
-        background: rgba(0, 0, 0, 0.5) !important;
-        border: 1px solid #FFD700 !important;
-        border-radius: 8px !important;
-        color: white !important;
-    }
-    .stNumberInput:hover {
-        border-color: #FFF !important;
-    }
-
-    /* تنسيق CSS للإضافات */
-    .additions-container {
-        background: rgba(0, 0, 0, 0.3);
-        border: 1px solid #FFD700;
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    div.row-widget.stCheckbox {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: rgba(20, 20, 20, 0.5);
-        border: 1px solid rgba(255, 215, 0, 0.3);
-        border-radius: 10px;
-        padding: 0.8rem;
-        margin: 0.3rem;
-        transition: all 0.3s ease;
-    }
-    div.row-widget.stCheckbox:hover {
-        border-color: #FFD700;
-        transform: translateY(-2px);
-    }
-    div.row-widget.stCheckbox > label {
-        color: #FFD700;
-        font-size: 0.9rem;
-        margin: 0;
-    }
-    /* تحسين شكل مربع الاختيار */
-    div.row-widget.stCheckbox input[type="checkbox"] {
-        margin-right: 8px;
-    }
-
-    /* تحسين ملخص الطلب */
-    .summary-container {
-        background: rgba(0, 0, 0, 0.3);
-        border: 1px solid #FFD700;
-        border-radius: 15px;
-        padding: 1.5rem;
-        width: 90%;
-        margin: 1rem auto;
-        text-align: center;
-    }
-    .summary-title {
-        color: #FFD700;
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-    }
-    .summary-content {
-        color: #e0e0e0;
-        font-size: 1rem;
-        margin: 0.5rem 0;
-    }
-    .copy-button {
-        background: rgba(255, 215, 0, 0.1);
-        border: 1px solid #FFD700;
-        color: #FFD700;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        cursor: pointer;
-        margin-top: 1rem;
-        transition: all 0.3s ease;
-    }
-    .copy-button:hover {
-        background: rgba(255, 215, 0, 0.2);
-        transform: translateY(-2px);
-    }
+        
+        .stButton > button:hover {
+            background: linear-gradient(
+                45deg,
+                rgba(100, 255, 218, 0.2),
+                rgba(0, 191, 165, 0.2)
+            ) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+        }
+        
+        /* تحسين شريط التقدم */
+        .progress-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 3px;
+            margin: 1rem 0;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #64ffda, #00bfa5);
+            height: 10px;
+            border-radius: 15px;
+            transition: width 0.5s ease;
+        }
+        
+        /* تحسين الخانات */
+        .element-container {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .element-container:hover {
+            border-color: rgba(100, 255, 218, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* تحسين النصوص */
+        .stMarkdown {
+            color: #8892b0 !important;
+            line-height: 1.6;
+        }
+        
+        /* تحسين الروابط */
+        a {
+            color: #64ffda !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: #00bfa5 !important;
+            text-decoration: none !important;
+        }
+        
+        /* تحسين الصناديق */
+        .info-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .info-box:hover {
+            border-color: #64ffda;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* تحسين الشبكة */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        /* تأثيرات إضافية */
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(100, 255, 218, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(100, 255, 218, 0.4); }
+            100% { box-shadow: 0 0 5px rgba(100, 255, 218, 0.2); }
+        }
+        
+        .glow-effect {
+            animation: glow 2s infinite;
+        }
+        
+        /* تحسين التفاعلية */
+        .interactive-element {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-element:hover {
+            transform: scale(1.05);
+        }
+        
+        /* تحسين الخط */
+        * {
+            font-family: 'Tajawal', sans-serif;
+        }
     </style>
-
-    <!-- زر العودة للأعلى -->
-    <a href="#top" class="back-to-top" id="backToTop"></a>
-
-    <script>
-    window.onscroll = function() {
-        var btn = document.getElementById("backToTop");
-        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-            btn.style.display = "flex";
-        } else {
-            btn.style.display = "none";
-        }
-    }
-    </script>
+    
+    <!-- إضافة خط Tajawal -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 """, unsafe_allow_html=True)
 
 def round_to_250(amount):
