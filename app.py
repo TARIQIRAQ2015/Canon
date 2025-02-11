@@ -797,27 +797,35 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
-    # تجهيز نص الملخص مع محاذاة للوسط
+    # تجهيز نص الملخص مع محاذاة للوسط بدقة
     summary_text = f"""
-                ═══════════════════════════════════
-                          ✨ ملخص الطلب
-                ═══════════════════════════════════
-                         💵 السعر الكلي: {exact_total} دينار
-                         💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
-                ═══════════════════════════════════"""
+═══════════════════════════════════════════
+                ✨ ملخص الطلب
+═══════════════════════════════════════════
+           💵 السعر الكلي: {exact_total} دينار
+           💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
+═══════════════════════════════════════════"""
 
-    # إضافة تنسيق CSS لتوسيط القائمة
+    # إضافة تنسيق CSS محسّن للتوسيط المثالي
     st.markdown("""
         <style>
             div[data-testid="stCodeBlock"] {
-                display: flex;
-                justify-content: center;
-                text-align: center;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                padding: 1rem !important;
             }
             div[data-testid="stCodeBlock"] > pre {
-                text-align: center;
-                direction: rtl;
-                min-width: 50%;
+                display: inline-block !important;
+                text-align: center !important;
+                width: auto !important;
+                margin: 0 auto !important;
+                direction: rtl !important;
+            }
+            div[data-testid="stCodeBlock"] code {
+                text-align: center !important;
+                display: inline-block !important;
+                width: 100% !important;
             }
         </style>
     """, unsafe_allow_html=True)
