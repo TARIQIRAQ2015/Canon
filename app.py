@@ -827,6 +827,142 @@ st.markdown("""
         background: rgba(255, 215, 0, 0.2);
         transform: translateY(-2px);
     }
+
+    /* تحسين المظهر العام والخلفية */
+    .stApp {
+        background: linear-gradient(135deg, 
+            #0a192f 0%,
+            #112240 50%,
+            #0a192f 100%
+        );
+        background-size: 200% 200%;
+        animation: gradientBG 15s ease infinite;
+    }
+    
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* تحسين القوائم المنسدلة */
+    .stSelectbox > div > div,
+    .stNumberInput > div > div {
+        background: rgba(17, 34, 64, 0.6) !important;
+        border: 1px solid rgba(100, 255, 218, 0.2) !important;
+        border-radius: 12px !important;
+        color: #ccd6f6 !important;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .stSelectbox > div > div:hover,
+    .stNumberInput > div > div:hover {
+        border-color: rgba(100, 255, 218, 0.5) !important;
+        box-shadow: 0 8px 25px rgba(100, 255, 218, 0.1);
+        transform: translateY(-2px);
+    }
+
+    /* تحسين الأزرار */
+    .stButton > button {
+        background: linear-gradient(
+            45deg,
+            rgba(100, 255, 218, 0.1),
+            rgba(100, 255, 218, 0.05)
+        ) !important;
+        border: 1px solid rgba(100, 255, 218, 0.2) !important;
+        color: #64ffda !important;
+        border-radius: 12px !important;
+        padding: 12px 24px !important;
+        font-weight: 500 !important;
+        transition: all 0.3s ease !important;
+        backdrop-filter: blur(10px);
+        text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+    }
+
+    .stButton > button:hover {
+        background: linear-gradient(
+            45deg,
+            rgba(100, 255, 218, 0.15),
+            rgba(100, 255, 218, 0.1)
+        ) !important;
+        border-color: rgba(100, 255, 218, 0.4) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(100, 255, 218, 0.2);
+    }
+
+    /* تحسين شريط التقدم */
+    .progress-container {
+        background: rgba(17, 34, 64, 0.6);
+        border: 1px solid rgba(100, 255, 218, 0.2);
+        border-radius: 12px;
+        padding: 4px;
+        margin: 10px 0;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .progress-bar {
+        background: linear-gradient(
+            90deg,
+            rgba(100, 255, 218, 0.3),
+            rgba(100, 255, 218, 0.6)
+        );
+        border-radius: 8px;
+        height: 20px;
+        transition: width 0.5s ease;
+        box-shadow: 0 0 15px rgba(100, 255, 218, 0.3);
+    }
+
+    /* تحسين العناوين والنصوص */
+    h1, h2, h3 {
+        color: #ccd6f6 !important;
+        text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+        letter-spacing: 1px;
+    }
+
+    p, label {
+        color: #8892b0 !important;
+    }
+
+    /* تحسين الصناديق */
+    .element-container {
+        background: rgba(17, 34, 64, 0.3);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 10px 0;
+        border: 1px solid rgba(100, 255, 218, 0.1);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+
+    .element-container:hover {
+        border-color: rgba(100, 255, 218, 0.3);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        transform: translateY(-2px);
+    }
+
+    /* تحسين الخط والقراءة */
+    * {
+        font-family: 'Cairo', sans-serif;
+    }
+
+    /* تأثيرات إضافية */
+    ::selection {
+        background: rgba(100, 255, 218, 0.2);
+        color: #64ffda;
+    }
+
+    /* تحسين التفاعلية */
+    input, select {
+        transition: all 0.3s ease !important;
+    }
+
+    input:focus, select:focus {
+        border-color: #64ffda !important;
+        box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2) !important;
+    }
     </style>
 
     <!-- زر العودة للأعلى -->
