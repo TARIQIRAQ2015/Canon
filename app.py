@@ -874,25 +874,13 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
     # عرض الملخص في قالب جميل
     st.markdown(f"""
-        <div class="summary-container">
-            <pre style="background: transparent; border: none; text-align: center; direction: rtl; font-family: monospace; margin: 0; padding: 0;">
-╔═══════════════════════════════════════════════╗
-║                ✨ ملخص الطلب                  ║
-╠═══════════════════════════════════════════════╣
-║  💵 السعر الكلي: {exact_total} دينار
-║  💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
-╚═══════════════════════════════════════════════╝</pre>
+        <div style="text-align: center; direction: rtl; font-family: monospace; margin: 20px 0;">
+            <span style="font-size: 24px;">║ ✨ ║ ملخص الطلب</span>
+            <div style="margin: 10px 0;">
+                💵 السعر الكلي: {exact_total} دينار ║ السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار 💰
+            </div>
         </div>
     """, unsafe_allow_html=True)
-
-    # إضافة نص للنسخ باستخدام st.code
-    copy_text = f"""╔═══════════════════════════════════════════════╗
-║                ✨ ملخص الطلب                  ║
-╠═══════════════════════════════════════════════╣
-║  💵 السعر الكلي: {exact_total} دينار
-║  💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
-╚═══════════════════════════════════════════════╝"""
-    st.code(copy_text)
 
 def main():
     # تعديل العنوان الرئيسي بدون إيموجي
