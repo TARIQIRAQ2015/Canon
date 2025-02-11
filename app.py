@@ -872,42 +872,56 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def show_summary(color_pages, bw_color_pages, bw_pages, has_cover, has_empty_last, has_carton, has_nylon, has_paper_holder, exact_total):
-    # إنشاء نص الملخص
-    summary_text = f"""السعر الكلي: {exact_total} دينار
-السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار"""
-
     # إضافة JavaScript لوظيفة النسخ
     st.markdown("""
         <script>
-        function copyText(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                // تم النسخ بنجاح
-                const button = document.querySelector('.copy-button');
-                button.textContent = '✓ تم النسخ';
-                setTimeout(() => {
-                    button.textContent = '📋 نسخ الملخص';
-                }, 2000);
-            });
-        }
+            function copyResults() {
+                const text = document.querySelector('.results-text').innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    const button = document.querySelector('.copy-button');
+                    button.innerHTML = '✓ تم النسخ';
+                    setTimeout(() => {
+                        button.innerHTML = '📋 نسخ النتائج';
+                    }, 2000);
+                });
+            }
         </script>
+        <style>
+            .copy-button {
+                background: rgba(255, 215, 0, 0.1);
+                border: 1px solid #FFD700;
+                color: #FFD700;
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
+                cursor: pointer;
+                margin-top: 1rem;
+                transition: all 0.3s ease;
+                display: block;
+                width: 150px;
+                margin: 1rem auto;
+            }
+            .copy-button:hover {
+                background: rgba(255, 215, 0, 0.2);
+                transform: translateY(-2px);
+            }
+        </style>
     """, unsafe_allow_html=True)
 
-    # عرض الملخص في قالب جميل
+    # إنشاء نص الملخص
+    summary_text = f"""
+═══════════════════════════════════════════
+                ✨ ملخص الطلب
+═══════════════════════════════════════════
+           💵 السعر الكلي: {exact_total} دينار
+           💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
+═══════════════════════════════════════════"""
+
+    # عرض الملخص مع زر النسخ
     st.markdown(f"""
         <div class="summary-container">
-            <div class="summary-title">
-                <span>✨</span>
-                <span>ملخص الطلب</span>
-                <span>✨</span>
-            </div>
-            <div class="summary-content">
-                💵 السعر الكلي: {exact_total} دينار
-            </div>
-            <div class="summary-content">
-                💰 السعر بعد التقريب للفئة المناسبة: {round_to_250(exact_total)} دينار
-            </div>
-            <button class="copy-button" onclick="copyText(`{summary_text}`)">
-                📋 نسخ الملخص
+            <pre class="results-text">{summary_text}</pre>
+            <button class="copy-button" onclick="copyResults()">
+                📋 نسخ النتائج
             </button>
         </div>
     """, unsafe_allow_html=True)
