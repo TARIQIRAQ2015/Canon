@@ -3,10 +3,9 @@ import pyperclip
 
 # تعيين تكوين الصفحة
 st.set_page_config(
-    page_title="مكتب طارق الياسين",
+    page_title="حاسبة الطباعة",
     page_icon="🖨️",
-    layout="wide",
-    initial_sidebar_state="collapsed"
+    layout="wide"
 )
 
 # تعريف الأسعار الثابتة
@@ -931,6 +930,9 @@ st.markdown("""
         box-shadow: 
             0 4px 15px rgba(0,0,0,0.2),
             inset 0 0 20px rgba(100, 255, 218, 0.05) !important;
+        border-radius: 12px !important;
+        color: #64ffda !important;
+        transition: all 0.3s ease;
     }
 
     /* تحسين تأثير التوهج عند التحويم */
@@ -982,6 +984,12 @@ st.markdown("""
         backdrop-filter: blur(10px);
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
+
+    /* إخفاء العناصر غير الضرورية */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    [data-testid="stToolbar"] {visibility: hidden;}
     </style>
 
     <!-- زر العودة للأعلى -->
@@ -1027,6 +1035,13 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def main():
+    # تعيين تكوين الصفحة
+    st.set_page_config(
+        page_title="حاسبة الطباعة",
+        page_icon="🖨️",
+        layout="wide"
+    )
+
     # تعديل العنوان الرئيسي بدون إيموجي
     st.markdown("""
         <div class="premium-header">
