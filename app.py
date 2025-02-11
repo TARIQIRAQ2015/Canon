@@ -3,9 +3,10 @@ import pyperclip
 
 # تعيين تكوين الصفحة
 st.set_page_config(
-    page_title="حاسبة الطباعة",
+    page_title="مكتب طارق الياسين",
     page_icon="🖨️",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
 # تعريف الأسعار الثابتة
@@ -826,170 +827,6 @@ st.markdown("""
         background: rgba(255, 215, 0, 0.2);
         transform: translateY(-2px);
     }
-
-    /* تحسين المظهر العام والخلفية */
-    .stApp {
-        background: linear-gradient(
-            125deg,
-            #000428 0%,
-            #004e92 25%,
-            #000428 50%,
-            #2c5364 75%,
-            #000428 100%
-        );
-        background-size: 300% 300%;
-        animation: gradientBG 20s ease infinite;
-        position: relative;
-        overflow: hidden;
-    }
-
-    /* إضافة تأثير التوهج في الخلفية */
-    .stApp::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(
-            circle at 50% 50%,
-            rgba(100, 255, 218, 0.1),
-            transparent 50%
-        );
-        animation: glowEffect 10s ease-in-out infinite alternate;
-        pointer-events: none;
-    }
-
-    /* إضافة تأثير النجوم المتلألئة */
-    .stApp::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image: 
-            radial-gradient(2px 2px at 20px 30px, #64ffda, rgba(0,0,0,0)),
-            radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
-            radial-gradient(2px 2px at 50px 160px, #64ffda, rgba(0,0,0,0)),
-            radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)),
-            radial-gradient(2px 2px at 130px 80px, #64ffda, rgba(0,0,0,0));
-        background-repeat: repeat;
-        background-size: 200px 200px;
-        opacity: 0.1;
-        animation: twinkle 5s ease-in-out infinite alternate;
-        pointer-events: none;
-    }
-
-    @keyframes gradientBG {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
-    }
-
-    @keyframes glowEffect {
-        0% {
-            opacity: 0.3;
-            transform: scale(1);
-        }
-        50% {
-            opacity: 0.5;
-            transform: scale(1.2);
-        }
-        100% {
-            opacity: 0.3;
-            transform: scale(1);
-        }
-    }
-
-    @keyframes twinkle {
-        0% {
-            opacity: 0.1;
-        }
-        50% {
-            opacity: 0.2;
-        }
-        100% {
-            opacity: 0.1;
-        }
-    }
-
-    /* تحسين تأثير الزجاج للعناصر */
-    .stSelectbox > div > div,
-    .stNumberInput > div > div,
-    .stButton > button {
-        background: rgba(10, 25, 47, 0.4) !important;
-        backdrop-filter: blur(10px) !important;
-        border: 1px solid rgba(100, 255, 218, 0.2) !important;
-        box-shadow: 
-            0 4px 15px rgba(0,0,0,0.2),
-            inset 0 0 20px rgba(100, 255, 218, 0.05) !important;
-        border-radius: 12px !important;
-        color: #64ffda !important;
-        transition: all 0.3s ease;
-    }
-
-    /* تحسين تأثير التوهج عند التحويم */
-    .stSelectbox > div > div:hover,
-    .stNumberInput > div > div:hover,
-    .stButton > button:hover {
-        border-color: #64ffda !important;
-        box-shadow: 
-            0 8px 25px rgba(100, 255, 218, 0.2),
-            inset 0 0 30px rgba(100, 255, 218, 0.1) !important;
-        transform: translateY(-2px);
-    }
-
-    /* تحسين العناوين */
-    h1, h2, h3 {
-        color: #64ffda !important;
-        text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
-        letter-spacing: 1px;
-    }
-
-    /* تحسين النصوص */
-    p, label, .stMarkdown {
-        color: #8892b0 !important;
-        letter-spacing: 0.5px;
-    }
-
-    /* تحسين الخانات الرقمية */
-    .stNumberInput input {
-        color: #64ffda !important;
-        background: rgba(10, 25, 47, 0.7) !important;
-        border: 1px solid rgba(100, 255, 218, 0.3) !important;
-        border-radius: 12px !important;
-    }
-
-    /* تأثيرات إضافية للعناصر */
-    .element-container {
-        transition: all 0.3s ease;
-    }
-
-    .element-container:hover {
-        transform: translateY(-1px);
-    }
-
-    /* تحسين الإطارات */
-    .css-1r6slb0 {
-        border: 1px solid rgba(100, 255, 218, 0.2);
-        border-radius: 12px;
-        background: rgba(10, 25, 47, 0.7);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    /* إخفاء العناصر غير الضرورية */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    [data-testid="stToolbar"] {visibility: hidden;}
     </style>
 
     <!-- زر العودة للأعلى -->
@@ -1035,13 +872,6 @@ def calculate_total_cost(color_pages, bw_color_pages, bw_pages, has_cover,
     return total, rounded_total
 
 def main():
-    # تعيين تكوين الصفحة
-    st.set_page_config(
-        page_title="حاسبة الطباعة",
-        page_icon="🖨️",
-        layout="wide"
-    )
-
     # تعديل العنوان الرئيسي بدون إيموجي
     st.markdown("""
         <div class="premium-header">
@@ -1056,15 +886,15 @@ def main():
     st.markdown("""
         <style>
         /* تحسين تنسيق حقول الإدخال */
-    .input-container {
+        .input-container {
             background: linear-gradient(165deg, rgba(30,30,30,0.9), rgba(15,15,15,0.9));
             border: 1px solid rgba(212,175,55,0.2);
             border-radius: 20px;
-        padding: 2rem;
+            padding: 2rem;
             margin: 1.5rem 0;
-        text-align: center;
+            text-align: center;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        transition: all 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .input-container:hover {
@@ -1073,25 +903,25 @@ def main():
         }
 
         /* تحسين عنوان حقل الإدخال */
-    .input-label {
-        color: #FFD700;
+        .input-label {
+            color: #FFD700;
             font-size: 1.2rem;
-        font-weight: 500;
-        margin-bottom: 1rem;
-        text-align: center;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            text-align: center;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
+        }
 
         /* تحسين حقل الإدخال نفسه */
-    .stNumberInput > div > div > input {
-        background: rgba(0,0,0,0.4) !important;
-        border: 2px solid rgba(212,175,55,0.3) !important;
-        border-radius: 15px !important;
-        color: #FFD700 !important;
+        .stNumberInput > div > div > input {
+            background: rgba(0,0,0,0.4) !important;
+            border: 2px solid rgba(212,175,55,0.3) !important;
+            border-radius: 15px !important;
+            color: #FFD700 !important;
             font-size: 1.3rem !important;
-        padding: 1rem !important;
-        text-align: center !important;
-        width: 100% !important;
+            padding: 1rem !important;
+            text-align: center !important;
+            width: 100% !important;
         }
 
         /* تحسين أزرار الزيادة والنقصان */
@@ -1105,46 +935,46 @@ def main():
 
         /* تحسين الخيارات الثلاث */
         .printing-options {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        margin-top: 2rem;
-        padding: 1.5rem;
-        background: rgba(25,25,25,0.95);
-        border-radius: 15px;
-        border: 1px solid rgba(212,175,55,0.3);
-    }
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(25,25,25,0.95);
+            border-radius: 15px;
+            border: 1px solid rgba(212,175,55,0.3);
+        }
 
-    .option-item {
-        text-align: center;
+        .option-item {
+            text-align: center;
             padding: 1.5rem 2rem;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        background: rgba(30,30,30,0.95);
-        border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background: rgba(30,30,30,0.95);
+            border: 1px solid rgba(212,175,55,0.2);
             flex: 1;
-    }
+        }
 
-    .option-item:hover {
-        transform: translateY(-3px);
-        border-color: #D4AF37;
-        box-shadow: 0 5px 15px rgba(212,175,55,0.1);
-    }
+        .option-item:hover {
+            transform: translateY(-3px);
+            border-color: #D4AF37;
+            box-shadow: 0 5px 15px rgba(212,175,55,0.1);
+        }
 
-    .option-title {
-        color: #D4AF37;
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-    }
+        .option-title {
+            color: #D4AF37;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
 
-    .option-description {
-        color: #fff;
-        font-size: 0.9rem;
-        opacity: 0.9;
-    }
-    </style>
-""", unsafe_allow_html=True)
+        .option-description {
+            color: #fff;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
     # تحديث قسم تفاصيل الطباعة
     st.markdown('<div class="title-container"><div class="section-title">تفاصيل الطباعة</div></div>', unsafe_allow_html=True)
@@ -1154,7 +984,7 @@ def main():
 
     # العمود الأول (يمين) - طباعة ملونة
     with col3:
-    st.markdown("""
+        st.markdown("""
             <div class="print-section">
                 <div class="print-title">طباعة ملونة</div>
             </div>
@@ -1172,8 +1002,8 @@ def main():
         st.markdown("""
             <div class="print-section">
                 <div class="print-title">طباعة أبيض وأسود</div>
-        </div>
-    """, unsafe_allow_html=True)
+            </div>
+        """, unsafe_allow_html=True)
         bw_pages = st.number_input(
             "",
             min_value=0,
@@ -1184,11 +1014,11 @@ def main():
 
     # العمود الثالث (يسار)
     with col1:
-    st.markdown("""
+        st.markdown("""
             <div class="print-section">
                 <div class="print-title">طباعة أبيض وأسود وألوان قليلة</div>
-        </div>
-    """, unsafe_allow_html=True)
+            </div>
+        """, unsafe_allow_html=True)
         bw_color_pages = st.number_input(
             "",
             min_value=0,
@@ -1219,7 +1049,7 @@ def main():
         has_paper_holder = st.checkbox("حاملة أوراق", key="paper_holder")
     
     # نهاية قالب الإضافات
-        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
     # حساب التكلفة
     exact_total, rounded_total = calculate_total_cost(
@@ -1262,8 +1092,8 @@ def main():
         st.markdown(f"""
             <div class="progress-container">
                 <div class="progress-bar" style="width: {progress * 100}%"></div>
-        </div>
-    """, unsafe_allow_html=True)
+            </div>
+        """, unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
 
